@@ -1,88 +1,100 @@
 <div class="row">
-	<div class="col-lg-12">
-		<section class="panel default blue_title h4">
-			<div class="panel-heading">
-				<div class="row">
-					<div class="col-md-6 pull-left">User Management
-					</div>
-					<div class="col-md-6 pull-right text-right">
-						<a href="<?php echo base_url();?>user-management-tambah" class="btn btn-primary btn-sm"><i class="fa fa-plus-square"></i> Tambah</a> 
-						<a href="<?php echo base_url('user-management-pdf/?template=table_pdf&name=account');?>" target="__blank" class="btn btn-default btn-sm"><i class="fa fa-print"></i> Print</a>
-						<a href="<?php echo base_url('user-management-excel/?template=table_excel&name=account');?>" target="__blank" class="btn btn-default btn-sm"><i class="fa fa-file-excel-o"></i> Excel</a>
-					</div> 
-				</div>
-			</div>
-			<div class="panel-body">
-				<div class="table-responsive">
-					<table class="table table-bordered">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>Nama</th>
-								<th>Telepon</th>
-                                <th>Email</th>
-								<th>Status</th>
-								<th class="text-center">Action</th>
-							</tr>
-						</thead>
-						<tbody>
-						<?php 
-							if(count($data) < 1){
-								echo"<tr><td class='text-center' colspan='10'>-No Data Found-</td></tr>";
-							}else{
-								foreach($data as $k=>$v){ ?>
-							<tr>
-								<td><?php echo intval($this->uri->segment(2)+($k+1));?></td>
-								<td><?php echo $v['nama_lengkap'];?></td>
-								<td><?php echo $v['no_telp'];?></td>
-                                <td><?php echo $v['email'];?></td>
-								<td><?php echo get_status($v['status']);?></td>
-								<td class="text-center">
-									<a class="btn btn-sm btn-warning" href="<?php echo base_url("user-management-edit-".$v['id']);?>">Edit</a> 
-									<a class="btn btn-sm btn-danger" href="<?php echo base_url("user-management-delete-".$v['id']);?>" onclick="return confirm('Yakin Hapus Data ?');">Delete</a> 
-								</td>
-							</tr>
-						<?php }} ?>
-						</tbody>
-						<tfoot>
-							<form id="form1" method="post" action="<?php echo base_url('user-management');?>">
-							<tr>
-								<td>#</td>
-								<td>
-									<input class="form-control input-sm" name="nama_lengkap" class="form-control" value="<?php echo (isset($sr_data['nama_lengkap'])?$sr_data['nama_lengkap']:"");?>" type="text" onkeyup="javascript:if(event.keyCode == 13){submit_search('form1');}else{return false;};"/>
-								</td>
-								<td>
-									<input class="form-control input-sm" name="no_telp" value="<?php echo (isset($sr_data['no_telp'])?$sr_data['no_telp']:"");?>" style="width: 100%;" type="text" onkeyup="javascript:if(event.keyCode == 13){submit_search('form1');}else{return false;};"/>
-								</td>
-                                <td>
-									<input class="form-control input-sm" name="email" value="<?php echo (isset($sr_data['email'])?$sr_data['email']:"");?>" style="width: 100%;" type="text" onkeyup="javascript:if(event.keyCode == 13){submit_search('form1');}else{return false;};"/>
-								</td>
-								<td>
-									<select class="form-control input-sm" name="status" onchange="submit_search('form1');"/>                         
-										<option value=""></option>
-										<option value="2" <?php echo (isset($sr_data['status']) && $sr_data['status']=="2"?"selected":"");?>>Aktif</option>
-										<option value="1" <?php echo (isset($sr_data['status']) && $sr_data['status']=="1"?"selected":"");?>>Non Aktif</option>
-									</select>
-								</td>
-							</tr>
-						</tfoot>
-					</table>
-				</div>
-			</div>
-		</section>
-	</div>
+    <div class="col-xs-12 col-sm-12 widget-container-col ui-sortable" style="min-height: 109px;">
+        <div class="widget-box widget-color-blue2 ui-sortable-handle" style="opacity: 1;">
+            <div class="widget-header widget-header-small">
+                <h6 class="widget-title smaller">Filter Panels</h6>
+                <div class="widget-toolbar">
+                    <button type="button" class="btn btn-xs btn-success" onclick="filterTable();">Filter</button>
+                    <button type="button" class="btn btn-xs btn-warning" onclick="clearFilterTable();">Clear</button>
+                </div>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div class="row">
+                        <form class="form-filter-table">
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label class="small">Username</label>
+                                    <input type="text" class="form-control input-sm" id="username">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label class="small">Full Name</label>
+                                    <input type="text" class="form-control input-sm" id="nama_lengkap">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label class="small">Last Login</label>
+                                    <input type="text" class="form-control input-sm" id="last_login">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12" style="padding-bottom: 2px;">
+        <a href="<?php echo site_url('user-management-add');?>" type="button" id="btn-add" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> New</a>
+        <a href="#" type="button" id="btn-edit" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> Edit</a>
+        <a href="#" type="button" id="btn-delete" class="btn btn-xs btn-danger" onclick="return confirm('Yakin hapus data?');"><i class="fa fa-remove"></i> Delete</a>
+    </div>
+    <div class="col-lg-12">
+        <div id="example-table"></div>
+    </div>
 </div>
-<div class="row">
-	<div class="col-lg-1 pull-left text-left">	
-		 <select class="form-control input-sm" name="page" onchange="submit_search('form1');"/>
-			<option value="10" <?php echo (isset($sr_data['page']) && $sr_data['page']=="10"?"selected":"");?>>10</option>
-			<option value="25" <?php echo (isset($sr_data['page']) && $sr_data['page']=="25"?"selected":"");?>>25</option>
-			<option value="50" <?php echo (isset($sr_data['page']) && $sr_data['page']=="50"?"selected":"");?>>50</option>
-			<option value="100" <?php echo (isset($sr_data['page']) && $sr_data['page']=="100"?"selected":"");?>>100</option>
-		</select>
-	</div>
-	</form>
-	<div class="col-lg-11 pull-right text-right">	
-		<?php echo $paging;?>
-	</div>
-</div>
+
+<script>
+    $(document).ready(function () {
+        $("#example-table").tabulator({
+            fitColumns: true,
+            pagination: true,
+            movableCols: true,
+            height: "320px", // set height of table (optional),
+            pagination:"remote",
+            paginationSize: 10,
+            fitColumns:true, //fit columns to width of table (optional),
+            ajaxType: "POST", //ajax HTTP request type
+            ajaxURL: "<?php echo base_url('account/getListTable'); ?>", //ajax URL
+            //ajaxParams:{key1:"value1", key2:"value2"}, //ajax parameters
+            columns: [//Define Table Columns
+                {formatter: "rownum", align: "center", width: 40},
+                {title: "Username", field: "username", sorter: "string", tooltip: true},
+                {title: "Full Name", field: "nama_lengkap", sorter: "string", tooltip: true},
+                {title: "Last Login", field: "last_login", sorter: "string"},
+            ],
+            selectable:1,
+            rowSelectionChanged:function(data, rows){
+                console.log(data);
+                if(data.length > 0) {
+                    $('#btn-edit').attr('href','<?php echo site_url();?>user-management-edit-'+data[0]['id']+'.html');
+                    $('#btn-delete').attr('href','<?php echo site_url();?>user-management-delete-'+data[0]['id']+'.html');
+                } else {
+                    $('#btn-edit').attr('href','#');
+                    $('#btn-delete').attr('href','#');
+                }
+            },
+        });
+    });
+
+    function clearFilterTable() {
+        $(".form-filter-table")[0].reset();
+        filterTable();
+    }
+
+    function filterTable() {
+        console.log('filter');
+        var params = {
+            username: $('#username').val(),
+            nama_lengkap: $('#nama_lengkap').val(),
+            last_login: $('#last_login').val()
+        };
+
+        $("#example-table").tabulator("setData", "<?php echo base_url('account/getListTable'); ?>", params);
+    }
+</script>

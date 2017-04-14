@@ -405,7 +405,7 @@ class Multi_menu {
 
 		        if ($icon) 
 		        {
-		        	$icon = "<i class='{$icon}'></i>";
+		        	$icon = "<i class='menu-icon {$icon}'></i>";
 		        	$label = trim( $this->icon_position == 'right' ? ($label . " " . $icon ) : ($icon . " " . $label) );
 		        }
 
@@ -440,7 +440,7 @@ class Multi_menu {
 		        {
 		        	$tag_open    = $this->item_tag_open;
 					//$href        = site_url($slug);
-                    $href        = base_url().$slug;
+                    $href        = site_url($slug);
 					$item_anchor = $this->item_anchor;
 		        }
 

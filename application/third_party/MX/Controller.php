@@ -53,11 +53,11 @@ class MX_Controller
 		
 		/* autoload module items */
 		$this->load->_autoloader($this->autoload);
-		$this->breadcrumbs->unshift('Home','/');
+		$this->breadcrumbs->unshift('Home','/dashboard');
 
-		//$this->load->library("multi_menu");
+                $this->load->library("multi_menu");
                 //$this->load->library("button_lib");
-		//$this->multi_menu->set_items($this->main_model->menu_all());
+		$this->multi_menu->set_items($this->main_model->menu_all());
                 $this->sessionGlobal = $this->session->userdata('logged_in_admin');
 	}
 	

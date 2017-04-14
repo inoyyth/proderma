@@ -31,9 +31,6 @@
 
 <!-- basic scripts -->
 
-<!--[if !IE]> -->
-<script src="<?php echo base_url();?>themes/assets/js/jquery-2.1.4.min.js"></script>
-
 <!-- <![endif]-->
 
 <!--[if IE]>
@@ -61,6 +58,8 @@
 <!-- ace scripts -->
 <script src="<?php echo base_url();?>themes/assets/js/ace-elements.min.js"></script>
 <script src="<?php echo base_url();?>themes/assets/js/ace.min.js"></script>
+<!-- tabulator -->
+<script src="<?php echo base_url();?>themes/assets/plugin/tabulator-master/tabulator.js"></script>
 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">

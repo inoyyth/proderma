@@ -1,145 +1,310 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>AdminLTE 2 | Log in</title>
-        <!-- Tell the browser to be responsive to screen width -->
-        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <!-- Bootstrap 3.3.6 -->
-        <link rel="stylesheet" href="<?php echo base_url(); ?>themes/bootstrap/css/bootstrap.min.css">
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-        <!-- Ionicons -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-        <!-- Theme style -->
-        <link rel="stylesheet" href="<?php echo base_url(); ?>themes/dist/css/AdminLTE.min.css">
-        <!-- iCheck -->
-        <link rel="stylesheet" href="<?php echo base_url(); ?>themes/plugins/iCheck/square/blue.css">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta charset="utf-8" />
+        <title>Login Page - Ace Admin</title>
 
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <meta name="description" content="User login page" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+        <!-- bootstrap & fontawesome -->
+        <link rel="stylesheet" href="<?php echo base_url(); ?>themes/assets/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="<?php echo base_url(); ?>themes/assets/font-awesome/4.5.0/css/font-awesome.min.css" />
+
+        <!-- text fonts -->
+        <link rel="stylesheet" href="<?php echo base_url(); ?>themes/assets/css/fonts.googleapis.com.css" />
+
+        <!-- ace styles -->
+        <link rel="stylesheet" href="<?php echo base_url(); ?>themes/assets/css/ace.min.css" />
+
+        <!--[if lte IE 9]>
+                <link rel="stylesheet" href="assets/css/ace-part2.min.css" />
+        <![endif]-->
+        <link rel="stylesheet" href="<?php echo base_url(); ?>themes/assets/css/ace-rtl.min.css" />
+
+        <!--[if lte IE 9]>
+          <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+        <![endif]-->
+
+        <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+
+        <!--[if lte IE 8]>
+        <script src="assets/js/html5shiv.min.js"></script>
+        <script src="assets/js/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body class="hold-transition login-page">
-        <div class="row">
-            <div class="col-lg-12" style="background-color: #08377B;height: 120px;">
-                <img src="<?php echo base_url(); ?>themes/dist/img/bank-lampung-logo.png" class="pull-left" style="height: 120px;">
-            </div>
-        </div>
-        <div class="row" style="margin-top: 10px;">
-            <div class="col-lg-8">
-                <img src="<?php echo base_url(); ?>themes/dist/img/nyepi-webbanner-corsec.jpg" style="width: 899px;height: 224px;">
-            </div>
-            <div class="col-lg-4">
-                <div class="login-box" style="margin-top: -0px;">
-                    <!-- /.login-logo -->
-                    <div class="login-box-body" style="font-size: 16px;">
-                        <p class="login-box-msg"><b>Management Information System</b></p>
 
-                        <form action="<?php echo base_url(); ?>home" method="post">
-                            <div class="form-group has-feedback">
-                                <input type="email" class="form-control" placeholder="Email">
-                                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+    <body class="login-layout">
+        <div class="main-container">
+            <div class="main-content">
+                <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1">
+                        <div class="login-container">
+                            <div class="center">
+                                <h1>
+                                    <i class="ace-icon fa fa-leaf green"></i>
+                                    <span class="red">PRODERMA</span>
+                                    <span class="white" id="id-text2">Sales Monitorin System</span>
+                                </h1>
+                                <h4 class="blue" id="id-company-text">&copy; Proderma</h4>
                             </div>
-                            <div class="form-group has-feedback">
-                                <input type="password" class="form-control" placeholder="Password">
-                                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-8">
-                                    <div class="checkbox icheck">
-                                        <label>
-                                            <input type="checkbox"> Remember Me
-                                        </label>
-                                    </div>
-                                </div>
-                                <!-- /.col -->
-                                <div class="col-xs-4">
-                                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
-                                </div>
-                                <!-- /.col -->
-                            </div>
-                        </form>
 
-                    </div>
-                    <!-- /.login-box-body -->
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-8"></div>
-            <div class="col-lg-4">
-                <div class="row" style="padding: 43px; margin-top: -60px;">
-                    <div class="panel panel-default">
-                    <div class="panel-heading">Kurs Bank Lampung *</div>
-                    <div class="panel-body">
-                        <div style="letter-spacing: 3px;text-align: center;"><?php echo date('d'); ?> <?php echo date('M'); ?> <?php echo date('y'); ?> <?php echo date('H:i'); ?> WIB</div>
-                        <div>
-                            <table class="table table-striped">
-                                <tr>
-                                    <th style="text-align: center;">Kurs</th>
-                                    <th style="text-align: center;">Beli</th>
-                                    <th style="text-align: center;">Jual</th>
-                                </tr>
-                                <tr>
-                                    <td>USD</td>
-                                    <td style="text-align: right;">13.310,00</td>
-                                    <td style="text-align: right;">13.330,00</td>
-                                </tr>
-                                <tr>
-                                    <td>EUR</td>
-                                    <td style="text-align: right;">14.210,00</td>
-                                    <td style="text-align: right;">14.245,00</td>
-                                </tr>
-                                <tr>
-                                    <td>SGD</td>
-                                    <td style="text-align: right;">9.520,00</td>
-                                    <td style="text-align: right;">9.560,00</td>
-                                </tr>
-                                <tr>
-                                    <td>JPY</td>
-                                    <td style="text-align: right;">119,45</td>
-                                    <td style="text-align: right;">119,80</td>
-                                </tr>
-                                <tr>
-                                    <td>AUD</td>
-                                    <td style="text-align: right;">10.125,00</td>
-                                    <td style="text-align: right;">10.160,00</td>
-                                </tr>
-                            </table>
-                            <div>
-                                <label style="text-align: justify;">
-                                    *merupakan kurs indikasi untuk transaksi dengan 
-                                    nominal di atas USD 25.000 (ekivalen), jika nasabah 
-                                    akan bertransaksi dapat segera menghubungi cabang 
-                                    untuk mendapatkan kurs yang berlaku
-                                </label>
+                            <div class="space-6"></div>
+
+                            <div class="position-relative">
+                                <div id="login-box" class="login-box visible widget-box no-border">
+                                    <div class="widget-body">
+                                        <div class="widget-main">
+                                            <h4 class="header blue lighter bigger">
+                                                <i class="ace-icon fa fa-coffee green"></i>
+                                                Login Panel
+                                            </h4>
+
+                                            <div class="space-6"></div>
+
+                                            <form method="post" action="<?php echo base_url()."login/verivy_login";?>">
+                                                <fieldset>
+                                                    <label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input type="text" class="form-control" name="username" placeholder="Username" />
+                                                            <i class="ace-icon fa fa-user"></i>
+                                                        </span>
+                                                    </label>
+
+                                                    <label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input type="password" class="form-control" name="password" placeholder="Password" />
+                                                            <i class="ace-icon fa fa-lock"></i>
+                                                        </span>
+                                                    </label>
+
+                                                    <div class="space"></div>
+
+                                                    <div class="clearfix">
+                                                        <label class="inline">
+                                                            <input type="checkbox" class="ace" />
+                                                            <span class="lbl"> Remember Me</span>
+                                                        </label>
+
+                                                        <button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
+                                                            <i class="ace-icon fa fa-key"></i>
+                                                            <span class="bigger-110">Login</span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="space-4"></div>
+                                                </fieldset>
+                                            </form>
+
+
+                                        </div><!-- /.widget-main -->
+
+                                        <div class="toolbar clearfix">
+                                            <div>
+                                                <a href="#" data-target="#forgot-box" class="forgot-password-link">
+                                                    <i class="ace-icon fa fa-arrow-left"></i>
+                                                    I forgot my password
+                                                </a>
+                                            </div>
+
+                                            <div>
+
+                                            </div>
+                                        </div>
+                                    </div><!-- /.widget-body -->
+                                </div><!-- /.login-box -->
+
+                                <div id="forgot-box" class="forgot-box widget-box no-border">
+                                    <div class="widget-body">
+                                        <div class="widget-main">
+                                            <h4 class="header red lighter bigger">
+                                                <i class="ace-icon fa fa-key"></i>
+                                                Retrieve Password
+                                            </h4>
+
+                                            <div class="space-6"></div>
+                                            <p>
+                                                Enter your email and to receive instructions
+                                            </p>
+
+                                            <form>
+                                                <fieldset>
+                                                    <label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input type="email" class="form-control" placeholder="Email" />
+                                                            <i class="ace-icon fa fa-envelope"></i>
+                                                        </span>
+                                                    </label>
+
+                                                    <div class="clearfix">
+                                                        <button type="button" class="width-35 pull-right btn btn-sm btn-danger">
+                                                            <i class="ace-icon fa fa-lightbulb-o"></i>
+                                                            <span class="bigger-110">Send Me!</span>
+                                                        </button>
+                                                    </div>
+                                                </fieldset>
+                                            </form>
+                                        </div><!-- /.widget-main -->
+
+                                        <div class="toolbar center">
+                                            <a href="#" data-target="#login-box" class="back-to-login-link">
+                                                Back to login
+                                                <i class="ace-icon fa fa-arrow-right"></i>
+                                            </a>
+                                        </div>
+                                    </div><!-- /.widget-body -->
+                                </div><!-- /.forgot-box -->
+
+                                <div id="signup-box" class="signup-box widget-box no-border">
+                                    <div class="widget-body">
+                                        <div class="widget-main">
+                                            <h4 class="header green lighter bigger">
+                                                <i class="ace-icon fa fa-users blue"></i>
+                                                New User Registration
+                                            </h4>
+
+                                            <div class="space-6"></div>
+                                            <p> Enter your details to begin: </p>
+
+                                            <form>
+                                                <fieldset>
+                                                    <label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input type="email" class="form-control" placeholder="Email" />
+                                                            <i class="ace-icon fa fa-envelope"></i>
+                                                        </span>
+                                                    </label>
+
+                                                    <label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input type="text" class="form-control" placeholder="Username" />
+                                                            <i class="ace-icon fa fa-user"></i>
+                                                        </span>
+                                                    </label>
+
+                                                    <label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input type="password" class="form-control" placeholder="Password" />
+                                                            <i class="ace-icon fa fa-lock"></i>
+                                                        </span>
+                                                    </label>
+
+                                                    <label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input type="password" class="form-control" placeholder="Repeat password" />
+                                                            <i class="ace-icon fa fa-retweet"></i>
+                                                        </span>
+                                                    </label>
+
+                                                    <label class="block">
+                                                        <input type="checkbox" class="ace" />
+                                                        <span class="lbl">
+                                                            I accept the
+                                                            <a href="#">User Agreement</a>
+                                                        </span>
+                                                    </label>
+
+                                                    <div class="space-24"></div>
+
+                                                    <div class="clearfix">
+                                                        <button type="reset" class="width-30 pull-left btn btn-sm">
+                                                            <i class="ace-icon fa fa-refresh"></i>
+                                                            <span class="bigger-110">Reset</span>
+                                                        </button>
+
+                                                        <button type="button" class="width-65 pull-right btn btn-sm btn-success">
+                                                            <span class="bigger-110">Register</span>
+
+                                                            <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+                                                        </button>
+                                                    </div>
+                                                </fieldset>
+                                            </form>
+                                        </div>
+
+                                        <div class="toolbar center">
+                                            <a href="#" data-target="#login-box" class="back-to-login-link">
+                                                <i class="ace-icon fa fa-arrow-left"></i>
+                                                Back to login
+                                            </a>
+                                        </div>
+                                    </div><!-- /.widget-body -->
+                                </div><!-- /.signup-box -->
+                            </div><!-- /.position-relative -->
+
+                            <div class="navbar-fixed-top align-right">
+                                <br />
+                                &nbsp;
+                                <a id="btn-login-dark" href="#">Dark</a>
+                                &nbsp;
+                                <span class="blue">/</span>
+                                &nbsp;
+                                <a id="btn-login-blur" href="#">Blur</a>
+                                &nbsp;
+                                <span class="blue">/</span>
+                                &nbsp;
+                                <a id="btn-login-light" href="#">Light</a>
+                                &nbsp; &nbsp; &nbsp;
                             </div>
                         </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
-        <!-- /.login-box -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.main-content -->
+        </div><!-- /.main-container -->
 
-        <!-- jQuery 2.2.3 -->
-        <script src="<?php echo base_url(); ?>themes/plugins/jQuery/jquery-2.2.3.min.js"></script>
-        <!-- Bootstrap 3.3.6 -->
-        <script src="<?php echo base_url(); ?>themes/bootstrap/js/bootstrap.min.js"></script>
-        <!-- iCheck -->
-        <script src="<?php echo base_url(); ?>themes/plugins/iCheck/icheck.min.js"></script>
-        <script>
-            $(function () {
-                $('input').iCheck({
-                    checkboxClass: 'icheckbox_square-blue',
-                    radioClass: 'iradio_square-blue',
-                    increaseArea: '20%' // optional
+        <!-- basic scripts -->
+
+        <!--[if !IE]> -->
+        <script src="<?php echo base_url(); ?>themes/assets/js/jquery-2.1.4.min.js"></script>
+
+        <!-- <![endif]-->
+
+        <!--[if IE]>
+<script src="assets/js/jquery-1.11.3.min.js"></script>
+<![endif]-->
+        <script type="text/javascript">
+            if ('ontouchstart' in document.documentElement)
+                document.write("<script src='<?php echo base_url(); ?>themes/assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+        </script>
+
+        <!-- inline scripts related to this page -->
+        <script type="text/javascript">
+            jQuery(function ($) {
+                $(document).on('click', '.toolbar a[data-target]', function (e) {
+                    e.preventDefault();
+                    var target = $(this).data('target');
+                    $('.widget-box.visible').removeClass('visible');//hide others
+                    $(target).addClass('visible');//show target
                 });
+            });
+
+
+
+            //you don't need this, just used for changing background
+            jQuery(function ($) {
+                $('#btn-login-dark').on('click', function (e) {
+                    $('body').attr('class', 'login-layout');
+                    $('#id-text2').attr('class', 'white');
+                    $('#id-company-text').attr('class', 'blue');
+
+                    e.preventDefault();
+                });
+                $('#btn-login-light').on('click', function (e) {
+                    $('body').attr('class', 'login-layout light-login');
+                    $('#id-text2').attr('class', 'grey');
+                    $('#id-company-text').attr('class', 'blue');
+
+                    e.preventDefault();
+                });
+                $('#btn-login-blur').on('click', function (e) {
+                    $('body').attr('class', 'login-layout blur-login');
+                    $('#id-text2').attr('class', 'white');
+                    $('#id-company-text').attr('class', 'light-blue');
+
+                    e.preventDefault();
+                });
+
             });
         </script>
     </body>

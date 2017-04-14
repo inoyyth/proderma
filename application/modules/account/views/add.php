@@ -27,6 +27,10 @@
                                 <input type="text" name="nama_lengkap" parsley-trigger="change" required placeholder="Isi Nama Lengkap" class="form-control">
                             </div>
                             <div class="form-group">
+                                <label>As SuperAdmin</label>
+                                <input type="checkbox" name="super_admin"class="form-control" value="2">
+                            </div>
+                            <div class="form-group">
                                 <label>Telepon</label>
                                 <input type="text" name="no_telp" parsley-trigger="change" parsley-type="digits" required placeholder="Isi No Telepon" class="form-control">
                             </div>
@@ -45,6 +49,44 @@
                     </div>
                     <button class="btn btn-primary" type="submit">Submit</button>
                     <a href="<?php echo base_url('user-management'); ?>" class="btn btn-default">Cancel</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="block-web">
+                <div class="header">
+                    <div class="actions"> </div>
+                    <h3 class="content-header">Menu Access</h3>
+                </div>
+                <div class="porlets-content">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Menu</th>
+                                    <th>Status</th>
+                                    <th>Add</th>
+                                    <th>Upd</th>
+                                    <th>Del</th>
+                                    <th>Prt</th>
+                                </tr>
+                            <thead>
+                            <tbody>
+                                <?php foreach ($list_menu as $kMenu => $vMenu) { ?>
+                                    <tr>
+                                        <td><input type="checkbox" id="parent<?php echo $vMenu['id']; ?>" name="menu[]" value="<?php echo $vMenu['id']."|".$vMenu['slug']; ?>" onclick="checkParent(<?php echo $vMenu['id']; ?>);"></td>
+                                        <td><?php echo $vMenu['name']; ?></td>
+                                        <td><?php echo get_status($vMenu['status']); ?></td>
+                                        <td><input type="checkbox" class="child<?php echo $vMenu['id']; ?>" name="sub_add<?php echo $vMenu['id']; ?>" onclick="cekCheckboxes(this);" disabled="true"></td>
+                                        <td><input type="checkbox" class="child<?php echo $vMenu['id']; ?>" name="sub_upd<?php echo $vMenu['id']; ?>" onclick="cekCheckboxes(this);" disabled="true"></td>
+                                        <td><input type="checkbox" class="child<?php echo $vMenu['id']; ?>" name="sub_del<?php echo $vMenu['id']; ?>" onclick="cekCheckboxes(this);" disabled="true"></td>
+                                        <td><input type="checkbox" class="child<?php echo $vMenu['id']; ?>" name="sub_prt<?php echo $vMenu['id']; ?>" onclick="cekCheckboxes(this);" disabled="true"></td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

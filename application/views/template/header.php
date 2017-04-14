@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta charset="utf-8" />
-        <title>Dashboard - Ace Admin</title>
+        <title>Dashboard - Proderma</title>
 
         <meta name="description" content="overview &amp; stats" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
@@ -26,15 +26,19 @@
         <![endif]-->
         <link rel="stylesheet" href="<?php echo base_url(); ?>themes/assets/css/ace-skins.min.css" />
         <link rel="stylesheet" href="<?php echo base_url(); ?>themes/assets/css/ace-rtl.min.css" />
-
+        
         <!--[if lte IE 9]>
           <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
         <![endif]-->
-
+        <!-- tabulator -->
+        <link rel="stylesheet" href="<?php echo base_url();?>themes/assets/plugin/tabulator-master/tabulator.css"></script>
+        <link rel="stylesheet" href="<?php echo base_url();?>themes/assets/plugin/tabulator-master/themes/tabulator_simple.css"></script>
         <!-- inline styles related to this page -->
-
+        
         <!-- ace settings handler -->
         <script src="<?php echo base_url(); ?>themes/assets/js/ace-extra.min.js"></script>
+        <!--[if !IE]> -->
+        <script src="<?php echo base_url();?>themes/assets/js/jquery-2.1.4.min.js"></script>
 
         <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
 
@@ -61,7 +65,7 @@
                     <a href="index.html" class="navbar-brand">
                         <small>
                             <i class="fa fa-leaf"></i>
-                            Ace Admin
+                            Sales Monitoring System
                         </small>
                     </a>
                 </div>
