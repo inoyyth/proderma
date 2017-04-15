@@ -77,3 +77,27 @@ $route['master-employee-pdf'] = 'md_employee/print_pdf';
 $route['master-employee-pdf/(:any)'] = 'md_employee/print_pdf/$1';
 $route['master-employee-excel'] = 'md_employee/print_excel';
 $route['master-employee-excel/(:any)'] = 'md_employee/print_excel/$1';
+
+$route['employee-level'] = 'md_level';
+$route['employee-level-add'] = 'md_level/add';
+$route['employee-level-edit-(:num)'] = 'md_level/edit/$1';
+$route['employee-level-delete-(:num)'] = 'md_level/delete/$1';
+$route['employee-level-save'] = 'md_level/save';
+$route['employee-level-page'] = 'md_level/index';
+$route['employee-level-page/(:any)'] = 'md_level/index/$1';
+$route['employee-level-pdf'] = 'md_level/print_pdf';
+$route['employee-level-pdf/(:any)'] = 'md_level/print_pdf/$1';
+$route['employee-level-excel'] = 'md_level/print_excel';
+$route['employee-level-excel/(:any)'] = 'md_level/print_excel/$1';
+
+$route['master-product'] = 'md_product';
+$route['master-product-add'] = 'md_product/add';
+$route['master-product-edit-(:num)'] = 'md_product/edit/$1';
+$route['master-product-delete-(:num)'] = 'md_product/delete/$1';
+$route['master-product-save'] = 'md_product/save';
+$route['master-product-page'] = 'md_product/index';
+$route['master-product-page/(:any)'] = 'md_product/index/$1';
+$route['master-product-pdf'] = 'md_product/print_pdf';
+$route['master-product-pdf/(:any)'] = 'md_product/print_pdf/$1';
+$route['master-product-excel'] = 'md_product/print_excel';
+$route['master-product-excel/(:any)'] = 'md_product/print_excel/$1';

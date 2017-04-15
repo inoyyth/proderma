@@ -50,7 +50,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES (6,'superadmin@proderma.com','Super Admin','4nWZTyIKWFti8DoSKAHGeq8gG+kLcAVfTkg9METALb5iOZ1rxbxZd+fULETN7JN/OrcjCvI9lmN1xEEE8vQafQ==','909090909','supri170845@gmail.com','assets/images/account/a93ac272e0099bcc4a867ffc01b343a3.png','a:18:{i:0;a:3:{s:4:\"menu\";s:2:\"23\";s:4:\"slug\";s:15:\"master-employee\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:1;a:3:{s:4:\"menu\";s:2:\"24\";s:4:\"slug\";s:12:\"master-level\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:2;a:3:{s:4:\"menu\";s:2:\"26\";s:4:\"slug\";s:14:\"master-product\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:3;a:3:{s:4:\"menu\";s:2:\"27\";s:4:\"slug\";s:23:\"master-product-category\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:4;a:3:{s:4:\"menu\";s:2:\"28\";s:4:\"slug\";s:19:\"master-payment-type\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:5;a:3:{s:4:\"menu\";s:2:\"29\";s:4:\"slug\";s:15:\"master-customer\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:6;a:3:{s:4:\"menu\";s:2:\"36\";s:4:\"slug\";s:15:\"user-management\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:7;a:3:{s:4:\"menu\";s:2:\"34\";s:4:\"slug\";s:11:\"sales-order\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:8;a:3:{s:4:\"menu\";s:2:\"45\";s:4:\"slug\";s:14:\"sales-delivery\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:9;a:3:{s:4:\"menu\";s:2:\"46\";s:4:\"slug\";s:7:\"invoice\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:10;a:3:{s:4:\"menu\";s:2:\"52\";s:4:\"slug\";s:16:\"status-transaksi\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:11;a:3:{s:4:\"menu\";s:2:\"53\";s:4:\"slug\";s:10:\"All Report\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:12;a:3:{s:4:\"menu\";s:2:\"49\";s:4:\"slug\";s:12:\"mapping-area\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:13;a:3:{s:4:\"menu\";s:2:\"50\";s:4:\"slug\";s:15:\"mapping-product\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:14;a:3:{s:4:\"menu\";s:2:\"32\";s:4:\"slug\";s:14:\"visit-activity\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:15;a:3:{s:4:\"menu\";s:2:\"33\";s:4:\"slug\";s:14:\"sales-activity\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:16;a:3:{s:4:\"menu\";s:2:\"48\";s:4:\"slug\";s:3:\"ojt\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:17;a:3:{s:4:\"menu\";s:2:\"51\";s:4:\"slug\";s:20:\"master-list-priority\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}}','2',NULL,6,NULL,'0000-00-00 00:00:00','2017-04-14 17:18:49','0000-00-00 00:00:00','2017-04-14 23:12:36','1'),(7,'sapta@gmail.com','Sapta','FPeGUTv9tqU2OK+ehIe1y8pL+LOh5ZmSomm7hY/ibO9N77b052+OaMFj/vNfzL298YcvFF/EAsBh8faI+QQvRA==','879979797979','supri170845@gmail.com','667fa1e720b199d98293f0eec4086ebe.jpg','a:27:{i:0;a:3:{s:4:\"menu\";s:2:\"23\";s:4:\"slug\";s:14:\"master-jabatan\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:1;a:3:{s:4:\"menu\";s:2:\"24\";s:4:\"slug\";s:15:\"master-karyawan\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:2;a:3:{s:4:\"menu\";s:2:\"26\";s:4:\"slug\";s:15:\"master-customer\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:3;a:3:{s:4:\"menu\";s:2:\"27\";s:4:\"slug\";s:12:\"master-motor\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:4;a:3:{s:4:\"menu\";s:2:\"28\";s:4:\"slug\";s:16:\"master-aksesoris\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:5;a:3:{s:4:\"menu\";s:2:\"29\";s:4:\"slug\";s:13:\"master-gudang\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:6;a:3:{s:4:\"menu\";s:2:\"30\";s:4:\"slug\";s:14:\"master-leasing\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:7;a:3:{s:4:\"menu\";s:2:\"37\";s:4:\"slug\";s:16:\"master-biro-jasa\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:8;a:3:{s:4:\"menu\";s:2:\"32\";s:4:\"slug\";s:9:\"penjualan\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:9;a:3:{s:4:\"menu\";s:2:\"38\";s:4:\"slug\";s:11:\"kwitansi-dp\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:10;a:3:{s:4:\"menu\";s:2:\"33\";s:4:\"slug\";s:10:\"pembayaran\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:11;a:3:{s:4:\"menu\";s:2:\"41\";s:4:\"slug\";s:3:\"pdi\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:12;a:3:{s:4:\"menu\";s:2:\"42\";s:4:\"slug\";s:4:\"stnk\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:13;a:3:{s:4:\"menu\";s:2:\"59\";s:4:\"slug\";s:11:\"terima-stnk\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:14;a:3:{s:4:\"menu\";s:2:\"43\";s:4:\"slug\";s:4:\"void\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:15;a:3:{s:4:\"menu\";s:2:\"44\";s:4:\"slug\";s:11:\"surat-jalan\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:16;a:3:{s:4:\"menu\";s:2:\"34\";s:4:\"slug\";s:12:\"return-motor\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:17;a:3:{s:4:\"menu\";s:2:\"45\";s:4:\"slug\";s:5:\"stock\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:18;a:3:{s:4:\"menu\";s:2:\"46\";s:4:\"slug\";s:23:\"import-penerimaan-motor\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:19;a:3:{s:4:\"menu\";s:2:\"47\";s:4:\"slug\";s:26:\"input-penerimaan-aksesoris\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:20;a:3:{s:4:\"menu\";s:2:\"48\";s:4:\"slug\";s:12:\"motor-keluar\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:21;a:3:{s:4:\"menu\";s:2:\"49\";s:4:\"slug\";s:11:\"motor-masuk\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:22;a:3:{s:4:\"menu\";s:2:\"50\";s:4:\"slug\";s:22:\"cetak-kwitansi-leasing\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:23;a:3:{s:4:\"menu\";s:2:\"51\";s:4:\"slug\";s:13:\"rekap-tagihan\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:24;a:3:{s:4:\"menu\";s:2:\"52\";s:4:\"slug\";s:16:\"surat-pernyataan\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:25;a:3:{s:4:\"menu\";s:2:\"53\";s:4:\"slug\";s:17:\"pencairan-leasing\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:26;a:3:{s:4:\"menu\";s:2:\"54\";s:4:\"slug\";s:17:\"laporan-penjualan\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}}','1',NULL,6,NULL,'0000-00-00 00:00:00','2017-03-12 01:16:44','0000-00-00 00:00:00','2017-03-12 01:13:19','1');
+INSERT INTO `account` VALUES (6,'superadmin@proderma.com','Super Admin','4nWZTyIKWFti8DoSKAHGeq8gG+kLcAVfTkg9METALb5iOZ1rxbxZd+fULETN7JN/OrcjCvI9lmN1xEEE8vQafQ==','909090909','supri170845@gmail.com','assets/images/account/a93ac272e0099bcc4a867ffc01b343a3.png','a:18:{i:0;a:3:{s:4:\"menu\";s:2:\"23\";s:4:\"slug\";s:15:\"master-employee\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:1;a:3:{s:4:\"menu\";s:2:\"24\";s:4:\"slug\";s:12:\"master-level\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:2;a:3:{s:4:\"menu\";s:2:\"26\";s:4:\"slug\";s:14:\"master-product\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:3;a:3:{s:4:\"menu\";s:2:\"27\";s:4:\"slug\";s:23:\"master-product-category\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:4;a:3:{s:4:\"menu\";s:2:\"28\";s:4:\"slug\";s:19:\"master-payment-type\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:5;a:3:{s:4:\"menu\";s:2:\"29\";s:4:\"slug\";s:15:\"master-customer\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:6;a:3:{s:4:\"menu\";s:2:\"36\";s:4:\"slug\";s:15:\"user-management\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:7;a:3:{s:4:\"menu\";s:2:\"34\";s:4:\"slug\";s:11:\"sales-order\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:8;a:3:{s:4:\"menu\";s:2:\"45\";s:4:\"slug\";s:14:\"sales-delivery\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:9;a:3:{s:4:\"menu\";s:2:\"46\";s:4:\"slug\";s:7:\"invoice\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:10;a:3:{s:4:\"menu\";s:2:\"52\";s:4:\"slug\";s:16:\"status-transaksi\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:11;a:3:{s:4:\"menu\";s:2:\"53\";s:4:\"slug\";s:10:\"All Report\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:12;a:3:{s:4:\"menu\";s:2:\"49\";s:4:\"slug\";s:12:\"mapping-area\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:13;a:3:{s:4:\"menu\";s:2:\"50\";s:4:\"slug\";s:15:\"mapping-product\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:14;a:3:{s:4:\"menu\";s:2:\"32\";s:4:\"slug\";s:14:\"visit-activity\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:15;a:3:{s:4:\"menu\";s:2:\"33\";s:4:\"slug\";s:14:\"sales-activity\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:16;a:3:{s:4:\"menu\";s:2:\"48\";s:4:\"slug\";s:3:\"ojt\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:17;a:3:{s:4:\"menu\";s:2:\"51\";s:4:\"slug\";s:20:\"master-list-priority\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}}','2',NULL,6,NULL,'0000-00-00 00:00:00','2017-04-14 17:18:49','0000-00-00 00:00:00','2017-04-15 22:04:21','1'),(7,'sapta@gmail.com','Sapta','xnZIzwpM8T2KKaqmt2N0hHaEcTprbvX7511xanARXiFlQHTlmmBk4sMM2UQfVuDRc5sgtqGy9QRdw/im+hU8fw==','879979797979','supri170845@gmail.com','667fa1e720b199d98293f0eec4086ebe.jpg','a:6:{i:0;a:3:{s:4:\"menu\";s:2:\"23\";s:4:\"slug\";s:15:\"master-employee\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:1;a:3:{s:4:\"menu\";s:2:\"24\";s:4:\"slug\";s:12:\"master-level\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:2;a:3:{s:4:\"menu\";s:2:\"26\";s:4:\"slug\";s:14:\"master-product\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:3;a:3:{s:4:\"menu\";s:2:\"27\";s:4:\"slug\";s:23:\"master-product-category\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:4;a:3:{s:4:\"menu\";s:2:\"28\";s:4:\"slug\";s:19:\"master-payment-type\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:5;a:3:{s:4:\"menu\";s:2:\"29\";s:4:\"slug\";s:15:\"master-customer\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}}','1',NULL,6,NULL,'0000-00-00 00:00:00','2017-04-15 09:16:38','0000-00-00 00:00:00','2017-03-12 01:13:19','1');
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -184,10 +184,11 @@ CREATE TABLE `m_employee` (
   `sys_create_date` datetime DEFAULT NULL,
   `sys_update_date` datetime DEFAULT NULL,
   `sys_delete_date` datetime DEFAULT NULL,
+  `photo_path` text,
   PRIMARY KEY (`id`),
   KEY `fk_jabatan` (`id_jabatan`),
   CONSTRAINT `fk_jabatan` FOREIGN KEY (`id_jabatan`) REFERENCES `m_jabatan` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -196,6 +197,7 @@ CREATE TABLE `m_employee` (
 
 LOCK TABLES `m_employee` WRITE;
 /*!40000 ALTER TABLE `m_employee` DISABLE KEYS */;
+INSERT INTO `m_employee` VALUES (3,1,'PG-898985','Jenifer Pelo','jenifer.pelo@gmail.com','0808080808','M',2,6,6,NULL,'2017-04-15 14:19:41','2017-04-15 20:54:53',NULL,'assets/images/md_employee/a799830eee4983488bb252613501d9e2.jpg'),(4,2,'PG-8989-8989','Taufik Pambudi','pambudi@gmail.com','0898980808','M',1,6,NULL,NULL,'2017-04-15 20:54:41',NULL,NULL,'assets/images/md_employee/83bfa30bec81a9d27a9c31a833e7b892.jpg');
 /*!40000 ALTER TABLE `m_employee` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -226,7 +228,7 @@ CREATE TABLE `m_jabatan` (
 
 LOCK TABLES `m_jabatan` WRITE;
 /*!40000 ALTER TABLE `m_jabatan` DISABLE KEYS */;
-INSERT INTO `m_jabatan` VALUES (1,'sales',1,1,NULL,NULL,'2017-04-09 07:56:36',NULL,NULL),(2,'manager',1,1,NULL,NULL,'2017-04-09 07:56:36',NULL,NULL),(3,'supervisor',1,1,NULL,NULL,'2017-04-09 07:56:36',NULL,NULL),(4,'direktur',1,1,NULL,NULL,'2017-04-09 07:56:36',NULL,NULL),(5,'admin',1,1,NULL,NULL,'2017-04-09 07:56:36',NULL,NULL);
+INSERT INTO `m_jabatan` VALUES (1,'sales',1,1,NULL,NULL,'2017-04-09 07:56:36',NULL,NULL),(2,'manager',1,1,NULL,NULL,'2017-04-09 07:56:36',NULL,NULL),(3,'supervisor',1,1,NULL,NULL,'2017-04-09 07:56:36',NULL,NULL),(4,'direktur',1,1,6,NULL,'2017-04-09 07:56:36','2017-04-15 21:16:36',NULL),(5,'admin',1,1,NULL,NULL,'2017-04-09 07:56:36',NULL,NULL);
 /*!40000 ALTER TABLE `m_jabatan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -341,9 +343,11 @@ DROP TABLE IF EXISTS `m_product`;
 CREATE TABLE `m_product` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_product_category` int(11) DEFAULT NULL,
+  `product_code` varchar(20) DEFAULT NULL,
   `product_name` varchar(100) DEFAULT NULL,
   `product_price` float DEFAULT NULL,
   `product_status` int(2) DEFAULT '1' COMMENT '1=>active, 2=>not active',
+  `photo_path` text,
   `sys_create_user` int(11) DEFAULT NULL,
   `sys_update_user` int(11) DEFAULT NULL,
   `sys_delete_user` int(11) DEFAULT NULL,
@@ -351,7 +355,7 @@ CREATE TABLE `m_product` (
   `sys_update_date` datetime DEFAULT NULL,
   `sys_delete_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -360,6 +364,7 @@ CREATE TABLE `m_product` (
 
 LOCK TABLES `m_product` WRITE;
 /*!40000 ALTER TABLE `m_product` DISABLE KEYS */;
+INSERT INTO `m_product` VALUES (2,1,'PRD-0001','Aspirin',200000,1,'assets/images/md_product/e7ea6c9da0a949d06bd2561853bf6e67.png',6,6,NULL,'2017-04-15 22:34:48','2017-04-15 22:56:40',NULL);
 /*!40000 ALTER TABLE `m_product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -373,7 +378,7 @@ DROP TABLE IF EXISTS `m_product_category`;
 CREATE TABLE `m_product_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_category` varchar(100) DEFAULT NULL,
-  `product_status_category_status` int(2) DEFAULT '1' COMMENT '1=>active, 2=>not active',
+  `product_category_status` int(2) DEFAULT '1' COMMENT '1=>active, 2=>not active',
   `sys_create_user` int(11) DEFAULT NULL,
   `sys_update_user` int(11) DEFAULT NULL,
   `sys_delete_user` int(11) DEFAULT NULL,
@@ -381,7 +386,7 @@ CREATE TABLE `m_product_category` (
   `sys_update_date` datetime DEFAULT NULL,
   `sys_delete_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -390,6 +395,7 @@ CREATE TABLE `m_product_category` (
 
 LOCK TABLES `m_product_category` WRITE;
 /*!40000 ALTER TABLE `m_product_category` DISABLE KEYS */;
+INSERT INTO `m_product_category` VALUES (1,'category A',1,NULL,NULL,NULL,NULL,NULL,NULL),(2,'Category B',1,NULL,NULL,NULL,NULL,NULL,NULL),(3,'Category C',1,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `m_product_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -421,7 +427,7 @@ CREATE TABLE `menus` (
 
 LOCK TABLES `menus` WRITE;
 /*!40000 ALTER TABLE `menus` DISABLE KEYS */;
-INSERT INTO `menus` VALUES (1,NULL,'-','Master','fa fa-home','javascript:void(0);',1,'1'),(2,NULL,'-','Transaction','fa fa-edit','javascript:void(0);',3,'1'),(3,NULL,'-','Report','fa fa-tasks','javascript:void(0);',4,'1'),(23,1,'md_employee','Master Employee','fa fa-circle','master-employee',1,'1'),(24,1,'md_level','Master Emp.Level','fa fa-circle','master-level',2,'1'),(26,1,'md_product','Master Product','fa fa-circle','master-product',3,'1'),(27,1,'md_product_category','Master Prd.Category','fa fa-circle','master-product-category',4,'1'),(28,1,'md_payment_type','Master Pay.Type','fa fa-circle','master-payment-type',5,'1'),(29,1,'md_customer','Master Customer','fa fa-circle','master-customer',6,'1'),(32,47,'t_visting','Customer List','fa fa-circle','visit-activity',3,'1'),(33,47,'t_activity','Master List','fa fa-circle','sales-activity',4,'1'),(34,2,'t_sales_order','Sales Order','fa fa-circle','sales-order',1,'1'),(36,1,'account','Users Management','fa fa-circle','user-management',9,'1'),(45,2,'t_sales_delivery','Sales Delivery','fa fa-circle','sales-delivery',2,'1'),(46,2,'t_invoice','Invoice','fa fa-circle','invoice',3,'1'),(47,NULL,'-','Activity','fa fa-home','javascript:void(0);',2,'1'),(48,47,'t_ojt','OJT','fa fa-circle','ojt',5,'1'),(49,47,'t_mapping_area','Mapping Area','fa fa-circle','mapping-area',1,'1'),(50,47,'t_mapping_product','Mapping Product','fa fa-circle','mapping-product',2,'1'),(51,47,'t_master_priority','Master List Priority','fa fa-circle','master-list-priority',6,'1'),(52,2,'t_status_transaksi','Status Transksi','fa fa-circle','status-transaksi',5,'1'),(53,3,'r_report','All Report','fa fa-circle','All Report',1,'1');
+INSERT INTO `menus` VALUES (1,NULL,'-','Master','fa fa-home','javascript:void(0);',1,'1'),(2,NULL,'-','Transaction','fa fa-edit','javascript:void(0);',3,'1'),(3,NULL,'-','Report','fa fa-tasks','javascript:void(0);',4,'1'),(23,1,'md_employee','Master Employee','fa fa-circle','master-employee',1,'1'),(24,1,'md_level','Master Emp.Level','fa fa-circle','employee-level',2,'1'),(26,1,'md_product','Master Product','fa fa-circle','master-product',3,'1'),(27,1,'md_product_category','Master Prd.Category','fa fa-circle','master-product-category',4,'1'),(28,1,'md_payment_type','Master Pay.Type','fa fa-circle','master-payment-type',5,'1'),(29,1,'md_customer','Master Customer','fa fa-circle','master-customer',6,'1'),(32,47,'t_visting','Customer List','fa fa-circle','visit-activity',3,'1'),(33,47,'t_activity','Master List','fa fa-circle','sales-activity',4,'1'),(34,2,'t_sales_order','Sales Order','fa fa-circle','sales-order',1,'1'),(36,1,'account','Users Management','fa fa-circle','user-management',9,'1'),(45,2,'t_sales_delivery','Sales Delivery','fa fa-circle','sales-delivery',2,'1'),(46,2,'t_invoice','Invoice','fa fa-circle','invoice',3,'1'),(47,NULL,'-','Activity','fa fa-home','javascript:void(0);',2,'1'),(48,47,'t_ojt','OJT','fa fa-circle','ojt',5,'1'),(49,47,'t_mapping_area','Mapping Area','fa fa-circle','mapping-area',1,'1'),(50,47,'t_mapping_product','Mapping Product','fa fa-circle','mapping-product',2,'1'),(51,47,'t_master_priority','Master List Priority','fa fa-circle','master-list-priority',6,'1'),(52,2,'t_status_transaksi','Status Transksi','fa fa-circle','status-transaksi',5,'1'),(53,3,'r_report','All Report','fa fa-circle','All Report',1,'1');
 /*!40000 ALTER TABLE `menus` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -647,4 +653,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-15  0:07:08
+-- Dump completed on 2017-04-15 22:59:47

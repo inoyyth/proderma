@@ -14,42 +14,26 @@
                         <form class="form-filter-table">
                             <div class="col-lg-2">
                                 <div class="form-group">
-                                    <label class="small">Nip</label>
-                                    <input type="text" class="form-control input-sm" id="search-nip">
+                                    <label class="small">Product Code</label>
+                                    <input type="text" class="form-control input-sm" id="search-code">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
-                                    <label class="small">Name</label>
+                                    <label class="small">Product Name</label>
                                     <input type="text" class="form-control input-sm" id="search-name">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
-                                    <label class="small">Position</label>
-                                    <input type="text" class="form-control input-sm" id="search-position">
+                                    <label class="small">Product Price</label>
+                                    <input type="text" class="form-control input-sm" id="search-price">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
-                                    <label class="small">Email</label>
-                                    <input type="text" class="form-control input-sm" id="search-email">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="form-group">
-                                    <label class="small">Phone</label>
-                                    <input type="text" class="form-control input-sm" id="search-phone">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="form-group">
-                                    <label class="small">Gender</label>
-                                    <select class="form-control input-sm" id="search-gender">
-                                        <option value=""></option>
-                                        <option value="F">Female</option>
-                                        <option value="M">Male</option>
-                                    </select>
+                                    <label class="small">Category</label>
+                                    <input type="text" class="form-control input-sm" id="search-category">
                                 </div>
                             </div>
                         </form>
@@ -59,7 +43,7 @@
         </div>
     </div>
     <div class="col-lg-12" style="padding-bottom: 2px;">
-        <a href="<?php echo site_url('master-employee-add'); ?>" type="button" id="btn-add" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> New</a>
+        <a href="<?php echo site_url('master-product-add'); ?>" type="button" id="btn-add" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> New</a>
         <a href="#" type="button" id="btn-edit" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> Edit</a>
         <a href="#" type="button" id="btn-delete" class="btn btn-xs btn-danger" onclick="return confirm('Yakin hapus data?');"><i class="fa fa-remove"></i> Delete</a>
     </div>
@@ -79,24 +63,22 @@
                     paginationSize: 10,
             fitColumns:true, //fit columns to width of table (optional),
                     ajaxType: "POST", //ajax HTTP request type
-            ajaxURL: "<?php echo base_url('md_employee/getListTable'); ?>", //ajax URL
+            ajaxURL: "<?php echo base_url('md_product/getListTable'); ?>", //ajax URL
             //ajaxParams:{key1:"value1", key2:"value2"}, //ajax parameters
             columns: [//Define Table Columns
                 {formatter: "rownum", align: "center", width: 40},
-                {title: "NIP", field: "employee_nip", sorter: "string", tooltip: true},
-                {title: "Name", field: "employee_name", sorter: "string", tooltip: true},
-                {title: "Position", field: "jabatan", sorter: "string"},
-                {title: "Email", field: "employee_email", sorter: "string"},
-                {title: "Phone", field: "employee_phone", sorter: "string"},
-                {title: "Gender", field: "employee_gender", sorter: "string"},
-                {title: "Status", field: "status", sorter: "string"}
+                {title: "Product Code", field: "product_code", sorter: "string", tooltip: true},
+                {title: "Product Name", field: "product_name", sorter: "string", tooltip: true},
+                {title: "Product Category", field: "product_category", sorter: "string", tooltip: true},
+                {title: "Product Price", field: "product_price", formatter: "money", sorter: "number"},
+                {title: "Product Status", field: "status", sorter: "string"}
             ],
             selectable: 1,
             rowSelectionChanged: function (data, rows) {
                 console.log(data);
                 if (data.length > 0) {
-                    $('#btn-edit').attr('href', '<?php echo site_url(); ?>master-employee-edit-' + data[0]['id'] + '.html');
-                    $('#btn-delete').attr('href', '<?php echo site_url(); ?>master-employee-delete-' + data[0]['id'] + '.html');
+                    $('#btn-edit').attr('href', '<?php echo site_url(); ?>master-product-edit-' + data[0]['id'] + '.html');
+                    $('#btn-delete').attr('href', '<?php echo site_url(); ?>master-product-delete-' + data[0]['id'] + '.html');
                 } else {
                     $('#btn-edit').attr('href', '#');
                     $('#btn-delete').attr('href', '#');
@@ -113,14 +95,12 @@
     function filterTable() {
         console.log('filter');
         var params = {
-            nip: $('#search-nip').val(),
-            nama: $('#search-name').val(),
-            jabatan: $('#search-position').val(),
-            email: $('#search-email').val(),
-            phone: $('#search-phone').val(),
-            gender: $('#search-gender').val(),
+            code: $('#search-code').val(),
+            name: $('#search-name').val(),
+            price: $('#search-price').val(),
+            category: $('#search-category').val()
         };
 
-        $("#example-table").tabulator("setData", "<?php echo base_url('md_employee/getListTable'); ?>", params);
+        $("#example-table").tabulator("setData", "<?php echo base_url('md_product/getListTable'); ?>", params);
     }
 </script>

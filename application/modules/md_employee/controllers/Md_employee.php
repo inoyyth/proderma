@@ -24,7 +24,11 @@ class Md_employee extends MX_Controller {
         
         $table = 'm_employee'; 
         
-        $field = array("m_employee.*","m_jabatan.jabatan");
+        $field = array(
+            "m_employee.*",
+            "m_jabatan.jabatan",
+            "IF(m_employee.employee_status=1,'Active','Not Active') AS status"
+        );
         
         $offset = ($page - 1) * $limit;
 
@@ -39,7 +43,7 @@ class Md_employee extends MX_Controller {
             'm_employee.employee_phone'=>isset($_POST['phone'])?$_POST['phone']:"",
             'm_employee.employee_gender'=>isset($_POST['gender'])?$_POST['gender']:""
         );
-        $where = array('m_employee.employee_status !=' => '1');
+        $where = array('m_employee.employee_status !=' => '3');
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_employee.id",
             'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
