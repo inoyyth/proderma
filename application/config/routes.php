@@ -65,3 +65,15 @@ $route['user-management-pdf'] = 'account/print_pdf';
 $route['user-management-pdf/(:any)'] = 'account/print_pdf/$1';
 $route['user-management-excel'] = 'account/print_excel';
 $route['user-management-excel/(:any)'] = 'account/print_excel/$1';
+
+$route['master-employee'] = 'md_employee';
+$route['master-employee-add'] = 'md_employee/add';
+$route['master-employee-edit-(:num)'] = 'md_employee/edit/$1';
+$route['master-employee-delete-(:num)'] = 'md_employee/delete/$1';
+$route['master-employee-save'] = 'md_employee/save';
+$route['master-employee-page'] = 'md_employee/index';
+$route['master-employee-page/(:any)'] = 'md_employee/index/$1';
+$route['master-employee-pdf'] = 'md_employee/print_pdf';
+$route['master-employee-pdf/(:any)'] = 'md_employee/print_pdf/$1';
+$route['master-employee-excel'] = 'md_employee/print_excel';
+$route['master-employee-excel/(:any)'] = 'md_employee/print_excel/$1';

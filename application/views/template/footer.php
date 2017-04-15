@@ -60,6 +60,8 @@
 <script src="<?php echo base_url();?>themes/assets/js/ace.min.js"></script>
 <!-- tabulator -->
 <script src="<?php echo base_url();?>themes/assets/plugin/tabulator-master/tabulator.js"></script>
+<!-- parslye validation -->
+<script src="<?php echo base_url();?>themes/assets/plugin/validation/parsley.min.js"></script>
 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
