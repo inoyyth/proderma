@@ -101,3 +101,27 @@ $route['master-product-pdf'] = 'md_product/print_pdf';
 $route['master-product-pdf/(:any)'] = 'md_product/print_pdf/$1';
 $route['master-product-excel'] = 'md_product/print_excel';
 $route['master-product-excel/(:any)'] = 'md_product/print_excel/$1';
+
+$route['master-product-category'] = 'md_product_category';
+$route['master-product-category-add'] = 'md_product_category/add';
+$route['master-product-category-edit-(:num)'] = 'md_product_category/edit/$1';
+$route['master-product-category-delete-(:num)'] = 'md_product_category/delete/$1';
+$route['master-product-category-save'] = 'md_product_category/save';
+$route['master-product-category-page'] = 'md_product_category/index';
+$route['master-product-category-page/(:any)'] = 'md_product_category/index/$1';
+$route['master-product-category-pdf'] = 'md_product_category/print_pdf';
+$route['master-product-category-pdf/(:any)'] = 'md_product_category/print_pdf/$1';
+$route['master-product-category-excel'] = 'md_product_category/print_excel';
+$route['master-product-category-excel/(:any)'] = 'md_product_category/print_excel/$1';
+
+$route['master-payment-type'] = 'md_payment_type';
+$route['master-payment-type-add'] = 'md_payment_type/add';
+$route['master-payment-type-edit-(:num)'] = 'md_payment_type/edit/$1';
+$route['master-payment-type-delete-(:num)'] = 'md_payment_type/delete/$1';
+$route['master-payment-type-save'] = 'md_payment_type/save';
+$route['master-payment-type-page'] = 'md_payment_type/index';
+$route['master-payment-type-page/(:any)'] = 'md_payment_type/index/$1';
+$route['master-payment-type-pdf'] = 'md_payment_type/print_pdf';
+$route['master-payment-type-pdf/(:any)'] = 'md_payment_type/print_pdf/$1';
+$route['master-payment-type-excel'] = 'md_payment_type/print_excel';
+$route['master-payment-type-excel/(:any)'] = 'md_payment_type/print_excel/$1';
