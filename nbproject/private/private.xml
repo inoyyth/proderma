@@ -2,12 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/opt/lampp/htdocs/proderma/application/modules/md_product/controllers/Md_product.php</file>
-            <file>file:/opt/lampp/htdocs/proderma/application/modules/md_product/views/add.php</file>
-            <file>file:/opt/lampp/htdocs/proderma/application/modules/md_product/models/M_md_product.php</file>
-            <file>file:/opt/lampp/htdocs/proderma/application/modules/md_product/views/main.php</file>
-            <file>file:/opt/lampp/htdocs/proderma/application/modules/md_product/views/edit.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
