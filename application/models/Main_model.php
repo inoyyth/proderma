@@ -157,5 +157,13 @@ Class Main_model extends CI_Model {
             unlink($filex);
         }
     }
+    
+    public function getTypeaheadList($table,$like) {
+        $this->db->select('*');
+        $this->db->from($table);
+        $this->db->like($like);
+        $this->db->limit(100);
+        return $this->db->get()->result_array();
+    }
 
 }

@@ -3222,3 +3222,469 @@ INFO - 2017-04-17 00:40:53 --> Model Class Initialized
 INFO - 2017-04-17 00:40:53 --> Model Class Initialized
 INFO - 2017-04-17 00:40:53 --> Final output sent to browser
 DEBUG - 2017-04-17 00:40:53 --> Total execution time: 0.1114
+INFO - 2017-04-17 23:13:34 --> Config Class Initialized
+INFO - 2017-04-17 23:13:34 --> Hooks Class Initialized
+DEBUG - 2017-04-17 23:13:35 --> UTF-8 Support Enabled
+INFO - 2017-04-17 23:13:35 --> Utf8 Class Initialized
+INFO - 2017-04-17 23:13:35 --> URI Class Initialized
+INFO - 2017-04-17 23:13:36 --> Router Class Initialized
+INFO - 2017-04-17 23:13:36 --> Output Class Initialized
+INFO - 2017-04-17 23:13:37 --> Security Class Initialized
+DEBUG - 2017-04-17 23:13:37 --> Global POST, GET and COOKIE data sanitized
+INFO - 2017-04-17 23:13:37 --> Input Class Initialized
+INFO - 2017-04-17 23:13:37 --> Language Class Initialized
+INFO - 2017-04-17 23:13:37 --> Language Class Initialized
+INFO - 2017-04-17 23:13:37 --> Config Class Initialized
+INFO - 2017-04-17 23:13:38 --> Loader Class Initialized
+INFO - 2017-04-17 23:13:38 --> Helper loaded: url_helper
+INFO - 2017-04-17 23:13:38 --> Helper loaded: file_helper
+INFO - 2017-04-17 23:13:38 --> Helper loaded: utility_helper
+INFO - 2017-04-17 23:13:38 --> Helper loaded: form_helper
+INFO - 2017-04-17 23:13:40 --> Database Driver Class Initialized
+INFO - 2017-04-17 23:13:40 --> Upload Class Initialized
+DEBUG - 2017-04-17 23:13:41 --> Config file loaded: /opt/lampp/htdocs/proderma/application/config/breadcrumbs.php
+DEBUG - 2017-04-17 23:13:41 --> Breadcrumbs Class Initialized
+DEBUG - 2017-04-17 23:13:41 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2017-04-17 23:13:42 --> Session: Class initialized using 'files' driver.
+INFO - 2017-04-17 23:13:42 --> Language file loaded: language/english/pagination_lang.php
+INFO - 2017-04-17 23:13:42 --> Pagination Class Initialized
+INFO - 2017-04-17 23:13:43 --> Model Class Initialized
+INFO - 2017-04-17 23:13:43 --> Model Class Initialized
+INFO - 2017-04-17 23:13:43 --> Controller Class Initialized
+DEBUG - 2017-04-17 23:13:43 --> Account MX_Controller Initialized
+DEBUG - 2017-04-17 23:13:43 --> File loaded: /opt/lampp/htdocs/proderma/application/modules/account/models/M_account.php
+INFO - 2017-04-17 23:13:43 --> Model Class Initialized
+INFO - 2017-04-17 23:13:43 --> Model Class Initialized
+INFO - 2017-04-17 23:13:43 --> Encrypt Class Initialized
+INFO - 2017-04-17 23:13:43 --> Config Class Initialized
+INFO - 2017-04-17 23:13:43 --> Hooks Class Initialized
+DEBUG - 2017-04-17 23:13:43 --> UTF-8 Support Enabled
+INFO - 2017-04-17 23:13:43 --> Utf8 Class Initialized
+INFO - 2017-04-17 23:13:43 --> URI Class Initialized
+INFO - 2017-04-17 23:13:43 --> Router Class Initialized
+INFO - 2017-04-17 23:13:43 --> Output Class Initialized
+INFO - 2017-04-17 23:13:43 --> Security Class Initialized
+DEBUG - 2017-04-17 23:13:43 --> Global POST, GET and COOKIE data sanitized
+INFO - 2017-04-17 23:13:43 --> Input Class Initialized
+INFO - 2017-04-17 23:13:43 --> Language Class Initialized
+INFO - 2017-04-17 23:13:43 --> Language Class Initialized
+INFO - 2017-04-17 23:13:43 --> Config Class Initialized
+INFO - 2017-04-17 23:13:43 --> Loader Class Initialized
+INFO - 2017-04-17 23:13:43 --> Helper loaded: url_helper
+INFO - 2017-04-17 23:13:43 --> Helper loaded: file_helper
+INFO - 2017-04-17 23:13:43 --> Helper loaded: utility_helper
+INFO - 2017-04-17 23:13:43 --> Helper loaded: form_helper
+INFO - 2017-04-17 23:13:43 --> Database Driver Class Initialized
+INFO - 2017-04-17 23:13:43 --> Upload Class Initialized
+DEBUG - 2017-04-17 23:13:43 --> Config file loaded: /opt/lampp/htdocs/proderma/application/config/breadcrumbs.php
+DEBUG - 2017-04-17 23:13:43 --> Breadcrumbs Class Initialized
+DEBUG - 2017-04-17 23:13:43 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2017-04-17 23:13:43 --> Session: Class initialized using 'files' driver.
+INFO - 2017-04-17 23:13:43 --> Language file loaded: language/english/pagination_lang.php
+INFO - 2017-04-17 23:13:43 --> Pagination Class Initialized
+INFO - 2017-04-17 23:13:43 --> Model Class Initialized
+INFO - 2017-04-17 23:13:43 --> Model Class Initialized
+INFO - 2017-04-17 23:13:43 --> Controller Class Initialized
+DEBUG - 2017-04-17 23:13:43 --> Login MX_Controller Initialized
+INFO - 2017-04-17 23:13:43 --> Encrypt Class Initialized
+DEBUG - 2017-04-17 23:13:43 --> File loaded: /opt/lampp/htdocs/proderma/application/modules/login/models/M_login.php
+INFO - 2017-04-17 23:13:43 --> Model Class Initialized
+DEBUG - 2017-04-17 23:13:43 --> File loaded: /opt/lampp/htdocs/proderma/application/modules/login/views/index.php
+INFO - 2017-04-17 23:13:43 --> Final output sent to browser
+DEBUG - 2017-04-17 23:13:43 --> Total execution time: 0.2368
+INFO - 2017-04-17 23:13:52 --> Config Class Initialized
+INFO - 2017-04-17 23:13:52 --> Hooks Class Initialized
+DEBUG - 2017-04-17 23:13:52 --> UTF-8 Support Enabled
+INFO - 2017-04-17 23:13:52 --> Utf8 Class Initialized
+INFO - 2017-04-17 23:13:52 --> URI Class Initialized
+INFO - 2017-04-17 23:13:52 --> Router Class Initialized
+INFO - 2017-04-17 23:13:52 --> Output Class Initialized
+INFO - 2017-04-17 23:13:52 --> Security Class Initialized
+DEBUG - 2017-04-17 23:13:52 --> Global POST, GET and COOKIE data sanitized
+INFO - 2017-04-17 23:13:52 --> Input Class Initialized
+INFO - 2017-04-17 23:13:52 --> Language Class Initialized
+ERROR - 2017-04-17 23:13:52 --> 404 Page Not Found: /index
+INFO - 2017-04-17 23:14:06 --> Config Class Initialized
+INFO - 2017-04-17 23:14:06 --> Hooks Class Initialized
+DEBUG - 2017-04-17 23:14:06 --> UTF-8 Support Enabled
+INFO - 2017-04-17 23:14:06 --> Utf8 Class Initialized
+INFO - 2017-04-17 23:14:06 --> URI Class Initialized
+INFO - 2017-04-17 23:14:06 --> Router Class Initialized
+INFO - 2017-04-17 23:14:06 --> Output Class Initialized
+INFO - 2017-04-17 23:14:06 --> Security Class Initialized
+DEBUG - 2017-04-17 23:14:06 --> Global POST, GET and COOKIE data sanitized
+INFO - 2017-04-17 23:14:06 --> Input Class Initialized
+INFO - 2017-04-17 23:14:06 --> Language Class Initialized
+INFO - 2017-04-17 23:14:06 --> Language Class Initialized
+INFO - 2017-04-17 23:14:06 --> Config Class Initialized
+INFO - 2017-04-17 23:14:06 --> Loader Class Initialized
+INFO - 2017-04-17 23:14:06 --> Helper loaded: url_helper
+INFO - 2017-04-17 23:14:06 --> Helper loaded: file_helper
+INFO - 2017-04-17 23:14:06 --> Helper loaded: utility_helper
+INFO - 2017-04-17 23:14:06 --> Helper loaded: form_helper
+INFO - 2017-04-17 23:14:06 --> Database Driver Class Initialized
+INFO - 2017-04-17 23:14:06 --> Upload Class Initialized
+DEBUG - 2017-04-17 23:14:06 --> Config file loaded: /opt/lampp/htdocs/proderma/application/config/breadcrumbs.php
+DEBUG - 2017-04-17 23:14:06 --> Breadcrumbs Class Initialized
+DEBUG - 2017-04-17 23:14:06 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2017-04-17 23:14:06 --> Session: Class initialized using 'files' driver.
+INFO - 2017-04-17 23:14:06 --> Language file loaded: language/english/pagination_lang.php
+INFO - 2017-04-17 23:14:06 --> Pagination Class Initialized
+INFO - 2017-04-17 23:14:06 --> Model Class Initialized
+INFO - 2017-04-17 23:14:06 --> Model Class Initialized
+INFO - 2017-04-17 23:14:06 --> Controller Class Initialized
+DEBUG - 2017-04-17 23:14:06 --> Login MX_Controller Initialized
+INFO - 2017-04-17 23:14:06 --> Encrypt Class Initialized
+DEBUG - 2017-04-17 23:14:06 --> File loaded: /opt/lampp/htdocs/proderma/application/modules/login/models/M_login.php
+INFO - 2017-04-17 23:14:06 --> Model Class Initialized
+INFO - 2017-04-17 23:14:06 --> Config Class Initialized
+INFO - 2017-04-17 23:14:06 --> Hooks Class Initialized
+DEBUG - 2017-04-17 23:14:06 --> UTF-8 Support Enabled
+INFO - 2017-04-17 23:14:06 --> Utf8 Class Initialized
+INFO - 2017-04-17 23:14:06 --> URI Class Initialized
+INFO - 2017-04-17 23:14:06 --> Router Class Initialized
+INFO - 2017-04-17 23:14:06 --> Output Class Initialized
+INFO - 2017-04-17 23:14:06 --> Security Class Initialized
+DEBUG - 2017-04-17 23:14:06 --> Global POST, GET and COOKIE data sanitized
+INFO - 2017-04-17 23:14:06 --> Input Class Initialized
+INFO - 2017-04-17 23:14:06 --> Language Class Initialized
+INFO - 2017-04-17 23:14:06 --> Language Class Initialized
+INFO - 2017-04-17 23:14:06 --> Config Class Initialized
+INFO - 2017-04-17 23:14:06 --> Loader Class Initialized
+INFO - 2017-04-17 23:14:06 --> Helper loaded: url_helper
+INFO - 2017-04-17 23:14:06 --> Helper loaded: file_helper
+INFO - 2017-04-17 23:14:06 --> Helper loaded: utility_helper
+INFO - 2017-04-17 23:14:06 --> Helper loaded: form_helper
+INFO - 2017-04-17 23:14:06 --> Database Driver Class Initialized
+INFO - 2017-04-17 23:14:06 --> Upload Class Initialized
+DEBUG - 2017-04-17 23:14:06 --> Config file loaded: /opt/lampp/htdocs/proderma/application/config/breadcrumbs.php
+DEBUG - 2017-04-17 23:14:06 --> Breadcrumbs Class Initialized
+DEBUG - 2017-04-17 23:14:06 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2017-04-17 23:14:06 --> Session: Class initialized using 'files' driver.
+INFO - 2017-04-17 23:14:06 --> Language file loaded: language/english/pagination_lang.php
+INFO - 2017-04-17 23:14:06 --> Pagination Class Initialized
+INFO - 2017-04-17 23:14:06 --> Model Class Initialized
+INFO - 2017-04-17 23:14:06 --> Model Class Initialized
+INFO - 2017-04-17 23:14:06 --> Controller Class Initialized
+DEBUG - 2017-04-17 23:14:06 --> Login MX_Controller Initialized
+INFO - 2017-04-17 23:14:06 --> Encrypt Class Initialized
+DEBUG - 2017-04-17 23:14:06 --> File loaded: /opt/lampp/htdocs/proderma/application/modules/login/models/M_login.php
+INFO - 2017-04-17 23:14:06 --> Model Class Initialized
+INFO - 2017-04-17 23:14:06 --> Config Class Initialized
+INFO - 2017-04-17 23:14:06 --> Hooks Class Initialized
+DEBUG - 2017-04-17 23:14:06 --> UTF-8 Support Enabled
+INFO - 2017-04-17 23:14:06 --> Utf8 Class Initialized
+INFO - 2017-04-17 23:14:06 --> URI Class Initialized
+INFO - 2017-04-17 23:14:06 --> Router Class Initialized
+INFO - 2017-04-17 23:14:06 --> Output Class Initialized
+INFO - 2017-04-17 23:14:06 --> Security Class Initialized
+DEBUG - 2017-04-17 23:14:06 --> Global POST, GET and COOKIE data sanitized
+INFO - 2017-04-17 23:14:06 --> Input Class Initialized
+INFO - 2017-04-17 23:14:06 --> Language Class Initialized
+INFO - 2017-04-17 23:14:06 --> Language Class Initialized
+INFO - 2017-04-17 23:14:06 --> Config Class Initialized
+INFO - 2017-04-17 23:14:06 --> Loader Class Initialized
+INFO - 2017-04-17 23:14:06 --> Helper loaded: url_helper
+INFO - 2017-04-17 23:14:06 --> Helper loaded: file_helper
+INFO - 2017-04-17 23:14:06 --> Helper loaded: utility_helper
+INFO - 2017-04-17 23:14:06 --> Helper loaded: form_helper
+INFO - 2017-04-17 23:14:06 --> Database Driver Class Initialized
+INFO - 2017-04-17 23:14:06 --> Upload Class Initialized
+DEBUG - 2017-04-17 23:14:06 --> Config file loaded: /opt/lampp/htdocs/proderma/application/config/breadcrumbs.php
+DEBUG - 2017-04-17 23:14:06 --> Breadcrumbs Class Initialized
+DEBUG - 2017-04-17 23:14:06 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2017-04-17 23:14:06 --> Session: Class initialized using 'files' driver.
+INFO - 2017-04-17 23:14:06 --> Language file loaded: language/english/pagination_lang.php
+INFO - 2017-04-17 23:14:06 --> Pagination Class Initialized
+INFO - 2017-04-17 23:14:06 --> Model Class Initialized
+INFO - 2017-04-17 23:14:06 --> Model Class Initialized
+INFO - 2017-04-17 23:14:06 --> Controller Class Initialized
+DEBUG - 2017-04-17 23:14:06 --> Dashboard MX_Controller Initialized
+DEBUG - 2017-04-17 23:14:06 --> File loaded: /opt/lampp/htdocs/proderma/application/views/template/header.php
+DEBUG - 2017-04-17 23:14:06 --> File loaded: /opt/lampp/htdocs/proderma/application/views/template/menu.php
+DEBUG - 2017-04-17 23:14:06 --> File loaded: /opt/lampp/htdocs/proderma/application/modules/dashboard/views/main.php
+DEBUG - 2017-04-17 23:14:06 --> File loaded: /opt/lampp/htdocs/proderma/application/views/template/main.php
+DEBUG - 2017-04-17 23:14:06 --> File loaded: /opt/lampp/htdocs/proderma/application/views/template/footer.php
+DEBUG - 2017-04-17 23:14:06 --> File loaded: /opt/lampp/htdocs/proderma/application/views/default.php
+INFO - 2017-04-17 23:14:06 --> Final output sent to browser
+DEBUG - 2017-04-17 23:14:06 --> Total execution time: 0.2148
+INFO - 2017-04-17 23:14:07 --> Config Class Initialized
+INFO - 2017-04-17 23:14:07 --> Hooks Class Initialized
+DEBUG - 2017-04-17 23:14:07 --> UTF-8 Support Enabled
+INFO - 2017-04-17 23:14:07 --> Utf8 Class Initialized
+INFO - 2017-04-17 23:14:07 --> URI Class Initialized
+INFO - 2017-04-17 23:14:07 --> Config Class Initialized
+INFO - 2017-04-17 23:14:07 --> Hooks Class Initialized
+DEBUG - 2017-04-17 23:14:07 --> UTF-8 Support Enabled
+INFO - 2017-04-17 23:14:07 --> Utf8 Class Initialized
+INFO - 2017-04-17 23:14:07 --> Config Class Initialized
+INFO - 2017-04-17 23:14:07 --> Hooks Class Initialized
+INFO - 2017-04-17 23:14:07 --> Router Class Initialized
+INFO - 2017-04-17 23:14:07 --> URI Class Initialized
+INFO - 2017-04-17 23:14:07 --> Config Class Initialized
+INFO - 2017-04-17 23:14:07 --> Hooks Class Initialized
+INFO - 2017-04-17 23:14:07 --> Router Class Initialized
+DEBUG - 2017-04-17 23:14:07 --> UTF-8 Support Enabled
+INFO - 2017-04-17 23:14:07 --> Utf8 Class Initialized
+INFO - 2017-04-17 23:14:07 --> Output Class Initialized
+INFO - 2017-04-17 23:14:07 --> URI Class Initialized
+INFO - 2017-04-17 23:14:07 --> Security Class Initialized
+DEBUG - 2017-04-17 23:14:07 --> UTF-8 Support Enabled
+INFO - 2017-04-17 23:14:07 --> Utf8 Class Initialized
+INFO - 2017-04-17 23:14:07 --> Output Class Initialized
+INFO - 2017-04-17 23:14:07 --> URI Class Initialized
+INFO - 2017-04-17 23:14:07 --> Security Class Initialized
+DEBUG - 2017-04-17 23:14:07 --> Global POST, GET and COOKIE data sanitized
+INFO - 2017-04-17 23:14:07 --> Input Class Initialized
+INFO - 2017-04-17 23:14:07 --> Language Class Initialized
+ERROR - 2017-04-17 23:14:07 --> 404 Page Not Found: /index
+DEBUG - 2017-04-17 23:14:07 --> Global POST, GET and COOKIE data sanitized
+INFO - 2017-04-17 23:14:07 --> Input Class Initialized
+INFO - 2017-04-17 23:14:07 --> Language Class Initialized
+ERROR - 2017-04-17 23:14:07 --> 404 Page Not Found: /index
+INFO - 2017-04-17 23:14:07 --> Router Class Initialized
+INFO - 2017-04-17 23:14:07 --> Router Class Initialized
+INFO - 2017-04-17 23:14:07 --> Output Class Initialized
+INFO - 2017-04-17 23:14:07 --> Output Class Initialized
+INFO - 2017-04-17 23:14:07 --> Security Class Initialized
+INFO - 2017-04-17 23:14:07 --> Security Class Initialized
+INFO - 2017-04-17 23:14:07 --> Config Class Initialized
+INFO - 2017-04-17 23:14:07 --> Hooks Class Initialized
+DEBUG - 2017-04-17 23:14:07 --> Global POST, GET and COOKIE data sanitized
+INFO - 2017-04-17 23:14:07 --> Input Class Initialized
+DEBUG - 2017-04-17 23:14:07 --> Global POST, GET and COOKIE data sanitized
+INFO - 2017-04-17 23:14:07 --> Input Class Initialized
+INFO - 2017-04-17 23:14:07 --> Language Class Initialized
+DEBUG - 2017-04-17 23:14:07 --> UTF-8 Support Enabled
+INFO - 2017-04-17 23:14:07 --> Utf8 Class Initialized
+ERROR - 2017-04-17 23:14:07 --> 404 Page Not Found: /index
+INFO - 2017-04-17 23:14:07 --> Language Class Initialized
+ERROR - 2017-04-17 23:14:07 --> 404 Page Not Found: /index
+INFO - 2017-04-17 23:14:07 --> Config Class Initialized
+INFO - 2017-04-17 23:14:07 --> Hooks Class Initialized
+DEBUG - 2017-04-17 23:14:07 --> UTF-8 Support Enabled
+INFO - 2017-04-17 23:14:07 --> Utf8 Class Initialized
+INFO - 2017-04-17 23:14:07 --> URI Class Initialized
+INFO - 2017-04-17 23:14:07 --> Router Class Initialized
+INFO - 2017-04-17 23:14:07 --> URI Class Initialized
+INFO - 2017-04-17 23:14:07 --> Router Class Initialized
+INFO - 2017-04-17 23:14:07 --> Output Class Initialized
+INFO - 2017-04-17 23:14:07 --> Security Class Initialized
+INFO - 2017-04-17 23:14:07 --> Output Class Initialized
+INFO - 2017-04-17 23:14:07 --> Security Class Initialized
+DEBUG - 2017-04-17 23:14:07 --> Global POST, GET and COOKIE data sanitized
+INFO - 2017-04-17 23:14:07 --> Input Class Initialized
+INFO - 2017-04-17 23:14:07 --> Language Class Initialized
+ERROR - 2017-04-17 23:14:07 --> 404 Page Not Found: /index
+DEBUG - 2017-04-17 23:14:07 --> Global POST, GET and COOKIE data sanitized
+INFO - 2017-04-17 23:14:07 --> Input Class Initialized
+INFO - 2017-04-17 23:14:07 --> Language Class Initialized
+ERROR - 2017-04-17 23:14:07 --> 404 Page Not Found: /index
+INFO - 2017-04-17 23:14:32 --> Config Class Initialized
+INFO - 2017-04-17 23:14:32 --> Hooks Class Initialized
+DEBUG - 2017-04-17 23:14:32 --> UTF-8 Support Enabled
+INFO - 2017-04-17 23:14:32 --> Utf8 Class Initialized
+INFO - 2017-04-17 23:14:32 --> URI Class Initialized
+INFO - 2017-04-17 23:14:32 --> Router Class Initialized
+INFO - 2017-04-17 23:14:32 --> Output Class Initialized
+INFO - 2017-04-17 23:14:32 --> Security Class Initialized
+DEBUG - 2017-04-17 23:14:32 --> Global POST, GET and COOKIE data sanitized
+INFO - 2017-04-17 23:14:32 --> Input Class Initialized
+INFO - 2017-04-17 23:14:32 --> Language Class Initialized
+INFO - 2017-04-17 23:14:32 --> Language Class Initialized
+INFO - 2017-04-17 23:14:32 --> Config Class Initialized
+INFO - 2017-04-17 23:14:32 --> Loader Class Initialized
+INFO - 2017-04-17 23:14:32 --> Helper loaded: url_helper
+INFO - 2017-04-17 23:14:32 --> Helper loaded: file_helper
+INFO - 2017-04-17 23:14:32 --> Helper loaded: utility_helper
+INFO - 2017-04-17 23:14:32 --> Helper loaded: form_helper
+INFO - 2017-04-17 23:14:32 --> Database Driver Class Initialized
+INFO - 2017-04-17 23:14:32 --> Upload Class Initialized
+DEBUG - 2017-04-17 23:14:32 --> Config file loaded: /opt/lampp/htdocs/proderma/application/config/breadcrumbs.php
+DEBUG - 2017-04-17 23:14:32 --> Breadcrumbs Class Initialized
+DEBUG - 2017-04-17 23:14:32 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2017-04-17 23:14:32 --> Session: Class initialized using 'files' driver.
+INFO - 2017-04-17 23:14:32 --> Language file loaded: language/english/pagination_lang.php
+INFO - 2017-04-17 23:14:32 --> Pagination Class Initialized
+INFO - 2017-04-17 23:14:32 --> Model Class Initialized
+INFO - 2017-04-17 23:14:32 --> Model Class Initialized
+INFO - 2017-04-17 23:14:32 --> Controller Class Initialized
+DEBUG - 2017-04-17 23:14:32 --> Md_payment_type MX_Controller Initialized
+DEBUG - 2017-04-17 23:14:32 --> File loaded: /opt/lampp/htdocs/proderma/application/modules/md_payment_type/models/M_md_payment_type.php
+INFO - 2017-04-17 23:14:32 --> Model Class Initialized
+INFO - 2017-04-17 23:14:32 --> Model Class Initialized
+DEBUG - 2017-04-17 23:14:32 --> File loaded: /opt/lampp/htdocs/proderma/application/views/template/header.php
+DEBUG - 2017-04-17 23:14:32 --> File loaded: /opt/lampp/htdocs/proderma/application/views/template/menu.php
+DEBUG - 2017-04-17 23:14:32 --> File loaded: /opt/lampp/htdocs/proderma/application/modules/md_payment_type/views/main.php
+DEBUG - 2017-04-17 23:14:32 --> File loaded: /opt/lampp/htdocs/proderma/application/views/template/main.php
+DEBUG - 2017-04-17 23:14:32 --> File loaded: /opt/lampp/htdocs/proderma/application/views/template/footer.php
+DEBUG - 2017-04-17 23:14:32 --> File loaded: /opt/lampp/htdocs/proderma/application/views/default.php
+INFO - 2017-04-17 23:14:32 --> Final output sent to browser
+DEBUG - 2017-04-17 23:14:32 --> Total execution time: 0.2060
+INFO - 2017-04-17 23:14:33 --> Config Class Initialized
+INFO - 2017-04-17 23:14:33 --> Hooks Class Initialized
+DEBUG - 2017-04-17 23:14:33 --> UTF-8 Support Enabled
+INFO - 2017-04-17 23:14:33 --> Utf8 Class Initialized
+INFO - 2017-04-17 23:14:33 --> URI Class Initialized
+INFO - 2017-04-17 23:14:33 --> Router Class Initialized
+INFO - 2017-04-17 23:14:33 --> Output Class Initialized
+INFO - 2017-04-17 23:14:33 --> Security Class Initialized
+DEBUG - 2017-04-17 23:14:33 --> Global POST, GET and COOKIE data sanitized
+INFO - 2017-04-17 23:14:33 --> Input Class Initialized
+INFO - 2017-04-17 23:14:33 --> Language Class Initialized
+ERROR - 2017-04-17 23:14:33 --> 404 Page Not Found: /index
+INFO - 2017-04-17 23:14:33 --> Config Class Initialized
+INFO - 2017-04-17 23:14:33 --> Hooks Class Initialized
+DEBUG - 2017-04-17 23:14:33 --> UTF-8 Support Enabled
+INFO - 2017-04-17 23:14:33 --> Utf8 Class Initialized
+INFO - 2017-04-17 23:14:33 --> URI Class Initialized
+INFO - 2017-04-17 23:14:33 --> Router Class Initialized
+INFO - 2017-04-17 23:14:33 --> Output Class Initialized
+INFO - 2017-04-17 23:14:33 --> Security Class Initialized
+DEBUG - 2017-04-17 23:14:33 --> Global POST, GET and COOKIE data sanitized
+INFO - 2017-04-17 23:14:33 --> Input Class Initialized
+INFO - 2017-04-17 23:14:33 --> Language Class Initialized
+ERROR - 2017-04-17 23:14:33 --> 404 Page Not Found: /index
+INFO - 2017-04-17 23:14:33 --> Config Class Initialized
+INFO - 2017-04-17 23:14:33 --> Hooks Class Initialized
+DEBUG - 2017-04-17 23:14:33 --> UTF-8 Support Enabled
+INFO - 2017-04-17 23:14:33 --> Utf8 Class Initialized
+INFO - 2017-04-17 23:14:33 --> URI Class Initialized
+INFO - 2017-04-17 23:14:33 --> Router Class Initialized
+INFO - 2017-04-17 23:14:33 --> Output Class Initialized
+INFO - 2017-04-17 23:14:33 --> Security Class Initialized
+DEBUG - 2017-04-17 23:14:33 --> Global POST, GET and COOKIE data sanitized
+INFO - 2017-04-17 23:14:33 --> Input Class Initialized
+INFO - 2017-04-17 23:14:33 --> Language Class Initialized
+ERROR - 2017-04-17 23:14:33 --> 404 Page Not Found: /index
+INFO - 2017-04-17 23:14:33 --> Config Class Initialized
+INFO - 2017-04-17 23:14:33 --> Hooks Class Initialized
+DEBUG - 2017-04-17 23:14:33 --> UTF-8 Support Enabled
+INFO - 2017-04-17 23:14:33 --> Utf8 Class Initialized
+INFO - 2017-04-17 23:14:33 --> URI Class Initialized
+INFO - 2017-04-17 23:14:33 --> Router Class Initialized
+INFO - 2017-04-17 23:14:33 --> Output Class Initialized
+INFO - 2017-04-17 23:14:33 --> Security Class Initialized
+DEBUG - 2017-04-17 23:14:33 --> Global POST, GET and COOKIE data sanitized
+INFO - 2017-04-17 23:14:33 --> Input Class Initialized
+INFO - 2017-04-17 23:14:33 --> Language Class Initialized
+ERROR - 2017-04-17 23:14:33 --> 404 Page Not Found: /index
+INFO - 2017-04-17 23:14:33 --> Config Class Initialized
+INFO - 2017-04-17 23:14:33 --> Hooks Class Initialized
+DEBUG - 2017-04-17 23:14:33 --> UTF-8 Support Enabled
+INFO - 2017-04-17 23:14:33 --> Utf8 Class Initialized
+INFO - 2017-04-17 23:14:33 --> URI Class Initialized
+INFO - 2017-04-17 23:14:33 --> Router Class Initialized
+INFO - 2017-04-17 23:14:33 --> Output Class Initialized
+INFO - 2017-04-17 23:14:33 --> Security Class Initialized
+DEBUG - 2017-04-17 23:14:33 --> Global POST, GET and COOKIE data sanitized
+INFO - 2017-04-17 23:14:33 --> Input Class Initialized
+INFO - 2017-04-17 23:14:33 --> Language Class Initialized
+ERROR - 2017-04-17 23:14:33 --> 404 Page Not Found: /index
+INFO - 2017-04-17 23:14:33 --> Config Class Initialized
+INFO - 2017-04-17 23:14:33 --> Hooks Class Initialized
+DEBUG - 2017-04-17 23:14:33 --> UTF-8 Support Enabled
+INFO - 2017-04-17 23:14:33 --> Utf8 Class Initialized
+INFO - 2017-04-17 23:14:33 --> URI Class Initialized
+INFO - 2017-04-17 23:14:33 --> Router Class Initialized
+INFO - 2017-04-17 23:14:33 --> Output Class Initialized
+INFO - 2017-04-17 23:14:33 --> Security Class Initialized
+DEBUG - 2017-04-17 23:14:33 --> Global POST, GET and COOKIE data sanitized
+INFO - 2017-04-17 23:14:33 --> Input Class Initialized
+INFO - 2017-04-17 23:14:33 --> Language Class Initialized
+ERROR - 2017-04-17 23:14:33 --> 404 Page Not Found: /index
+INFO - 2017-04-17 23:14:33 --> Config Class Initialized
+INFO - 2017-04-17 23:14:33 --> Hooks Class Initialized
+DEBUG - 2017-04-17 23:14:33 --> UTF-8 Support Enabled
+INFO - 2017-04-17 23:14:33 --> Utf8 Class Initialized
+INFO - 2017-04-17 23:14:33 --> Config Class Initialized
+INFO - 2017-04-17 23:14:33 --> Config Class Initialized
+INFO - 2017-04-17 23:14:33 --> URI Class Initialized
+INFO - 2017-04-17 23:14:33 --> Hooks Class Initialized
+DEBUG - 2017-04-17 23:14:33 --> UTF-8 Support Enabled
+INFO - 2017-04-17 23:14:33 --> Utf8 Class Initialized
+INFO - 2017-04-17 23:14:33 --> Router Class Initialized
+INFO - 2017-04-17 23:14:33 --> URI Class Initialized
+INFO - 2017-04-17 23:14:33 --> Hooks Class Initialized
+DEBUG - 2017-04-17 23:14:33 --> UTF-8 Support Enabled
+INFO - 2017-04-17 23:14:33 --> Utf8 Class Initialized
+INFO - 2017-04-17 23:14:33 --> URI Class Initialized
+INFO - 2017-04-17 23:14:33 --> Router Class Initialized
+INFO - 2017-04-17 23:14:33 --> Config Class Initialized
+INFO - 2017-04-17 23:14:33 --> Hooks Class Initialized
+INFO - 2017-04-17 23:14:33 --> Config Class Initialized
+INFO - 2017-04-17 23:14:33 --> Hooks Class Initialized
+INFO - 2017-04-17 23:14:33 --> Output Class Initialized
+DEBUG - 2017-04-17 23:14:33 --> UTF-8 Support Enabled
+INFO - 2017-04-17 23:14:33 --> Utf8 Class Initialized
+INFO - 2017-04-17 23:14:33 --> Security Class Initialized
+INFO - 2017-04-17 23:14:33 --> URI Class Initialized
+DEBUG - 2017-04-17 23:14:33 --> Global POST, GET and COOKIE data sanitized
+INFO - 2017-04-17 23:14:33 --> Input Class Initialized
+INFO - 2017-04-17 23:14:33 --> Language Class Initialized
+ERROR - 2017-04-17 23:14:33 --> 404 Page Not Found: /index
+INFO - 2017-04-17 23:14:33 --> Output Class Initialized
+DEBUG - 2017-04-17 23:14:33 --> UTF-8 Support Enabled
+INFO - 2017-04-17 23:14:33 --> Utf8 Class Initialized
+INFO - 2017-04-17 23:14:33 --> Security Class Initialized
+INFO - 2017-04-17 23:14:33 --> URI Class Initialized
+INFO - 2017-04-17 23:14:33 --> Router Class Initialized
+INFO - 2017-04-17 23:14:33 --> Output Class Initialized
+INFO - 2017-04-17 23:14:33 --> Security Class Initialized
+DEBUG - 2017-04-17 23:14:33 --> Global POST, GET and COOKIE data sanitized
+INFO - 2017-04-17 23:14:33 --> Input Class Initialized
+INFO - 2017-04-17 23:14:33 --> Language Class Initialized
+INFO - 2017-04-17 23:14:33 --> Router Class Initialized
+ERROR - 2017-04-17 23:14:33 --> 404 Page Not Found: /index
+INFO - 2017-04-17 23:14:33 --> Output Class Initialized
+INFO - 2017-04-17 23:14:33 --> Router Class Initialized
+DEBUG - 2017-04-17 23:14:33 --> Global POST, GET and COOKIE data sanitized
+INFO - 2017-04-17 23:14:33 --> Input Class Initialized
+INFO - 2017-04-17 23:14:33 --> Language Class Initialized
+ERROR - 2017-04-17 23:14:33 --> 404 Page Not Found: /index
+INFO - 2017-04-17 23:14:33 --> Security Class Initialized
+DEBUG - 2017-04-17 23:14:33 --> Global POST, GET and COOKIE data sanitized
+INFO - 2017-04-17 23:14:33 --> Input Class Initialized
+INFO - 2017-04-17 23:14:33 --> Language Class Initialized
+INFO - 2017-04-17 23:14:33 --> Output Class Initialized
+INFO - 2017-04-17 23:14:33 --> Security Class Initialized
+DEBUG - 2017-04-17 23:14:33 --> Global POST, GET and COOKIE data sanitized
+INFO - 2017-04-17 23:14:33 --> Input Class Initialized
+INFO - 2017-04-17 23:14:33 --> Language Class Initialized
+ERROR - 2017-04-17 23:14:33 --> 404 Page Not Found: /index
+ERROR - 2017-04-17 23:14:33 --> 404 Page Not Found: /index
+INFO - 2017-04-17 23:14:34 --> Config Class Initialized
+INFO - 2017-04-17 23:14:34 --> Hooks Class Initialized
+DEBUG - 2017-04-17 23:14:34 --> UTF-8 Support Enabled
+INFO - 2017-04-17 23:14:34 --> Utf8 Class Initialized
+INFO - 2017-04-17 23:14:34 --> URI Class Initialized
+INFO - 2017-04-17 23:14:34 --> Router Class Initialized
+INFO - 2017-04-17 23:14:34 --> Output Class Initialized
+INFO - 2017-04-17 23:14:34 --> Security Class Initialized
+DEBUG - 2017-04-17 23:14:34 --> Global POST, GET and COOKIE data sanitized
+INFO - 2017-04-17 23:14:34 --> Input Class Initialized
+INFO - 2017-04-17 23:14:34 --> Language Class Initialized
+INFO - 2017-04-17 23:14:34 --> Language Class Initialized
+INFO - 2017-04-17 23:14:34 --> Config Class Initialized
+INFO - 2017-04-17 23:14:34 --> Loader Class Initialized
+INFO - 2017-04-17 23:14:34 --> Helper loaded: url_helper
+INFO - 2017-04-17 23:14:34 --> Helper loaded: file_helper
+INFO - 2017-04-17 23:14:34 --> Helper loaded: utility_helper
+INFO - 2017-04-17 23:14:34 --> Helper loaded: form_helper
+INFO - 2017-04-17 23:14:34 --> Database Driver Class Initialized
+INFO - 2017-04-17 23:14:34 --> Upload Class Initialized
+DEBUG - 2017-04-17 23:14:34 --> Config file loaded: /opt/lampp/htdocs/proderma/application/config/breadcrumbs.php
+DEBUG - 2017-04-17 23:14:34 --> Breadcrumbs Class Initialized
+DEBUG - 2017-04-17 23:14:34 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2017-04-17 23:14:34 --> Session: Class initialized using 'files' driver.
+INFO - 2017-04-17 23:14:34 --> Language file loaded: language/english/pagination_lang.php
+INFO - 2017-04-17 23:14:34 --> Pagination Class Initialized
+INFO - 2017-04-17 23:14:34 --> Model Class Initialized
+INFO - 2017-04-17 23:14:34 --> Model Class Initialized
+INFO - 2017-04-17 23:14:34 --> Controller Class Initialized
+DEBUG - 2017-04-17 23:14:34 --> Md_payment_type MX_Controller Initialized
+DEBUG - 2017-04-17 23:14:34 --> File loaded: /opt/lampp/htdocs/proderma/application/modules/md_payment_type/models/M_md_payment_type.php
+INFO - 2017-04-17 23:14:34 --> Model Class Initialized
+INFO - 2017-04-17 23:14:34 --> Model Class Initialized
+INFO - 2017-04-17 23:14:34 --> Final output sent to browser
+DEBUG - 2017-04-17 23:14:34 --> Total execution time: 0.1147

@@ -33,6 +33,8 @@
         <!-- tabulator -->
         <link rel="stylesheet" href="<?php echo base_url();?>themes/assets/plugin/tabulator-master/tabulator.css"></script>
         <link rel="stylesheet" href="<?php echo base_url();?>themes/assets/plugin/tabulator-master/themes/tabulator_simple.css"></script>
+        <!-- typeahead -->        
+        <link rel="stylesheet" href="<?php echo base_url(); ?>themes/assets/plugin/typeahead/dist/typeaheadjs.css"/>        
         <!-- inline styles related to this page -->
         
         <!-- ace settings handler -->

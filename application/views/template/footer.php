@@ -62,6 +62,9 @@
 <script src="<?php echo base_url();?>themes/assets/plugin/tabulator-master/tabulator.js"></script>
 <!-- parslye validation -->
 <script src="<?php echo base_url();?>themes/assets/plugin/validation/parsley.min.js"></script>
+<!-- typeahead -->
+<script src="<?php echo base_url();?>themes/assets/plugin/typeahead/dist/typeahead.jquery.min.js"></script>
+<script src="<?php echo base_url();?>themes/assets/plugin/typeahead/dist/bloodhound.min.js"></script>
 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
