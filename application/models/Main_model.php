@@ -29,6 +29,7 @@ Class Main_model extends CI_Model {
             //get child
             $this->db->select('*');
             $this->db->from('menus');
+            $this->db->where(array('status'=>"1"));
             $this->db->where_in('id', array_merge($menuResult, $menuResult2));
             $query = $this->db->get()->result_array();
             return $query;
@@ -158,10 +159,11 @@ Class Main_model extends CI_Model {
         }
     }
     
-    public function getTypeaheadList($table,$like) {
+    public function getTypeaheadList($table,$like,$where) {
         $this->db->select('*');
         $this->db->from($table);
         $this->db->like($like);
+        $this->db->where($where);
         $this->db->limit(100);
         return $this->db->get()->result_array();
     }

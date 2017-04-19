@@ -88,8 +88,7 @@
         </div>
     </div>
     <div class="col-lg-12" style="padding-bottom: 2px;">
-        <a href="<?php echo site_url('master-customer-add'); ?>" type="button" id="btn-add" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> New Customer</a>
-        <a href="<?php echo site_url('master-customer-add-lead'); ?>" type="button" id="btn-add" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> New Lead</a>
+        <a href="<?php echo site_url('customer-add'); ?>" type="button" id="btn-add" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> New Customer</a>
         <a href="#" type="button" id="btn-edit" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> Edit</a>
         <a href="#" type="button" id="btn-delete" class="btn btn-xs btn-danger" onclick="return confirm('Yakin hapus data?');"><i class="fa fa-remove"></i> Delete</a>
     </div>
@@ -194,8 +193,8 @@
             rowSelectionChanged: function (data, rows) {
                 console.log(data);
                 if (data.length > 0) {
-                    $('#btn-edit').attr('href', '<?php echo site_url(); ?>master-customer-edit-' + data[0]['id'] + '.html');
-                    $('#btn-delete').attr('href', '<?php echo site_url(); ?>master-customer-delete-' + data[0]['id'] + '.html');
+                    $('#btn-edit').attr('href', '<?php echo site_url(); ?>customer-edit-' + data[0]['id'] + '.html');
+                    $('#btn-delete').attr('href', '<?php echo site_url(); ?>customer-delete-' + data[0]['id'] + '.html');
                 } else {
                     $('#btn-edit').attr('href', '#');
                     $('#btn-delete').attr('href', '#');

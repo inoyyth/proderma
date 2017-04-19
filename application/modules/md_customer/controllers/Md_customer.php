@@ -9,7 +9,7 @@ class Md_customer extends MX_Controller {
         $this->load->model(array('M_md_customer' => 'm_md_customer', 'Datatable_model' => 'data_table', 'Main_model'=>'main_model'));
         $this->load->library(array('upload', 'encrypt', 'Auth_log'));
         //set breadcrumb
-        $this->breadcrumbs->push('Customer', '/master-customer');
+        $this->breadcrumbs->push('Customer', '/customer');
     }
 
     public function index() {
@@ -91,14 +91,14 @@ class Md_customer extends MX_Controller {
     }
 
     public function add() {
-        $this->breadcrumbs->push('Add', '/master-customer-add');
-        $data['jabatan'] = $this->db->get_where('m_jabatan',array('jabatan_status'=>1))->result_array();
+        $this->breadcrumbs->push('Add', '/customer-add');
+        $data['group'] = $this->db->get_where('group_customer_product',array('group_customer_product_status'=>1))->result_array();
         $data['view'] = "md_customer/add";
         $this->load->view('default', $data);
     }
 
     public function edit($id) {
-        $this->breadcrumbs->push('Edit', '/master-customer-edit');
+        $this->breadcrumbs->push('Edit', '/customer-edit');
         $data['jabatan'] = $this->db->get_where('m_jabatan',array('jabatan_status'=>1))->result_array();
         $data['data'] = $this->db->get_where($this->table, array('id' => $id))->row_array();
         $data['view'] = 'md_customer/edit';
@@ -111,7 +111,7 @@ class Md_customer extends MX_Controller {
         } else {
             $this->session->set_flashdata('error', 'Data Gagal Di Hapus !');
         }
-        redirect("master-customer");
+        redirect("customer");
     }
 
     function save() {
@@ -122,7 +122,7 @@ class Md_customer extends MX_Controller {
             } else {
                 $this->session->set_flashdata('error', 'Data Gagal Di Simpan !');
             }
-            redirect("master-customer");
+            redirect("customer");
         } else {
             show_404();
         }
@@ -130,22 +130,31 @@ class Md_customer extends MX_Controller {
     
     public function getProvinceList() {
         $q = $this->input->get('query');
+        $where = array();
         $like = array('province_name'=>$q);
-        $result = $this->main_model->getTypeaheadList('province',$like);
+        $result = $this->main_model->getTypeaheadList('province',$like,$where);
         echo json_encode($result);
     }
     
     public function getCityList() {
         $q = $this->input->get('query');
+        $where = array();
+        if($this->input->get('province') != null){
+            $where = array('province_id'=>$this->input->get('province'));
+        }
         $like = array('city_name'=>$q);
-        $result = $this->main_model->getTypeaheadList('city',$like);
+        $result = $this->main_model->getTypeaheadList('city',$like,$where);
         echo json_encode($result);
     }
     
     public function getDistrictList() {
         $q = $this->input->get('query');
+        $where = array();
+        if($this->input->get('city') != null){
+            $where = array('city_id'=>$this->input->get('city'));
+        }
         $like = array('district_name'=>$q);
-        $result = $this->main_model->getTypeaheadList('district',$like);
+        $result = $this->main_model->getTypeaheadList('district',$like,$where);
         echo json_encode($result);
     }
 
