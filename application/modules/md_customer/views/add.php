@@ -1,3 +1,9 @@
+<style>
+    #map {
+      height: 400px;
+      width: 100%;
+    }
+</style>
 <div class="row">
     <form action="<?php echo base_url("customer-save"); ?>" method="post"  enctype="multipart/form-data" parsley-validate novalidate>
         <div class="col-md-10">
@@ -34,6 +40,9 @@
                                         <label>District</label>
                                         <input type="hidden" name="id_district" id="id_district">
                                         <input type="text" name="customer_district" parsley-trigger="change" required placeholder="District" class="typeahead form-control">
+                                    </div>
+                                    <div>
+                                        <div id="map"></div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -169,4 +178,21 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
+</script>
+
+<script>
+    function initMap() {
+      var uluru = {lat: -25.363, lng: 131.044};
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 4,
+        center: uluru
+      });
+      var marker = new google.maps.Marker({
+        position: uluru,
+        map: map
+      });
+    }
+</script>
+ <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_E0agZXFwaoiA9PwBG1QmlVrJXKP0GvY&callback=initMap">
 </script>
