@@ -48,6 +48,8 @@ Class M_md_customer extends CI_Model {
             'id_group_customer_product' => $this->input->post('id_group_customer_product'),
             'customer_internal_notes' => $this->input->post('customer_internal_notes'),
             'customer_status' => $this->input->post('customer_status'),
+            'current_lead_customer_status' => "C",
+            'customer_status' => $this->input->post('customer_status'),
             'photo_path' => $image_name
         );
         if (empty($id)) {

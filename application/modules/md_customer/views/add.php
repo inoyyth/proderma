@@ -51,6 +51,20 @@
 
                                         </select>
                                     </div>
+                                    <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Latitude</label>
+                                            <input type="text" id="customer-latitude" name="customer_latitude" parsley-trigger="change" required placeholder="Latitude" class="form-control set-map">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Longitude</label>
+                                            <input type="text" id="customer-longitude" name="customer_longitude" parsley-trigger="change" required placeholder="Longitude" class="form-control set-map">
+                                        </div>
+                                    </div>
+                                    </div>
                                     <div>
                                         <div id="map"></div>
                                     </div>
@@ -92,8 +106,6 @@
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" name="customer_latitude" id="customer-latitude">
-                    <input type="hidden" name="customer_longitude" id="customer-longitude">
                     <button class="btn btn-primary" type="submit">Submit</button>
                     <a href="<?php echo site_url('customer'); ?>" class="btn btn-default">Cancel</a>
                 </div>
@@ -117,9 +129,9 @@
             position: uluru,
             map: map
         });
-        
+
         $("#customer-latitude").val(lat);
-        $("#customer-longitude").val(lng);
+        $("#customer-longitude").val(long);
     }
 </script>
 <script async defer
@@ -127,6 +139,11 @@
 </script>
 <script>
     $(document).ready(function () {
+        
+        $(".set-map").focusout(function (){
+            initMap($("#customer-latitude").val(), $("#customer-longitude").val());
+        });
+        
         $("#select-province").change(function () {
             var option = "<option value='' disabled selected> </option>";
             $.ajax({//create an ajax request to load_page.php

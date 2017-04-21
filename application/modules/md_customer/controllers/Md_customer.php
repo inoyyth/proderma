@@ -14,8 +14,7 @@ class Md_customer extends MX_Controller {
 
     public function index() {
         $data['template_title'] = array('Customer', 'List');
-        $data['source_lead'] = $this->db->get_where('source_lead_customer',array('source_lead_customer_status'=>'1'))->result_array();
-        $data['status_lead'] = $this->db->get_where('status_lead_customer',array('status_lead_customer_status'=>'1'))->result_array();
+        $data['group_customer_product'] = $this->db->get_where('group_customer_product',array('group_customer_product_status'=>'1'))->result_array();
         $data['view'] = 'md_customer/main';
         $this->load->view('default', $data);
     }
@@ -28,21 +27,23 @@ class Md_customer extends MX_Controller {
         
         $field = array(
             "m_customer.*",
-            "source_lead_customer.source_lead_customer",
-            "status_lead_customer.status_lead_customer",
+            "group_customer_product.group_customer_product",
+            "province.province_name",
+            "city.city_name",
+            "district.district_name",
             "IF(m_customer.customer_status=1,'Active','Not Active') AS status"
         );
         
         $offset = ($page - 1) * $limit;
 
         $join = array(
-            array('table' => 'source_lead_customer', 'where' => 'source_lead_customer.id=m_customer.id_source_lead_customer', 'join' => 'left'),
-            array('table' => 'status_lead_customer', 'where' => 'status_lead_customer.id=m_customer.id_status_lead_customer', 'join' => 'left')
+            array('table' => 'group_customer_product', 'where' => 'group_customer_product.id=m_customer.id_group_customer_product', 'join' => 'left'),
+            array('table' => 'province', 'where' => 'province.province_id=m_customer.customer_province', 'join' => 'left'),
+            array('table' => 'city', 'where' => 'city.city_id=m_customer.customer_city', 'join' => 'left'),
+            array('table' => 'district', 'where' => 'district.district_id=m_customer.customer_district', 'join' => 'left')
         );
         
         $like = array(
-            'source_lead_customer.source_lead_customer'=>isset($_POST['source_lead'])?$_POST['source_lead']:"",
-            'status_lead_customer.status_lead_customer'=>isset($_POST['status_lead'])?$_POST['status_lead']:"",
             'm_customer.customer_code'=>isset($_POST['code'])?$_POST['code']:"",
             'm_customer.customer_name'=>isset($_POST['name'])?$_POST['name']:"",
             'm_customer.customer_clinic'=>isset($_POST['clinic'])?$_POST['clinic']:"",
@@ -55,14 +56,17 @@ class Md_customer extends MX_Controller {
         $array_city = array();
         $array_district = array();
         
-        if(isset($_POST['province'])) {
+        if(isset($_POST['province']) && $_POST['province'] != "") {
             $array_province = array('m_customer.customer_province'=>$_POST['province']);
         }
-        if(isset($_POST['city'])) {
+        if(isset($_POST['city']) && $_POST['city'] != "") {
             $array_city = array('m_customer.customer_city'=>$_POST['city']);
         }
-        if(isset($_POST['district'])) {
+        if(isset($_POST['district']) && $_POST['district'] != "") {
             $array_district = array('m_customer.customer_district'=>$_POST['district']);
+        }
+        if(isset($_POST['group_customer']) && $_POST['group_customer'] != "") {
+            $array_district = array('m_customer.id_group_customer_product'=>$_POST['group_customer']);
         }
         
         $where = array_merge_recursive($array_status,$array_province,$array_city,$array_district);
@@ -100,7 +104,8 @@ class Md_customer extends MX_Controller {
 
     public function edit($id) {
         $this->breadcrumbs->push('Edit', '/customer-edit');
-        $data['jabatan'] = $this->db->get_where('m_jabatan',array('jabatan_status'=>1))->result_array();
+        $data['province'] = $this->db->get('province')->result_array();
+        $data['group'] = $this->db->get_where('group_customer_product',array('group_customer_product_status'=>1))->result_array();
         $data['data'] = $this->db->get_where($this->table, array('id' => $id))->row_array();
         $data['view'] = 'md_customer/edit';
         $this->load->view('default', $data);
@@ -143,6 +148,9 @@ class Md_customer extends MX_Controller {
             $where = array('province_id'=>$this->input->get('id'));
         }
         $like = array();
+        if($this->input->get('query') != null){
+            $like = array('city_name'=>$this->input->get('query'));
+        }
         $result = $this->main_model->getTypeaheadList('city',$like,$where);
         echo json_encode($result);
     }
@@ -153,6 +161,9 @@ class Md_customer extends MX_Controller {
             $where = array('city_id'=>$this->input->get('id'));
         }
         $like = array();
+        if($this->input->get('query') != null){
+            $like = array('district_name'=>$this->input->get('query'));
+        }
         $result = $this->main_model->getTypeaheadList('district',$like,$where);
         echo json_encode($result);
     }

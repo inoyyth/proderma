@@ -14,22 +14,11 @@
                         <div class="row">
                             <div class="col-lg-2">
                                 <div class="form-group">
-                                    <label class="small">Source Lead</label>
-                                    <select class="form-control input-sm" id="search-source-lead">
+                                    <label class="small">Group Product</label>
+                                    <select class="form-control input-sm" id="search-group-product">
                                         <option value=""></option>
-                                        <?php foreach($source_lead as $v): ?>
-                                        <option value="<?php echo $v['id'];?>"><?php echo $v['source_lead_customer'];?></option>
-                                        <?php endforeach; ?> 
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="form-group">
-                                    <label class="small">Status Lead</label>
-                                    <select class="form-control input-sm" id="search-status-lead">
-                                        <option value=""></option>
-                                        <?php foreach($status_lead as $v): ?>
-                                        <option value="<?php echo $v['id'];?>"><?php echo $v['status_lead_customer'];?></option>
+                                        <?php foreach($group_customer_product as $v): ?>
+                                        <option value="<?php echo $v['id'];?>"><?php echo $v['group_customer_product'];?></option>
                                         <?php endforeach; ?> 
                                     </select>
                                 </div>
@@ -178,15 +167,16 @@
             ajaxURL: "<?php echo base_url('md_customer/getListTable'); ?>", //ajax URL
             //ajaxParams:{key1:"value1", key2:"value2"}, //ajax parameters
             columns: [//Define Table Columns
-                {formatter: "rownum", align: "center", width: 40},
+                {formatter: "rownum", align: "center", width: 40, frozen:true},
                 {title: "Code", field: "customer_code", sorter: "string", tooltip: true, frozen:true},
                 {title: "Name", field: "customer_name", sorter: "string", tooltip: true},
                 {title: "Clinic", field: "customer_clinic", sorter: "string"},
-                {title: "Province", field: "customer_province", sorter: "string"},
-                {title: "City", field: "customer_city", sorter: "string"},
-                {title: "District", field: "customer_district", sorter: "string"},
+                {title: "Province", field: "province_name", sorter: "string"},
+                {title: "City", field: "city_name", sorter: "string"},
+                {title: "District", field: "district_name", sorter: "string"},
                 {title: "Address", field: "customer_address", sorter: "string"},
                 {title: "Phone", field: "customer_phone", sorter: "string"},
+                {title: "Group Product", field: "group_customer_product", sorter: "string"},
                 {title: "Status", field: "status", sorter: "string"}
             ],
             selectable: 1,
@@ -205,14 +195,14 @@
 
     function clearFilterTable() {
         $(".form-filter-table")[0].reset();
+        $("#search-province,#search-city,#search-district").val('');
         filterTable();
     }
 
     function filterTable() {
         console.log('filter');
         var params = {
-            source_lead: $('#search-source-lead').val(),
-            status_lead: $('#search-status-lead').val(),
+            group_customer: $('#search-group-product').val(),
             code: $('#search-code').val(),
             name: $('#search-name').val(),
             clinic: $('#search-clinic').val(),
