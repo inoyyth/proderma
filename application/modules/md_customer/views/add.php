@@ -1,7 +1,7 @@
 <style>
     #map {
-      height: 400px;
-      width: 100%;
+        height: 220px;
+        width: 100%;
     }
 </style>
 <div class="row">
@@ -23,23 +23,33 @@
                                         <input type="text" name="customer_code" parsley-trigger="change" required placeholder="Code" class="form-control">
                                     </div>
                                     <div class="form-group">
+                                        <label>Name</label>
+                                        <input type="text" name="customer_name" parsley-trigger="change" required placeholder="Name" class="form-control">
+                                    </div>
+                                    <div class="form-group">
                                         <label>Clinic</label>
                                         <input type="text" name="customer_clinic" parsley-trigger="change" required placeholder="Clinic" class="form-control">
                                     </div>
-                                    <div class="form-group" id="remote-province">
+                                    <div class="form-group">
                                         <label>Province</label>
-                                        <input type="hidden" name="id_province" id="id_province">
-                                        <input type="text" name="customer_province" parsley-trigger="change" required placeholder="Province" class="typeahead form-control">
+                                        <select name="customer_province" id="select-province" parsley-trigger="change" required placeholder="Province" class="typeahead form-control">
+                                            <option value="" disabled="true" selected> </option>
+                                            <?php foreach ($province as $vProvince) : ?>
+                                                <option value="<?php echo $vProvince['province_id']; ?>"><?php echo $vProvince['province_name']; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
                                     </div>
-                                    <div class="form-group" id="remote-city">
+                                    <div class="form-group">
                                         <label>City</label>
-                                        <input type="hidden" name="id_city" id="id_city">
-                                        <input type="text" name="customer_city" parsley-trigger="change" required placeholder="City" class="typeahead form-control">
+                                        <select name="customer_city" id="select-city" parsley-trigger="change" required placeholder="City" class="typeahead form-control">
+
+                                        </select>
                                     </div>
-                                    <div class="form-group" id="remote-district">
+                                    <div class="form-group">
                                         <label>District</label>
-                                        <input type="hidden" name="id_district" id="id_district">
-                                        <input type="text" name="customer_district" parsley-trigger="change" required placeholder="District" class="typeahead form-control">
+                                        <select name="customer_district" id="select-district" parsley-trigger="change" required placeholder="District" class="typeahead form-control">
+
+                                        </select>
                                     </div>
                                     <div>
                                         <div id="map"></div>
@@ -56,7 +66,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Email</label>
-                                        <input type="email" name="customer_district" parsley-trigger="change" required placeholder="Email" class="form-control">
+                                        <input type="email" name="customer_email" parsley-trigger="change" required placeholder="Email" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label>Group</label>
@@ -73,7 +83,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Status</label>
-                                        <select name="customer_status" placeholder="Status" required class="form-control">
+                                        <select name="customer_status" placeholder="Status" required class="form-control select2">
                                             <option value="1">Aktif</option>
                                             <option value="2">Non Aktif</option>
                                         </select>
@@ -82,6 +92,8 @@
                             </div>
                         </div>
                     </div>
+                    <input type="hidden" name="customer_latitude" id="customer-latitude">
+                    <input type="hidden" name="customer_longitude" id="customer-longitude">
                     <button class="btn btn-primary" type="submit">Submit</button>
                     <a href="<?php echo site_url('customer'); ?>" class="btn btn-default">Cancel</a>
                 </div>
@@ -89,85 +101,71 @@
         </div>
     </form>
 </div>
+
+<script>
+    function initMap(lat, long) {
+        if (lat === undefined && long === undefined) {
+            lat = -6.175481;
+            long = 106.827187;
+        }
+        var uluru = {lat: Number(lat), lng: Number(long)};
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 10,
+            center: uluru
+        });
+        var marker = new google.maps.Marker({
+            position: uluru,
+            map: map
+        });
+        
+        $("#customer-latitude").val(lat);
+        $("#customer-longitude").val(lng);
+    }
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_E0agZXFwaoiA9PwBG1QmlVrJXKP0GvY&callback=initMap">
+</script>
 <script>
     $(document).ready(function () {
-        //autocomplete
-        var searchDataProvince = new Bloodhound({
-            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
-            remote: {
-                url: '<?php echo base_url('md_customer/getProvinceList?query=%QUERY'); ?>',
-                wildcard: '%QUERY'
-            }
+        $("#select-province").change(function () {
+            var option = "<option value='' disabled selected> </option>";
+            $.ajax({//create an ajax request to load_page.php
+                type: "GET",
+                url: "<?php echo base_url(); ?>md_customer/getCityList?id=" + $(this).val(),
+                dataType: "json",
+                success: function (response) {
+                    $.each(response, function (index, element) {
+                        option += "<option value='" + element.city_id + "' data-lat='" + element.lat + "' data-lng='" + element.lng + "'>" + element.city_name + "</option>";
+                    });
+                    $("#select-city").html(option);
+                }
+
+            });
         });
 
-        $('#remote-province .typeahead').typeahead(null, {
-            name: 'province_name',
-            display: 'province_name',
-            source: searchDataProvince,
-            minLength: 3,
-            highlight: true,
-            limit: 10
+        $("#select-city").change(function () {
+            var option = "<option value='' disabled selected> </option>";
+            $.ajax({//create an ajax request to load_page.php
+                type: "GET",
+                url: "<?php echo base_url(); ?>md_customer/getDistrictList?id=" + $(this).val(),
+                dataType: "json",
+                success: function (response) {
+                    $.each(response, function (index, element) {
+                        option += "<option value='" + element.district_id + "' data-lat='" + element.lat + "' data-lng='" + element.lng + "'>" + element.district_name + "</option>";
+                    });
+                    $("#select-district").html(option);
+                    initMap($("#select-city :selected").data('lat'), $("#select-city :selected").data('lng'));
+                }
+
+            });
         });
 
-        $('#remote-province .typeahead').bind('typeahead:selected', function (obj, datum, name) {
-            $("#id_province").val(datum.province_id);
-        });
-
-        var searchDataCity = new Bloodhound({
-            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
-            remote: {
-                url: '<?php echo base_url();?>md_customer/getCityList?query=%QUERY',
-                wildcard: '%QUERY',
-                replace: function(url, uriEncodedQuery) {
-                    province = $('#id_province').val();
-                    if (!province) return url.replace("%QUERY",uriEncodedQuery);
-                    return url.replace("%QUERY",uriEncodedQuery) + '&province=' + encodeURIComponent(province)
-                },
-            } 
-        });
-
-        $('#remote-city .typeahead').typeahead(null, {
-            name: 'city_name',
-            display: 'city_name',
-            source: searchDataCity,
-            minLength: 3,
-            highlight: true,
-            limit: 10
-        });
-
-        $('#remote-city .typeahead').bind('typeahead:selected', function (obj, datum, name) {
-            $("#id_city").val(datum.city_id);
-        });
-
-        var searchDataDistrict = new Bloodhound({
-            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
-            remote: {
-                url: '<?php echo base_url();?>md_customer/getDistrictList?query=%QUERY',
-                wildcard: '%QUERY',
-                replace: function(url, uriEncodedQuery) {
-                    city = $('#id_city').val();
-                    if (!city) return url.replace("%QUERY",uriEncodedQuery);
-                    return url.replace("%QUERY",uriEncodedQuery) + '&city=' + encodeURIComponent(city)
-                },
-            }
-        });
-
-        $('#remote-district .typeahead').typeahead(null, {
-            name: 'district_name',
-            display: 'district_name',
-            source: searchDataDistrict,
-            minLength: 3,
-            highlight: true,
-            limit: 10
-        });
-
-        $('#remote-district .typeahead').bind('typeahead:selected', function (obj, datum, name) {
-            $("#id_district").val(datum.city_id);
+        $("#select-district").change(function () {
+            console.log();
+            initMap($("#select-district :selected").data('lat'), $("#select-district :selected").data('lng'));
         });
     });
+
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -178,21 +176,4 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
-</script>
-
-<script>
-    function initMap() {
-      var uluru = {lat: -25.363, lng: 131.044};
-      var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 4,
-        center: uluru
-      });
-      var marker = new google.maps.Marker({
-        position: uluru,
-        map: map
-      });
-    }
-</script>
- <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_E0agZXFwaoiA9PwBG1QmlVrJXKP0GvY&callback=initMap">
 </script>

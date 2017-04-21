@@ -34,13 +34,20 @@ Class M_md_customer extends CI_Model {
              }
         }
         $data = array(
-            'id_jabatan' => $this->input->post('id_jabatan'),
-            'employee_nip' => $this->input->post('employee_nip'),
-            'employee_name' => $this->input->post('employee_name'),
-            'employee_email' => $this->input->post('employee_email'),
-            'employee_phone' => $this->input->post('employee_phone'),
-            'employee_gender' => $this->input->post('employee_gender'),
-            'employee_status' => $this->input->post('employee_status'),
+            'customer_code' => $this->input->post('customer_code'),
+            'customer_name' => $this->input->post('customer_name'),
+            'customer_clinic' => $this->input->post('customer_clinic'),
+            'customer_address' => $this->input->post('customer_address'),
+            'customer_province' => $this->input->post('customer_province'),
+            'customer_city' => $this->input->post('customer_city'),
+            'customer_district' => $this->input->post('customer_district'),
+            'customer_phone' => $this->input->post('customer_phone'),
+            'customer_email' => $this->input->post('customer_email'),
+            'customer_latitude' => $this->input->post('customer_latitude'),
+            'customer_longitude' => $this->input->post('customer_longitude'),
+            'id_group_customer_product' => $this->input->post('id_group_customer_product'),
+            'customer_internal_notes' => $this->input->post('customer_internal_notes'),
+            'customer_status' => $this->input->post('customer_status'),
             'photo_path' => $image_name
         );
         if (empty($id)) {

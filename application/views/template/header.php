@@ -30,6 +30,8 @@
         <!--[if lte IE 9]>
           <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
         <![endif]-->
+        <!-- select2 -->
+        <link rel="stylesheet" href="<?php echo base_url();?>themes/assets/css/select2.min.css" />
         <!-- tabulator -->
         <link rel="stylesheet" href="<?php echo base_url();?>themes/assets/plugin/tabulator-master/tabulator.css"></script>
         <link rel="stylesheet" href="<?php echo base_url();?>themes/assets/plugin/tabulator-master/themes/tabulator_simple.css"></script>

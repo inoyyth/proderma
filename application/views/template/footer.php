@@ -58,6 +58,8 @@
 <!-- ace scripts -->
 <script src="<?php echo base_url();?>themes/assets/js/ace-elements.min.js"></script>
 <script src="<?php echo base_url();?>themes/assets/js/ace.min.js"></script>
+<!-- select2 -->
+<script src="<?php echo base_url();?>themes/assets/js/select2.min.js"></script>
 <!-- tabulator -->
 <script src="<?php echo base_url();?>themes/assets/plugin/tabulator-master/tabulator.js"></script>
 <!-- parslye validation -->
@@ -277,7 +279,8 @@
                 $(this).closest('li').removeClass('selected');
         });
 
-
+        $('.select2').select2({allowClear:true})
+        
         //show the dropdowns on top or bottom depending on window height and menu position
         $('#task-tab .dropdown-hover').on('mouseenter', function (e) {
             var offset = $(this).offset();

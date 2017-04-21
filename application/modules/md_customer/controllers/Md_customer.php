@@ -92,6 +92,7 @@ class Md_customer extends MX_Controller {
 
     public function add() {
         $this->breadcrumbs->push('Add', '/customer-add');
+        $data['province'] = $this->db->get('province')->result_array();
         $data['group'] = $this->db->get_where('group_customer_product',array('group_customer_product_status'=>1))->result_array();
         $data['view'] = "md_customer/add";
         $this->load->view('default', $data);
@@ -137,23 +138,21 @@ class Md_customer extends MX_Controller {
     }
     
     public function getCityList() {
-        $q = $this->input->get('query');
         $where = array();
-        if($this->input->get('province') != null){
-            $where = array('province_id'=>$this->input->get('province'));
+        if($this->input->get('id') != null){
+            $where = array('province_id'=>$this->input->get('id'));
         }
-        $like = array('city_name'=>$q);
+        $like = array();
         $result = $this->main_model->getTypeaheadList('city',$like,$where);
         echo json_encode($result);
     }
     
     public function getDistrictList() {
-        $q = $this->input->get('query');
         $where = array();
-        if($this->input->get('city') != null){
-            $where = array('city_id'=>$this->input->get('city'));
+        if($this->input->get('id') != null){
+            $where = array('city_id'=>$this->input->get('id'));
         }
-        $like = array('district_name'=>$q);
+        $like = array();
         $result = $this->main_model->getTypeaheadList('district',$like,$where);
         echo json_encode($result);
     }
