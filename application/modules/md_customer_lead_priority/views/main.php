@@ -88,11 +88,7 @@
         </div>
     </div>
     <div class="col-lg-12" style="padding-bottom: 2px;">
-        <a href="<?php echo site_url('lead-customer-add'); ?>" type="button" id="btn-add" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> New Customer</a>
         <a href="#" type="button" id="btn-edit" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> Edit</a>
-        <a href="#" type="button" id="btn-delete" class="btn btn-xs btn-danger" onclick="return confirm('Yakin hapus data?');"><i class="fa fa-remove"></i> Delete</a>
-        <a href="#" type="button" id="btn-priority" class="btn btn-xs btn-default"><i class="fa fa-info-circle"></i> Set Priority</a>
-        <a href="#" type="button" id="btn-undo-priority" class="btn btn-xs btn-default"><i class="fa fa-info-circle"></i> Undo Priority</a>
     </div>
     <div class="col-lg-12">
         <div id="example-table"></div>
@@ -106,7 +102,7 @@
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             remote: {
-              url: '<?php echo base_url('md_customer_lead/getProvinceList?query=%QUERY');?>',
+              url: '<?php echo base_url('md_customer_lead_priority/getProvinceList?query=%QUERY');?>',
               wildcard: '%QUERY'
             }
         });
@@ -128,7 +124,7 @@
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             remote: {
-              url: '<?php echo base_url('md_customer_lead/getCityList?query=%QUERY');?>',
+              url: '<?php echo base_url('md_customer_lead_priority/getCityList?query=%QUERY');?>',
               wildcard: '%QUERY'
             }
         });
@@ -150,7 +146,7 @@
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             remote: {
-              url: '<?php echo base_url('md_customer_lead/getDistrictList?query=%QUERY');?>',
+              url: '<?php echo base_url('md_customer_lead_priority/getDistrictList?query=%QUERY');?>',
               wildcard: '%QUERY'
             }
         });
@@ -177,7 +173,7 @@
                     paginationSize: 10,
             fitColumns:true, //fit columns to width of table (optional),
                     ajaxType: "POST", //ajax HTTP request type
-            ajaxURL: "<?php echo base_url('md_customer_lead/getListTable'); ?>", //ajax URL
+            ajaxURL: "<?php echo base_url('md_customer_lead_priority/getListTable'); ?>", //ajax URL
             //ajaxParams:{key1:"value1", key2:"value2"}, //ajax parameters
             columns: [//Define Table Columns
                 {formatter: "rownum", align: "center", width: 40, frozen:true},
@@ -200,15 +196,9 @@
             rowSelectionChanged: function (data, rows) {
                 console.log(data);
                 if (data.length > 0) {
-                    $('#btn-edit').attr('href', '<?php echo site_url(); ?>lead-customer-edit-' + data[0]['id'] + '.html');
-                    $('#btn-delete').attr('href', '<?php echo site_url(); ?>lead-customer-delete-' + data[0]['id'] + '.html');
-                    $('#btn-priority').attr('href', '<?php echo site_url(); ?>lead-customer-set-priority-' + data[0]['id'] + '.html');
-                    $('#btn-undo-priority').attr('href', '<?php echo site_url(); ?>lead-customer-undo-priority-' + data[0]['id'] + '.html');
-                } else {
+                    $('#btn-edit').attr('href', '<?php echo site_url(); ?>lead-customer-priority-edit-' + data[0]['id'] + '.html');
+               } else {
                     $('#btn-edit').attr('href', '#');
-                    $('#btn-delete').attr('href', '#');
-                    $('#btn-priority').attr('href', '#');
-                    $('#btn-undo-priority').attr('href', '#');
                 }
             },
         });
@@ -233,26 +223,6 @@
             district: $('#search-district').val(),
         };
 
-        $("#example-table").tabulator("setData", "<?php echo base_url('md_customer_lead/getListTable'); ?>", params);
+        $("#example-table").tabulator("setData", "<?php echo base_url('md_customer_lead_priority/getListTable'); ?>", params);
     }
-    
-    $('#btn-priority,#btn-undo-priority').click(function() {
-        var dt = $(this);
-        var url = dt[0].href;
-        console.log(url);
-        if(url === "<?php echo site_url('lead-customer');?>#"){
-            alert('Silahkan pilih ada yang akan di update');
-            return false;
-        } else {
-            $.ajax({
-               url: url,
-               type: 'get',
-               success: function (){
-                   filterTable();
-               }
-            });
-        }
-        
-        return false;
-    });
 </script>

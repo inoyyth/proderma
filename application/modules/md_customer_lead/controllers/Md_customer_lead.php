@@ -72,8 +72,8 @@ class Md_customer_lead extends MX_Controller {
         if(isset($_POST['source_lead']) && $_POST['source_lead'] != "") {
             $array_source_lead = array('m_customer.id_source_lead_customer'=>$_POST['source_lead']);
         }
-        if(isset($_POST['soruce_lead']) && $_POST['soruce_lead'] != "") {
-            $array_status_lead = array('m_customer.id_status_lead_customer'=>$_POST['soruce_lead']);
+        if(isset($_POST['status_lead']) && $_POST['status_lead'] != "") {
+            $array_status_lead = array('m_customer.id_status_lead_customer'=>$_POST['status_lead']);
         }
         
         $where = array_merge_recursive($array_status,$array_province,$array_city,$array_district,$array_source_lead,$array_status_lead);
@@ -93,7 +93,7 @@ class Md_customer_lead extends MX_Controller {
         $total_records = $this->data_table->count_all($table, $where);
         $total_pages = ceil($total_records / $limit);
         $output = array(
-            "last_page" => $total_pages,
+            "last_page" => ($total_pages==0?1:$total_pages),
             "recordsTotal" => $this->data_table->count_all($table, $where),
             "data" => $list,
         );
@@ -188,6 +188,16 @@ class Md_customer_lead extends MX_Controller {
         $data['file_name'] = $_GET['name'];
         $data['list'] = $this->db->get($this->table)->result_array();
         $this->load->view('template_excel', $data);
+    }
+    
+    public function setPriority($id){
+        $this->db->update('m_customer',array('customer_as_priority'=>'true'),array('id'=>$id));
+        return true;
+    }
+    
+    public function undoPriority($id){
+        $this->db->update('m_customer',array('customer_as_priority'=>'false'),array('id'=>$id));
+        return true;
     }
 
 }
