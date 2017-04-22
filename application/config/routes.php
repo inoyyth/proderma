@@ -107,3 +107,7 @@ $route['lead-customer-undo-priority-(:num)'] = 'md_customer_lead/undoPriority/$1
 $route['lead-customer-priority'] = 'md_customer_lead_priority';
 $route['lead-customer-priority-edit-(:num)'] = 'md_customer_lead_priority/edit/$1';
 $route['lead-customer-priority-save'] = 'md_customer_lead_priority/save';
+
+$route['mapping-product'] = 't_mapping_product';
+$route['mapping-product-edit-(:num)'] = 't_mapping_product/edit/$1';
+$route['mapping-product-save'] = 't_mapping_product/save';
