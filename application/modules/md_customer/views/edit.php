@@ -93,15 +93,17 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label>Internal Notes</label>
-                                        <textarea name="customer_internal_notes" parsley-trigger="change" required placeholder="Notes" class="form-control"><?php echo $data['customer_internal_notes'];?></textarea>
+                                        <label>Status</label>
+                                        <select name="id_status_list_customer" parsley-trigger="change" required placeholder="Status" class="form-control">
+                                            <option value=""></option>
+                                            <?php foreach ($status_list_customer as $vStatus) { ?>
+                                                <option value="<?php echo $vStatus['id']; ?>" <?php echo ($data['id_status_list_customer']==$vStatus['id']?"selected":"");?>><?php echo $vStatus['status_list_customer']; ?></option>
+                                            <?php } ?>
+                                        </select>
                                     </div>
                                     <div class="form-group">
-                                        <label>Status</label>
-                                        <select name="customer_status" placeholder="Status" required class="form-control select2">
-                                            <option value="1" <?php echo ($data['customer_status']=="1"?"selected":"");?>>Aktif</option>
-                                            <option value="2" <?php echo ($data['customer_status']=="2"?"selected":"");?>>Non Aktif</option>
-                                        </select>
+                                        <label>Internal Notes</label>
+                                        <textarea name="customer_internal_notes" parsley-trigger="change" required placeholder="Notes" class="form-control"><?php echo $data['customer_internal_notes'];?></textarea>
                                     </div>
                                 </div>
                             </div>

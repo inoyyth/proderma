@@ -1,6 +1,6 @@
 <?php
 
-Class M_md_customer extends CI_Model {
+Class M_md_customer_lead extends CI_Model {
 
     var $table = "m_customer";
 
@@ -45,11 +45,11 @@ Class M_md_customer extends CI_Model {
             'customer_email' => $this->input->post('customer_email'),
             'customer_latitude' => $this->input->post('customer_latitude'),
             'customer_longitude' => $this->input->post('customer_longitude'),
-            'id_group_customer_product' => $this->input->post('id_group_customer_product'),
-            'id_status_list_customer' => $this->input->post('id_status_list_customer'),
+            'id_source_lead_customer' => $this->input->post('id_source_lead_customer'),
+            'id_status_lead_customer' => $this->input->post('id_status_lead_customer'),
             'customer_internal_notes' => $this->input->post('customer_internal_notes'),
             'customer_status' => $this->input->post('customer_status'),
-            'current_lead_customer_status' => "C",
+            'current_lead_customer_status' => "L",
             'customer_status' => "1",
             'photo_path' => $image_name
         );

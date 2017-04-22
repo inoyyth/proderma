@@ -14,22 +14,22 @@
                         <div class="row">
                             <div class="col-lg-2">
                                 <div class="form-group">
-                                    <label class="small">Group Product</label>
-                                    <select class="form-control input-sm" id="search-group-product">
+                                    <label class="small">Source Lead</label>
+                                    <select class="form-control input-sm" id="search-source-lead">
                                         <option value=""></option>
-                                        <?php foreach($group_customer_product as $v): ?>
-                                        <option value="<?php echo $v['id'];?>"><?php echo $v['group_customer_product'];?></option>
+                                        <?php foreach($source_lead_customer as $v): ?>
+                                        <option value="<?php echo $v['id'];?>"><?php echo $v['source_lead_customer'];?></option>
                                         <?php endforeach; ?> 
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
-                                    <label class="small">Status</label>
-                                    <select class="form-control input-sm" id="search-status-customer">
+                                    <label class="small">Status Lead</label>
+                                    <select class="form-control input-sm" id="search-status-lead">
                                         <option value=""></option>
-                                        <?php foreach($status_list_customer as $v): ?>
-                                        <option value="<?php echo $v['id'];?>"><?php echo $v['status_list_customer'];?></option>
+                                        <?php foreach($status_lead_customer as $v): ?>
+                                        <option value="<?php echo $v['id'];?>"><?php echo $v['status_lead_customer'];?></option>
                                         <?php endforeach; ?> 
                                     </select>
                                 </div>
@@ -88,7 +88,7 @@
         </div>
     </div>
     <div class="col-lg-12" style="padding-bottom: 2px;">
-        <a href="<?php echo site_url('customer-add'); ?>" type="button" id="btn-add" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> New Customer</a>
+        <a href="<?php echo site_url('lead-customer-add'); ?>" type="button" id="btn-add" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> New Customer</a>
         <a href="#" type="button" id="btn-edit" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> Edit</a>
         <a href="#" type="button" id="btn-delete" class="btn btn-xs btn-danger" onclick="return confirm('Yakin hapus data?');"><i class="fa fa-remove"></i> Delete</a>
     </div>
@@ -104,7 +104,7 @@
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             remote: {
-              url: '<?php echo base_url('md_customer/getProvinceList?query=%QUERY');?>',
+              url: '<?php echo base_url('md_customer_lead/getProvinceList?query=%QUERY');?>',
               wildcard: '%QUERY'
             }
         });
@@ -126,7 +126,7 @@
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             remote: {
-              url: '<?php echo base_url('md_customer/getCityList?query=%QUERY');?>',
+              url: '<?php echo base_url('md_customer_lead/getCityList?query=%QUERY');?>',
               wildcard: '%QUERY'
             }
         });
@@ -148,7 +148,7 @@
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             remote: {
-              url: '<?php echo base_url('md_customer/getDistrictList?query=%QUERY');?>',
+              url: '<?php echo base_url('md_customer_lead/getDistrictList?query=%QUERY');?>',
               wildcard: '%QUERY'
             }
         });
@@ -175,7 +175,7 @@
                     paginationSize: 10,
             fitColumns:true, //fit columns to width of table (optional),
                     ajaxType: "POST", //ajax HTTP request type
-            ajaxURL: "<?php echo base_url('md_customer/getListTable'); ?>", //ajax URL
+            ajaxURL: "<?php echo base_url('md_customer_lead/getListTable'); ?>", //ajax URL
             //ajaxParams:{key1:"value1", key2:"value2"}, //ajax parameters
             columns: [//Define Table Columns
                 {formatter: "rownum", align: "center", width: 40, frozen:true},
@@ -187,15 +187,15 @@
                 {title: "District", field: "district_name", sorter: "string", tooltip: true},
                 {title: "Address", field: "customer_address", sorter: "string", tooltip: true},
                 {title: "Phone", field: "customer_phone", sorter: "string", tooltip: true},
-                {title: "Group Product", field: "group_customer_product", sorter: "string", tooltip: true},
-                {title: "Status", field: "status", sorter: "string", tooltip: true}
+                {title: "Source Lead", field: "source_lead_customer", sorter: "string", tooltip: true},
+                {title: "Status Lead", field: "status_lead_customer", sorter: "string", tooltip: true},
             ],
             selectable: 1,
             rowSelectionChanged: function (data, rows) {
                 console.log(data);
                 if (data.length > 0) {
-                    $('#btn-edit').attr('href', '<?php echo site_url(); ?>customer-edit-' + data[0]['id'] + '.html');
-                    $('#btn-delete').attr('href', '<?php echo site_url(); ?>customer-delete-' + data[0]['id'] + '.html');
+                    $('#btn-edit').attr('href', '<?php echo site_url(); ?>lead-customer-edit-' + data[0]['id'] + '.html');
+                    $('#btn-delete').attr('href', '<?php echo site_url(); ?>lead-customer-delete-' + data[0]['id'] + '.html');
                 } else {
                     $('#btn-edit').attr('href', '#');
                     $('#btn-delete').attr('href', '#');
@@ -213,8 +213,8 @@
     function filterTable() {
         console.log('filter');
         var params = {
-            group_customer: $('#search-group-product').val(),
-            status_list: $('#search-status-customer').val(),
+            soruce_lead: $('#search-source-lead').val(),
+            status_lead: $('#search-status-lead').val(),
             code: $('#search-code').val(),
             name: $('#search-name').val(),
             clinic: $('#search-clinic').val(),
@@ -224,6 +224,6 @@
             district: $('#search-district').val(),
         };
 
-        $("#example-table").tabulator("setData", "<?php echo base_url('md_customer/getListTable'); ?>", params);
+        $("#example-table").tabulator("setData", "<?php echo base_url('md_customer_lead/getListTable'); ?>", params);
     }
 </script>

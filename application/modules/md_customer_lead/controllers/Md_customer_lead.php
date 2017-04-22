@@ -1,22 +1,22 @@
 <?php
 
-class Md_customer extends MX_Controller {
+class Md_customer_lead extends MX_Controller {
 
     var $table = "m_customer";
 
     public function __construct() {
         parent::__construct();
-        $this->load->model(array('M_md_customer' => 'm_md_customer', 'Datatable_model' => 'data_table', 'Main_model'=>'main_model'));
+        $this->load->model(array('M_md_customer_lead' => 'm_md_customer', 'Datatable_model' => 'data_table', 'Main_model'=>'main_model'));
         $this->load->library(array('upload', 'encrypt', 'Auth_log'));
         //set breadcrumb
-        $this->breadcrumbs->push('Customer', '/customer');
+        $this->breadcrumbs->push('Lead Customer', '/lead-customer');
     }
 
     public function index() {
-        $data['template_title'] = array('Customer', 'List');
-        $data['group_customer_product'] = $this->db->get_where('group_customer_product',array('group_customer_product_status'=>'1'))->result_array();
-        $data['status_list_customer'] = $this->db->get_where('status_list_customer',array('status_list_customer_status'=>'1'))->result_array();
-        $data['view'] = 'md_customer/main';
+        $data['template_title'] = array('Lead Customer', 'List');
+        $data['source_lead_customer'] = $this->db->get_where('source_lead_customer',array('source_lead_customer_status'=>'1'))->result_array();
+        $data['status_lead_customer'] = $this->db->get_where('status_lead_customer',array('status_lead_customer_status'=>'1'))->result_array();
+        $data['view'] = 'md_customer_lead/main';
         $this->load->view('default', $data);
     }
 
@@ -28,8 +28,8 @@ class Md_customer extends MX_Controller {
         
         $field = array(
             "m_customer.*",
-            "group_customer_product.group_customer_product",
-            "status_list_customer.status_list_customer",
+            "source_lead_customer.source_lead_customer",
+            "status_lead_customer.status_lead_customer",
             "province.province_name",
             "city.city_name",
             "district.district_name",
@@ -39,8 +39,8 @@ class Md_customer extends MX_Controller {
         $offset = ($page - 1) * $limit;
 
         $join = array(
-            array('table' => 'group_customer_product', 'where' => 'group_customer_product.id=m_customer.id_group_customer_product', 'join' => 'left'),
-            array('table' => 'status_list_customer', 'where' => 'status_list_customer.id=m_customer.id_status_list_customer', 'join' => 'left'),
+            array('table' => 'source_lead_customer', 'where' => 'source_lead_customer.id=m_customer.id_source_lead_customer', 'join' => 'left'),
+            array('table' => 'status_lead_customer', 'where' => 'status_lead_customer.id=m_customer.id_status_lead_customer', 'join' => 'left'),
             array('table' => 'province', 'where' => 'province.province_id=m_customer.customer_province', 'join' => 'left'),
             array('table' => 'city', 'where' => 'city.city_id=m_customer.customer_city', 'join' => 'left'),
             array('table' => 'district', 'where' => 'district.district_id=m_customer.customer_district', 'join' => 'left')
@@ -53,12 +53,12 @@ class Md_customer extends MX_Controller {
             'm_customer.customer_address'=>isset($_POST['address'])?$_POST['address']:"",
             'm_customer.customer_district'=>isset($_POST['district'])?$_POST['district']:""
         );
-        $array_status = array('m_customer.customer_status !=' => '3','m_customer.current_lead_customer_status'=>'C');
+        $array_status = array('m_customer.customer_status !=' => '3','m_customer.current_lead_customer_status'=>'L');
         $array_province = array();
         $array_city = array();
         $array_district = array();
-        $array_group_customer = array();
-        $array_status_list_customer = array();
+        $array_source_lead = array();
+        $array_status_lead = array();
         
         if(isset($_POST['province']) && $_POST['province'] != "") {
             $array_province = array('m_customer.customer_province'=>$_POST['province']);
@@ -69,14 +69,14 @@ class Md_customer extends MX_Controller {
         if(isset($_POST['district']) && $_POST['district'] != "") {
             $array_district = array('m_customer.customer_district'=>$_POST['district']);
         }
-        if(isset($_POST['group_customer']) && $_POST['group_customer'] != "") {
-            $array_group_customer = array('m_customer.id_group_customer_product'=>$_POST['group_customer']);
+        if(isset($_POST['source_lead']) && $_POST['source_lead'] != "") {
+            $array_source_lead = array('m_customer.id_source_lead_customer'=>$_POST['source_lead']);
         }
-        if(isset($_POST['status_list']) && $_POST['status_list'] != "") {
-            $array_status_list_customer = array('m_customer.id_status_list_customer'=>$_POST['status_list']);
+        if(isset($_POST['soruce_lead']) && $_POST['soruce_lead'] != "") {
+            $array_status_lead = array('m_customer.id_status_lead_customer'=>$_POST['soruce_lead']);
         }
         
-        $where = array_merge_recursive($array_status,$array_province,$array_city,$array_district,$array_group_customer,$array_status_list_customer);
+        $where = array_merge_recursive($array_status,$array_province,$array_city,$array_district,$array_source_lead,$array_status_lead);
         
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_customer.id",
@@ -102,21 +102,21 @@ class Md_customer extends MX_Controller {
     }
 
     public function add() {
-        $this->breadcrumbs->push('Add', '/customer-add');
+        $this->breadcrumbs->push('Add', '/lead-customer-add');
         $data['province'] = $this->db->get('province')->result_array();
-        $data['group'] = $this->db->get_where('group_customer_product',array('group_customer_product_status'=>1))->result_array();
-        $data['status_list_customer'] = $this->db->get_where('status_list_customer',array('status_list_customer_status'=>1))->result_array();
-        $data['view'] = "md_customer/add";
+        $data['source_lead_customer'] = $this->db->get_where('source_lead_customer',array('source_lead_customer_status'=>1))->result_array();
+        $data['status_lead_customer'] = $this->db->get_where('status_lead_customer',array('status_lead_customer_status'=>1))->result_array();
+        $data['view'] = "md_customer_lead/add";
         $this->load->view('default', $data);
     }
 
     public function edit($id) {
-        $this->breadcrumbs->push('Edit', '/customer-edit');
+        $this->breadcrumbs->push('Edit', '/lead-customer-edit');
         $data['province'] = $this->db->get('province')->result_array();
-        $data['group'] = $this->db->get_where('group_customer_product',array('group_customer_product_status'=>1))->result_array();
-        $data['status_list_customer'] = $this->db->get_where('status_list_customer',array('status_list_customer_status'=>1))->result_array();
+        $data['source_lead_customer'] = $this->db->get_where('source_lead_customer',array('source_lead_customer_status'=>1))->result_array();
+        $data['status_lead_customer'] = $this->db->get_where('status_lead_customer',array('status_lead_customer_status'=>1))->result_array();
         $data['data'] = $this->db->get_where($this->table, array('id' => $id))->row_array();
-        $data['view'] = 'md_customer/edit';
+        $data['view'] = 'md_customer_lead/edit';
         $this->load->view('default', $data);
     }
 
@@ -137,7 +137,7 @@ class Md_customer extends MX_Controller {
             } else {
                 $this->session->set_flashdata('error', 'Data Gagal Di Simpan !');
             }
-            redirect("customer");
+            redirect("lead-customer");
         } else {
             show_404();
         }

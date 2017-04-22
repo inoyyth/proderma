@@ -5,7 +5,7 @@
     }
 </style>
 <div class="row">
-    <form action="<?php echo base_url("customer-save"); ?>" method="post"  enctype="multipart/form-data" parsley-validate novalidate>
+    <form action="<?php echo base_url("lead-customer-save"); ?>" method="post"  enctype="multipart/form-data" parsley-validate novalidate>
         <div class="col-md-10">
             <div class="block-web">
                 <div class="porlets-content">
@@ -83,20 +83,20 @@
                                         <input type="email" name="customer_email" parsley-trigger="change" required placeholder="Email" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label>Group</label>
-                                        <select name="id_group_customer_product" parsley-trigger="change" required placeholder="Group" class="form-control">
+                                        <label>Source Lead</label>
+                                        <select name="id_source_lead_customer" parsley-trigger="change" required placeholder="Group" class="form-control">
                                             <option value=""></option>
-                                            <?php foreach ($group as $vGroup) { ?>
-                                                <option value="<?php echo $vGroup['id']; ?>"><?php echo $vGroup['group_customer_product']; ?></option>
+                                            <?php foreach ($source_lead_customer as $vSource) { ?>
+                                                <option value="<?php echo $vSource['id']; ?>"><?php echo $vSource['source_lead_customer']; ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label>Status</label>
-                                        <select name="id_status_list_customer" parsley-trigger="change" required placeholder="Status" class="form-control">
+                                        <label>Status Lead</label>
+                                        <select name="id_status_lead_customer" parsley-trigger="change" required placeholder="Group" class="form-control">
                                             <option value=""></option>
-                                            <?php foreach ($status_list_customer as $vStatus) { ?>
-                                                <option value="<?php echo $vStatus['id']; ?>"><?php echo $vStatus['status_list_customer']; ?></option>
+                                            <?php foreach ($status_lead_customer as $vStatus) { ?>
+                                                <option value="<?php echo $vStatus['id']; ?>"><?php echo $vStatus['status_lead_customer']; ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -109,7 +109,7 @@
                         </div>
                     </div>
                     <button class="btn btn-primary" type="submit">Submit</button>
-                    <a href="<?php echo site_url('customer'); ?>" class="btn btn-default">Cancel</a>
+                    <a href="<?php echo site_url('lead-customer'); ?>" class="btn btn-default">Cancel</a>
                 </div>
             </div>
         </div>
@@ -150,7 +150,7 @@
             var option = "<option value='' disabled selected> </option>";
             $.ajax({//create an ajax request to load_page.php
                 type: "GET",
-                url: "<?php echo base_url(); ?>md_customer/getCityList?id=" + $(this).val(),
+                url: "<?php echo base_url(); ?>md_customer_lead/getCityList?id=" + $(this).val(),
                 dataType: "json",
                 success: function (response) {
                     $.each(response, function (index, element) {
@@ -166,7 +166,7 @@
             var option = "<option value='' disabled selected> </option>";
             $.ajax({//create an ajax request to load_page.php
                 type: "GET",
-                url: "<?php echo base_url(); ?>md_customer/getDistrictList?id=" + $(this).val(),
+                url: "<?php echo base_url(); ?>md_customer_lead/getDistrictList?id=" + $(this).val(),
                 dataType: "json",
                 success: function (response) {
                     $.each(response, function (index, element) {

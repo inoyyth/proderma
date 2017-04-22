@@ -137,3 +137,15 @@ $route['customer-pdf'] = 'md_customer/print_pdf';
 $route['customer-pdf/(:any)'] = 'md_customer/print_pdf/$1';
 $route['customer-excel'] = 'md_customer/print_excel';
 $route['customer-excel/(:any)'] = 'md_customer/print_excel/$1';
+
+$route['lead-customer'] = 'md_customer_lead';
+$route['lead-customer-add'] = 'md_customer_lead/add';
+$route['lead-customer-edit-(:num)'] = 'md_customer_lead/edit/$1';
+$route['lead-customer-delete-(:num)'] = 'md_customer_lead/delete/$1';
+$route['lead-customer-save'] = 'md_customer_lead/save';
+$route['lead-customer-page'] = 'md_customer_lead/index';
+$route['lead-customer-page/(:any)'] = 'md_customer_lead/index/$1';
+$route['lead-customer-pdf'] = 'md_customer_lead/print_pdf';
+$route['lead-customer-pdf/(:any)'] = 'md_customer_lead/print_pdf/$1';
+$route['lead-customer-excel'] = 'md_customer_lead/print_excel';
+$route['lead-customer-excel/(:any)'] = 'md_customer_lead/print_excel/$1';
