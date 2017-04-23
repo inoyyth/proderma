@@ -26,7 +26,7 @@
     </div>
     <div class="col-lg-12" style="padding-bottom: 2px;">
         <a href="#" type="button" id="btn-edit" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> Edit</a>
-        <a href="#" type="button" id="btn-view" class="btn btn-xs btn-success"><i class="fa fa-edit"></i> View</a>
+        <!--<a href="#" type="button" id="btn-view" class="btn btn-xs btn-success"><i class="fa fa-edit"></i> View</a>-->
     </div>
     <div class="col-lg-12">
         <div id="example-table"></div>

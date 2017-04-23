@@ -65,7 +65,7 @@ class T_mapping_product extends MX_Controller {
             );
         }
         
-        log_message('debug',print_r($dtx,TRUE));
+        //log_message('debug',print_r($dtx,TRUE));
         
         $total_records = $this->data_table->count_all($table, $where);
         $total_pages = ceil($total_records / $limit);
@@ -81,8 +81,8 @@ class T_mapping_product extends MX_Controller {
     public function edit($id) {
         $this->breadcrumbs->push('Edit', '/mapping-product-edit');
         $data['data_sales'] = $this->db->get_where($this->table, array('id' => $id))->row_array();
-        $data['data_mapping'] = $this->db->get_where('mapping_product', array('id_sales' => $id))->result_array();
-        $data['product'] = $this->m_mapping_product->getListProduct($id);
+        $data['data_mapping'] = $this->m_mapping_product->getOwnProduct($id);
+        $data['product'] = $this->db->get_where('m_product', array('product_status' => 1))->result_array();
         $data['view'] = 't_mapping_product/edit';
         $this->load->view('default', $data);
     }
@@ -102,7 +102,7 @@ class T_mapping_product extends MX_Controller {
             } else {
                 $this->session->set_flashdata('error', 'Data Gagal Di Simpan !');
             }
-            redirect("employee-level");
+            redirect("mapping-product");
         } else {
             show_404();
         }

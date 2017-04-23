@@ -112,3 +112,8 @@ $route['mapping-product'] = 't_mapping_product';
 $route['mapping-product-edit-(:num)'] = 't_mapping_product/edit/$1';
 $route['mapping-product-view-(:num)'] = 't_mapping_product/view/$1';
 $route['mapping-product-save'] = 't_mapping_product/save';
+
+$route['mapping-area'] = 't_mapping_area';
+$route['mapping-area-edit-(:num)'] = 't_mapping_area/edit/$1';
+$route['mapping-area-view-(:num)'] = 't_mapping_area/view/$1';
+$route['mapping-area-save'] = 't_mapping_area/save';
