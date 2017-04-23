@@ -26,12 +26,13 @@
     </div>
     <div class="col-lg-12" style="padding-bottom: 2px;">
         <a href="#" type="button" id="btn-edit" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> Edit</a>
+        <a href="#" type="button" id="btn-view" class="btn btn-xs btn-success"><i class="fa fa-edit"></i> View</a>
     </div>
     <div class="col-lg-12">
         <div id="example-table"></div>
     </div>
 </div>
-
+<div id="modal-mapping"></div>
 <script>
     $(document).ready(function () {
         $("#example-table").tabulator({
@@ -54,10 +55,10 @@
             rowSelectionChanged: function (data, rows) {
                 if (data.length > 0) {
                     $('#btn-edit').attr('href', '<?php echo site_url(); ?>mapping-product-edit-' + data[0]['id'] + '.html');
-                    $('#btn-delete').attr('href', '<?php echo site_url(); ?>mapping-product-delete-' + data[0]['id'] + '.html');
+                    $('#btn-view').attr('href', '<?php echo site_url(); ?>mapping-product-view-' + data[0]['id'] + '.html');
                 } else {
                     $('#btn-edit').attr('href', '#');
-                    $('#btn-delete').attr('href', '#');
+                    $('#btn-view').attr('href', '#');
                 }
             },
         });
@@ -69,7 +70,6 @@
     }
 
     function filterTable() {
-        console.log('filter');
         var params = {
             employee_name: $('#search-employee-name').val(),
         };

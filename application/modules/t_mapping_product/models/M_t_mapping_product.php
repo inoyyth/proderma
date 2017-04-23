@@ -38,5 +38,9 @@ Class M_t_mapping_product extends CI_Model {
         $this->db->limit($limit['limit'],$limit['offset']);
         return $sql = $this->db->get()->result_array();
     }
+    
+    public function getListProduct($id) {
+        
+    }
 
 }

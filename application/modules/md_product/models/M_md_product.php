@@ -29,7 +29,7 @@ Class M_md_product extends CI_Model {
                     $image_name = 'assets/images/' . $folder . '/user_icon.png';
                 }else{
                     $this->session->set_flashdata('error', $this->upload->display_errors());
-                    redirect("master-employee-tambah");
+                    redirect("master-product-add");
                 }
              }
         }

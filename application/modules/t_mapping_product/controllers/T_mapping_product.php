@@ -78,26 +78,20 @@ class T_mapping_product extends MX_Controller {
         echo json_encode($output);
     }
 
-    public function add() {
-        $this->breadcrumbs->push('Add', '/employee-level-add');
-        $data['view'] = "md_level/add";
-        $this->load->view('default', $data);
-    }
-
     public function edit($id) {
-        $this->breadcrumbs->push('Edit', '/employee-level-edit');
-        $data['data'] = $this->db->get_where($this->table, array('id' => $id))->row_array();
-        $data['view'] = 'md_level/edit';
+        $this->breadcrumbs->push('Edit', '/mapping-product-edit');
+        $data['data_sales'] = $this->db->get_where($this->table, array('id' => $id))->row_array();
+        $data['data_mapping'] = $this->db->get_where('mapping_product', array('id_sales' => $id))->result_array();
+        $data['product'] = $this->m_mapping_product->getListProduct($id);
+        $data['view'] = 't_mapping_product/edit';
         $this->load->view('default', $data);
     }
 
-    function delete($id) {
-        if ($this->db->update($this->table, array('jabatan_status' => 3),array('id'=>$id))) {
-            $this->session->set_flashdata('success', 'Data Berhasil Di Hapus !');
-        } else {
-            $this->session->set_flashdata('error', 'Data Gagal Di Hapus !');
-        }
-        redirect("employee-level");
+    public function view($id) {
+        $this->breadcrumbs->push('Edit', '/mapping-product-view');
+        $data['data'] = $this->db->get_where($this->table, array('id' => $id))->row_array();
+        $data['view'] = 't_mapping_product/edit';
+        $this->load->view('default', $data);
     }
 
     function save() {
