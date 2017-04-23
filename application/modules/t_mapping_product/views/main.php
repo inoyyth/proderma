@@ -25,9 +25,7 @@
         </div>
     </div>
     <div class="col-lg-12" style="padding-bottom: 2px;">
-        <a href="<?php echo site_url('mapping-product-add'); ?>" type="button" id="btn-add" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> New</a>
         <a href="#" type="button" id="btn-edit" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> Edit</a>
-        <a href="#" type="button" id="btn-delete" class="btn btn-xs btn-danger" onclick="return confirm('Yakin hapus data?');"><i class="fa fa-remove"></i> Delete</a>
     </div>
     <div class="col-lg-12">
         <div id="example-table"></div>
@@ -38,7 +36,6 @@
     $(document).ready(function () {
         $("#example-table").tabulator({
             fitColumns: true,
-            groupBy:"employee_name",
             pagination: true,
             movableCols: true,
             height: "320px", // set height of table (optional),
@@ -49,9 +46,9 @@
             ajaxURL: "<?php echo base_url('t_mapping_product/getListTable'); ?>", //ajax URL
             columns: [//Define Table Columns
                 {formatter: "rownum", align: "center", width: 40},
-                //{title: "Name", field: "employee_name", sorter: "string", tooltip: true},
-                {title: "Product", field: "product_name", sorter: "string", tooltip: true},
-                {title: "Category", field: "product_category", sorter: "string", tooltip: true}
+                {title: "Name", field: "employee_name", sorter: "string", tooltip: true},
+                {title: "Position", field: "jabatan", sorter: "string", tooltip: true},
+                {title: "Total Product", field: "total_product", sorter: "string", tooltip: true}
             ],
             selectable: 1,
             rowSelectionChanged: function (data, rows) {
@@ -74,7 +71,7 @@
     function filterTable() {
         console.log('filter');
         var params = {
-            jabatan: $('#search-jabatan').val(),
+            employee_name: $('#search-employee-name').val(),
         };
 
         $("#example-table").tabulator("setData", "<?php echo base_url('t_mapping_product/getListTable'); ?>", params);

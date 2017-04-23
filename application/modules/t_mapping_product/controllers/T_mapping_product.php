@@ -2,7 +2,7 @@
 
 class T_mapping_product extends MX_Controller {
 
-    var $table = "mapping_product";
+    var $table = "m_employee";
 
     public function __construct() {
         parent::__construct();
@@ -22,23 +22,17 @@ class T_mapping_product extends MX_Controller {
         $page = ($_POST['page']==0?1:$_POST['page']);
         $limit = $_POST['size'];
         
-        $table = 'mapping_product'; 
+        $table = 'm_employee'; 
         
         $field = array(
-            "mapping_product.*",
-            "m_employee.employee_name",
-            "m_employee.employee_nip",
-            "m_product.product_code",
-            "m_product.product_name",
-            "m_product_category.product_category"
+            "m_employee.*",
+            "m_jabatan.jabatan"
         );
         
         $offset = ($page - 1) * $limit;
 
         $join = array(
-            array('table' => 'm_employee', 'where' => 'm_employee.id=mapping_product.id_sales', 'join' => 'right'),
-            array('table' => 'm_product', 'where' => 'm_product.id=mapping_product.id_product', 'join' => 'left'),
-            array('table' => 'm_product_category', 'where' => 'm_product_category.id=m_product.id_product_category', 'join' => 'left')
+            array('table' => 'm_jabatan', 'where' => 'm_employee.id_jabatan=m_jabatan.id', 'join' => 'left')
         );
         
         $like = array(
@@ -57,12 +51,28 @@ class T_mapping_product extends MX_Controller {
         
         $list = $this->m_mapping_product->getListTable($field,$table, $join, $like, $where, $sort, $limit_row);
 
+        $dtx = array();
+        foreach($list as $k=>$v){
+            $totalProduct = $this->db->get_where('mapping_product',array('id_sales'=>$v['id']))->num_rows();
+            $dtx[] = array(
+                'id' =>$v['id'],
+                'id_jabatan'=>$v['id_jabatan'],
+                'employee_name'=>$v['employee_name'],
+                'employee_email'=>$v['employee_email'],
+                'employee_phone'=>$v['employee_phone'],
+                'jabatan'=>$v['jabatan'],
+                'total_product'=>$totalProduct
+            );
+        }
+        
+        log_message('debug',print_r($dtx,TRUE));
+        
         $total_records = $this->data_table->count_all($table, $where);
         $total_pages = ceil($total_records / $limit);
         $output = array(
             "last_page" => ($total_pages==0?1:$total_pages),
             "recordsTotal" => $this->data_table->count_all($table, $where),
-            "data" => $list,
+            "data" => $dtx,
         );
         //output to json format
         echo json_encode($output);
