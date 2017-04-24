@@ -1,1 +1,3 @@
-application/config/database.php
+# exclude everything except directory foo/bar
+/*
+/application/config/database.php
