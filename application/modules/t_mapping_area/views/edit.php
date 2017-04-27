@@ -49,18 +49,19 @@
     </div>
     <div class="col-lg-6">
         <form action="<?php echo site_url("mapping-area-save"); ?>" method="post">
+            <input type="hidden" name="id" value="<?php echo $data_sales['id'];?>"/>
             <div class="form-group">
                 <label>Province</label>
-                <select name="customer_province" id="select-province" parsley-trigger="change" required placeholder="Province" class="typeahead form-control">
+                <select name="sales_province" id="select-province" parsley-trigger="change" required placeholder="Province" class="typeahead form-control">
                     <option value="" disabled="true" selected> </option>
                     <?php foreach ($province as $vProvince) : ?>
-                        <option value="<?php echo $vProvince['province_id']; ?>"><?php echo $vProvince['province_name']; ?></option>
+                        <option value="<?php echo $vProvince['province_id']; ?>" <?php echo($data_sales['sales_province']==$vProvince['province_id']?"selected":"");?>><?php echo $vProvince['province_name']; ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
             <div class="form-group">
                 <label>City</label>
-                <select name="customer_city" id="select-city" parsley-trigger="change" required placeholder="City" class="typeahead form-control">
+                <select name="sales_city" id="select-city" parsley-trigger="change" required placeholder="City" class="typeahead form-control">
 
                 </select>
             </div>
@@ -133,6 +134,33 @@ function initMap(locations) {
             $.ajax({//create an ajax request to load_page.php
                 type: "GET",
                 url: "<?php echo base_url(); ?>t_mapping_area/getClinicList?id=" + $(this).val(),
+                dataType: "json",
+                success: function (response) {
+                    initMap(response);
+                }
+
+            });
+        });
+        
+        var option = "<option value='' disabled selected> </option>";
+        $.ajax({//create an ajax request to load_page.php
+            type: "GET",
+            url: "<?php echo base_url(); ?>md_customer/getCityList?id=<?php echo $data_sales['sales_province'];?>",
+            dataType: "json",
+            success: function (response) {
+                $.each(response, function (index, element) {
+                    if(element.city_id === "<?php echo $data_sales['sales_city'];?>"){
+                        option += "<option selected value='" + element.city_id + "' data-lat='" + element.lat + "' data-lng='" + element.lng + "'>" + element.city_name + "</option>";
+                    } else {
+                        option += "<option value='" + element.city_id + "' data-lat='" + element.lat + "' data-lng='" + element.lng + "'>" + element.city_name + "</option>";
+                    }
+                });
+                $("#select-city").html(option);
+            }
+        }).done(function(){
+            $.ajax({//create an ajax request to load_page.php
+                type: "GET",
+                url: "<?php echo base_url(); ?>t_mapping_area/getClinicList?id=<?php echo $data_sales['sales_city'];?>",
                 dataType: "json",
                 success: function (response) {
                     initMap(response);
