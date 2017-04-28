@@ -22,7 +22,7 @@ class Api extends MX_Controller{
     function daily_visiting() {
          if(file_get_contents('php://input')){
             $data = json_decode(file_get_contents('php://input'),true);
-            
+            var_dump($data);
          }else{
             $this->output->set_status_header('404');
             redirect('error404');
