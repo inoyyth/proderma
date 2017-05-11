@@ -117,3 +117,15 @@ $route['mapping-area'] = 't_mapping_area';
 $route['mapping-area-edit-(:num)'] = 't_mapping_area/edit/$1';
 $route['mapping-area-view-(:num)'] = 't_mapping_area/view/$1';
 $route['mapping-area-save'] = 't_mapping_area/save';
+
+$route['backup-database'] = 'backup_db';
+$route['backup-database-add'] = 'backup_db/add';
+$route['backup-database-edit-(:num)'] = 'backup_db/edit/$1';
+$route['backup-database-delete-(:num)'] = 'backup_db/delete/$1';
+$route['backup-database-save'] = 'backup_db/save';
+$route['backup-database-page'] = 'backup_db/index';
+$route['backup-database-page/(:any)'] = 'backup_db/index/$1';
+$route['backup-database-pdf'] = 'backup_db/print_pdf';
+$route['backup-database-pdf/(:any)'] = 'backup_db/print_pdf/$1';
+$route['backup-database-excel'] = 'backup_db/print_excel';
+$route['backup-database-excel/(:any)'] = 'backup_db/print_excel/$1';
