@@ -129,3 +129,6 @@ $route['backup-database-pdf'] = 'backup_db/print_pdf';
 $route['backup-database-pdf/(:any)'] = 'backup_db/print_pdf/$1';
 $route['backup-database-excel'] = 'backup_db/print_excel';
 $route['backup-database-excel/(:any)'] = 'backup_db/print_excel/$1';
+
+$route['import-master-list'] = 'import_master_list';
+$route['import-master-list-template'] = 'import_master_list/template_excel';

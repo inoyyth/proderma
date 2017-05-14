@@ -45,7 +45,7 @@
                                 <h1>
                                     <i class="ace-icon fa fa-leaf green"></i>
                                     <span class="red">PRODERMA</span>
-                                    <span class="white" id="id-text2">Sales Monitorin System</span>
+                                    <span class="white" id="id-text2">Sales Monitoring System</span>
                                 </h1>
                                 <h4 class="blue" id="id-company-text">&copy; Proderma</h4>
                             </div>
