@@ -9,7 +9,7 @@
                     <div class="col-xs-12" style="margin-top: 5px;">
                         <div class="form-group">
                             <div class="col-xs-12">
-                                <input multiple="" name="excel_file" type="file" id="id-input-file-3" />
+                                <input type="file" name="excel_file" id="id-input-file-3" />
                             </div>
                         </div>
                     </div>
@@ -21,6 +21,9 @@
                 </form>
             </div>
         </div>
+    </div>
+    <div class="col-lg-12">
+        <div id="example-table"></div>
     </div>
 </div>
 <script>
@@ -69,6 +72,59 @@
         }).on('file.preview.ace', function (e, info) {
             //console.log(info);
             e.preventDefault();//to prevent preview
+        });
+        
+        $("#frmGroupUser").on("submit", function(event){
+            var $btn = $("#myButton").button('loading');
+            event.preventDefault();
+            var formData = new FormData(this);
+            //console.log(formData);
+             $.ajax({
+                url : "<?php echo base_url('import-master-list-upload'); ?>", 
+                type : "post",
+                data : formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                //dataType : "json",
+                success: function(e){
+                    $btn.button('reset')
+                    //table.ajax.reload();
+                },
+                error: function(e){
+                    $btn.button('reset')
+                    alert('fail');
+                }
+           });
+       });
+       
+       $("#example-table").tabulator({
+            fitColumns: true,
+            pagination: true,
+            movableCols: true,
+            height: "320px", // set height of table (optional),
+            pagination:"remote",
+            paginationSize: 10,
+            fitColumns:true, //fit columns to width of table (optional),
+            ajaxType: "POST", //ajax HTTP request type
+            ajaxURL: "<?php echo base_url('import_master_list/getListTable'); ?>", //ajax URL
+            //ajaxParams:{key1:"value1", key2:"value2"}, //ajax parameters
+            columns: [//Define Table Columns
+                {formatter: "rownum", align: "center", width: 40},
+                {title: "Code", field: "customer_code", sorter: "string", tooltip: true},
+                {title: "Name", field: "customer_name", sorter: "string", tooltip: true}
+            ],
+            selectable: 1,
+            rowSelectionChanged: function (data, rows) {
+                console.log(data);
+                if (data.length > 0) {
+                    //$('#btn-edit').attr('href', '<?php echo site_url(); ?>employee-level-edit-' + data[0]['id'] + '.html');
+                    $('#btn-delete').attr('href', '<?php echo site_url(); ?>employee-level-delete-' + data[0]['id'] + '.html');
+                } else {
+                    //$('#btn-edit').attr('href', '#');
+                    $('#btn-delete').attr('href', '#');
+                }
+            },
         });
     });
     

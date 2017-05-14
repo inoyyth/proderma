@@ -2,12 +2,13 @@
 
 class Import_master_list extends MX_Controller {
 
-    var $table = "m_customer";
+    var $table = "m_customer_temp";
 
     public function __construct() {
         parent::__construct();
         $this->load->model(array('M_import_master_list' => 'm_master_list', 'Datatable_model' => 'data_table'));
         $this->load->helper('download');
+        $this->load->library(array('upload', 'encrypt', 'Printpdf', 'Auth_log'));
         //set breadcrumb
         $this->breadcrumbs->push('Import Master List', '/import-master-list');
     }
@@ -20,6 +21,119 @@ class Import_master_list extends MX_Controller {
     
     public function template_excel() {
         force_download('assets/excelTemplate/templateMasterList.xlsx', NULL);
+    }
+    
+    public function getListTable() {
+        $page = ($_POST['page']==0?1:$_POST['page']);
+        $limit = $_POST['size'];
+        
+        $table = 'm_customer_temp'; 
+        
+        $field = array(
+            "m_customer_temp.*"
+        );
+        
+        $offset = ($page - 1) * $limit;
+
+        $join = array();
+        
+        $like = array();
+        $where = array('m_customer_temp.sys_create_user' => $this->sessionGlobal['id']);
+        $sort = array(
+            'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_customer_temp.id",
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
+        );
+
+        $limit_row = array(
+            'offset' => $offset,
+            'limit' => $limit
+        );
+        
+        $list = $this->m_master_list->getListTable($field,$table, $join, $like, $where, $sort, $limit_row);
+
+        $total_records = $this->data_table->count_all($table, $where);
+        $total_pages = ceil($total_records / $limit);
+        $output = array(
+            "last_page" => $total_pages,
+            "recordsTotal" => $this->data_table->count_all($table, $where),
+            "data" => $list,
+        );
+        //output to json format
+        echo json_encode($output);
+    }
+    
+    public function upload_excel() {
+        if (!isset($_POST)) {
+            show_404();
+        } else {
+            $this->load->library("phpexcel/PHPExcel");
+            $this->load->library("phpexcel/PHPExcel/IOFactory");
+            $folder = "excel";
+            if (!is_dir('./assets/' . $folder)) {
+                mkdir('./assets/' . $folder, 0777, TRUE);
+            }
+            $fileName = $_FILES['excel_file']['name'];
+
+            $config['upload_path'] = "./assets/" . $folder;
+            $config['upload_url'] = "./assets/" . $folder;
+            $config['file_name'] = date('YmdHis') . "-" . $fileName;
+            $config['allowed_types'] = 'xls|xlsx';
+            $config['max_size'] = '20000';
+            $this->load->library('upload');
+            $this->upload->initialize($config);
+
+            if ($this->upload->do_upload('excel_file')) {
+                $media = $this->upload->data();
+            }
+
+            $inputFileName = "./assets/" . $folder . "/" . $media['file_name'];
+
+            //  Read your Excel workbook
+            try {
+                $inputFileType = IOFactory::identify($inputFileName);
+                $objReader = IOFactory::createReader($inputFileType);
+                $objPHPExcel = $objReader->load($inputFileName);
+            } catch (Exception $e) {
+                die('Error loading file "' . pathinfo($inputFileName, PATHINFO_BASENAME) . '": ' . $e->getMessage());
+            }
+
+            $this->db->delete('m_customer_temp', array('sys_create_user' => $this->sessionGlobal['id']));
+
+            //  Get worksheet dimensions
+            $sheet = $objPHPExcel->getSheet(0);
+            $highestRow = $sheet->getHighestRow();
+            $highestColumn = $sheet->getHighestColumn();
+
+            //  Loop through each row of the worksheet in turn
+            for ($row = 2; $row <= $highestRow; $row++) {                  //  Read a row of data into an array                 
+                $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
+                //insert new motor type if not existing
+                //  Insert row data array into your database of choice here
+                //dump(validate_date($rowData[0][2]),true);
+                $data = array(
+                    "customer_code" => $rowData[0][0],
+                    "customer_name" => $rowData[0][1],
+                    "customer_clinic" => $rowData[0][2],
+                    "customer_address" => $rowData[0][3],
+                    "customer_province" => $rowData[0][4],
+                    "customer_city" => $rowData[0][5],
+                    "customer_district" => $rowData[0][6],
+                    "customer_phone" => $rowData[0][7],
+                    "customer_email" => $rowData[0][8],
+                    "customer_latitude" => $rowData[0][9],
+                    "customer_longitude" => $rowData[0][10],
+                    "id_source_lead_customer" => $rowData[0][11],
+                    "id_status_list_customer" => $rowData[0][12],
+                    "sys_create_user" => $this->sessionGlobal['id'],
+                    "sys_create_date" => $media['file_name']
+                );
+				//log_message('debug',print_r($data,true));
+                //$this->db->insert("penerimaan_motor_temp", $data); 
+                $sql = $this->db->insert_string('m_customer_temp', $data) . ' ON DUPLICATE KEY UPDATE customer_code=customer_code';
+                $this->db->query($sql);
+            }
+            return true;
+        }
     }
 
 }
