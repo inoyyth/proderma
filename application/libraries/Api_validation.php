@@ -31,7 +31,7 @@ class Api_validation {
                 exit();
             }
         } else {
-            echo json_encode(array('code' => 201, "message" => 'Fail Please Login First'));
+            echo json_encode(array('code' => 201, "message" => 'Fail Please Login First 2'));
             exit();
         }
     }
