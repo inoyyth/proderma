@@ -20,7 +20,8 @@ class Import_master_list extends MX_Controller {
     }
     
     public function template_excel() {
-        force_download('assets/excelTemplate/templateMasterList.xlsx', NULL);
+        ob_clean();
+        force_download('master-list-template.xlsx',file_get_contents('assets/excelTemplate/templateMasterList.xlsx'));
     }
     
     public function getListTable() {
@@ -41,7 +42,7 @@ class Import_master_list extends MX_Controller {
         $where = array('m_customer_temp.sys_create_user' => $this->sessionGlobal['id']);
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_customer_temp.id",
-            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"asc"
         );
 
         $limit_row = array(
@@ -125,14 +126,63 @@ class Import_master_list extends MX_Controller {
                     "id_source_lead_customer" => $rowData[0][11],
                     "id_status_list_customer" => $rowData[0][12],
                     "sys_create_user" => $this->sessionGlobal['id'],
-                    "sys_create_date" => $media['file_name']
+                    "sys_create_date" => date('Y-m-d H:i:s')
                 );
-				//log_message('debug',print_r($data,true));
+                //log_message('debug',print_r($data,true));
                 //$this->db->insert("penerimaan_motor_temp", $data); 
                 $sql = $this->db->insert_string('m_customer_temp', $data) . ' ON DUPLICATE KEY UPDATE customer_code=customer_code';
                 $this->db->query($sql);
             }
             return true;
+        }
+    }
+    
+    public function deleteListTable($dx=null){
+        if($dx == null){
+            $data = json_decode($this->input->post('data'));
+        } else {
+            $data = json_decode($dx);
+        }
+        
+        $dt_array = array_column($data,'id');
+        $this->db->where_in('id', $dt_array);
+       if($this->db->delete('m_customer_temp')){
+           $result = array('code'=>200,'message'=>'success');
+       } else {
+           $result = array('code'=>204,'message'=>'failed');
+       }
+       echo json_encode($result);
+    }
+    
+    public function saveListTable() {
+        $data = json_decode($this->input->post('data'),TRUE);
+        
+        $dt = [];
+        foreach ((array)$data as $k=>$v) {
+            $dt[] = array(
+                'customer_code'=>$v['customer_code'],
+                'customer_name'=>$v['customer_name'],
+                'customer_clinic'=>$v['customer_clinic'],
+                'customer_address'=>$v['customer_address'],
+                'customer_province'=>$v['customer_province'],
+                'customer_city'=>$v['customer_city'],
+                'customer_district'=>$v['customer_district'],
+                'customer_phone'=>$v['customer_phone'],
+                'customer_email'=>$v['customer_email'],
+                'customer_latitude'=>$v['customer_latitude'],
+                'customer_longitude'=>$v['customer_longitude'],
+                'id_source_lead_customer'=>$v['id_source_lead_customer'],
+                'id_status_list_customer'=>$v['id_status_list_customer'],
+                'current_lead_customer_status'=>'L',
+                'sys_create_date'=>date('Y-m-d H:i:s'),
+                'sys_create_user'=>$this->sessionGlobal['id']
+            );
+        }
+        if($this->db->insert_batch('m_customer', $dt)){
+            $this->deleteListTable($this->input->post('data'));
+        } else {
+            $result = array('code'=>204,'message'=>'failed');
+            echo json_encode($result);
         }
     }
 

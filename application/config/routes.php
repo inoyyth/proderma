@@ -84,6 +84,12 @@ $route['master-product-category-edit-(:num)'] = 'md_product_category/edit/$1';
 $route['master-product-category-delete-(:num)'] = 'md_product_category/delete/$1';
 $route['master-product-category-save'] = 'md_product_category/save';
 
+$route['master-product-sub-category'] = 'md_product_sub_category';
+$route['master-product-sub-category-add'] = 'md_product_sub_category/add';
+$route['master-product-sub-category-edit-(:num)'] = 'md_product_sub_category/edit/$1';
+$route['master-product-sub-category-delete-(:num)'] = 'md_product_sub_category/delete/$1';
+$route['master-product-sub-category-save'] = 'md_product_sub_category/save';
+
 $route['master-payment-type'] = 'md_payment_type';
 $route['master-payment-type-add'] = 'md_payment_type/add';
 $route['master-payment-type-edit-(:num)'] = 'md_payment_type/edit/$1';

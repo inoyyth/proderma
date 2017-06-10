@@ -9,7 +9,7 @@
                     <div class="col-xs-12" style="margin-top: 5px;">
                         <div class="form-group">
                             <div class="col-xs-12">
-                                <input type="file" name="excel_file" id="id-input-file-3" />
+                                <input multiple="" type="file" name="excel_file" id="id-input-file-3" />
                             </div>
                         </div>
                     </div>
@@ -23,6 +23,12 @@
         </div>
     </div>
     <div class="col-lg-12">
+        <div style="padding: 5px;">
+            <button id="select-all" class="btn btn-warning btn-sm">Select All</button>
+            <button id="deselect-all" class="btn btn-warning btn-sm">Deselect All</button>
+            <button id="delete-list" class="btn btn-warning btn-sm">Delete</button>
+            <button id="save-list" class="btn btn-warning btn-sm">Save</button>
+        </div>
         <div id="example-table"></div>
     </div>
 </div>
@@ -48,7 +54,7 @@
                      }*/
             ,
             preview_error: function (filename, error_code) {
-                //console.log(filename);
+                console.log(error_code);
                 //name of the file that failed
                 //error_code values
                 //1 = 'FILE_LOAD_FAILED',
@@ -60,7 +66,7 @@
         }).on('change', function () {
             //console.log(getFileExtension1($(this).data('ace_input_files')[0]['name']));
             var extention = getFileExtension1($(this).data('ace_input_files')[0]['name']);
-            if(extention === "xlsx" || extention === "xls"){
+            if (extention === "xlsx" || extention === "xls") {
                 return true;
             } else {
                 alert('file extention false !!!');
@@ -73,39 +79,43 @@
             //console.log(info);
             e.preventDefault();//to prevent preview
         });
-        
-        $("#frmGroupUser").on("submit", function(event){
+
+        $("#frmGroupUser").on("submit", function (event) {
             var $btn = $("#myButton").button('loading');
             event.preventDefault();
             var formData = new FormData(this);
             //console.log(formData);
-             $.ajax({
-                url : "<?php echo base_url('import-master-list-upload'); ?>", 
-                type : "post",
-                data : formData,
+            $.ajax({
+                url: "<?php echo base_url('import-master-list-upload'); ?>",
+                type: "post",
+                data: formData,
                 cache: false,
                 contentType: false,
                 processData: false,
                 //dataType : "json",
-                success: function(e){
-                    $btn.button('reset')
+                success: function (e) {
+                    $btn.button('reset');
+                    $('#id-input-file-3').ace_file_input('reset_input');
+                    $("#example-table").tabulator("setData", "<?php echo base_url('import_master_list/getListTable'); ?>");
                     //table.ajax.reload();
                 },
-                error: function(e){
-                    $btn.button('reset')
+                error: function (e) {
+                    $('#id-input-file-3').ace_file_input('reset_input');
+                    $btn.button('reset');
                     alert('fail');
                 }
-           });
-       });
-       
-       $("#example-table").tabulator({
+            });
+        });
+
+        $("#example-table").tabulator({
             fitColumns: true,
             pagination: true,
             movableCols: true,
+            selectable: true, //make rows selectable
             height: "320px", // set height of table (optional),
-            pagination:"remote",
-            paginationSize: 10,
-            fitColumns:true, //fit columns to width of table (optional),
+            pagination: "remote",
+            paginationSize: 50,
+            fitColumns: true, //fit columns to width of table (optional),
             ajaxType: "POST", //ajax HTTP request type
             ajaxURL: "<?php echo base_url('import_master_list/getListTable'); ?>", //ajax URL
             //ajaxParams:{key1:"value1", key2:"value2"}, //ajax parameters
@@ -114,9 +124,7 @@
                 {title: "Code", field: "customer_code", sorter: "string", tooltip: true},
                 {title: "Name", field: "customer_name", sorter: "string", tooltip: true}
             ],
-            selectable: 1,
             rowSelectionChanged: function (data, rows) {
-                console.log(data);
                 if (data.length > 0) {
                     //$('#btn-edit').attr('href', '<?php echo site_url(); ?>employee-level-edit-' + data[0]['id'] + '.html');
                     $('#btn-delete').attr('href', '<?php echo site_url(); ?>employee-level-delete-' + data[0]['id'] + '.html');
@@ -126,8 +134,67 @@
                 }
             },
         });
+
+        //select row on "select all" button click
+        $("#select-all").click(function () {
+            $("#example-table").tabulator("selectRow");
+        });
+
+        //deselect row on "deselect all" button click
+        $("#deselect-all").click(function () {
+            $("#example-table").tabulator("deselectRow");
+        });
+        
+        $("#delete-list").click(function(){
+            var selectedData = $("#example-table").tabulator("getSelectedData");
+            var json = JSON.stringify(selectedData); 
+            $.ajax({
+                url: "<?php echo base_url('import_master_list/deleteListTable');?>",
+                type: "post",
+                data: {"data":json},
+                cache: false,
+                ////contentType: false,
+                //processData: false,
+                dataType : "json",
+                success: function (e) {
+                    if(e.code == 200){
+                        $("#example-table").tabulator("setData", "<?php echo base_url('import_master_list/getListTable'); ?>");
+                    } else {
+                        alert(e.message);
+                    }
+                },
+                error: function (e) {
+                    //alert('fail');
+                }
+            });
+        });
+        
+        $("#save-list").click(function(){
+            var selectedData = $("#example-table").tabulator("getSelectedData");
+            var json = JSON.stringify(selectedData); 
+            $.ajax({
+                url: "<?php echo base_url('import_master_list/saveListTable');?>",
+                type: "post",
+                data: {"data":json},
+                cache: false,
+                ////contentType: false,
+                //processData: false,
+                dataType : "json",
+                success: function (e) {
+                    if(e.code == 200){
+                        $("#example-table").tabulator("setData", "<?php echo base_url('import_master_list/getListTable'); ?>");
+                    } else {
+                        alert(e.message);
+                    }
+                },
+                error: function (e) {
+                    //alert('fail');
+                }
+            });
+        });
+
     });
-    
+
     function getFileExtension1(filename) {
         return (/[.]/.exec(filename)) ? /[^.]+$/.exec(filename)[0] : undefined;
     }
