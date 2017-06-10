@@ -105,5 +105,51 @@ class Api extends MX_Controller {
             redirect('error404');
         }
     }
+    
+    function get_province() {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            if ($data = $this->Api_model->get_province()) {              
+                $this->output->set_status_header('200');
+                $dt=array(
+                    'code'=>200,
+                    'message'=>'Success !!!',
+                    'data' => $data
+                );
+            } else {
+                $this->output->set_status_header('500');
+                $dt=array(
+                    'code'=>500,
+                    'message'=>'Query Error!!!'
+                );
+            }
+            echo json_encode($dt);
+        } else {
+            $this->output->set_status_header('404');
+            redirect('error404');
+        }
+    }
+    
+    function get_city() {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            if ($data = $this->Api_model->get_city($_GET['province'])) {              
+                $this->output->set_status_header('200');
+                $dt=array(
+                    'code'=>200,
+                    'message'=>'Success !!!',
+                    'data' => $data
+                );
+            } else {
+                $this->output->set_status_header('500');
+                $dt=array(
+                    'code'=>500,
+                    'message'=>'Query Error!!!'
+                );
+            }
+            echo json_encode($dt);
+        } else {
+            $this->output->set_status_header('404');
+            redirect('error404');
+        }
+    }
 
 }

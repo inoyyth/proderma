@@ -45,5 +45,17 @@ class Api_model extends CI_Model {
         }
         return false;
     }
+    
+    public function get_province() {
+        $this->db->select('province_id,province_name,province_code');
+        $this->db->from('province');
+        return $this->db->get()->result_array();
+    }
+    
+    public function get_city() {
+        $this->db->select('city_id,province_id,city_name,lat,lng');
+        $this->db->from('city');
+        return $this->db->get()->result_array();
+    }
 
 }
