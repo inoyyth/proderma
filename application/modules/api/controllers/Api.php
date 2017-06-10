@@ -59,7 +59,7 @@ class Api extends MX_Controller {
     }
 
     function register_customer() {
-        if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (file_get_contents('php://input')) {
                 $data = json_decode(file_get_contents('php://input'), true);
                 if (count($data) < 1) {
