@@ -35,9 +35,9 @@ class Api_model extends CI_Model {
             'customer_phone' => $data['telephone'],
             'customer_email' => $data['email'],
             'id_group_customer_product' => $data['group_id'],
-            'id_status_list_customer' => $data['status_id'],
             'customer_internal_notes' => $data['notes'],
-            'photo_path' => $data['path_image']
+            'photo_path' => $data['path_image'],
+            'current_lead_customer_status' => $data['current_lead_customer_status']
         );
 
         if ($this->db->insert('m_customer',$this->main_model->create_sys($val))) {
@@ -52,9 +52,64 @@ class Api_model extends CI_Model {
         return $this->db->get()->result_array();
     }
     
-    public function get_city() {
+    public function get_city($province) {
         $this->db->select('city_id,province_id,city_name,lat,lng');
         $this->db->from('city');
+        $this->db->where(array('province_id'=>$province));
+        return $this->db->get()->result_array();
+    }
+    
+    public function get_district($city) {
+        $this->db->select('district_id,city_id,district_name,lat,lng');
+        $this->db->from('district');
+        $this->db->where(array('city_id'=>$city));
+        return $this->db->get()->result_array();
+    }
+    
+    public function register_lead($data) {
+        $val = array(
+            'customer_code' => $data['customer_code'],
+            'customer_name' => $data['customer_name'],
+            'customer_clinic' => $data['customer_clinic'],
+            'customer_province' => $data['province_id'],
+            'customer_city' => $data['city_id'],
+            'customer_district' => $data['district_id'],
+            'customer_address' => $data['address'],
+            'customer_latitude' => $data['address'],
+            'customer_longitude' => $data['address'],
+            'customer_phone' => $data['telephone'],
+            'customer_email' => $data['email'],
+            'id_source_lead_customer' => $data['source_id'],
+            'id_status_lead_customer' => $data['status_id'],
+            'customer_internal_notes' => $data['notes'],
+            'photo_path' => $data['path_image'],
+            'current_lead_customer_status' => $data['current_lead_customer_status']
+        );
+
+        if ($this->db->insert('m_customer',$this->main_model->create_sys($val))) {
+            return true;
+        }
+        return false;
+    }
+    
+    public function group_customer() {
+        $this->db->select('id,group_customer_product');
+        $this->db->from('group_customer_product');
+        $this->db->where(array('group_customer_product_status'=>1));
+        return $this->db->get()->result_array();
+    }
+    
+    public function source_customer() {
+        $this->db->select('id,source_lead_customer');
+        $this->db->from('source_lead_customer');
+        $this->db->where(array('source_lead_customer_status'=>1));
+        return $this->db->get()->result_array();
+    }
+    
+    public function status_customer() {
+        $this->db->select('id,status_lead_customer');
+        $this->db->from('status_lead_customer');
+        $this->db->where(array('status_lead_customer_status'=>1));
         return $this->db->get()->result_array();
     }
 

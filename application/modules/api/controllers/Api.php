@@ -75,12 +75,13 @@ class Api extends MX_Controller {
                         'customer_name'=>'Is Required',
                         'customer_clinic'=>'Is Required'
                     );
+                    $data['current_lead_customer_status'] = "C";
                     $this->__cek_empty_data($data,$field);
                     if(!empty($data['images'])){
                         $fetch_image = $this->__fetchImage($data['images'],'images/md_customer');
                         $data['path_image'] = $fetch_image;
                     }
-                    if ($this->Api_model->register_customer($data)) {              
+                    if ($this->Api_model->register_lead($data)) {              
                         $this->output->set_status_header('200');
                         $dt=array(
                             'code'=>200,
@@ -132,6 +133,147 @@ class Api extends MX_Controller {
     function get_city() {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             if ($data = $this->Api_model->get_city($_GET['province'])) {              
+                $this->output->set_status_header('200');
+                $dt=array(
+                    'code'=>200,
+                    'message'=>'Success !!!',
+                    'data' => $data
+                );
+            } else {
+                $this->output->set_status_header('500');
+                $dt=array(
+                    'code'=>500,
+                    'message'=>'Query Error!!!'
+                );
+            }
+            echo json_encode($dt);
+        } else {
+            $this->output->set_status_header('404');
+            redirect('error404');
+        }
+    }
+    
+    function get_district() {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            if ($data = $this->Api_model->get_district($_GET['city'])) {              
+                $this->output->set_status_header('200');
+                $dt=array(
+                    'code'=>200,
+                    'message'=>'Success !!!',
+                    'data' => $data
+                );
+            } else {
+                $this->output->set_status_header('500');
+                $dt=array(
+                    'code'=>500,
+                    'message'=>'Query Error!!!'
+                );
+            }
+            echo json_encode($dt);
+        } else {
+            $this->output->set_status_header('404');
+            redirect('error404');
+        }
+    }
+    
+    function register_lead() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (file_get_contents('php://input')) {
+                $data = json_decode(file_get_contents('php://input'), true);
+                if (count($data) < 1) {
+                    $this->output->set_status_header('403');
+                    $dt = array(
+                        'code' => 403,
+                        'message' => 'Forbidden, data false'
+                    );
+                } else {
+                    $data['path_image']="";
+                    $field = array(
+                        'customer_code'=>"Is Required",
+                        'customer_name'=>'Is Required',
+                        'customer_clinic'=>'Is Required'
+                    );
+                    $data['current_lead_customer_status'] = "L";
+                    $this->__cek_empty_data($data,$field);
+                    if(!empty($data['images'])){
+                        $fetch_image = $this->__fetchImage($data['images'],'images/md_customer');
+                        $data['path_image'] = $fetch_image;
+                    }
+                    if ($this->Api_model->register_lead($data)) {              
+                        $this->output->set_status_header('200');
+                        $dt=array(
+                            'code'=>200,
+                            'message'=>'Success !!!'
+                        );
+                    } else {
+                        $this->output->set_status_header('500');
+                        $dt=array(
+                            'code'=>500,
+                            'message'=>'Query Error!!!'
+                        );
+                    }
+                    
+                }
+                echo json_encode($dt);
+            } else {
+                $this->output->set_status_header('404');
+                redirect('error404');
+            }
+        } else {
+            $this->output->set_status_header('404');
+            redirect('error404');
+        }
+    }
+    
+    function group_customer() {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            if ($data = $this->Api_model->group_customer()) {              
+                $this->output->set_status_header('200');
+                $dt=array(
+                    'code'=>200,
+                    'message'=>'Success !!!',
+                    'data' => $data
+                );
+            } else {
+                $this->output->set_status_header('500');
+                $dt=array(
+                    'code'=>500,
+                    'message'=>'Query Error!!!'
+                );
+            }
+            echo json_encode($dt);
+        } else {
+            $this->output->set_status_header('404');
+            redirect('error404');
+        }
+    }
+    
+    function source_customer() {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            if ($data = $this->Api_model->source_customer()) {              
+                $this->output->set_status_header('200');
+                $dt=array(
+                    'code'=>200,
+                    'message'=>'Success !!!',
+                    'data' => $data
+                );
+            } else {
+                $this->output->set_status_header('500');
+                $dt=array(
+                    'code'=>500,
+                    'message'=>'Query Error!!!'
+                );
+            }
+            echo json_encode($dt);
+        } else {
+            $this->output->set_status_header('404');
+            redirect('error404');
+        }
+    }
+    
+    function status_customer() {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            if ($data = $this->Api_model->status_customer()) {              
                 $this->output->set_status_header('200');
                 $dt=array(
                     'code'=>200,
