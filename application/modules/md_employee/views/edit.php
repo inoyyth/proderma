@@ -10,19 +10,23 @@
                             <input type="hidden" name="image_hidden" value="<?php echo $data['photo_path'];?>">
                         </div>
                         <div class="col-md-8">
-                            <input type="hidden" value="<?php echo $data['id'];?>" name="id">
+                            <input type="hidden" id="id-employee" value="<?php echo $data['id'];?>" name="id">
                             <div class="form-group">
                                 <label>NIP</label>
                                 <input type="text" name="employee_nip" value="<?php echo $data['employee_nip'];?>" parsley-trigger="change" required placeholder="NIP" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Position</label>
-                                <select name="id_jabatan" parsley-trigger="change" required placeholder="Position" class="form-control">
+                                <select id="id-jabatan" name="id_jabatan" parsley-trigger="change" required placeholder="Position" class="form-control">
                                     <option value=""></option>
                                     <?php foreach($jabatan as $kJabatan=>$vJabatan) { ?>
                                     <option value="<?php echo $vJabatan['id'];?>" <?php echo ($data['id_jabatan']==$vJabatan['id']?"selected":"");?>><?php echo $vJabatan['jabatan'];?></option>
                                     <?php } ?>
                                 </select>
+                            </div>
+                            <div class="form-group" id="pass-field" style="display: none;">
+                                <label>Password</label>
+                                <input type="password" id="sales-password" name="sales_password" parsley-trigger="change" required placeholder="Password" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Full Name</label>
@@ -60,6 +64,25 @@
     </form>
 </div>
 <script>
+    $(document).ready(function (){
+       if($("#id-jabatan").val() == 1){
+           var id_employee = $("#id-employee").val();
+           $.ajax({
+                type:"POST",
+                url:"<?php echo base_url('md_employee/getPassEmployee');?>",
+                dataType: "json",
+                data: {id:id_employee},
+                success: function(result){
+                    console.log(result);
+                }
+            }).done(function (result){
+                $("#sales-password").val(result.data.password);
+                $("#pass-field").show();
+            }).fail(function() {
+                alert( "error" );
+              });
+       }
+    });
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();

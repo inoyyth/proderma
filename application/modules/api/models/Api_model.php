@@ -4,14 +4,9 @@ class Api_model extends CI_Model {
 
     public function getHeaderData($token) {
         $this->db->select('
-                account.id,
-                account.username,
-                account.no_telp,
-                account.email,
-                account.path_foto,
-                account.token
+                *
                 ');
-        $this->db->from('account');
+        $this->db->from('m_employee');
         $this->db->where(array('token' => $token));
         $query = $this->db->get();
         if ($query->num_rows() == 1) {
@@ -19,6 +14,32 @@ class Api_model extends CI_Model {
         } else {
             return false; //if data is wrong
         }
+    }
+    
+    public function login($data) {
+        $this->db->select("*");
+        $this->db->from("m_employee");
+        $this->db->where(array("employee_email"=>$data['username'],"sales_password"=>md5($data['password']),"id_jabatan"=>1,"employee_status"=>1));
+        $query = $this->db->get();
+       if ($query->num_rows() == 1) {
+            $result = $this->__setToken($query->row_array());
+            return $result;
+        } else {
+            return false;
+        }
+        
+    }   
+    
+    private function __setToken($data) {
+        $token = bin2hex(openssl_random_pseudo_bytes(16));
+        $dt = array('token'=>$token);
+        $this->db->update('m_employee',$dt,array('id'=>$data['id']));
+         $this->db->select("*");
+        $this->db->from("m_employee");
+        $this->db->where(array("id"=>$data['id']));
+        $query = $this->db->get();
+        
+        return $query->row_array();
     }
 
     public function register_customer($data) {

@@ -125,5 +125,20 @@ class Md_employee extends MX_Controller {
         $data['list'] = $this->db->get($this->table)->result_array();
         $this->load->view('template_excel', $data);
     }
+    
+     public function getPassEmployee() {
+        $id = $this->input->post('id');
+        if($data = $this->m_md_employee->getPassEmployee($id)){
+            if($data->row('sales_password') != "") {
+                $result['password'] = $this->encrypt->decode($data->row('sales_password'));
+            } else {
+                $result['password'] = "";
+            }
+            $dt = array('code'=>200,'data'=>$result);
+            echo json_encode($dt);
+        } else {
+            return false;
+        }
+    }
 
 }

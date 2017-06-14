@@ -44,9 +44,15 @@ Class M_md_employee extends CI_Model {
             'photo_path' => $image_name
         );
         if (empty($id)) {
+            if($this->input->post('id_jabatan') == 1) {
+                $data['sales_password'] = $this->encrypt->encode(1234);
+            }
             $this->db->insert($this->table, $this->main_model->create_sys($data));
             return true;
         } else {
+            if($this->input->post('id_jabatan') == 1) {
+                $data['sales_password'] =  md5($this->input->post('sales_password'));
+            }
             $this->db->update($this->table, $this->main_model->update_sys($data), array('id' => $id));
             return true;
         }
@@ -71,6 +77,18 @@ Class M_md_employee extends CI_Model {
         $this->db->limit($limit['limit'],$limit['offset']);
         return $sql = $this->db->get()->result_array();
         //echo json_encode($sql);
+    }
+    
+    public function getPassEmployee($id) {
+        $this->db->select('sales_password');
+        $this->db->from('m_employee');
+        $this->db->where(array('id'=>$id));
+        $dt = $this->db->get();
+        if($dt->num_rows() == 1){
+            return $dt;
+        } else {
+            return false;
+        }
     }
 
 }

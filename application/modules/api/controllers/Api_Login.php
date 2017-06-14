@@ -16,7 +16,29 @@ class Api_Login extends MX_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('Api/Api_model');
-        $this->load->library('api_validation');
+        $this->load->library(array('encrypt','api_validation'));
+    }
+    
+    private function __cek_empty_data($data=array(),$field=array()){
+        $dx = array();
+        foreach($field as $key=>$v) {
+            if(in_array($key, array_keys($data))) {
+                if($data[$key] == null || $data[$key] == ""){
+                    $dx[]= array($key=>$v);
+                }
+            }
+        }
+        
+        if(count($dx) > 0){
+            $this->output->set_status_header('200');
+            $dt = array(
+                'code' => 201,
+                'message' => "Failed"
+            );
+            echo json_encode($dt);
+            exit;
+        }
+        return true;
     }
     
     public function login() {
@@ -30,29 +52,23 @@ class Api_Login extends MX_Controller {
                         'message' => 'Forbidden, data false'
                     );
                 } else {
-                    $data['path_image']="";
                     $field = array(
                         'username'=>"Is Required",
                         'password'=>'Is Required',
-                        'customer_clinic'=>'Is Required'
                     );
-                    $data['current_lead_customer_status'] = "C";
-                    $this->__cek_empty_data($data,$field);
-                    if(!empty($data['images'])){
-                        $fetch_image = $this->__fetchImage($data['images'],'images/md_customer');
-                        $data['path_image'] = $fetch_image;
-                    }
-                    if ($this->Api_model->register_lead($data)) {              
+                    
+                    if ($data_login = $this->Api_model->login($data)) {              
                         $this->output->set_status_header('200');
                         $dt=array(
                             'code'=>200,
-                            'message'=>'Success !!!'
+                            'message'=>'Success !!!',
+                            'data' => array('token' => $data_login['token'])
                         );
                     } else {
-                        $this->output->set_status_header('500');
+                        $this->output->set_status_header('200');
                         $dt=array(
-                            'code'=>500,
-                            'message'=>'Query Error!!!'
+                            'code'=>201,
+                            'message'=>'Data Not Exist!!!'
                         );
                     }
                     
