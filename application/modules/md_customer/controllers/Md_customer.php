@@ -103,6 +103,7 @@ class Md_customer extends MX_Controller {
 
     public function add() {
         $this->breadcrumbs->push('Add', '/customer-add');
+        $data['code'] = $this->main_model->generate_code('m_customer', $this->config->item('customer_code'), '/0/', $digit = 5, true,false, $where=array(),'id','id');
         $data['province'] = $this->db->get('province')->result_array();
         $data['group'] = $this->db->get_where('group_customer_product',array('group_customer_product_status'=>1))->result_array();
         $data['status_list_customer'] = $this->db->get_where('status_list_customer',array('status_list_customer_status'=>1))->result_array();

@@ -124,6 +124,12 @@ $route['mapping-area-edit-(:num)'] = 't_mapping_area/edit/$1';
 $route['mapping-area-view-(:num)'] = 't_mapping_area/view/$1';
 $route['mapping-area-save'] = 't_mapping_area/save';
 
+$route['master-area'] = 'md_area';
+$route['master-area-add'] = 'md_area/add';
+$route['master-area-edit-(:num)'] = 'md_area/edit/$1';
+$route['master-area-delete-(:num)'] = 'md_area/delete/$1';
+$route['master-area-save'] = 'md_area/save';
+
 $route['backup-database'] = 'backup_db';
 $route['backup-database-add'] = 'backup_db/add';
 $route['backup-database-edit-(:num)'] = 'backup_db/edit/$1';

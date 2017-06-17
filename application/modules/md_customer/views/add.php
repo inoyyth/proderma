@@ -20,7 +20,7 @@
                                     <input type="hidden" name="id">
                                     <div class="form-group">
                                         <label>Code</label>
-                                        <input type="text" name="customer_code" parsley-trigger="change" required placeholder="Code" class="form-control">
+                                        <input type="text" name="customer_code" value="<?php echo $code; ?>" readonly="true" parsley-trigger="change" required placeholder="Code" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label>Name</label>

@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.18, for Linux (x86_64)
 --
--- Host: 127.0.0.1    Database: proderma_db
+-- Host: localhost    Database: proderma_db
 -- ------------------------------------------------------
--- Server version	5.5.5-10.1.16-MariaDB
+-- Server version	5.5.5-10.1.21-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -40,6 +40,7 @@ CREATE TABLE `account` (
   `sys_delete_date` datetime NOT NULL,
   `last_login` datetime NOT NULL,
   `status` enum('1','2') DEFAULT NULL,
+  `token` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -50,7 +51,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES (6,'superadmin@proderma.com','Super Admin','SFTGO2aJb0VZvhbLXh~4aWmhAUxqzNuDKTQEx3lx8sy2SC4uQ4GDkgwXceKDKRhHWym7oZvb3z6MiHf773rsag--','909090909','supri170845@gmail.com','assets/images/account/a93ac272e0099bcc4a867ffc01b343a3.png','a:20:{i:0;a:3:{s:4:\"menu\";s:2:\"23\";s:4:\"slug\";s:15:\"master-employee\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:1;a:3:{s:4:\"menu\";s:2:\"24\";s:4:\"slug\";s:14:\"employee-level\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:2;a:3:{s:4:\"menu\";s:2:\"26\";s:4:\"slug\";s:14:\"master-product\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:3;a:3:{s:4:\"menu\";s:2:\"32\";s:4:\"slug\";s:8:\"customer\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:4;a:3:{s:4:\"menu\";s:2:\"27\";s:4:\"slug\";s:23:\"master-product-category\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:5;a:3:{s:4:\"menu\";s:2:\"33\";s:4:\"slug\";s:13:\"lead-customer\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:6;a:3:{s:4:\"menu\";s:2:\"28\";s:4:\"slug\";s:19:\"master-payment-type\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:7;a:3:{s:4:\"menu\";s:2:\"51\";s:4:\"slug\";s:22:\"lead-customer-priority\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:8;a:3:{s:4:\"menu\";s:2:\"57\";s:4:\"slug\";s:27:\"master-product-sub-category\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:9;a:3:{s:4:\"menu\";s:2:\"36\";s:4:\"slug\";s:15:\"user-management\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:10;a:3:{s:4:\"menu\";s:2:\"34\";s:4:\"slug\";s:11:\"sales-order\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:11;a:3:{s:4:\"menu\";s:2:\"45\";s:4:\"slug\";s:14:\"sales-delivery\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:12;a:3:{s:4:\"menu\";s:2:\"46\";s:4:\"slug\";s:7:\"invoice\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:13;a:3:{s:4:\"menu\";s:2:\"52\";s:4:\"slug\";s:16:\"status-transaksi\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:14;a:3:{s:4:\"menu\";s:2:\"53\";s:4:\"slug\";s:10:\"All Report\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:15;a:3:{s:4:\"menu\";s:2:\"49\";s:4:\"slug\";s:12:\"mapping-area\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:16;a:3:{s:4:\"menu\";s:2:\"50\";s:4:\"slug\";s:15:\"mapping-product\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:17;a:3:{s:4:\"menu\";s:2:\"48\";s:4:\"slug\";s:3:\"ojt\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:18;a:3:{s:4:\"menu\";s:2:\"55\";s:4:\"slug\";s:15:\"backup-database\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:19;a:3:{s:4:\"menu\";s:2:\"56\";s:4:\"slug\";s:18:\"import-master-list\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}}','2',NULL,6,NULL,'0000-00-00 00:00:00','2017-05-16 00:03:42','0000-00-00 00:00:00','2017-05-16 00:03:52','1'),(7,'sapta@gmail.com','Sapta','xnZIzwpM8T2KKaqmt2N0hHaEcTprbvX7511xanARXiFlQHTlmmBk4sMM2UQfVuDRc5sgtqGy9QRdw/im+hU8fw==','879979797979','supri170845@gmail.com','667fa1e720b199d98293f0eec4086ebe.jpg','a:6:{i:0;a:3:{s:4:\"menu\";s:2:\"23\";s:4:\"slug\";s:15:\"master-employee\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:1;a:3:{s:4:\"menu\";s:2:\"24\";s:4:\"slug\";s:12:\"master-level\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:2;a:3:{s:4:\"menu\";s:2:\"26\";s:4:\"slug\";s:14:\"master-product\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:3;a:3:{s:4:\"menu\";s:2:\"27\";s:4:\"slug\";s:23:\"master-product-category\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:4;a:3:{s:4:\"menu\";s:2:\"28\";s:4:\"slug\";s:19:\"master-payment-type\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:5;a:3:{s:4:\"menu\";s:2:\"29\";s:4:\"slug\";s:15:\"master-customer\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}}','1',NULL,6,NULL,'0000-00-00 00:00:00','2017-04-15 09:16:38','0000-00-00 00:00:00','2017-03-12 01:13:19','1');
+INSERT INTO `account` VALUES (6,'superadmin@proderma.com','Super Admin','CudQftndtC1y9aMauOYkP2nQvnqejC4x8VoIznmCabe052PCvAcAIf/Epfby9SnCu6vs/wL5KkAHoHv5YDrBIw==','909090909','supri170845@gmail.com','assets/images/account/a93ac272e0099bcc4a867ffc01b343a3.png','a:19:{i:0;a:3:{s:4:\"menu\";s:2:\"23\";s:4:\"slug\";s:15:\"master-employee\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:1;a:3:{s:4:\"menu\";s:2:\"24\";s:4:\"slug\";s:14:\"employee-level\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:2;a:3:{s:4:\"menu\";s:2:\"26\";s:4:\"slug\";s:14:\"master-product\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:3;a:3:{s:4:\"menu\";s:2:\"27\";s:4:\"slug\";s:23:\"master-product-category\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:4;a:3:{s:4:\"menu\";s:2:\"28\";s:4:\"slug\";s:19:\"master-payment-type\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:5;a:3:{s:4:\"menu\";s:2:\"36\";s:4:\"slug\";s:15:\"user-management\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:6;a:3:{s:4:\"menu\";s:2:\"34\";s:4:\"slug\";s:11:\"sales-order\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:7;a:3:{s:4:\"menu\";s:2:\"45\";s:4:\"slug\";s:14:\"sales-delivery\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:8;a:3:{s:4:\"menu\";s:2:\"46\";s:4:\"slug\";s:7:\"invoice\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:9;a:3:{s:4:\"menu\";s:2:\"52\";s:4:\"slug\";s:16:\"status-transaksi\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:10;a:3:{s:4:\"menu\";s:2:\"53\";s:4:\"slug\";s:10:\"All Report\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:11;a:3:{s:4:\"menu\";s:2:\"49\";s:4:\"slug\";s:12:\"mapping-area\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:12;a:3:{s:4:\"menu\";s:2:\"50\";s:4:\"slug\";s:15:\"mapping-product\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:13;a:3:{s:4:\"menu\";s:2:\"32\";s:4:\"slug\";s:8:\"customer\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:14;a:3:{s:4:\"menu\";s:2:\"33\";s:4:\"slug\";s:13:\"lead-customer\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:15;a:3:{s:4:\"menu\";s:2:\"48\";s:4:\"slug\";s:3:\"ojt\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:16;a:3:{s:4:\"menu\";s:2:\"51\";s:4:\"slug\";s:22:\"lead-customer-priority\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:17;a:3:{s:4:\"menu\";s:2:\"55\";s:4:\"slug\";s:15:\"backup-database\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:18;a:3:{s:4:\"menu\";s:2:\"56\";s:4:\"slug\";s:18:\"import-master-list\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}}','2',NULL,6,NULL,'0000-00-00 00:00:00','2017-05-14 11:05:01','0000-00-00 00:00:00','2017-06-17 08:43:32','1',NULL),(7,'sapta@gmail.com','Sapta','Z1Qu/74RQ8l8Rb7WTpzvqguzKNyH/NPZPN/kKtlnL5JBxwFyntCNO8PeWXIUmiRVDJKfWptOcqw0KTK1tg8+1A==','879979797979','supri170845@gmail.com','assets/images/account/acba5d0dc18ae417a9abb16c4e5f0403.jpg','a:5:{i:0;a:3:{s:4:\"menu\";s:2:\"23\";s:4:\"slug\";s:15:\"master-employee\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:1;a:3:{s:4:\"menu\";s:2:\"24\";s:4:\"slug\";s:14:\"employee-level\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:2;a:3:{s:4:\"menu\";s:2:\"26\";s:4:\"slug\";s:14:\"master-product\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:3;a:3:{s:4:\"menu\";s:2:\"27\";s:4:\"slug\";s:23:\"master-product-category\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}i:4;a:3:{s:4:\"menu\";s:2:\"28\";s:4:\"slug\";s:19:\"master-payment-type\";s:5:\"child\";a:4:{s:3:\"add\";i:1;s:3:\"upd\";i:1;s:3:\"del\";i:1;s:3:\"prt\";i:1;}}}','1',NULL,6,NULL,'0000-00-00 00:00:00','2017-05-19 00:26:26','0000-00-00 00:00:00','2017-03-12 01:13:19','1','aaff823949cce375d75f89b89315e676');
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -186,6 +187,39 @@ LOCK TABLES `m_activity` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `m_area`
+--
+
+DROP TABLE IF EXISTS `m_area`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `m_area` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `area_code` varchar(45) DEFAULT NULL,
+  `area_name` varchar(50) DEFAULT NULL,
+  `area_description` text,
+  `area_status` int(2) DEFAULT '1',
+  `sys_create_user` int(11) DEFAULT NULL,
+  `sys_update_user` int(11) DEFAULT NULL,
+  `sys_delete_user` int(11) DEFAULT NULL,
+  `sys_create_date` datetime DEFAULT NULL,
+  `sys_update_date` datetime DEFAULT NULL,
+  `sys_delete_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `m_area`
+--
+
+LOCK TABLES `m_area` WRITE;
+/*!40000 ALTER TABLE `m_area` DISABLE KEYS */;
+INSERT INTO `m_area` VALUES (1,'E-NAD','Aceh','Nanggaro Aceh Darusallam',1,6,NULL,NULL,'2017-06-17 10:00:08',NULL,NULL),(2,'SU','Sumatera Utara X','sumut x',1,6,6,NULL,'2017-06-17 10:03:32','2017-06-17 10:10:06',NULL);
+/*!40000 ALTER TABLE `m_area` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `m_backup_db`
 --
 
@@ -224,7 +258,7 @@ DROP TABLE IF EXISTS `m_customer`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `m_customer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `customer_code` varchar(20) DEFAULT NULL,
+  `customer_code` varchar(45) DEFAULT NULL,
   `customer_name` varchar(100) DEFAULT NULL,
   `customer_clinic` varchar(100) DEFAULT NULL,
   `customer_address` text,
@@ -252,6 +286,8 @@ CREATE TABLE `m_customer` (
   `sys_create_date` datetime DEFAULT NULL,
   `sys_update_date` datetime DEFAULT NULL,
   `sys_delete_date` datetime DEFAULT NULL,
+  `area_code` int(11) DEFAULT NULL,
+  `subarea_code` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_source_lead_customer` (`id_source_lead_customer`),
   KEY `fk_status_lead_customer` (`id_status_lead_customer`),
@@ -267,7 +303,7 @@ CREATE TABLE `m_customer` (
   CONSTRAINT `fk_source_lead_customer` FOREIGN KEY (`id_source_lead_customer`) REFERENCES `source_lead_customer` (`id`),
   CONSTRAINT `fk_status_lead_customer` FOREIGN KEY (`id_status_lead_customer`) REFERENCES `status_lead_customer` (`id`),
   CONSTRAINT `fk_status_list_customer` FOREIGN KEY (`id_status_list_customer`) REFERENCES `status_list_customer` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -276,7 +312,7 @@ CREATE TABLE `m_customer` (
 
 LOCK TABLES `m_customer` WRITE;
 /*!40000 ALTER TABLE `m_customer` DISABLE KEYS */;
-INSERT INTO `m_customer` VALUES (5,'CS-0800','Romi','On Clinic','jl. grogol no.45 grogol jakarta barat, 14566',1,4,63,'08799858585','onclinic@gmail.com','-6.12912','106.83335',1,NULL,NULL,2,'C',NULL,NULL,'false','On review customer','assets/images/md_customer/user_icon.png',1,6,6,NULL,'2017-04-22 10:59:49','2017-04-23 23:50:30',NULL),(6,'LC-89898','Taufik','Durex Clinic','jl.C no.50 Bantar Gebang, Bekasi 44545',1,1,364,'02189898598','durexon@gmail.com','-6.27452','106.76951',NULL,3,4,NULL,'L',NULL,NULL,'false','waiting progress from sales','assets/images/md_customer/user_icon.png',1,6,6,NULL,'2017-04-22 11:10:10','2017-04-23 23:51:42',NULL),(7,'CS-001','Rudi','Herbal Clinic','Jl.casablanca 5 ',1,1,730,'0218979797','herbal@gmail.com','-6.22489','106.84043',NULL,2,10,NULL,'L',NULL,NULL,'false','-','assets/images/md_customer/300f54b790929c28a4090dd13c56e7ba.png',1,6,6,NULL,'2017-04-22 17:01:20','2017-04-23 23:51:18',NULL),(8,'CS-002','Ucok','Natural Herbal Clinic','Jl.babelan',1,4,64,'021897979','natural.clinic@gmail.com','-6.12648','106.95108',NULL,1,4,NULL,'L',NULL,NULL,'true','-','assets/images/md_customer/07f764b8ec48c42bf6cf135d633e2cc1.jpg',1,6,6,NULL,'2017-04-22 17:08:24','2017-04-23 23:51:04',NULL),(9,'CS-001','Zain Pam','Durex On','Jl.TB Simatupang',1,4,63,'87999080808','durexon@gmail.com','-612912','10683335',NULL,1,NULL,1,'L',NULL,NULL,'false',NULL,NULL,1,6,NULL,NULL,'2017-05-15 13:32:42',NULL,NULL),(10,'CS-002','Chelsea','Herbal Clinic 1','Jl.Kesemek No.43',1,4,63,'87999080808','durexon@gmail.com','-612912','10683335',NULL,2,4,2,'L',NULL,NULL,'false','-','assets/images/md_customer/user_icon.png',1,6,6,NULL,'2017-05-15 13:32:42','2017-05-15 13:35:40',NULL),(11,'CS-003','Chelsea 1','Herbal Clinic 2','Jl.Kesemek No.44',1,4,63,'87999080809','durexon@gmail.com','-612912','10683335',NULL,2,NULL,2,'L',NULL,NULL,'false',NULL,NULL,1,6,NULL,NULL,'2017-05-15 13:32:42',NULL,NULL);
+INSERT INTO `m_customer` VALUES (1,'CST/0/20170617/0/00001','Dr. Ramanathan GP','Klinik Ibu dan Anak','JL. Eka Rasmi, Komplek Eka Rasmi Residence NO. B4',35,373,7889,'082166806777','ibudananak@gmail.com','3.58103','98.66763',1,NULL,NULL,2,'C',NULL,NULL,'false','Best time Selasa & Kamis','assets/images/md_customer/user_icon.png',1,6,NULL,NULL,'2017-06-17 09:14:52',NULL,NULL,NULL,NULL),(2,'CST/0/20170617/0/00002','Dr. Irawaty','Klinik Ibu dan Anak','JL. karya Jaya, Klinik Ibu dan Anak',1,2,53,'081260670700','ibudananak@gmail.com','-6.18687','106.77643',2,NULL,NULL,2,'C',NULL,NULL,'false','best time selasa dan kamis','assets/images/md_customer/user_icon.png',1,6,NULL,NULL,'2017-06-17 09:16:16',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `m_customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -306,7 +342,7 @@ CREATE TABLE `m_customer_temp` (
   `sys_create_user` int(11) DEFAULT NULL,
   `sys_create_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=187 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -315,7 +351,6 @@ CREATE TABLE `m_customer_temp` (
 
 LOCK TABLES `m_customer_temp` WRITE;
 /*!40000 ALTER TABLE `m_customer_temp` DISABLE KEYS */;
-INSERT INTO `m_customer_temp` VALUES (161,'CS-004','Chelsea 2','Herbal Clinic 3','Jl.Kesemek No.45',1,4,63,'87999080810','durexon@gmail.com','-612912','10683335',NULL,2,2,6,'2017-05-15 10:55:47'),(162,'CS-005','Chelsea 3','Herbal Clinic 4','Jl.Kesemek No.46',1,4,63,'87999080811','durexon@gmail.com','-612912','10683335',NULL,2,2,6,'2017-05-15 10:55:47'),(163,'CS-006','Chelsea 4','Herbal Clinic 5','Jl.Kesemek No.47',1,4,63,'87999080812','durexon@gmail.com','-612912','10683335',NULL,2,2,6,'2017-05-15 10:55:47'),(164,'CS-007','Chelsea 5','Herbal Clinic 6','Jl.Kesemek No.48',1,4,63,'87999080813','durexon@gmail.com','-612912','10683335',NULL,2,2,6,'2017-05-15 10:55:47'),(165,'CS-008','Chelsea 6','Herbal Clinic 7','Jl.Kesemek No.49',1,4,63,'87999080814','durexon@gmail.com','-612912','10683335',NULL,2,2,6,'2017-05-15 10:55:47'),(166,'CS-009','Chelsea 7','Herbal Clinic 8','Jl.Kesemek No.50',1,4,63,'87999080815','durexon@gmail.com','-612912','10683335',NULL,2,2,6,'2017-05-15 10:55:47'),(167,'CS-010','Chelsea 8','Herbal Clinic 9','Jl.Kesemek No.51',1,4,63,'87999080816','durexon@gmail.com','-612912','10683335',NULL,2,2,6,'2017-05-15 10:55:47'),(168,'CS-011','Chelsea 9','Herbal Clinic 10','Jl.Kesemek No.52',1,4,63,'87999080817','durexon@gmail.com','-612912','10683335',NULL,2,2,6,'2017-05-15 10:55:47'),(169,'CS-012','Chelsea 10','Herbal Clinic 11','Jl.Kesemek No.53',1,4,63,'87999080818','durexon@gmail.com','-612912','10683335',NULL,2,2,6,'2017-05-15 10:55:47'),(170,'CS-013','Chelsea 11','Herbal Clinic 12','Jl.Kesemek No.54',1,4,63,'87999080819','durexon@gmail.com','-612912','10683335',NULL,2,2,6,'2017-05-15 10:55:47'),(171,'CS-014','Chelsea 12','Herbal Clinic 13','Jl.Kesemek No.55',1,4,63,'87999080820','durexon@gmail.com','-612912','10683335',NULL,2,2,6,'2017-05-15 10:55:47'),(172,'CS-015','Chelsea 13','Herbal Clinic 14','Jl.Kesemek No.56',1,4,63,'87999080821','durexon@gmail.com','-612912','10683335',NULL,2,2,6,'2017-05-15 10:55:47'),(173,'CS-016','Chelsea 14','Herbal Clinic 15','Jl.Kesemek No.57',1,4,63,'87999080822','durexon@gmail.com','-612912','10683335',NULL,2,2,6,'2017-05-15 10:55:47'),(174,'CS-017','Chelsea 15','Herbal Clinic 16','Jl.Kesemek No.58',1,4,63,'87999080823','durexon@gmail.com','-612912','10683335',NULL,2,2,6,'2017-05-15 10:55:47'),(175,'CS-018','Chelsea 16','Herbal Clinic 17','Jl.Kesemek No.59',1,4,63,'87999080824','durexon@gmail.com','-612912','10683335',NULL,2,2,6,'2017-05-15 10:55:47'),(176,'CS-019','Chelsea 17','Herbal Clinic 18','Jl.Kesemek No.60',1,4,63,'87999080825','durexon@gmail.com','-612912','10683335',NULL,2,2,6,'2017-05-15 10:55:47'),(177,'CS-020','Chelsea 18','Herbal Clinic 19','Jl.Kesemek No.61',1,4,63,'87999080826','durexon@gmail.com','-612912','10683335',NULL,2,2,6,'2017-05-15 10:55:47'),(178,'CS-021','Chelsea 19','Herbal Clinic 20','Jl.Kesemek No.62',1,4,63,'87999080827','durexon@gmail.com','-612912','10683335',NULL,2,2,6,'2017-05-15 10:55:47'),(179,'CS-022','Chelsea 20','Herbal Clinic 21','Jl.Kesemek No.63',1,4,63,'87999080828','durexon@gmail.com','-612912','10683335',NULL,2,2,6,'2017-05-15 10:55:47'),(180,'CS-023','Chelsea 21','Herbal Clinic 22','Jl.Kesemek No.64',1,4,63,'87999080829','durexon@gmail.com','-612912','10683335',NULL,2,2,6,'2017-05-15 10:55:47'),(181,'CS-024','Chelsea 22','Herbal Clinic 23','Jl.Kesemek No.65',1,4,63,'87999080830','durexon@gmail.com','-612912','10683335',NULL,2,2,6,'2017-05-15 10:55:47'),(182,'CS-025','Chelsea 23','Herbal Clinic 24','Jl.Kesemek No.66',1,4,63,'87999080831','durexon@gmail.com','-612912','10683335',NULL,2,2,6,'2017-05-15 10:55:47'),(183,'CS-026','Chelsea 24','Herbal Clinic 25','Jl.Kesemek No.67',1,4,63,'87999080832','durexon@gmail.com','-612912','10683335',NULL,2,2,6,'2017-05-15 10:55:47'),(184,'CS-027','Chelsea 25','Herbal Clinic 26','Jl.Kesemek No.68',1,4,63,'87999080833','durexon@gmail.com','-612912','10683335',NULL,2,2,6,'2017-05-15 10:55:47'),(185,'CS-028','Chelsea 26','Herbal Clinic 27','Jl.Kesemek No.69',1,4,63,'87999080834','durexon@gmail.com','-612912','10683335',NULL,2,2,6,'2017-05-15 10:55:47'),(186,'CS-029','Chelsea 27','Herbal Clinic 28','Jl.Kesemek No.70',1,4,63,'87999080835','durexon@gmail.com','-612912','10683335',NULL,2,2,6,'2017-05-15 10:55:47');
 /*!40000 ALTER TABLE `m_customer_temp` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -338,6 +373,8 @@ CREATE TABLE `m_employee` (
   `photo_path` text,
   `sales_province` int(11) DEFAULT NULL,
   `sales_city` int(11) DEFAULT NULL,
+  `sales_password` varchar(45) DEFAULT NULL,
+  `token` text,
   `sys_create_user` int(11) DEFAULT NULL,
   `sys_update_user` int(11) DEFAULT NULL,
   `sys_delete_user` int(11) DEFAULT NULL,
@@ -356,7 +393,7 @@ CREATE TABLE `m_employee` (
 
 LOCK TABLES `m_employee` WRITE;
 /*!40000 ALTER TABLE `m_employee` DISABLE KEYS */;
-INSERT INTO `m_employee` VALUES (3,1,'PG-898985','Jenifer Pelo','jenifer.pelo@gmail.com','0808080808','M',2,'assets/images/md_employee/a799830eee4983488bb252613501d9e2.jpg',1,1,6,6,NULL,'2017-04-15 14:19:41','2017-04-24 10:23:53',NULL),(4,1,'PG-8989-8989','Taufik Pambudi','pambudi@gmail.com','0898980808','M',1,'assets/images/md_employee/83bfa30bec81a9d27a9c31a833e7b892.jpg',1,4,6,6,NULL,'2017-04-15 20:54:41','2017-05-11 13:02:36',NULL),(5,1,'NIP90808','Inoy Yth','supri@gmail.com','8989898989898','F',3,'assets/images/md_employee/83ea5811d7026bde18a48f0be640a1cb.png',NULL,NULL,6,NULL,NULL,'2017-05-11 13:03:27',NULL,NULL);
+INSERT INTO `m_employee` VALUES (3,1,'PG-898985','Jenifer Pelo','jenifer.pelo@gmail.com','0808080808','M',1,'assets/images/md_employee/a799830eee4983488bb252613501d9e2.jpg',1,1,'YqxNCRNnSr9SqWdrp9PBF9lDthZuthpLakZ1bmpvHIM8U',NULL,6,6,NULL,'2017-04-15 14:19:41','2017-06-14 22:40:39',NULL),(4,1,'PG-8989-8989','Taufik Pambudi','pambudi@gmail.com','0898980808','M',1,'assets/images/md_employee/83bfa30bec81a9d27a9c31a833e7b892.jpg',1,4,'e10adc3949ba59abbe56e057f20f883e','9c595cf843d5fb5571d641cfcb5e2eb9',6,6,NULL,'2017-04-15 20:54:41','2017-06-14 23:32:33',NULL),(5,1,'NIP90808','Inoy Yth','supri@gmail.com','8989898989898','F',3,'assets/images/md_employee/83ea5811d7026bde18a48f0be640a1cb.png',NULL,NULL,NULL,NULL,6,NULL,NULL,'2017-05-11 13:03:27',NULL,NULL);
 /*!40000 ALTER TABLE `m_employee` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -545,7 +582,7 @@ CREATE TABLE `m_product_category` (
   `sys_update_date` datetime DEFAULT NULL,
   `sys_delete_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -559,17 +596,19 @@ INSERT INTO `m_product_category` VALUES (1,'category A',1,NULL,NULL,NULL,NULL,NU
 UNLOCK TABLES;
 
 --
--- Table structure for table `m_product_sub_category`
+-- Table structure for table `m_subarea`
 --
 
-DROP TABLE IF EXISTS `m_product_sub_category`;
+DROP TABLE IF EXISTS `m_subarea`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `m_product_sub_category` (
+CREATE TABLE `m_subarea` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_product_category` int(11) DEFAULT NULL,
-  `sub_category_name` varchar(100) DEFAULT NULL,
-  `product_sub_category_status` int(2) DEFAULT '1',
+  `id_area` int(11) NOT NULL,
+  `subarea_name` varchar(50) DEFAULT NULL,
+  `subarea_code` varchar(45) DEFAULT NULL,
+  `subarea_description` text,
+  `subarea_status` int(2) DEFAULT '1',
   `sys_create_user` int(11) DEFAULT NULL,
   `sys_update_user` int(11) DEFAULT NULL,
   `sys_delete_user` int(11) DEFAULT NULL,
@@ -577,17 +616,16 @@ CREATE TABLE `m_product_sub_category` (
   `sys_update_date` datetime DEFAULT NULL,
   `sys_delete_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `m_product_sub_category`
+-- Dumping data for table `m_subarea`
 --
 
-LOCK TABLES `m_product_sub_category` WRITE;
-/*!40000 ALTER TABLE `m_product_sub_category` DISABLE KEYS */;
-INSERT INTO `m_product_sub_category` VALUES (1,1,'Sub Category A',1,6,NULL,NULL,'2017-05-16 00:37:07',NULL,NULL);
-/*!40000 ALTER TABLE `m_product_sub_category` ENABLE KEYS */;
+LOCK TABLES `m_subarea` WRITE;
+/*!40000 ALTER TABLE `m_subarea` DISABLE KEYS */;
+/*!40000 ALTER TABLE `m_subarea` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -640,7 +678,7 @@ CREATE TABLE `menus` (
   PRIMARY KEY (`id`),
   KEY `parent` (`parent`) USING BTREE,
   CONSTRAINT `fkmenuparentid` FOREIGN KEY (`parent`) REFERENCES `menus` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -649,7 +687,7 @@ CREATE TABLE `menus` (
 
 LOCK TABLES `menus` WRITE;
 /*!40000 ALTER TABLE `menus` DISABLE KEYS */;
-INSERT INTO `menus` VALUES (1,NULL,'-','Master','fa fa-home','javascript:void(0);',1,'1'),(2,NULL,'-','Transaction','fa fa-edit','javascript:void(0);',3,'1'),(3,NULL,'-','Report','fa fa-tasks','javascript:void(0);',4,'1'),(4,NULL,'-','Activity','fa fa-home','javascript:void(0);',2,'1'),(5,NULL,'-','Utility','fa fa-home','javascript:void(0);',5,'1'),(23,1,'md_employee','Employee','fa fa-circle','master-employee',1,'1'),(24,1,'md_level','Employee Level','fa fa-circle','employee-level',2,'1'),(26,1,'md_product','Product','fa fa-circle','master-product',3,'1'),(27,1,'md_product_category','Product Category','fa fa-circle','master-product-category',4,'1'),(28,1,'md_payment_type','Payment Type','fa fa-circle','master-payment-type',5,'1'),(32,1,'md_customer','Customer List','fa fa-circle','customer',3,'1'),(33,1,'md_costumer_lead','Master List','fa fa-circle','lead-customer',4,'1'),(34,2,'t_sales_order','Sales Order','fa fa-circle','sales-order',1,'1'),(36,1,'account','Users Management','fa fa-circle','user-management',9,'1'),(45,2,'t_sales_delivery','Sales Delivery','fa fa-circle','sales-delivery',2,'1'),(46,2,'t_invoice','Invoice','fa fa-circle','invoice',3,'1'),(48,4,'t_ojt','OJT','fa fa-circle','ojt',5,'1'),(49,4,'t_mapping_area','Mapping Area','fa fa-circle','mapping-area',1,'1'),(50,4,'t_mapping_product','Mapping Product','fa fa-circle','mapping-product',2,'1'),(51,1,'md_customer_lead_priority','Master List Priority','fa fa-circle','lead-customer-priority',6,'1'),(52,2,'t_status_transaksi','Status Transksi','fa fa-circle','status-transaksi',5,'1'),(53,3,'r_report','All Report','fa fa-circle','All Report',1,'1'),(55,5,'backup_db','Backup Database','fa fa-circle','backup-database',1,'1'),(56,5,'import_master_list','Import Master List','fa fa-circle','import-master-list',2,'1'),(57,1,'md_product_sub_category','Product Sub Category','fa fa-circle','master-product-sub-category',6,'1');
+INSERT INTO `menus` VALUES (1,NULL,'-','Master','fa fa-home','javascript:void(0);',1,'1'),(2,NULL,'-','Transaction','fa fa-edit','javascript:void(0);',3,'1'),(3,NULL,'-','Report','fa fa-tasks','javascript:void(0);',4,'1'),(4,NULL,'-','Activity','fa fa-home','javascript:void(0);',2,'1'),(5,NULL,'-','Utility','fa fa-home','javascript:void(0);',5,'1'),(23,1,'md_employee','Master Employee','fa fa-circle','master-employee',1,'1'),(24,1,'md_level','Master Emp.Level','fa fa-circle','employee-level',2,'1'),(26,1,'md_product','Master Product','fa fa-circle','master-product',3,'1'),(27,1,'md_product_category','Master Prd.Category','fa fa-circle','master-product-category',4,'1'),(28,1,'md_payment_type','Master Pay.Type','fa fa-circle','master-payment-type',5,'1'),(29,1,'md_customer','Master Customer','fa fa-circle','master-customer',6,'2'),(32,4,'md_customer','Customer List','fa fa-circle','customer',3,'1'),(33,4,'md_costumer_lead','Master List','fa fa-circle','lead-customer',4,'1'),(34,2,'t_sales_order','Sales Order','fa fa-circle','sales-order',1,'1'),(36,1,'account','Users Management','fa fa-circle','user-management',9,'1'),(45,2,'t_sales_delivery','Sales Delivery','fa fa-circle','sales-delivery',2,'1'),(46,2,'t_invoice','Invoice','fa fa-circle','invoice',3,'1'),(48,4,'t_ojt','OJT','fa fa-circle','ojt',5,'1'),(49,4,'t_mapping_area','Mapping Area','fa fa-circle','mapping-area',1,'1'),(50,4,'t_mapping_product','Mapping Product','fa fa-circle','mapping-product',2,'1'),(51,4,'md_customer_lead_priority','Master List Priority','fa fa-circle','lead-customer-priority',6,'1'),(52,2,'t_status_transaksi','Status Transksi','fa fa-circle','status-transaksi',5,'1'),(53,3,'r_report','All Report','fa fa-circle','All Report',1,'1'),(55,5,'backup_db','Backup Database','fa fa-circle','backup-database',1,'1'),(56,5,'import_master_list','Import Master List','fa fa-circle','import-master-list',2,'1');
 /*!40000 ALTER TABLE `menus` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -939,4 +977,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-16  0:47:11
+-- Dump completed on 2017-06-17 10:23:09
