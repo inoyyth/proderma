@@ -93,6 +93,21 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
+                                        <label>Area</label>
+                                        <select name="id_area" id="select-area" parsley-trigger="change" required placeholder="Area" class="form-control">
+                                            <option value="" disabled="true" selected> </option>
+                                            <?php foreach ($area as $vArea) { ?>
+                                                <option value="<?php echo $vArea['id']; ?>" <?php echo($data['id_area']==$vArea['id'] ? "selected" : "");?>><?php echo $vArea['area_name']; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>SubArea</label>
+                                        <select name="id_subarea" id="select-subarea" parsley-trigger="change" required placeholder="City" class="typeahead form-control">
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
                                         <label>Status</label>
                                         <select name="id_status_list_customer" parsley-trigger="change" required placeholder="Status" class="form-control">
                                             <option value=""></option>
@@ -179,6 +194,24 @@
 
         });
         
+        var option_subarea = "<option value='' disabled selected> </option>";
+        $.ajax({//create an ajax request to load_page.php
+            type: "GET",
+            url: "<?php echo base_url(); ?>md_customer/getSubareaList?id=<?php echo $data['id_area'];?>",
+            dataType: "json",
+            success: function (response) {
+                $.each(response, function (index, element) {
+                    if(element.id === "<?php echo $data['id_subarea'];?>"){
+                        option_subarea += "<option selected value='" + element.id + "'>" + element.subarea_name + "</option>";
+                    } else {
+                        option_subarea += "<option value='" + element.id + "'>" + element.subarea_name + "</option>";
+                    }
+                });
+                $("#select-subarea").html(option_subarea);
+            }
+
+        });
+        
         $(".set-map").focusout(function (){
             initMap($("#customer-latitude").val(), $("#customer-longitude").val());
         });
@@ -219,6 +252,22 @@
         $("#select-district").change(function () {
             console.log();
             initMap($("#select-district :selected").data('lat'), $("#select-district :selected").data('lng'));
+        });
+        
+        $("#select-area").change(function () {
+            var option = "<option value='' disabled selected> </option>";
+            $.ajax({//create an ajax request to load_page.php
+                type: "GET",
+                url: "<?php echo base_url(); ?>md_customer/getSubareaList?id=" + $(this).val(),
+                dataType: "json",
+                success: function (response) {
+                    $.each(response, function (index, element) {
+                        option += "<option value='" + element.id + "'>" + element.subarea_name + "</option>";
+                    });
+                    $("#select-subarea").html(option);
+                }
+
+            });
         });
     });
 

@@ -103,6 +103,7 @@ class Md_customer_lead extends MX_Controller {
 
     public function add() {
         $this->breadcrumbs->push('Add', '/lead-customer-add');
+        $data['code'] = $this->main_model->generate_code('m_customer', $this->config->item('customer_code').'/0','/' , $digit = 5, true,false, $where=array(),'id','id');
         $data['province'] = $this->db->get('province')->result_array();
         $data['source_lead_customer'] = $this->db->get_where('source_lead_customer',array('source_lead_customer_status'=>1))->result_array();
         $data['status_lead_customer'] = $this->db->get_where('status_lead_customer',array('status_lead_customer_status'=>1))->result_array();

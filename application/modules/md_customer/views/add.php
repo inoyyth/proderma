@@ -85,10 +85,25 @@
                                     <div class="form-group">
                                         <label>Group</label>
                                         <select name="id_group_customer_product" parsley-trigger="change" required placeholder="Group" class="form-control">
-                                            <option value=""></option>
+                                            <option value="" disabled="true" selected> </option>
                                             <?php foreach ($group as $vGroup) { ?>
                                                 <option value="<?php echo $vGroup['id']; ?>"><?php echo $vGroup['group_customer_product']; ?></option>
                                             <?php } ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Area</label>
+                                        <select name="id_area" id="select-area" parsley-trigger="change" required placeholder="Area" class="form-control">
+                                            <option value="" disabled="true" selected> </option>
+                                            <?php foreach ($area as $vArea) { ?>
+                                                <option value="<?php echo $vArea['id']; ?>"><?php echo $vArea['area_name']; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>SubArea</label>
+                                        <select name="id_subarea" id="select-subarea" parsley-trigger="change" required placeholder="City" class="typeahead form-control">
+
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -182,6 +197,22 @@
         $("#select-district").change(function () {
             console.log();
             initMap($("#select-district :selected").data('lat'), $("#select-district :selected").data('lng'));
+        });
+        
+        $("#select-area").change(function () {
+            var option = "<option value='' disabled selected> </option>";
+            $.ajax({//create an ajax request to load_page.php
+                type: "GET",
+                url: "<?php echo base_url(); ?>md_customer/getSubareaList?id=" + $(this).val(),
+                dataType: "json",
+                success: function (response) {
+                    $.each(response, function (index, element) {
+                        option += "<option value='" + element.id + "'>" + element.subarea_name + "</option>";
+                    });
+                    $("#select-subarea").html(option);
+                }
+
+            });
         });
     });
 
