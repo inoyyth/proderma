@@ -133,5 +133,12 @@ class Api_model extends CI_Model {
         $this->db->where(array('status_lead_customer_status'=>1));
         return $this->db->get()->result_array();
     }
+	
+	public function get_list_customer() {
+        $this->db->select('m_customer.*');
+        $this->db->from('m_customer');
+        $this->db->where(array('customer_status'=>1));
+        return $this->db->get()->result_array();
+    }
 
 }

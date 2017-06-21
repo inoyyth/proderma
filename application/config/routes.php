@@ -139,3 +139,7 @@ $route['backup-database-excel/(:any)'] = 'backup_db/print_excel/$1';
 $route['import-master-list'] = 'import_master_list';
 $route['import-master-list-template'] = 'import_master_list/template_excel';
 $route['import-master-list-upload'] = 'import_master_list/upload_excel';
+
+$route['form-produksi-add'] = 't_produksi/add';
+
+$route['master-obat-add'] = 'md_obat/add';
