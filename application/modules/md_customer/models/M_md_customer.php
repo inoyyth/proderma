@@ -51,6 +51,8 @@ Class M_md_customer extends CI_Model {
             'customer_status' => $this->input->post('customer_status'),
             'current_lead_customer_status' => "C",
             'customer_status' => "1",
+            'id_area' => $this->input->post('id_area'),
+            'id_subarea' => $this->input->post('id_subarea'),
             'photo_path' => $image_name
         );
         if (empty($id)) {

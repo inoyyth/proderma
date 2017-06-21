@@ -103,6 +103,8 @@ class Md_customer extends MX_Controller {
 
     public function add() {
         $this->breadcrumbs->push('Add', '/customer-add');
+        $data['area'] = $this->db->get_where('m_area',array('area_status'=>1))->result_array();
+        $data['code'] = $this->main_model->generate_code('m_customer', $this->config->item('customer_code').'/1','/' , $digit = 5, true,false, $where=array(),'id','id');
         $data['province'] = $this->db->get('province')->result_array();
         $data['group'] = $this->db->get_where('group_customer_product',array('group_customer_product_status'=>1))->result_array();
         $data['status_list_customer'] = $this->db->get_where('status_list_customer',array('status_list_customer_status'=>1))->result_array();
@@ -112,6 +114,7 @@ class Md_customer extends MX_Controller {
 
     public function edit($id) {
         $this->breadcrumbs->push('Edit', '/customer-edit');
+        $data['area'] = $this->db->get_where('m_area',array('area_status'=>1))->result_array();
         $data['province'] = $this->db->get('province')->result_array();
         $data['group'] = $this->db->get_where('group_customer_product',array('group_customer_product_status'=>1))->result_array();
         $data['status_list_customer'] = $this->db->get_where('status_list_customer',array('status_list_customer_status'=>1))->result_array();
@@ -174,6 +177,19 @@ class Md_customer extends MX_Controller {
             $like = array('district_name'=>$this->input->get('query'));
         }
         $result = $this->main_model->getTypeaheadList('district',$like,$where);
+        echo json_encode($result);
+    }
+    
+    public function getSubareaList() {
+        $where = array();
+        if($this->input->get('id') != null){
+            $where = array('id_area'=>$this->input->get('id'));
+        }
+        $like = array();
+        if($this->input->get('query') != null){
+            $like = array('district_name'=>$this->input->get('query'));
+        }
+        $result = $this->main_model->getTypeaheadList('m_subarea',$like,$where);
         echo json_encode($result);
     }
 
