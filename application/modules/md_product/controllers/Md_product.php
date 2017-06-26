@@ -68,6 +68,7 @@ class Md_product extends MX_Controller {
     public function add() {
         $this->breadcrumbs->push('Add', '/master-product-add');
         $data['category'] = $this->db->get_where('m_product_category',array('product_category_status'=>1))->result_array();
+        $data['group'] = $this->db->get_where('m_group_product',array('group_product_status'=>1))->result_array();
         $data['view'] = "md_product/add";
         $this->load->view('default', $data);
     }
@@ -75,7 +76,8 @@ class Md_product extends MX_Controller {
     public function edit($id) {
         $this->breadcrumbs->push('Edit', '/master-product-edit');
         $data['category'] = $this->db->get_where('m_product_category',array('product_category_status'=>1))->result_array();
-        $data['data'] = $this->db->get_where($this->table, array('id' => $id))->row_array();
+        $data['group'] = $this->db->get_where('m_group_product',array('group_product_status'=>1))->result_array();
+        $data['data'] = $this->m_md_product->edit_data($this->table, array($this->table.'.id' => $id))->row_array();
         $data['view'] = 'md_product/edit';
         $this->load->view('default', $data);
     }
@@ -114,6 +116,11 @@ class Md_product extends MX_Controller {
         $data['file_name'] = $_GET['name'];
         $data['list'] = $this->db->get($this->table)->result_array();
         $this->load->view('template_excel', $data);
+    }
+    
+    public function load_sub_category() {
+        $data = array();
+        $this->load->view('md_product/modal_sub_category');
     }
 
 }

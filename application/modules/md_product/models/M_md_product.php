@@ -39,6 +39,11 @@ Class M_md_product extends CI_Model {
             'product_name' => $this->input->post('product_name'),
             'product_price' => $this->input->post('product_price'),
             'product_status' => $this->input->post('product_status'),
+            'id_product_sub_category' => $this->input->post('id_product_sub_category'),
+            'id_group_product' => $this->input->post('id_group_product'),
+            'klasifikasi' => $this->input->post('klasifikasi'),
+            'komposisi' => $this->input->post('komposisi'),
+            'sediaan' => $this->input->post('sediaan'),
             'photo_path' => $image_name
         );
         if (empty($id)) {
@@ -69,6 +74,14 @@ Class M_md_product extends CI_Model {
         $this->db->limit($limit['limit'],$limit['offset']);
         return $sql = $this->db->get()->result_array();
         //echo json_encode($sql);
+    }
+    
+    public function edit_data($table, $where) {
+        $this->db->select($table.'.*,m_product_sub_category.sub_category_name');
+        $this->db->from($table);
+        $this->db->join('m_product_sub_category',$table.'.id_product_sub_category=m_product_sub_category.id', 'left');
+        $this->db->where($where);
+        return $this->db->get();
     }
 
 }

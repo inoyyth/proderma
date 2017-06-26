@@ -7,7 +7,7 @@
                         <div class="col-md-12">
                             <input type="hidden" name="id">
                             <div class="form-group">
-                                <label>Level</label>
+                                <label>Category</label>
                                 <input type="text" name="product_category" parsley-trigger="change" required placeholder="Product Category" class="form-control">
                             </div>
                             <div class="form-group">

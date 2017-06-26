@@ -40,7 +40,15 @@ class Md_product_sub_category extends MX_Controller {
             'm_product_sub_category.sub_category_name'=>isset($_POST['sub_category'])?$_POST['sub_category']:"",
             'm_product_category.product_category'=>isset($_POST['product_category'])?$_POST['product_category']:""
         );
-        $where = array('m_product_sub_category.product_sub_category_status !=' => '3');
+        
+        $array_status = array('m_product_sub_category.product_sub_category_status !=' => '3');
+        $array_category = array();
+        if(isset($_POST['category']) && $_POST['category'] != "") {
+            $array_category = array('m_product_sub_category.id_product_category'=>$_POST['category']);
+        }
+        
+        $where = array_merge_recursive($array_status,$array_category);
+        
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_product_sub_category.id",
             'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
