@@ -7,7 +7,7 @@
                         <div class="col-md-8">
                             <input type="hidden" value="<?php echo $data['id'];?>" name="id">
                             <div class="form-group">
-                                <label>NIP</label>
+                                <label>Category</label>
                                 <input type="text" name="product_category" value="<?php echo $data['product_category'];?>" parsley-trigger="change" required placeholder="Product Category" class="form-control">
                             </div>
                             <div class="form-group">
