@@ -50,9 +50,7 @@
                 {title: "NIP", field: "employee_nip", sorter: "string", tooltip: true},
                 {title: "Name", field: "employee_name", sorter: "string", tooltip: true},
                 {title: "Position", field: "jabatan", sorter: "string", tooltip: true},
-                {title: "Sales Province", field: "province_name", sorter: "string", tooltip: true},
-                {title: "Sales City", field: "city_name", sorter: "string", tooltip: true}
-            ],
+             ],
             selectable: 1,
             rowSelectionChanged: function (data, rows) {
                 if (data.length > 0) {
