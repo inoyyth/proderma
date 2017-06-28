@@ -10,55 +10,193 @@
             </div>
             <div class="widget-body">
                 <div class="widget-main">
-                    <div class="row">
-                        <form class="form-filter-table">
+                    <form class="form-filter-table">
+                        <div class="row">
                             <div class="col-lg-2">
                                 <div class="form-group">
-                                    <label class="small">Employee Name</label>
-                                    <input type="text" class="form-control input-sm" id="search-employee-name">
+                                    <label class="small">Group Product</label>
+                                    <select class="form-control input-sm" id="search-group-product">
+                                        <option value=""></option>
+                                        <?php foreach($group_customer_product as $v): ?>
+                                        <option value="<?php echo $v['id'];?>"><?php echo $v['group_customer_product'];?></option>
+                                        <?php endforeach; ?> 
+                                    </select>
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label class="small">Status</label>
+                                    <select class="form-control input-sm" id="search-status-customer">
+                                        <option value=""></option>
+                                        <?php foreach($status_list_customer as $v): ?>
+                                        <option value="<?php echo $v['id'];?>"><?php echo $v['status_list_customer'];?></option>
+                                        <?php endforeach; ?> 
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label class="small">Code</label>
+                                    <input type="text" class="form-control input-sm" id="search-code">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label class="small">Name</label>
+                                    <input type="text" class="form-control input-sm" id="search-name">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label class="small">Clinic</label>
+                                    <input type="text" class="form-control input-sm" id="search-clinic">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label class="small">Address</label>
+                                    <input type="text" class="form-control input-sm" id="search-address">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <div class="form-group" id="remote-province">
+                                    <label class="small">Province</label>
+                                    <input type="hidden" id="search-province">
+                                    <input class="typeahead form-control input-sm" style="text-transform: capitalize;" type="text">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group" id="remote-city">
+                                    <label class="small">City</label>
+                                    <input type="hidden" id="search-city">
+                                    <input class="typeahead form-control input-sm" style="text-transform: capitalize;" type="text">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                               <div class="form-group" id="remote-district">
+                                    <label class="small">District</label>
+                                    <input type="hidden" id="search-district">
+                                    <input class="typeahead form-control input-sm" style="text-transform: capitalize;" type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-lg-12" style="padding-bottom: 2px;">
+        <!--<a href="<?php echo site_url('customer-add'); ?>" type="button" id="btn-add" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> New Customer</a>-->
         <a href="#" type="button" id="btn-edit" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> Edit</a>
-        <!--<a href="#" type="button" id="btn-view" class="btn btn-xs btn-success"><i class="fa fa-edit"></i> View</a>-->
+        <!--<a href="#" type="button" id="btn-delete" class="btn btn-xs btn-danger" onclick="return confirm('Yakin hapus data?');"><i class="fa fa-remove"></i> Delete</a>-->
     </div>
     <div class="col-lg-12">
         <div id="example-table"></div>
     </div>
 </div>
-<div id="modal-mapping"></div>
+
 <script>
     $(document).ready(function () {
+        //autocomplete
+        var searchDataProvince = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            remote: {
+              url: '<?php echo base_url('md_customer/getProvinceList?query=%QUERY');?>',
+              wildcard: '%QUERY'
+            }
+        });
+
+        $('#remote-province .typeahead').typeahead(null, {
+          name: 'province_name',
+          display: 'province_name',
+          source: searchDataProvince,
+          minLength: 3,
+          highlight: true,
+          limit: 10
+        });
+        
+        $('#remote-province .typeahead').bind('typeahead:selected', function(obj, datum, name) {
+            $("#search-province").val(datum.province_id);
+        });
+        
+        var searchDataCity = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            remote: {
+              url: '<?php echo base_url('md_customer/getCityList?query=%QUERY');?>',
+              wildcard: '%QUERY'
+            }
+        });
+
+        $('#remote-city .typeahead').typeahead(null, {
+          name: 'city_name',
+          display: 'city_name',
+          source: searchDataCity,
+          minLength: 3,
+          highlight: true,
+          limit: 10
+        });
+        
+        $('#remote-city .typeahead').bind('typeahead:selected', function(obj, datum, name) {
+            $("#search-city").val(datum.city_id);
+        });
+        
+        var searchDataDistrict = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            remote: {
+              url: '<?php echo base_url('md_customer/getDistrictList?query=%QUERY');?>',
+              wildcard: '%QUERY'
+            }
+        });
+
+        $('#remote-district .typeahead').typeahead(null, {
+          name: 'district_name',
+          display: 'district_name',
+          source: searchDataDistrict,
+          minLength: 3,
+          highlight: true,
+          limit: 10
+        });
+        
+        $('#remote-district .typeahead').bind('typeahead:selected', function(obj, datum, name) {
+            $("#search-district").val(datum.city_id);
+        });
+        
         $("#example-table").tabulator({
             fitColumns: true,
             pagination: true,
             movableCols: true,
             height: "320px", // set height of table (optional),
             pagination:"remote",
-            paginationSize: 10,
+                    paginationSize: 10,
             fitColumns:true, //fit columns to width of table (optional),
-            ajaxType: "POST", //ajax HTTP request type
+                    ajaxType: "POST", //ajax HTTP request type
             ajaxURL: "<?php echo base_url('t_mapping_product/getListTable'); ?>", //ajax URL
+            //ajaxParams:{key1:"value1", key2:"value2"}, //ajax parameters
             columns: [//Define Table Columns
-                {formatter: "rownum", align: "center", width: 40},
-                {title: "Name", field: "employee_name", sorter: "string", tooltip: true},
-                {title: "Position", field: "jabatan", sorter: "string", tooltip: true},
-                {title: "Total Product", field: "total_product", sorter: "string", tooltip: true}
+                {formatter: "rownum", align: "center", width: 40, frozen:true},
+                {title: "Code", field: "customer_code", sorter: "string", tooltip: true, frozen:true},
+                {title: "Name", field: "customer_name", sorter: "string", tooltip: true},
+                {title: "Clinic", field: "customer_clinic", sorter: "string", tooltip: true},
+                {title: "Province", field: "province_name", sorter: "string", tooltip: true},
+                {title: "City", field: "city_name", sorter: "string", tooltip: true},
+                {title: "District", field: "district_name", sorter: "string", tooltip: true},
+                {title: "Address", field: "customer_address", sorter: "string", tooltip: true},
+                {title: "Phone", field: "customer_phone", sorter: "string", tooltip: true},
+                {title: "Group Product", field: "group_customer_product", sorter: "string", tooltip: true},
+                {title: "Status", field: "status", sorter: "string", tooltip: true}
             ],
             selectable: 1,
             rowSelectionChanged: function (data, rows) {
+                console.log(data);
                 if (data.length > 0) {
                     $('#btn-edit').attr('href', '<?php echo site_url(); ?>mapping-product-edit-' + data[0]['id'] + '.html');
-                    $('#btn-view').attr('href', '<?php echo site_url(); ?>mapping-product-view-' + data[0]['id'] + '.html');
-                } else {
+                 } else {
                     $('#btn-edit').attr('href', '#');
-                    $('#btn-view').attr('href', '#');
                 }
             },
         });
@@ -66,12 +204,22 @@
 
     function clearFilterTable() {
         $(".form-filter-table")[0].reset();
+        $("#search-province,#search-city,#search-district").val('');
         filterTable();
     }
 
     function filterTable() {
+        console.log('filter');
         var params = {
-            employee_name: $('#search-employee-name').val(),
+            group_customer: $('#search-group-product').val(),
+            status_list: $('#search-status-customer').val(),
+            code: $('#search-code').val(),
+            name: $('#search-name').val(),
+            clinic: $('#search-clinic').val(),
+            address: $('#search-address').val(),
+            province: $('#search-province').val(),
+            city: $('#search-city').val(),
+            district: $('#search-district').val(),
         };
 
         $("#example-table").tabulator("setData", "<?php echo base_url('t_mapping_product/getListTable'); ?>", params);

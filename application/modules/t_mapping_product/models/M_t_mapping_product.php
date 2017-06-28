@@ -57,5 +57,14 @@ Class M_t_mapping_product extends CI_Model {
         
         return $dt;
     }
+    
+    public function getDetail($table,$where) {
+        $this->db->select($table.'.*,m_area.area_code,m_area.area_name,m_subarea.subarea_code,m_subarea.subarea_name');
+        $this->db->from($table);
+        $this->db->join('m_area','m_area.id='.$table.'.id_area','left');
+        $this->db->join('m_subarea','m_subarea.id='.$table.'.id_subarea','left');
+        $this->db->where($where);
+        return $this->db->get();
+    }
 
 }

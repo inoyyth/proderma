@@ -1,87 +1,88 @@
-<link rel="stylesheet" href="<?php echo base_url(); ?>themes/assets/css/bootstrap-duallistbox.min.css" />
-<div class="row">
-    <div class="col-lg-2">
+<div id="user-profile-1" class="user-profile row">
+    <div class="col-xs-12 col-sm-3 center">
         <div>
             <span class="profile-picture">
-                <img id="avatar" class="editable img-responsive" alt="Alex's Avatar" src="<?php echo base_url($data_sales['photo_path']); ?>" />
+                <img id="avatar" class="editable img-responsive" style="height: 143px;" alt="<?php echo $customer['customer_name']; ?>" src="<?php echo base_url($customer['photo_path']); ?>" />
             </span>
+
+            <div class="space-4"></div>
+
+            <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
+                <div class="inline position-relative">
+
+                    <i class="ace-icon fa fa-circle light-green"></i>
+                    &nbsp;
+                    <span class="white"><?php echo $customer['customer_code'];?></span>
+
+                </div>
+            </div>
         </div>
+
+        <div class="space-6"></div>
+
     </div>
-    <div class="col-lg-4">
+
+    <div class="col-xs-12 col-sm-9">
+
         <div class="profile-user-info profile-user-info-striped">
             <div class="profile-info-row">
-                <div class="profile-info-name"> NIP </div>
+                <div class="profile-info-name"> Name </div>
 
                 <div class="profile-info-value">
-                    <span class="editable editable-click" id="username"><?php echo $data_sales['employee_nip']; ?></span>
+                    <span class="editable" id="username"><?php echo $customer['customer_name'];?></span>
                 </div>
             </div>
+
             <div class="profile-info-row">
-                <div class="profile-info-name"> Name </div>
+                <div class="profile-info-name"> Clinic </div>
+
                 <div class="profile-info-value">
-                    <span class="editable editable-click" id="city"><?php echo $data_sales['employee_name']; ?></span>
+                    <span class="editable" id="city"><?php echo $customer['customer_clinic'];?></span>
                 </div>
             </div>
+            
             <div class="profile-info-row">
                 <div class="profile-info-name"> Email </div>
-                <div class="profile-info-value">
-                    <span class="editable editable-click" id="age"><?php echo $data_sales['employee_email']; ?></span>
-                </div>
-            </div>
-            <div class="profile-info-row">
-                <div class="profile-info-name"> Phone </div>
-                <div class="profile-info-value">
-                    <span class="editable editable-click" id="signup"><?php echo $data_sales['employee_phone']; ?></span>
-                </div>
-            </div>
-            <div class="profile-info-row">
-                <div class="profile-info-name"> Gender </div>
-                <div class="profile-info-value">
-                    <span class="editable editable-click" id="login"><?php echo ($data_sales['employee_gender'] == "M" ? "Male" : "Female"); ?></span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-6">
-        <form action="<?php echo site_url("mapping-product-save"); ?>" method="post">
-            <div class="form-group">
-                <!--<div class="col-sm-8">-->
-                <?php log_message('debug',print_r($product,TRUE));?>
-                <input type="hidden" name="id_sales" value="<?php echo $data_sales['id']; ?>"/>
-                <select multiple="multiple" size="10" name="product[]" id="duallist">
-                    <?php
-                    foreach ($product as $kProduct => $vProduct) :
-                        if(in_array($vProduct['id'], $data_mapping)){
-                            $selected = "selected";
-                        } else {
-                            $selected = "";
-                        }
-                    ?>
-                        <option value="<?php echo $vProduct['id']; ?>" <?php echo $selected;?>><?php echo $vProduct['product_name']; ?></option>
-                    <?php endforeach; ?>
-                </select>
 
-                <!--<div class="hr hr-16 hr-dotted"></div>
-            </div>-->
+                <div class="profile-info-value">
+                    <span class="editable" id="login"><?php echo $customer['customer_email'];?></span>
+                </div>
             </div>
-            <button class="btn btn-primary" type="submit">Submit</button>
-            <a href="<?php echo site_url('mapping-product'); ?>" class="btn btn-default">Cancel</a>
-        </form>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> Group </div>
+
+                <div class="profile-info-value">
+                    <div class="form-group">
+                        <select name="id_group_customer_product" parsley-trigger="change" required placeholder="Group" class="form-control">
+                            <option value=""></option>
+                            <?php foreach ($group as $vGroup) { ?>
+                                <option value="<?php echo $vGroup['id']; ?>" <?php echo ($customer['id_group_customer_product']==$vGroup['id']?"selected":"");?>><?php echo $vGroup['group_customer_product']; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> Area </div>
+
+                <div class="profile-info-value">
+                    <span class="editable" id="signup"><?php echo $customer['area_code'] . " / ". $customer['area_name'];?></span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> Sub Area </div>
+
+                <div class="profile-info-value">
+                    <span class="editable" id="login"><?php echo $customer['subarea_code'] . " / ". $customer['subarea_name'];?></span>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="space-20"></div>
     </div>
+    
 </div>
-<script src="<?php echo base_url(); ?>themes/assets/js/jquery.bootstrap-duallistbox.min.js"></script>
-<script>
-    $(document).ready(function () {
-        //var demo1 = $('select[name="product[]"]').bootstrapDualListbox({infoTextFiltered: '<span class="label label-purple label-lg">Filtered</span>'});
-        //var container1 = demo1.bootstrapDualListbox('getContainer');
-        //container1.find('.btn').addClass('btn-white btn-info btn-bold');
-        
-        $("#duallist").bootstrapDualListbox({
-            nonSelectedListLabel: 'Non-selected',
-            selectedListLabel: 'Selected',
-            preserveSelectionOnMove: 'moved',
-            //moveOnSelect: false
-        });
-        
-    });
-</script>
