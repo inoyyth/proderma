@@ -26,18 +26,14 @@ class T_mapping_area extends MX_Controller {
         
         $field = array(
             "m_employee.*",
-            "m_jabatan.jabatan",
-            "province.province_name",
-            "city.city_name"
+            "m_jabatan.jabatan"
         );
         
         $offset = ($page - 1) * $limit;
 
         $join = array(
             array('table' => 'm_jabatan', 'where' => 'm_employee.id_jabatan=m_jabatan.id', 'join' => 'left'),
-            array('table' => 'province', 'where' => 'm_employee.sales_province=province.province_id', 'join' => 'left'),
-            array('table' => 'city', 'where' => 'm_employee.sales_city=city.city_id', 'join' => 'left')
-        );
+         );
         
         $like = array(
             'm_employee.employee_name'=>isset($_POST['employee_name'])?$_POST['employee_name']:""
@@ -119,5 +115,108 @@ class T_mapping_area extends MX_Controller {
         $data['list'] = $this->db->get($this->table)->result_array();
         $this->load->view('template_excel', $data);
     }
+    
+    public function getAvailableArea($id){
+        $page = ($_POST['page']==0?1:$_POST['page']);
+        $limit = $_POST['size'];
+        
+        $table = 'm_subarea'; 
+        
+        $field = array(
+            "m_subarea.*","m_area.area_code","m_area.area_name"
+        );
+        
+        $offset = ($page - 1) * $limit;
 
+        $join = array();
+        
+        $like = array();
+        $where = array();
+        $sort = array(
+            'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_subarea.id",
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
+        );
+
+        $limit_row = array(
+            'offset' => $offset,
+            'limit' => $limit
+        );
+        
+        $list = $this->m_mapping_area->getAvailableArea($field,$table, $join, $like, array('id_sales'=>$id), $sort, $limit_row);
+        
+        //log_message('debug',print_r($dtx,TRUE));
+        
+        $total_records = $this->data_table->count_all($table, $where);
+        $total_pages = ceil($total_records / $limit);
+        $output = array(
+            "last_page" => ($total_pages==0?1:$total_pages),
+            "recordsTotal" => $this->data_table->count_all($table, $where),
+            "data" => $list,
+        );
+        //output to json format
+        echo json_encode($output);
+    }
+    
+    public function getCurrentArea($id) {
+        $page = ($_POST['page']==0?1:$_POST['page']);
+        $limit = $_POST['size'];
+        
+        $table = 'm_subarea'; 
+        
+        $field = array(
+            "sales_mapping_area.*","m_subarea.subarea_name","m_subarea.subarea_code","m_area.area_code","m_area.area_name"
+        );
+        
+        $offset = ($page - 1) * $limit;
+
+        $join = array();
+        
+        $like = array();
+        $where = array();
+        $sort = array(
+            'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_subarea.id",
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
+        );
+
+        $limit_row = array(
+            'offset' => $offset,
+            'limit' => $limit
+        );
+        
+        $list = $this->m_mapping_area->getCurrentArea($field,$table, $join, $like, array('id_sales'=>$id), $sort, $limit_row);
+        
+        //log_message('debug',print_r($dtx,TRUE));
+        
+        $total_records = $this->data_table->count_all($table, $where);
+        $total_pages = ceil($total_records / $limit);
+        $output = array(
+            "last_page" => ($total_pages==0?1:$total_pages),
+            "recordsTotal" => $this->data_table->count_all($table, $where),
+            "data" => $list,
+        );
+        //output to json format
+        echo json_encode($output);
+    }
+    
+    public function insertArea() {
+        $id_employee = $this->input->post('id_employee');
+        $array_area = $this->input->post('arrayData');
+        $query = $this->m_mapping_area->insertArea($id_employee,$array_area);
+        if($query) {
+            echo json_encode(array('code'=>200));
+        } else {
+            echo json_encode(array('code'=>204));
+        }
+    }
+    
+    public function removeArea() {
+        $id_employee = $this->input->post('id_employee');
+        $array_area = $this->input->post('arrayData');
+        $query = $this->m_mapping_area->removeArea($id_employee,$array_area);
+        if($query) {
+            echo json_encode(array('code'=>200));
+        } else {
+            echo json_encode(array('code'=>204));
+        }
+    }
 }
