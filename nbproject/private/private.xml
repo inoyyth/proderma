@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/var/www/html/public_html/proderma/application/modules/t_mapping_area/models/M_t_mapping_area.php</file>
-            <file>file:/var/www/html/public_html/proderma/application/modules/t_mapping_area/controllers/T_mapping_area.php</file>
-            <file>file:/var/www/html/public_html/proderma/application/modules/t_mapping_area/views/main.php</file>
-            <file>file:/var/www/html/public_html/proderma/application/modules/t_mapping_area/views/edit.php</file>
+            <file>file:/var/www/html/public_html/proderma/application/modules/t_mapping_product/models/M_t_mapping_product.php</file>
+            <file>file:/var/www/html/public_html/proderma/application/modules/md_customer/controllers/Md_customer.php</file>
+            <file>file:/var/www/html/public_html/proderma/themes/profile.html</file>
+            <file>file:/var/www/html/public_html/proderma/application/modules/t_mapping_product/views/edit.php</file>
+            <file>file:/var/www/html/public_html/proderma/application/modules/t_mapping_product/controllers/T_mapping_product.php</file>
         </group>
     </open-files>
 </project-private>
