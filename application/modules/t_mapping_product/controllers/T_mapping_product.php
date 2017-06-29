@@ -142,5 +142,128 @@ class T_mapping_product extends MX_Controller {
         $data['list'] = $this->db->get($this->table)->result_array();
         $this->load->view('template_excel', $data);
     }
+    
+    public function getAvailableProduct($id){
+        $page = ($_POST['page']==0?1:$_POST['page']);
+        $limit = $_POST['size'];
+        
+        $table = 'm_product'; 
+        
+        $field = array(
+            "m_product.*","m_product_category.product_category","m_product_sub_category.sub_category_name"
+        );
+        
+        $offset = ($page - 1) * $limit;
+
+        $join = array(
+            array('table' => 'm_product_category', 'where' => 'm_product_category.id=m_product.id_product_category', 'join' => 'left'),
+            array('table' => 'm_product_sub_category', 'where' => 'm_product_sub_category.id=m_product.id_product_sub_category', 'join' => 'left')
+            
+        );
+        
+        $like = array();
+        $where = array('id_group_product'=>$this->input->post('group_product'));
+        $sort = array(
+            'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_product.id",
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
+        );
+
+        $limit_row = array(
+            'offset' => $offset,
+            'limit' => $limit
+        );
+        
+        $list = $this->m_mapping_product->getAvailableProduct($field,$table, $join, $like, array_merge(array('id_customer'=>$id),$where), $sort, $limit_row);
+        
+        //log_message('debug',print_r($dtx,TRUE));
+        
+        $total_records = $this->data_table->count_all($table, $where);
+        $total_pages = ceil($total_records / $limit);
+        $output = array(
+            "last_page" => ($total_pages==0?1:$total_pages),
+            "recordsTotal" => $this->data_table->count_all($table, $where),
+            "data" => $list,
+        );
+        //output to json format
+        echo json_encode($output);
+    }
+    
+    public function getCurrentProduct($id) {
+        $page = ($_POST['page']==0?1:$_POST['page']);
+        $limit = $_POST['size'];
+        
+        $table = 'm_product'; 
+        
+        $field = array(
+            "m_product.*","m_product_category.product_category","m_product_sub_category.sub_category_name"
+        );
+        
+        $offset = ($page - 1) * $limit;
+
+        $join = array(
+            array('table' => 'm_product', 'where' => 'm_product.id=mapping_product.id_product', 'join' => 'left'),
+            array('table' => 'm_product_category', 'where' => 'm_product_category.id=m_product.id_product_category', 'join' => 'left'),
+            array('table' => 'm_product_sub_category', 'where' => 'm_product_sub_category.id=m_product.id_product_sub_category', 'join' => 'left')
+            
+        );
+        
+        $like = array();
+        $where = array();
+        $sort = array(
+            'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_product.id",
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
+        );
+
+        $limit_row = array(
+            'offset' => $offset,
+            'limit' => $limit
+        );
+        
+        $list = $this->m_mapping_product->getCurrentProduct($field,$table, $join, $like, array('id_customer'=>$id), $sort, $limit_row);
+        
+        //log_message('debug',print_r($dtx,TRUE));
+        
+        $total_records = $this->data_table->count_all($table, $where);
+        $total_pages = ceil($total_records / $limit);
+        $output = array(
+            "last_page" => ($total_pages==0?1:$total_pages),
+            "recordsTotal" => $this->data_table->count_all($table, $where),
+            "data" => $list,
+        );
+        //output to json format
+        echo json_encode($output);
+    }
+    
+    public function insertProduct() {
+        $id_customer = $this->input->post('id_customer');
+        $array_product = $this->input->post('arrayData');
+        $query = $this->m_mapping_product->insertProduct($id_customer,$array_product);
+        if($query) {
+            echo json_encode(array('code'=>200));
+        } else {
+            echo json_encode(array('code'=>204));
+        }
+    }
+    
+    public function removeProduct() {
+        $id_customer = $this->input->post('id_customer');
+        $array_product = $this->input->post('arrayData');
+        $query = $this->m_mapping_product->removeProduct($id_customer,$array_product);
+        if($query) {
+            echo json_encode(array('code'=>200));
+        } else {
+            echo json_encode(array('code'=>204));
+        }
+    }
+    
+    public function resetProduct() {
+        $id_customer = $this->input->post('id_customer');
+        $query = $this->db->delete('mapping_product', array('id_customer'=>$id_customer));
+        if($query) {
+            echo json_encode(array('code'=>200));
+        } else {
+            echo json_encode(array('code'=>204));
+        }
+    }
 
 }
