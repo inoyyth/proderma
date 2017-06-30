@@ -40,6 +40,10 @@
                 </div>
             </div>
         </div>
+        <br>
+        <div class="container">
+            <a href="<?php echo base_url('mapping-area'); ?>" class="btn btn-warning btn-sm">Done</a>
+        </div>
     </div>
     <div class="col-lg-6">
         
