@@ -15,30 +15,29 @@ class Api_model extends CI_Model {
             return false; //if data is wrong
         }
     }
-    
+
     public function login($data) {
         $this->db->select("*");
         $this->db->from("m_employee");
-        $this->db->where(array("employee_email"=>$data['username'],"sales_password"=>md5($data['password']),"id_jabatan"=>1,"employee_status"=>1));
+        $this->db->where(array("employee_email" => $data['username'], "sales_password" => md5($data['password']), "id_jabatan" => 1, "employee_status" => 1));
         $query = $this->db->get();
-       if ($query->num_rows() == 1) {
+        if ($query->num_rows() == 1) {
             $result = $this->__setToken($query->row_array());
             return $result;
         } else {
             return false;
         }
-        
-    }   
-    
+    }
+
     private function __setToken($data) {
         $token = bin2hex(openssl_random_pseudo_bytes(16));
-        $dt = array('token'=>$token);
-        $this->db->update('m_employee',$dt,array('id'=>$data['id']));
-         $this->db->select("*");
+        $dt = array('token' => $token);
+        $this->db->update('m_employee', $dt, array('id' => $data['id']));
+        $this->db->select("*");
         $this->db->from("m_employee");
-        $this->db->where(array("id"=>$data['id']));
+        $this->db->where(array("id" => $data['id']));
         $query = $this->db->get();
-        
+
         return $query->row_array();
     }
 
@@ -61,32 +60,32 @@ class Api_model extends CI_Model {
             'current_lead_customer_status' => $data['current_lead_customer_status']
         );
 
-        if ($this->db->insert('m_customer',$this->main_model->create_sys($val))) {
+        if ($this->db->insert('m_customer', $this->main_model->create_sys($val))) {
             return true;
         }
         return false;
     }
-    
+
     public function get_province() {
         $this->db->select('province_id,province_name,province_code');
         $this->db->from('province');
         return $this->db->get()->result_array();
     }
-    
+
     public function get_city($province) {
         $this->db->select('city_id,province_id,city_name,lat,lng');
         $this->db->from('city');
-        $this->db->where(array('province_id'=>$province));
+        $this->db->where(array('province_id' => $province));
         return $this->db->get()->result_array();
     }
-    
+
     public function get_district($city) {
         $this->db->select('district_id,city_id,district_name,lat,lng');
         $this->db->from('district');
-        $this->db->where(array('city_id'=>$city));
+        $this->db->where(array('city_id' => $city));
         return $this->db->get()->result_array();
     }
-    
+
     public function register_lead($data) {
         $val = array(
             'customer_code' => $data['customer_code'],
@@ -107,38 +106,59 @@ class Api_model extends CI_Model {
             'current_lead_customer_status' => $data['current_lead_customer_status']
         );
 
-        if ($this->db->insert('m_customer',$this->main_model->create_sys($val))) {
+        if ($this->db->insert('m_customer', $this->main_model->create_sys($val))) {
             return true;
         }
         return false;
     }
-    
+
     public function group_customer() {
         $this->db->select('id,group_customer_product');
         $this->db->from('group_customer_product');
-        $this->db->where(array('group_customer_product_status'=>1));
+        $this->db->where(array('group_customer_product_status' => 1));
         return $this->db->get()->result_array();
     }
-    
+
     public function source_customer() {
         $this->db->select('id,source_lead_customer');
         $this->db->from('source_lead_customer');
-        $this->db->where(array('source_lead_customer_status'=>1));
+        $this->db->where(array('source_lead_customer_status' => 1));
         return $this->db->get()->result_array();
     }
-    
+
     public function status_customer() {
         $this->db->select('id,status_lead_customer');
         $this->db->from('status_lead_customer');
-        $this->db->where(array('status_lead_customer_status'=>1));
+        $this->db->where(array('status_lead_customer_status' => 1));
         return $this->db->get()->result_array();
     }
-	
-	public function get_list_customer() {
-        $this->db->select('m_customer.*');
+
+    public function get_list_customer($q) {
+        $this->db->select('m_customer.*,m_group_product.group_product');
         $this->db->from('m_customer');
-        $this->db->where(array('customer_status'=>1));
+        $this->db->join('m_group_product','m_group_product.id=m_customer.id_group_customer_product','INNER');
+        $this->db->or_like(array('m_customer.customer_code'=>$q,'m_customer.customer_name'=>$q));
+        $this->db->where(array('m_customer.customer_status' => 1,'m_customer.current_lead_customer_status'=>'C'));
         return $this->db->get()->result_array();
+    }
+    
+    public function logout($token) {
+        if($this->db->update('m_employee',array('token'=>NULL),array('token'=>$token))) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    public function payment_type() {
+        $this->db->select('id,payment_type,payment_type_description');
+        $this->db->from('m_payment_type');
+        $this->db->where(array('payment_type_status' => 1));
+        return $this->db->get()->result_array();
+    }
+    
+    public function discount_type() {
+        return array(1=>'Fixed',2=>'Percent');
     }
 
 }

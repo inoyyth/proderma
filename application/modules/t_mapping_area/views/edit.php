@@ -41,7 +41,7 @@
             </div>
         </div>
         <br>
-        <div class="container">
+        <div class="row" style="padding-left: 24px;">
             <a href="<?php echo base_url('mapping-area'); ?>" class="btn btn-warning btn-sm">Done</a>
         </div>
     </div>
@@ -56,7 +56,7 @@
     <div class="col-lg-2">
         <div style="margin-top: 100%;">
             <center>
-                <button class="btn btn-default" id="area-add"> >> </button> <br>
+                <button class="btn btn-default" id="area-add"> >> </button><br>
                 <button class="btn btn-default" id="area-remove"> << </button>
             </center>
         </div>
