@@ -83,7 +83,7 @@
 
             </div>
             <br>
-            <div class="container">
+            <div class="row" style="padding-left: 24px;">
                 <input type="submit" class="btn btn-primary btn-sm" value="Save"> 
                 <a href="<?php echo base_url('mapping-product'); ?>" class="btn btn-warning btn-sm">Cancel</a>
             </div>
@@ -100,7 +100,7 @@
         <div class="col-lg-2">
             <div style="margin-top: 100%;">
                 <center>
-                    <button class="btn btn-default" id="product-add"> >> </button> <br>
+                    <button class="btn btn-default" id="product-add"> >> </button><br>
                     <button class="btn btn-default" id="product-remove"> << </button>
                 </center>
             </div>
