@@ -38,52 +38,55 @@ Class M_t_mapping_area extends CI_Model {
         $this->db->limit($limit['limit'], $limit['offset']);
         return $sql = $this->db->get()->result_array();
     }
-
-    public function getAvailableArea($field, $table, $join, $like, $where, $sort, $limit) {
-        $currArea = array();
-        $currAreaData = $this->__getCurrentArea($where['id_sales'])->result_array();
-        foreach ($currAreaData as $k => $v) {
-            $currArea[] = $v['id_sub_area'];
+    
+    public function getAvailableCustomer($field, $table, $join, $like, $where, $sort, $limit) {
+        $currCustomer = array();
+        $currCustomerData = $this->__getCurrentCustomer($where['id_sales'])->result_array();
+        foreach ($currCustomerData as $k => $v) {
+            $currCustomer[] = $v['id_customer'];
         }
 
         $this->db->select($field);
-        $this->db->from('m_subarea');
-        $this->db->join('m_area', 'm_area.id=m_subarea.id_area', 'left');
-        if (count($currArea) > 0) {
-            $this->db->where_not_in('m_subarea.id', $currArea);
+        $this->db->from('m_customer');
+        $this->db->join('m_subarea', 'm_subarea.id=m_customer.id_subarea', 'left');
+        $this->db->join('m_area', 'm_area.id=m_customer.id_area', 'left');
+        if (count($currCustomer) > 0) {
+            $this->db->where_not_in('m_customer.id', $currCustomer);
         }
         $this->db->order_by($sort['sort_field'], $sort['sort_direction']);
         $this->db->limit($limit['limit'], $limit['offset']);
         return $this->db->get()->result_array();
     }
-
-    public function __getCurrentArea($id) {
-        $this->db->select('sales_mapping_area.*,m_subarea.subarea_name,m_area.area_code,area_name');
+    
+    public function __getCurrentCustomer($id) {
+        $this->db->select('sales_mapping_area.*,m_subarea.subarea_name,m_customer.customer_code,customer_name');
         $this->db->from('sales_mapping_area');
         $this->db->join('m_subarea', 'm_subarea.id=sales_mapping_area.id_sub_area', 'left');
-        $this->db->join('m_area', 'm_area.id=m_subarea.id_area', 'left');
+        $this->db->join('m_customer', 'm_customer.id=sales_mapping_area.id_customer', 'left');
         $this->db->where('sales_mapping_area.id_sales', $id);
         return $this->db->get();
     }
-
-    public function getCurrentArea($field, $table, $join, $like, $where, $sort, $limit) {
+    
+    public function getCurrentCustomer($field, $table, $join, $like, $where, $sort, $limit) {
         $this->db->select($field);
         $this->db->from('sales_mapping_area');
         $this->db->join('m_subarea', 'm_subarea.id=sales_mapping_area.id_sub_area', 'left');
+        $this->db->join('m_customer', 'm_customer.id=sales_mapping_area.id_customer', 'left');
         $this->db->join('m_area', 'm_area.id=m_subarea.id_area', 'left');
         $this->db->where('sales_mapping_area.id_sales', $where['id_sales']);
         $this->db->order_by($sort['sort_field'], $sort['sort_direction']);
         $this->db->limit($limit['limit'], $limit['offset']);
         return $this->db->get()->result_array();
     }
-
-    public function insertArea($id_employee, $array_area) {
+    
+    public function insertCustomer($id_employee, $array_data) {
         $session = $this->session->userdata('logged_in_admin');
         $data = array();
-        foreach ($array_area as $k => $v) {
+        foreach ($array_data as $k => $v) {
             $data[] = array(
                 'id_sales' => $id_employee,
-                'id_sub_area' => $v['id'],
+                'id_sub_area' => $v['id_subarea'],
+                'id_customer' => $v['id'],
                 'sys_create_date' => date('Y-m-d H:i:s'),
                 'sys_create_user' => $session['id']
             );
@@ -95,14 +98,14 @@ Class M_t_mapping_area extends CI_Model {
         return false;
     }
     
-    public function removeArea($id_employee, $array_area) {
+    public function removeCustomer($id_employee, $array_data) {
         $data = array();
-        foreach ($array_area as $k => $v) {
-            $data[] = $v['id_sub_area'];
+        foreach ($array_data as $k => $v) {
+            $data[] = $v['id_customer'];
         }
         
         $this->db->where('id_sales',$id_employee);
-        $this->db->where_in('id_sub_area',$data);
+        $this->db->where_in('id_customer',$data);
         if ($this->db->delete('sales_mapping_area')) {
             return true;
         }

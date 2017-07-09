@@ -160,5 +160,22 @@ class Api_model extends CI_Model {
     public function discount_type() {
         return array(1=>'Fixed',2=>'Percent');
     }
+    
+    public function get_product() {
+        if($_GET['group'] == 1) {
+            
+            $this->db->select('*');
+            $this->db->from('m_product');
+            $this->db->like(array('product_code'=>$_GET['product_code']));
+            $this->db->where(array('id_group_product'=>$_GET['group']));
+            return $this->db->get()->result_array();
+            
+        } else if($_GET['group'] == 2) {
+            
+            
+        }
+        
+        return false;
+    }
 
 }
