@@ -78,13 +78,13 @@
             paginationSize: 500,
             fitColumns:true, //fit columns to width of table (optional),
             ajaxType: "POST", //ajax HTTP request type
-            groupBy:"area_name",
-            ajaxURL: "<?php echo base_url('t_mapping_area/getAvailableArea/'.$data_sales['id']); ?>", //ajax URL
+            groupBy:"subarea_name",
+            ajaxURL: "<?php echo base_url('t_mapping_area/getAvailableCustomer/'.$data_sales['id']); ?>", //ajax URL
             columns: [//Define Table Columns
                 {formatter: "rownum", align: "center", width: 40},
                //{title: "Area", field: "area_name", sorter: "string", tooltip: true},
-                {title: "Sub Area Code", field: "subarea_code", sorter: "string", tooltip: true},
-                {title: "Sub Area Name", field: "subarea_name", sorter: "string", tooltip: true},
+                {title: "Customer Code", field: "customer_code", sorter: "string", tooltip: true},
+                {title: "Customer Name", field: "customer_name", sorter: "string", tooltip: true},
              ],
             selectable: 100
         });
@@ -98,13 +98,13 @@
             paginationSize: 500,
             fitColumns:true, //fit columns to width of table (optional),
             ajaxType: "POST", //ajax HTTP request type
-            groupBy:"area_name",
-            ajaxURL: "<?php echo base_url('t_mapping_area/getCurrentArea/'.$data_sales['id']); ?>", //ajax URL
+            groupBy:"subarea_name",
+            ajaxURL: "<?php echo base_url('t_mapping_area/getCurrentCustomer/'.$data_sales['id']); ?>", //ajax URL
             columns: [//Define Table Columns
                 {formatter: "rownum", align: "center", width: 40},
                //{title: "Area", field: "area_name", sorter: "string", tooltip: true},
-                {title: "Sub Area Code", field: "subarea_code", sorter: "string", tooltip: true},
-                {title: "Sub Area Name", field: "subarea_name", sorter: "string", tooltip: true},
+                {title: "Customer Code", field: "customer_code", sorter: "string", tooltip: true},
+                {title: "CUstomer Name", field: "customer_name", sorter: "string", tooltip: true},
              ],
             selectable: 100
         });
@@ -113,15 +113,15 @@
             e.preventDefault();
             var availableArea = $("#available_area").tabulator("getSelectedData");
             $.ajax({
-                url: "<?php echo base_url('t_mapping_area/insertArea');?>",
+                url: "<?php echo base_url('t_mapping_area/insertCustomer');?>",
                 type: "POST",
                 dataType: "json",
                 cache:false,
                 data: { id_employee : idEmployee, arrayData: availableArea }
             }).done(function() {
                 console.log( "success" );
-                $("#current_area").tabulator("setData", "<?php echo base_url('t_mapping_area/getCurrentArea/'.$data_sales['id']); ?>");
-                $("#available_area").tabulator("setData", "<?php echo base_url('t_mapping_area/getAvailableArea/'.$data_sales['id']); ?>");
+                $("#current_area").tabulator("setData", "<?php echo base_url('t_mapping_area/getCurrentCustomer/'.$data_sales['id']); ?>");
+                $("#available_area").tabulator("setData", "<?php echo base_url('t_mapping_area/getAvailableCustomer/'.$data_sales['id']); ?>");
             }).fail(function() {
                 console.log( "error" );
             }).always(function() {
@@ -133,15 +133,15 @@
             e.preventDefault();
             var currentArea = $("#current_area").tabulator("getSelectedData");
             $.ajax({
-                url: "<?php echo base_url('t_mapping_area/removeArea');?>",
+                url: "<?php echo base_url('t_mapping_area/removeCustomer');?>",
                 type: "POST",
                 dataType: "json",
                 cache:false,
                 data: { id_employee : idEmployee, arrayData: currentArea }
             }).done(function() {
                 console.log( "success" );
-                $("#current_area").tabulator("setData", "<?php echo base_url('t_mapping_area/getCurrentArea/'.$data_sales['id']); ?>");
-                $("#available_area").tabulator("setData", "<?php echo base_url('t_mapping_area/getAvailableArea/'.$data_sales['id']); ?>");
+                $("#current_area").tabulator("setData", "<?php echo base_url('t_mapping_area/getCurrentCustomer/'.$data_sales['id']); ?>");
+                $("#available_area").tabulator("setData", "<?php echo base_url('t_mapping_area/getAvailableCustomer/'.$data_sales['id']); ?>");
             }).fail(function() {
                 console.log( "error" );
             }).always(function() {
