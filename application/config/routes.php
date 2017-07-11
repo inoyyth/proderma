@@ -152,6 +152,13 @@ $route['import-master-list'] = 'import_master_list';
 $route['import-master-list-template'] = 'import_master_list/template_excel';
 $route['import-master-list-upload'] = 'import_master_list/upload_excel';
 
+$route['sales-order'] = 't_sales_order';
+$route['sales-order-add'] = 't_sales_order/add';
+$route['sales-order-edit-(:num)'] = 't_sales_order/edit/$1';
+$route['sales-order-delete-(:num)'] = 't_sales_order/delete/$1';
+$route['sales-order-detail-(:num)'] = 't_sales_order/edit/$1';
+$route['sales-order-save'] = 't_sales_order/save';
+
 $route['form-produksi-add'] = 't_produksi/add';
 
 $route['master-obat-add'] = 'md_obat/add';
