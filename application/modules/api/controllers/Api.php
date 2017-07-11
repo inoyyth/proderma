@@ -416,19 +416,92 @@ class Api extends MX_Controller {
                         'message' => 'Forbidden, data false'
                     );
                 } else {
-                    $data['path_image'] = "";
+                    $data['signature_path'] = "";
                     $field = array(
-                        'customer_code' => "Is Required",
-                        'customer_name' => 'Is Required',
-                        'customer_clinic' => 'Is Required'
+                        'date' => "Date Is Required",
+                        'id_customer' => 'ID customer Is Required',
+                        'id_sales' => 'ID sales Is Required',
+                        'activity' => 'Activity is required',
+                        'longitude'=> 'Longitude is required',
+                        'latitude' => 'Latitude is required',
+                        'signature' => 'Signature is required'
                     );
-                    $data['current_lead_customer_status'] = "C";
+                    
                     $this->__cek_empty_data($data, $field);
-                    if (!empty($data['images'])) {
-                        $fetch_image = $this->__fetchImage($data['images'], 'images/md_customer');
-                        $data['path_image'] = $fetch_image;
+                    if (!empty($data['signature'])) {
+                        $fetch_image = $this->__fetchImage($data['signature'], 'images/sales_visitor');
+                        $data['signature_path'] = $fetch_image;
                     }
-                    if ($this->Api_model->register_lead($data)) {
+                    if ($this->Api_model->sales_visitor($data)) {
+                        $this->output->set_status_header('200');
+                        $dt = array(
+                            'code' => 200,
+                            'message' => 'Success !!!'
+                        );
+                    } else {
+                        $this->output->set_status_header('500');
+                        $dt = array(
+                            'code' => 500,
+                            'message' => 'Query Error!!!'
+                        );
+                    }
+                }
+                echo json_encode($dt);
+            } else {
+                $this->output->set_status_header('404');
+                redirect('error404');
+            }
+        } else {
+            $this->output->set_status_header('404');
+            redirect('error404');
+        }
+    }
+    
+    public function sales_order() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (file_get_contents('php://input')) {
+                $data = json_decode(file_get_contents('php://input'), true);
+                if (count($data) < 1) {
+                    $this->output->set_status_header('403');
+                    $dt = array(
+                        'code' => 403,
+                        'message' => 'Forbidden, data false'
+                    );
+                } else {
+                    $data['signature_path'] = "";
+                    $field = array(
+                        'date' => "Date Is Required",
+                        'id_customer' => 'ID customer Is Required',
+                        'id_sales' => 'ID sales Is Required',
+                        'payment_type' => 'Activity is required',
+                        'status'=> 'Status is required',
+                        'total' => 'Total is required',
+                        'discount_type' => 'Discount type is required',
+                        'discount_value' => 'Discount value is required',
+                        'tax_amount' => 'Tax amount is required',
+                        'grand_total' => 'Grand total is required',
+                        'signature' => 'Signature is required'
+                    );
+                    
+                    $this->__cek_empty_data($data, $field);
+                    
+                    if (count($data['product']) < 1) {
+                        $this->output->set_status_header('200');
+                        $dt = array(
+                            'code' => 201,
+                            'message' => "Failed",
+                            'data' => $dx
+                        );
+                        echo json_encode($dt);
+                        exit;
+                    }
+                    
+                    if (!empty($data['signature'])) {
+                        $fetch_image = $this->__fetchImage($data['signature'], 'images/sales_order');
+                        $data['signature_path'] = $fetch_image;
+                    }
+                    
+                    if ($this->Api_model->sales_order($data)) {
                         $this->output->set_status_header('200');
                         $dt = array(
                             'code' => 200,

@@ -41,6 +41,30 @@ class Api_model extends CI_Model {
         return $query->row_array();
     }
 
+    public function __generate_code($tables, $prefix, $separator, $digit = 4, $date = true, $loop = false, $field = 'id', $field_target) {
+        $tgl = date('y');
+        $where = array();
+        if ($loop == true) {
+            $where = array('YEAR(sys_create_date)' => date('Y'), 'MONTH(sys_create_date)' => date('m'));
+        }
+        $this->db->select($field_target);
+        $this->db->from($tables);
+        $this->db->where($where);
+        $this->db->order_by($field, 'DESC');
+        $this->db->limit(1);
+        $dt = $this->db->get()->row_array();
+        $explode_target = explode($separator, $dt[$field_target]);
+        $dt_target = intval(end($explode_target));
+        $maxi = $dt_target;
+
+        $hsl = str_pad(($maxi == 0 ? 1 : intval($maxi) + 1), $digit, '0', STR_PAD_LEFT);
+        if ($date == true) {
+            return $prefix . $separator . date('Ym') . $separator . $hsl;
+        } else {
+            return $prefix . $separator . $hsl;
+        }
+    }
+
     public function register_customer($data) {
         $val = array(
             'customer_code' => $data['customer_code'],
@@ -136,45 +160,105 @@ class Api_model extends CI_Model {
     public function get_list_customer($q) {
         $this->db->select('m_customer.*,m_group_product.group_product');
         $this->db->from('m_customer');
-        $this->db->join('m_group_product','m_group_product.id=m_customer.id_group_customer_product','INNER');
-        $this->db->or_like(array('m_customer.customer_code'=>$q,'m_customer.customer_name'=>$q));
-        $this->db->where(array('m_customer.customer_status' => 1,'m_customer.current_lead_customer_status'=>'C'));
+        $this->db->join('m_group_product', 'm_group_product.id=m_customer.id_group_customer_product', 'INNER');
+        $this->db->or_like(array('m_customer.customer_code' => $q, 'm_customer.customer_name' => $q));
+        $this->db->where(array('m_customer.customer_status' => 1, 'm_customer.current_lead_customer_status' => 'C'));
         return $this->db->get()->result_array();
     }
-    
+
     public function logout($token) {
-        if($this->db->update('m_employee',array('token'=>NULL),array('token'=>$token))) {
+        if ($this->db->update('m_employee', array('token' => NULL), array('token' => $token))) {
             return true;
         }
-        
+
         return false;
     }
-    
+
     public function payment_type() {
         $this->db->select('id,payment_type,payment_type_description');
         $this->db->from('m_payment_type');
         $this->db->where(array('payment_type_status' => 1));
         return $this->db->get()->result_array();
     }
-    
+
     public function discount_type() {
-        return array(1=>'Fixed',2=>'Percent');
+        return array(1 => 'Fixed', 2 => 'Percent');
     }
-    
+
     public function get_product() {
-        if($_GET['group'] == 1) {
-            
+        if ($_GET['group'] == 1) {
+
             $this->db->select('*');
             $this->db->from('m_product');
-            $this->db->like(array('product_code'=>$_GET['product_code']));
-            $this->db->where(array('id_group_product'=>$_GET['group']));
+            $this->db->like(array('product_code' => $_GET['product_code']));
+            $this->db->where(array('id_group_product' => $_GET['group']));
             return $this->db->get()->result_array();
-            
-        } else if($_GET['group'] == 2) {
-            
+        } else if ($_GET['group'] == 2) {
             
         }
-        
+
+        return false;
+    }
+
+    public function sales_visitor($data) {
+        $dt = array(
+            'sales_visit_date' => $data['date'],
+            'id_customer' => $data['id_customer'],
+            'assistant_name' => $data['assistant_name'],
+            'sales_visit_note' => $data['visit_note'],
+            'id_sales' => $data['id_sales'],
+            'order_id' => $data['order_id'],
+            'activity' => $data['activity'],
+            'end_date' => $data['end_date'],
+            'longitude' => $data['longitude'],
+            'latitude' => $data['latitude'],
+            'signature_path' => $data['signature_path'],
+            'sys_create_date' => date('Y-m-d H:i:s')
+        );
+
+        if ($this->db->insert('sales_visit', $dt)) {
+            return true;
+        }
+        return false;
+    }
+
+    public function sales_order($data) {
+        $dt = array(
+            'so_code' => $this->__generate_code('t_sales_order', 'SO', '/', 8, true, true, 'id','so_code'),
+            'so_date' => $data['date'],
+            'id_customer' => $data['id_customer'],
+            'id_sales' => $data['id_sales'],
+            'so_payment_term' => $data['payment_type'],
+            'so_discount_type' => $data['discount_type'],
+            'so_discount_value' => $data['discount_value'],
+            'so_signature' => $data['signature_path'],
+            'so_status' => $data['status'],
+            'so_total' => $data['total'],
+            'so_tax_amount' => $data['tax_amount'],
+            'so_grand_total' => $data['grand_total'],
+            'sys_create_user' => $data['id_sales'],
+            'sys_create_date' => date('Y-m-d H:i:s')
+        );
+
+        if ($this->db->insert('t_sales_order', $dt)) {
+            $id_so = $this->db->insert_id();
+            $dt_product = array();
+            foreach ($data['product'] as $k => $v) {
+                $dt_product[] = array(
+                    'id_sales_order' => $id_so,
+                    'id_product' => $v['id'],
+                    'qty' => $v['qty'],
+                    'description' => $v['description'],
+                    'sys_create_user' => $data['id_sales'],
+                    'sys_create_date' => date('Y-m-d H:i:s')
+                );
+            }
+            
+            if($this->db->insert_batch('t_sales_order_product',$dt_product)) {
+                return true;
+            }
+            return false;
+        }
         return false;
     }
 
