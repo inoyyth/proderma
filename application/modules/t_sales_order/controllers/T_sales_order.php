@@ -42,9 +42,9 @@ class T_sales_order extends MX_Controller {
             't_sales_order.so_code'=>isset($_POST['so_code'])?$_POST['so_code']:""
         );
         $where = array(
-            't_sales_order.employee_status !=' => '3',
-            't_sales_order.so_payment_term'=>isset($_POST['so_payment_term'])?$_POST['so_payment_term']:"",
-            't_sales_order.so_discount_type'=>isset($_POST['so_discount_type'])?$_POST['so_discount_type']:""
+            't_sales_order.so_status !=' => '3',
+            //'t_sales_order.so_payment_term'=>isset($_POST['so_payment_term'])?$_POST['so_payment_term']:"",
+            //'t_sales_order.so_discount_type'=>isset($_POST['so_discount_type'])?$_POST['so_discount_type']:""
         );
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"t_sales_order.id",
@@ -58,14 +58,6 @@ class T_sales_order extends MX_Controller {
         
         $list = $this->m_t_sales_order->getListTable($field,$table, $join, $like, $where, $sort, $limit_row);
 
-        /*foreach ($list as $result) {
-            $data[] = array(
-                'id' => $result['id'],
-                'username' => $result['username'],
-                'nama_lengkap' => $result['nama_lengkap'],
-                'last_login' => $result['last_login']
-            );
-        }*/
         $total_records = $this->data_table->count_all($table, $where);
         $total_pages = ceil($total_records / $limit);
         $output = array(

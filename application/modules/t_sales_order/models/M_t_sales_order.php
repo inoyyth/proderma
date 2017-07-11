@@ -1,8 +1,8 @@
 <?php
 
-Class M_md_employee extends CI_Model {
+Class M_t_sales_order extends CI_Model {
 
-    var $table = "m_employee";
+    var $table = "t_sales_order";
 
     public function save() {
         $id = $this->input->post('id');
