@@ -52,9 +52,10 @@ Class Datatable_model extends CI_Model {
         return $query->num_rows();
     }
  
-    public function count_all($table,$where=array()){
+    public function count_all($table,$where=array(),$groupby=array()){
         $this->db->from($table);
         $this->db->where($where);
+        $this->db->group_by($groupby);
         return $this->db->count_all_results();
     }
     
