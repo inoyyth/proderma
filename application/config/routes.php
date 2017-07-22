@@ -156,8 +156,14 @@ $route['sales-order'] = 't_sales_order';
 $route['sales-order-add'] = 't_sales_order/add';
 $route['sales-order-edit-(:num)'] = 't_sales_order/edit/$1';
 $route['sales-order-delete-(:num)'] = 't_sales_order/delete/$1';
-$route['sales-order-detail-(:num)'] = 't_sales_order/edit/$1';
+$route['sales-order-detail-(:num)'] = 't_sales_order/detail/$1';
 $route['sales-order-save'] = 't_sales_order/save';
+
+$route['ojt'] = 't_sales_visit';
+$route['ojt-add'] = 't_sales_visit/add';
+$route['ojt-edit-(:num)'] = 't_sales_visit/edit/$1';
+$route['ojt-delete-(:num)'] = 't_sales_visit/delete/$1';
+$route['ojt-save'] = 't_sales_visit/save';
 
 $route['form-produksi-add'] = 't_produksi/add';
 

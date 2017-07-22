@@ -53,7 +53,7 @@ Class M_t_sales_order extends CI_Model {
         return false;
     }
     
-    public function getListTable($field,$table,$join,$like,$where,$sort,$limit) {
+    public function getListTable($field,$table,$join,$like,$where,$sort,$limit,$groupby=array()) {
         $this->db->select($field);
         $this->db->from($table);
         if(count($join) > 0) {
@@ -67,10 +67,42 @@ Class M_t_sales_order extends CI_Model {
         if(count($like) > 0) {
             $this->db->like(array_filter($like));
         }
+        if(count($groupby) > 0) {
+            $this->db->group_by(array_filter($groupby));
+        }
         $this->db->order_by($sort['sort_field'],$sort['sort_direction']);
         $this->db->limit($limit['limit'],$limit['offset']);
         return $sql = $this->db->get()->result_array();
         //echo json_encode($sql);
+    }
+    
+    public function get_detail($id) {
+        $table = $this->table;
+        $this->db->select($table.'.*,'
+                          . 'm_customer.customer_code,'
+                          . 'm_customer.customer_name,'
+                          . 'm_employee.employee_nip,'
+                          . 'm_employee.employee_name,'
+                          . 'm_employee.photo_path,'
+                          . 'm_employee.employee_email,'
+                          . 'm_employee.employee_phone,'
+                          . 'm_payment_type.payment_type'
+                );
+        $this->db->from($table);
+        $this->db->join('m_customer','m_customer.id='.$table.'.id_customer','INNER');
+        $this->db->join('m_employee','m_employee.id='.$table.'.id_sales','INNER');
+        $this->db->join('m_payment_type','m_payment_type.id='.$table.'.so_payment_term','INNER');
+        $this->db->where(array($table.'.id'=>$id));
+        return $this->db->get();
+    }
+    
+    public function get_detail_product($id) {
+        $table = 't_sales_order_product';
+        $this->db->select('count(t_sales_order_product.id) AS total_type, sum(t_sales_order_product.qty) AS total_item, sum(t_sales_order_product.qty * m_product.product_price) AS grand_total');
+        $this->db->from($table);
+        $this->db->join('m_product','m_product.id='.$table.'.id_product','INNER');
+        $this->db->where(array($table.'.id_sales_order'=>$id));
+        return $this->db->get();
     }
 
 }

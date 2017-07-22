@@ -62,62 +62,64 @@ class T_sales_order extends MX_Controller {
         $total_pages = ceil($total_records / $limit);
         $output = array(
             "last_page" => $total_pages,
-            "recordsTotal" => $this->data_table->count_all($table, $where),
+            "recordsTotal" => $total_records,
             "data" => $list,
         );
         //output to json format
         echo json_encode($output);
     }
 
-    public function add() {
-        $this->breadcrumbs->push('Add', '/master-employee-add');
-        $data['jabatan'] = $this->db->get_where('m_jabatan',array('jabatan_status'=>1))->result_array();
-        $data['view'] = "t_sales_order/add";
+    public function detail($id) {
+        $this->breadcrumbs->push('Detail', '/master-employee-edit');
+        $data['data'] = $this->m_t_sales_order->get_detail($id)->row_array();
+        $data['data_product'] = $this->m_t_sales_order->get_detail_product($id)->row_array();
+        $data['view'] = 't_sales_order/detail';
         $this->load->view('default', $data);
     }
+    
+    public function getProductList($id) {
+        $page = ($_POST['page']==0?1:$_POST['page']);
+        $limit = $_POST['size'];
+        
+        $table = 't_sales_order_product'; 
+        
+        $field = array(
+            "t_sales_order_product.*",
+            "m_product.product_code",
+            "m_product.product_name",
+            "m_product.product_price",
+            "sum(t_sales_order_product.qty * m_product.product_price) as SubTotal"
+        );
+        
+        $offset = ($page - 1) * $limit;
 
-    public function edit($id) {
-        $this->breadcrumbs->push('Edit', '/master-employee-edit');
-        $data['jabatan'] = $this->db->get_where('m_jabatan',array('jabatan_status'=>1))->result_array();
-        $data['data'] = $this->db->get_where($this->table, array('id' => $id))->row_array();
-        $data['view'] = 't_sales_order/edit';
-        $this->load->view('default', $data);
+        $join = array(
+            array('table' => 'm_product', 'where' => 'm_product.id=t_sales_order_product.id_product', 'join' => 'left')
+        );
+        $like = array();
+        $where = array(
+            't_sales_order_product.id_sales_order' => $id,
+        );
+        $sort = array(
+            'sort_field' => isset($_POST['sort'])?$_POST['sort']:"t_sales_order_product.id",
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
+        );
+
+        $limit_row = array(
+            'offset' => $offset,
+            'limit' => $limit
+        );
+        $groupby = array('t_sales_order_product.id');
+        $list = $this->m_t_sales_order->getListTable($field,$table, $join, $like, $where, $sort, $limit_row,$groupby);
+
+        $total_records = $this->data_table->count_all($table, $where,$groupby);
+        $total_pages = ceil($total_records / $limit);
+        $output = array(
+            "last_page" => $total_pages,
+            "recordsTotal" => $total_records,
+            "data" => $list,
+        );
+        //output to json format
+        echo json_encode($output);
     }
-
-    function delete($id) {
-        if ($this->db->update($this->table, array('employee_status' => 3),array('id'=>$id))) {
-            $this->session->set_flashdata('success', 'Data Berhasil Di Hapus !');
-        } else {
-            $this->session->set_flashdata('error', 'Data Gagal Di Hapus !');
-        }
-        redirect("master-employee");
-    }
-
-    function save() {
-        //var_dump(serialize($_POST['menu']));die;
-        if ($_POST) {
-            if ($this->m_t_sales_order->save()) {
-                $this->session->set_flashdata('success', 'Data Berhasil Di Simpan !');
-            } else {
-                $this->session->set_flashdata('error', 'Data Gagal Di Simpan !');
-            }
-            redirect("master-employee");
-        } else {
-            show_404();
-        }
-    }
-
-    public function print_pdf() {
-        $data['template'] = array("template" => "t_sales_order/" . $_GET['template'], "filename" => $_GET['name']);
-        $data['list'] = $this->db->get($this->table)->result_array();
-        $this->printpdf->create_pdf($data);
-    }
-
-    public function print_excel() {
-        $data['template_excel'] = "t_sales_order/" . $_GET['template'];
-        $data['file_name'] = $_GET['name'];
-        $data['list'] = $this->db->get($this->table)->result_array();
-        $this->load->view('template_excel', $data);
-    }
-
 }
