@@ -162,8 +162,12 @@ $route['sales-order-save'] = 't_sales_order/save';
 $route['ojt'] = 't_sales_visit';
 $route['ojt-add'] = 't_sales_visit/add';
 $route['ojt-detail-(:num)'] = 't_sales_visit/detail/$1';
-$route['ojt-delete-(:num)'] = 't_sales_visit/delete/$1';
-$route['ojt-save'] = 't_sales_visit/save';
+
+$route['visit-form'] = 't_visit_form';
+$route['visit-form-add'] = 't_visit_form/add';
+$route['visit-form-edit-(:num)'] = 't_visit_form/edit/$1';
+$route['visit-form-delete-(:num)'] = 't_visit_form/delete/$1';
+$route['visit-form-save'] = 't_visit_form/save';
 
 $route['form-produksi-add'] = 't_produksi/add';
 
