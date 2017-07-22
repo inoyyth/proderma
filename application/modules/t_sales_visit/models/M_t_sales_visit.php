@@ -38,5 +38,27 @@ Class M_t_sales_visit extends CI_Model {
         $this->db->limit($limit['limit'],$limit['offset']);
         return $sql = $this->db->get()->result_array();
     }
-
+    
+    public function getDetail($id) {
+        $table = $this->table;
+        $this->db->select(
+                $table.'.*,'
+                . 'm_customer.customer_code,'
+                . 'm_customer.customer_name,'
+                . 'm_customer.customer_clinic,'
+                . 'm_customer.customer_address,'
+                . 'm_employee.employee_nip,'
+                . 'm_employee.employee_name,'
+                . 'm_employee.employee_email,'
+                . 'm_employee.photo_path,'
+                . 'm_employee.employee_phone,'
+                . 'm_activity.activity_name'
+        );
+        $this->db->from($table);
+        $this->db->where($table.'.id',$id);
+        $this->db->join('m_customer','m_customer.id='.$table.'.id_customer','INNER');
+        $this->db->join('m_employee','m_employee.id='.$table.'.id_sales','INNER');
+        $this->db->join('m_activity','m_activity.id='.$table.'.activity','INNER');
+        return $this->db->get();
+    }
 }

@@ -28,14 +28,16 @@ class T_sales_visit extends MX_Controller {
             "sales_visit.*",
             "IF(sales_visit.status=1,'Active','Not Active') AS status",
             "m_employee.employee_name",
-            "m_customer.customer_name"
+            "m_customer.customer_name",
+            "m_activity.activity_name"
         );
         
         $offset = ($page - 1) * $limit;
 
         $join = array(
             array('table' => 'm_employee', 'where' => 'm_employee.id=sales_visit.id_sales', 'join' => 'left'),
-            array('table' => 'm_customer', 'where' => 'm_customer.id=sales_visit.id_customer', 'join' => 'left')
+            array('table' => 'm_customer', 'where' => 'm_customer.id=sales_visit.id_customer', 'join' => 'left'),
+            array('table' => 'm_activity', 'where' => 'm_activity.id=sales_visit.activity', 'join' => 'left')
         );
         
         $like = array(
@@ -67,53 +69,10 @@ class T_sales_visit extends MX_Controller {
         echo json_encode($output);
     }
 
-    public function add() {
-        $this->breadcrumbs->push('Add', '/ojt-add');
-        $data['view'] = "t_sales_visit/add";
+    public function detail($id) {
+        $this->breadcrumbs->push('Detail', '/ojt-detail');
+        $data['data'] = $this->m_t_sales_visit->getDetail($id)->row_array();
+        $data['view'] = 't_sales_visit/detail';
         $this->load->view('default', $data);
     }
-
-    public function edit($id) {
-        $this->breadcrumbs->push('Edit', '/ojt-edit');
-        $data['data'] = $this->db->get_where($this->table, array('id' => $id))->row_array();
-        $data['view'] = 't_sales_visit/edit';
-        $this->load->view('default', $data);
-    }
-
-    function delete($id) {
-        if ($this->db->update($this->table, array('jabatan_status' => 3),array('id'=>$id))) {
-            $this->session->set_flashdata('success', 'Data Berhasil Di Hapus !');
-        } else {
-            $this->session->set_flashdata('error', 'Data Gagal Di Hapus !');
-        }
-        redirect("ojt");
-    }
-
-    function save() {
-        //var_dump(serialize($_POST['menu']));die;
-        if ($_POST) {
-            if ($this->m_t_sales_visit->save()) {
-                $this->session->set_flashdata('success', 'Data Berhasil Di Simpan !');
-            } else {
-                $this->session->set_flashdata('error', 'Data Gagal Di Simpan !');
-            }
-            redirect("ojt");
-        } else {
-            show_404();
-        }
-    }
-
-    public function print_pdf() {
-        $data['template'] = array("template" => "t_sales_visit/" . $_GET['template'], "filename" => $_GET['name']);
-        $data['list'] = $this->db->get($this->table)->result_array();
-        $this->printpdf->create_pdf($data);
-    }
-
-    public function print_excel() {
-        $data['template_excel'] = "t_sales_visit/" . $_GET['template'];
-        $data['file_name'] = $_GET['name'];
-        $data['list'] = $this->db->get($this->table)->result_array();
-        $this->load->view('template_excel', $data);
-    }
-
 }

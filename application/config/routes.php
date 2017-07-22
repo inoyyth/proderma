@@ -161,7 +161,7 @@ $route['sales-order-save'] = 't_sales_order/save';
 
 $route['ojt'] = 't_sales_visit';
 $route['ojt-add'] = 't_sales_visit/add';
-$route['ojt-edit-(:num)'] = 't_sales_visit/edit/$1';
+$route['ojt-detail-(:num)'] = 't_sales_visit/detail/$1';
 $route['ojt-delete-(:num)'] = 't_sales_visit/delete/$1';
 $route['ojt-save'] = 't_sales_visit/save';
 
