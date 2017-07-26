@@ -2,13 +2,22 @@
 
 Class M_t_visit_form extends CI_Model {
 
-    var $table = "m_jabatan";
+    var $table = "sales_visit_form";
 
     public function save() {
         $id = $this->input->post('id');
         $data = array(
-            'jabatan' => $this->input->post('jabatan'),
-            'jabatan_status' => $this->input->post('jabatan_status')
+            'visit_form_code' => $this->input->post('visit_form_code'),
+            'visit_form_subject' => $this->input->post('visit_form_subject'),
+            'visit_form_sales' => $this->input->post('visit_form_sales'),
+            'visit_form_activity' => $this->input->post('visit_form_activity'),
+            'visit_form_attendence' => $this->input->post('visit_form_attendence'),
+            'visit_form_start_date' => $this->input->post('visit_form_start_date'),
+            'visit_form_end_date' => $this->input->post('visit_form_end_date'),
+            'visit_form_location' => $this->input->post('visit_form_location'),
+            'visit_form_description' => $this->input->post('visit_form_description'),
+            'visit_form_objective' => $this->input->post('visit_form_objective'),
+            'visit_form_status' => $this->input->post('visit_form_status')
         );
         if (empty($id)) {
             $this->db->insert($this->table, $this->main_model->create_sys($data));
@@ -37,6 +46,21 @@ Class M_t_visit_form extends CI_Model {
         $this->db->order_by($sort['sort_field'],$sort['sort_direction']);
         $this->db->limit($limit['limit'],$limit['offset']);
         return $sql = $this->db->get()->result_array();
+    }
+    
+    public function getCustomerList($q) {
+        $this->db->select('id,CONCAT(customer_code," - ",customer_name) as cus_concat');
+        $this->db->from('m_customer');
+        $this->db->or_like(array('customer_name'=>$q,'customer_code'=>$q));
+        return $this->db->get();
+    }
+    
+    public function getEditData($table,$id) {
+        $this->db->select($table.'.*,m_customer.customer_name');
+        $this->db->from($table);
+        $this->db->join('m_customer','m_customer.id='.$table.'.visit_form_attendence','INNER');
+        $this->db->where(array($table.'.id'=>$id));
+        return $this->db->get();
     }
 
 }
