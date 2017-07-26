@@ -67,10 +67,21 @@
 <!-- typeahead -->
 <script src="<?php echo base_url();?>themes/assets/plugin/typeahead/dist/typeahead.jquery.min.js"></script>
 <script src="<?php echo base_url();?>themes/assets/plugin/typeahead/dist/bloodhound.min.js"></script>
-
+<!-- daterangepicker -->
+<script src="<?php echo base_url();?>themes/assets/js/daterangepicker.min.js"></script>
+<script src="<?php echo base_url();?>themes/assets/js/bootstrap-datepicker.min.js"></script>
+<script src="<?php echo base_url();?>themes/assets/js/bootstrap-timepicker.min.js"></script>
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
     jQuery(function ($) {
+        $(".input-daterange").datepicker({
+            autoclose:true,
+            format:'yyyy-mm-dd'
+        });
+        $(".date-picker").datepicker({
+                autoclose: true,
+                todayHighlight: true
+        });
         $('.easy-pie-chart.percentage').each(function () {
             var $box = $(this).closest('.infobox');
             var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');
