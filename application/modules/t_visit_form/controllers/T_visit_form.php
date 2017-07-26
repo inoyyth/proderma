@@ -9,11 +9,11 @@ class T_visit_form extends MX_Controller {
         $this->load->model(array('M_t_visit_form' => 'm_visit_form', 'Datatable_model' => 'data_table'));
         $this->load->library(array('Auth_log'));
         //set breadcrumb
-        $this->breadcrumbs->push('Visit Form', '/visit-form');
+        $this->breadcrumbs->push('Plan', '/visit-form');
     }
 
     public function index() {
-        $data['template_title'] = array('Visit Form', 'List');
+        $data['template_title'] = array('Plan List', 'List');
         $data['view'] = 't_visit_form/main';
         $this->load->view('default', $data);
     }

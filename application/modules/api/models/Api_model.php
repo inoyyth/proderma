@@ -261,5 +261,35 @@ class Api_model extends CI_Model {
         }
         return false;
     }
+    
+    public function get_activity() {
+        $this->db->select('id,activity_name,activity_status');
+        $this->db->from('m_activity');
+        $this->db->where(array('activity_status' => 1));
+        return $this->db->get()->result_array();
+    }
+    
+    public function plan($data) {
+        $dt = array(
+            'visit_form_code' => $this->__generate_code('sales_visit_form', $this->config->item('ojt_code') . "-" . date('ym'),'/' , $digit = 5, false,false, $where=array(),'id','visit_form_code'),
+            'visit_form_subject' => $data['visit_form_subject'],
+            'visit_form_sales' => $data['visit_form_sales'],
+            'visit_form_activity' => $data['visit_form_activity'],
+            'visit_form_attendence' => $data['visit_form_attendence'],
+            'visit_form_start_date' => $data['visit_form_start_date'],
+            'visit_form_end_date' => $data['visit_form_end_date'],
+            'visit_form_location' => $data['visit_form_location'],
+            'visit_form_description' => $data['visit_form_description'],
+            'visit_form_objective' => $data['visit_form_objective'],
+            'visit_form_status' => 1,
+            'sys_create_user' => $data['visit_form_sales'],
+            'sys_create_date' => date('Y-m-d H:i:s')
+        );
+        
+        if ($this->db->insert('sales_visit_form', $dt)) {
+            return true;
+        }
+        return false;
+    }
 
 }

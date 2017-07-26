@@ -525,5 +525,78 @@ class Api extends MX_Controller {
             redirect('error404');
         }
     }
+    
+    function get_activity() {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            if ($data = $this->Api_model->get_activity()) {
+                $this->output->set_status_header('200');
+                $dt = array(
+                    'code' => 200,
+                    'message' => 'Success !!!',
+                    'data' => $data
+                );
+            } else {
+                $this->output->set_status_header('500');
+                $dt = array(
+                    'code' => 500,
+                    'message' => 'Query Error!!!'
+                );
+            }
+            echo json_encode($dt);
+        } else {
+            $this->output->set_status_header('404');
+            redirect('error404');
+        }
+    }
+    
+    public function plan() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (file_get_contents('php://input')) {
+                $data = json_decode(file_get_contents('php://input'), true);
+                if (count($data) < 1) {
+                    $this->output->set_status_header('403');
+                    $dt = array(
+                        'code' => 403,
+                        'message' => 'Forbidden, data false'
+                    );
+                } else {
+                    $field = array(
+                        'visit_form_subject' => "Subject Is Required",
+                        'visit_form_sales' => 'Sales Is Required',
+                        'visit_form_activity' => 'Activity Is Required',
+                        'visit_form_attendence' => 'Attendence is required',
+                        'visit_form_start_date'=> 'Start date is required',
+                        'visit_form_end_date' => 'End date is required',
+                        'visit_form_location' => 'Location is required',
+                        'visit_form_description' => 'Description is required',
+                        'visit_form_objective' => 'Objective is required'
+                    );
+                    
+                    $this->__cek_empty_data($data, $field);
+                    
+                    if ($this->Api_model->plan($data)) {
+                        $this->output->set_status_header('200');
+                        $dt = array(
+                            'code' => 200,
+                            'message' => 'Success !!!'
+                        );
+                    } else {
+                        $this->output->set_status_header('500');
+                        $dt = array(
+                            'code' => 500,
+                            'message' => 'Query Error!!!'
+                        );
+                    }
+                }
+                echo json_encode($dt);
+            } else {
+                $this->output->set_status_header('404');
+                redirect('error404');
+            }
+        } else {
+            $this->output->set_status_header('404');
+            redirect('error404');
+        }
+    }
 
 }
