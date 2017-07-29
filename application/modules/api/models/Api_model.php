@@ -291,5 +291,12 @@ class Api_model extends CI_Model {
         }
         return false;
     }
+    
+    public function promo() {
+        $this->db->select('*');
+        $this->db->from('m_promo_product');
+        $this->db->where(array('promo_status' => 1));
+        return $this->db->get()->result_array();
+    }
 
 }

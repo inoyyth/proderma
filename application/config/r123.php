@@ -7,6 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 
 $config['customer_code'] = "CST";
+$config['promo_code'] = "PROM";
 $config['ojt_code'] = "OJT";
 $config['area_code'] = "E-";
 $config['maps_api_key'] = "AIzaSyC_E0agZXFwaoiA9PwBG1QmlVrJXKP0GvY";

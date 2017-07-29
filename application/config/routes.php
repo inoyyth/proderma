@@ -169,6 +169,13 @@ $route['visit-form-edit-(:num)'] = 't_visit_form/edit/$1';
 $route['visit-form-delete-(:num)'] = 't_visit_form/delete/$1';
 $route['visit-form-save'] = 't_visit_form/save';
 
+$route['promo-product'] = 't_promo_product';
+$route['promo-product-add'] = 't_promo_product/add';
+$route['promo-product-edit-(:num)'] = 't_promo_product/edit/$1';
+$route['promo-product-delete-(:num)'] = 't_promo_product/delete/$1';
+$route['promo-product-detail-(:num)'] = 't_promo_product/detail/$1';
+$route['promo-product-save'] = 't_promo_product/save';
+
 $route['form-produksi-add'] = 't_produksi/add';
 
 $route['master-obat-add'] = 'md_obat/add';
