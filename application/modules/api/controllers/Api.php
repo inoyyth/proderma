@@ -34,8 +34,14 @@ class Api extends MX_Controller {
         return '/assets/' . $folder . '/' . $image_name;
     }
     
-    private function __file_to_base64($file) {
-        return chunk_split(base64_encode(file_get_contents(base_url().$file)));
+    private function __file_to_base64($path,$name) {
+        $new_name = $name.".pdf";
+        $dt = array(
+           'file' => base64_encode(file_get_contents(base_url().$path)),
+            'name' => $new_name,
+            'format' => 'pdf'
+        );
+       return $dt;
     }
 
     private function __cek_empty_data($data = array(), $field = array()) {
@@ -609,7 +615,7 @@ class Api extends MX_Controller {
                 
                 $dtx = array();
                 foreach ($data as $k=>$v) {
-                    $b64Doc = $this->__file_to_base64($v['promo_file']);
+                    $b64Doc = $this->__file_to_base64($v['promo_file'],$v['promo_name']);
                     $dtx[] = array(
                         'promo_code'=>$v['promo_code'],
                         'promo_name' => $v['promo_name'],
