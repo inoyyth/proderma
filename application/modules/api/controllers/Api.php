@@ -33,6 +33,10 @@ class Api extends MX_Controller {
         $success = file_put_contents($file, $data);
         return '/assets/' . $folder . '/' . $image_name;
     }
+    
+    private function __file_to_base64($file) {
+        return chunk_split(base64_encode(file_get_contents(base_url().$file)));
+    }
 
     private function __cek_empty_data($data = array(), $field = array()) {
         $dx = array();
@@ -593,6 +597,42 @@ class Api extends MX_Controller {
                 $this->output->set_status_header('404');
                 redirect('error404');
             }
+        } else {
+            $this->output->set_status_header('404');
+            redirect('error404');
+        }
+    }
+    
+    public function promo() {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            if ($data = $this->Api_model->promo()) {
+                
+                $dtx = array();
+                foreach ($data as $k=>$v) {
+                    $b64Doc = $this->__file_to_base64($v['promo_file']);
+                    $dtx[] = array(
+                        'promo_code'=>$v['promo_code'],
+                        'promo_name' => $v['promo_name'],
+                        'promo_description' => $v['promo_description'],
+                        'promo_start_date' => $v['promo_start_date'],
+                        'promo_end_date' => $v['promo_end_date'],
+                        'promo_file' => $b64Doc
+                    );
+                }
+                $this->output->set_status_header('200');
+                $dt = array(
+                    'code' => 200,
+                    'message' => 'Success !!!',
+                    'data' => $dtx
+                );
+            } else {
+                $this->output->set_status_header('500');
+                $dt = array(
+                    'code' => 500,
+                    'message' => 'Query Error!!!'
+                );
+            }
+            echo json_encode($dt);
         } else {
             $this->output->set_status_header('404');
             redirect('error404');
