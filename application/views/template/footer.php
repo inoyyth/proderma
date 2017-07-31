@@ -80,7 +80,8 @@
         });
         $(".date-picker").datepicker({
                 autoclose: true,
-                todayHighlight: true
+                todayHighlight: true,
+                format:'yyyy-mm-dd'
         });
         $('.easy-pie-chart.percentage').each(function () {
             var $box = $(this).closest('.infobox');

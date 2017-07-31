@@ -644,5 +644,50 @@ class Api extends MX_Controller {
             redirect('error404');
         }
     }
+    
+    public function log_pdf() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (file_get_contents('php://input')) {
+                $data = json_decode(file_get_contents('php://input'), true);
+                if (count($data) < 1) {
+                    $this->output->set_status_header('403');
+                    $dt = array(
+                        'code' => 403,
+                        'message' => 'Forbidden, data false'
+                    );
+                } else {
+                    $field = array(
+                        'id_promo' => "Promo ID Is Required",
+                        'id_sales' => 'Sales ID Is Required',
+                        'promo_code' => 'Promo Code Is Required',
+                        'datetime' => 'Datetime is required'
+                    );
+                    
+                    $this->__cek_empty_data($data, $field);
+                    
+                    if ($this->Api_model->log_pdf($data)) {
+                        $this->output->set_status_header('200');
+                        $dt = array(
+                            'code' => 200,
+                            'message' => 'Success !!!'
+                        );
+                    } else {
+                        $this->output->set_status_header('500');
+                        $dt = array(
+                            'code' => 500,
+                            'message' => 'Query Error!!!'
+                        );
+                    }
+                }
+                echo json_encode($dt);
+            } else {
+                $this->output->set_status_header('404');
+                redirect('error404');
+            }
+        } else {
+            $this->output->set_status_header('404');
+            redirect('error404');
+        }
+    }
 
 }

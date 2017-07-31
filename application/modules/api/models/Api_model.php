@@ -298,5 +298,19 @@ class Api_model extends CI_Model {
         $this->db->where(array('promo_status' => 1));
         return $this->db->get()->result_array();
     }
+    
+    public function log_pdf($data) {
+        $dt = array(
+            'id_sales'=>$data['id_sales'],
+            'id_promo' => $data['id_promo'],
+            'promo_code' => $data['promo_code'],
+            'datetime' => $data['datetime']
+        );
+        
+        if ($this->db->insert('pdf_log', $dt)) {
+            return true;
+        }
+        return false;
+    }
 
 }
