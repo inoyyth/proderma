@@ -19,6 +19,7 @@ class Api extends MX_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('Api/Api_model');
+        $this->load->library(array('encrypt'));
         $this->load->library('api_validation');
         $this->api_validation->validationToken();
         $this->token = $this->api_validation->getToken();
