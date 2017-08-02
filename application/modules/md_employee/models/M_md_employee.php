@@ -51,7 +51,7 @@ Class M_md_employee extends CI_Model {
             return true;
         } else {
             if($this->input->post('id_jabatan') == 1) {
-                $data['sales_password'] =  md5($this->input->post('sales_password'));
+                $data['sales_password'] =  $this->encrypt->encode($this->input->post('sales_password'));
             }
             $this->db->update($this->table, $this->main_model->update_sys($data), array('id' => $id));
             return true;

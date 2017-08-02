@@ -19,11 +19,16 @@ class Api_model extends CI_Model {
     public function login($data) {
         $this->db->select("*");
         $this->db->from("m_employee");
-        $this->db->where(array("employee_email" => $data['username'], "sales_password" => md5($data['password']), "id_jabatan" => 1, "employee_status" => 1));
+        $this->db->where(array("employee_email" => $data['username'], "id_jabatan" => 1, "employee_status" => 1));
         $query = $this->db->get();
         if ($query->num_rows() == 1) {
-            $result = $this->__setToken($query->row_array());
-            return $result;
+            $dt = $query->row_array();
+            if ($this->encrypt->decode($dt['sales_password']) == $data['password']) {
+                $result = $this->__setToken($query->row_array());
+                return $result;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
@@ -224,7 +229,7 @@ class Api_model extends CI_Model {
 
     public function sales_order($data) {
         $dt = array(
-            'so_code' => $this->__generate_code('t_sales_order', 'SO', '/', 8, true, true, 'id','so_code'),
+            'so_code' => $this->__generate_code('t_sales_order', 'SO', '/', 8, true, true, 'id', 'so_code'),
             'so_date' => $data['date'],
             'id_customer' => $data['id_customer'],
             'id_sales' => $data['id_sales'],
@@ -253,25 +258,25 @@ class Api_model extends CI_Model {
                     'sys_create_date' => date('Y-m-d H:i:s')
                 );
             }
-            
-            if($this->db->insert_batch('t_sales_order_product',$dt_product)) {
+
+            if ($this->db->insert_batch('t_sales_order_product', $dt_product)) {
                 return true;
             }
             return false;
         }
         return false;
     }
-    
+
     public function get_activity() {
         $this->db->select('id,activity_name,activity_status');
         $this->db->from('m_activity');
         $this->db->where(array('activity_status' => 1));
         return $this->db->get()->result_array();
     }
-    
+
     public function plan($data) {
         $dt = array(
-            'visit_form_code' => $this->__generate_code('sales_visit_form', $this->config->item('ojt_code') . "-" . date('ym'),'/' , $digit = 5, false,false, $where=array(),'id','visit_form_code'),
+            'visit_form_code' => $this->__generate_code('sales_visit_form', $this->config->item('ojt_code') . "-" . date('ym'), '/', $digit = 5, false, false, $where = array(), 'id', 'visit_form_code'),
             'visit_form_subject' => $data['visit_form_subject'],
             'visit_form_sales' => $data['visit_form_sales'],
             'visit_form_activity' => $data['visit_form_activity'],
@@ -285,28 +290,28 @@ class Api_model extends CI_Model {
             'sys_create_user' => $data['visit_form_sales'],
             'sys_create_date' => date('Y-m-d H:i:s')
         );
-        
+
         if ($this->db->insert('sales_visit_form', $dt)) {
             return true;
         }
         return false;
     }
-    
+
     public function promo() {
         $this->db->select('*');
         $this->db->from('m_promo_product');
         $this->db->where(array('promo_status' => 1));
         return $this->db->get()->result_array();
     }
-    
+
     public function log_pdf($data) {
         $dt = array(
-            'id_sales'=>$data['id_sales'],
+            'id_sales' => $data['id_sales'],
             'id_promo' => $data['id_promo'],
             'promo_code' => $data['promo_code'],
             'datetime' => $data['datetime']
         );
-        
+
         if ($this->db->insert('pdf_log', $dt)) {
             return true;
         }
