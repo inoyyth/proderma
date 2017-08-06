@@ -190,6 +190,10 @@ $route['invoice-delete-(:num)'] = 't_invoice/delete/$1';
 $route['invoice-detail-(:num)'] = 't_invoice/detail/$1';
 $route['invoice-save'] = 't_invoice/save';
 
+$route['payment-due-date'] = 't_pay_duedate';
+$route['payment-due-date-edit-(:num)'] = 't_pay_duedate/edit/$1';
+$route['payment-due-date-save'] = 't_pay_duedate/save';
+
 $route['log-pdf'] = 'log_pdf';
 
 $route['form-produksi-add'] = 't_produksi/add';

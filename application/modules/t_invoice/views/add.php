@@ -1,5 +1,5 @@
 <div class="row">
-    <form action="<?php echo base_url("invoice-save"); ?>" method="post"  enctype="multipart/form-data" parsley-validate novalidate>
+    <form id="formId" action="<?php echo base_url("invoice-save"); ?>" method="post" enctype="multipart/form-data" parsley-validate novalidate>
         <div class="col-md-6">
             <div class="block-web">
                 <div class="porlets-content">
@@ -23,6 +23,13 @@
                             <div class="form-group">
                                 <label>Invoice Date</label>
                                 <input type="text" name="invoice_date" parsley-trigger="change" required  class="form-control date-picker">
+                            </div>
+                            <div id="payment-content" style="display: none;">
+                                <div class="form-group">
+                                    <label>Due Date</label>
+                                    <input type="hidden" name="date_status" id="date-status" value="2">
+                                    <input type="text" name="due_date" id="due-date" class="form-control date-picker">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -115,8 +122,24 @@
                     $("#id_so").val(selectedData[0]['id_so']);
                     $("#id_do").val(selectedData[0]['id']);
                     $("#do_code").val(selectedData[0]['do_code']);
+                    if (selectedData[0]['so_payment_term'] == 3) {
+                        $("#payment-content").show();
+                        $("#date-status").val('1');
+                    } else {
+                        $("#date-status").val('2');
+                        $("#payment-content").hide();
+                    }
                 }
             });
+        });
+        
+        $("#formId").submit(function() {
+            if ($("#date-status").val() == 1) {
+                if ($("#due-date").val() === '') {
+                    alert('Please select due date');
+                    return false;
+                }
+            }
         });
     });
 
