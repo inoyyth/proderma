@@ -43,8 +43,6 @@ class T_sales_order extends MX_Controller {
         );
         $where = array(
             't_sales_order.so_status !=' => '3',
-            //'t_sales_order.so_payment_term'=>isset($_POST['so_payment_term'])?$_POST['so_payment_term']:"",
-            //'t_sales_order.so_discount_type'=>isset($_POST['so_discount_type'])?$_POST['so_discount_type']:""
         );
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"t_sales_order.id",

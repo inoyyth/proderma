@@ -176,6 +176,20 @@ $route['promo-product-delete-(:num)'] = 't_promo_product/delete/$1';
 $route['promo-product-detail-(:num)'] = 't_promo_product/detail/$1';
 $route['promo-product-save'] = 't_promo_product/save';
 
+$route['sales-delivery'] = 't_sales_delivery';
+$route['sales-delivery-add'] = 't_sales_delivery/add';
+$route['sales-delivery-edit-(:num)'] = 't_sales_delivery/edit/$1';
+$route['sales-delivery-delete-(:num)'] = 't_sales_delivery/delete/$1';
+$route['sales-delivery-detail-(:num)'] = 't_sales_delivery/detail/$1';
+$route['sales-delivery-save'] = 't_sales_delivery/save';
+
+$route['invoice'] = 't_invoice';
+$route['invoice-add'] = 't_invoice/add';
+$route['invoice-edit-(:num)'] = 't_invoice/edit/$1';
+$route['invoice-delete-(:num)'] = 't_invoice/delete/$1';
+$route['invoice-detail-(:num)'] = 't_invoice/detail/$1';
+$route['invoice-save'] = 't_invoice/save';
+
 $route['log-pdf'] = 'log_pdf';
 
 $route['form-produksi-add'] = 't_produksi/add';
