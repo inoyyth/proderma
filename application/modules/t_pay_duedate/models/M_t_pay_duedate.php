@@ -12,7 +12,7 @@ Class M_t_pay_duedate extends CI_Model {
             'pay_duedate_description' => $this->input->post('pay_duedate_description'),
             'pay_date' => $this->input->post('pay_date'),
             'pay_duedate_update_date' => date('Y-m-d H:i:s'),
-            'pay_duedate_update_date' =>$session['id']
+            'pay_duedate_update_user' => $session['id']
         );
         if (empty($id)) {
             //$this->db->insert($this->table, $this->main_model->create_sys($data));
