@@ -127,6 +127,7 @@ class T_invoice extends MX_Controller {
             "t_delivery_order.*",
             "t_sales_order.so_code",
             "t_sales_order.so_date",
+            "t_sales_order.so_payment_term",
             "t_sales_order.id as id_so",
             "m_customer.customer_name",
             "IF(t_delivery_order.do_status=1,'Active','Not Active') AS status"
