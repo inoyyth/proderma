@@ -4,7 +4,7 @@
             <div class="widget-header widget-header-small">
                 <h6 class="widget-title smaller">Filter Panels</h6>
                 <div class="widget-toolbar">
-                    <button type="button" class="btn btn-xs btn-success" onclick="filterTable();">Filter</button>
+                    <button type="button" class="btn btn-xs btn-success" onclick="filterTable();">Search</button>
                     <button type="button" class="btn btn-xs btn-warning" onclick="clearFilterTable();">Clear</button>
                 </div>
             </div>
@@ -93,7 +93,6 @@
             ],
             selectable: 1,
             rowSelectionChanged: function (data, rows) {
-                console.log(data);
                 if (data.length > 0) {
                     $('#btn-edit').attr('href', '<?php echo site_url(); ?>master-employee-edit-' + data[0]['id'] + '.html');
                     $('#btn-delete').attr('href', '<?php echo site_url(); ?>master-employee-delete-' + data[0]['id'] + '.html');
@@ -101,6 +100,9 @@
                     $('#btn-edit').attr('href', '#');
                     $('#btn-delete').attr('href', '#');
                 }
+            },
+            rowDblClick:function(e, row){
+                location.replace('<?php echo site_url(); ?>master-employee-edit-' + row + '.html');
             },
         });
     });

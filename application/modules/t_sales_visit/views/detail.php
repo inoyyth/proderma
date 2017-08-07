@@ -42,7 +42,7 @@
         </div>
         <br>
         <div class="row" style="padding-left: 24px;">
-            <a href="<?php echo site_url('ojt'); ?>" class="btn btn-warning btn-sm">Done</a>
+            <a href="<?php echo site_url('ojt'); ?>" class="btn btn-warning btn-sm">Back</a>
         </div>
     </div>
     <div class="col-lg-5">

@@ -33,7 +33,7 @@
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-primary" type="submit">Submit</button>
+                    <button class="btn btn-primary" type="submit">Save</button>
                     <a href="<?php echo site_url('invoice'); ?>" class="btn btn-default">Cancel</a>
                 </div>
             </div>

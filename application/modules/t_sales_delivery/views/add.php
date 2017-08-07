@@ -25,7 +25,7 @@
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-primary" type="submit">Submit</button>
+                    <button class="btn btn-primary" type="submit">Save</button>
                     <a href="<?php echo site_url('sales-delivery'); ?>" class="btn btn-default">Cancel</a>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                         </div>
                         <div class="col-lg-2">
                             <div class="form-group">
-                                <button type="button" class="btn btn-xs btn-success" onclick="filterTable();">Filter</button>
+                                <button type="button" class="btn btn-xs btn-success" onclick="filterTable();">Search</button>
                                 <button type="button" class="btn btn-xs btn-warning" onclick="clearFilterTable();">Clear</button>
                             </div>
                         </div>

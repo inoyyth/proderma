@@ -42,7 +42,7 @@
         </div>
         <br>
         <div class="row" style="padding-left: 24px;">
-            <a href="<?php echo base_url('mapping-area'); ?>" class="btn btn-warning btn-sm">Done</a>
+            <a href="<?php echo base_url('mapping-area'); ?>" class="btn btn-warning btn-sm">Save</a>
         </div>
     </div>
     <div class="col-lg-6">

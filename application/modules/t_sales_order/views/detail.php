@@ -46,7 +46,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
         </div>
         <br>
         <div class="row" style="padding-left: 24px;">
-            <a href="<?php echo base_url('mapping-area'); ?>" class="btn btn-warning btn-sm">Done</a>
+            <a href="<?php echo site_url('sales-order'); ?>" class="btn btn-warning btn-sm">Back</a>
         </div>
     </div>
     <div class="col-lg-5">

@@ -9,11 +9,11 @@ class T_sales_visit extends MX_Controller {
         $this->load->model(array('M_t_sales_visit' => 'm_t_sales_visit', 'Datatable_model' => 'data_table'));
         $this->load->library(array('Auth_log'));
         //set breadcrumb
-        $this->breadcrumbs->push('Tools', '/ojt');
+        $this->breadcrumbs->push('Plan', '/ojt');
     }
 
     public function index() {
-        $data['template_title'] = array('Tools List', 'List');
+        $data['template_title'] = array('Plan List', 'List');
         $data['view'] = 't_sales_visit/main';
         $this->load->view('default', $data);
     }
@@ -70,7 +70,7 @@ class T_sales_visit extends MX_Controller {
     }
 
     public function detail($id) {
-        $this->breadcrumbs->push('Tools Detail', '/ojt-detail');
+        $this->breadcrumbs->push('Plan Detail', '/ojt-detail');
         $data['data'] = $this->m_t_sales_visit->getDetail($id)->row_array();
         $data['view'] = 't_sales_visit/detail';
         $this->load->view('default', $data);
