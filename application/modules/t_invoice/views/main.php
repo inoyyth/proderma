@@ -4,7 +4,7 @@
             <div class="widget-header widget-header-small">
                 <h6 class="widget-title smaller">Filter Panels</h6>
                 <div class="widget-toolbar">
-                    <button type="button" class="btn btn-xs btn-success" onclick="filterTable();">Filter</button>
+                    <button type="button" class="btn btn-xs btn-success" onclick="filterTable();">Search</button>
                     <button type="button" class="btn btn-xs btn-warning" onclick="clearFilterTable();">Clear</button>
                 </div>
             </div>
@@ -60,7 +60,7 @@
             ajaxURL: "<?php echo base_url('t_invoice/getListTable'); ?>", //ajax URL
             columns: [//Define Table Columns
                 {formatter: "rownum", align: "center", width: 40},
-                {title: "Invoice Code", field: "do_code", sorter: "string", tooltip: true},
+                {title: "Invoice Code", field: "invoice_code", sorter: "string", tooltip: true},
                 {title: "DO Code", field: "do_code", sorter: "string", tooltip: true},
                 {title: "SO Code", field: "so_code", sorter: "string", tooltip: true},
                 {title: "Date", field: "invoice_date", sorter: "string", tooltip: true},
@@ -74,6 +74,9 @@
                     $('#btn-edit').attr('href', '#');
                     $('#btn-view').attr('href', '#');
                 }
+            },
+            rowDblClick:function(e, row){
+                location.replace('<?php echo site_url(); ?>invoice-detail-' + row + '.html');
             },
         });
     });

@@ -4,7 +4,7 @@
             <div class="widget-header widget-header-small">
                 <h6 class="widget-title smaller">Filter Panels</h6>
                 <div class="widget-toolbar">
-                    <button type="button" class="btn btn-xs btn-success" onclick="filterTable();">Filter</button>
+                    <button type="button" class="btn btn-xs btn-success" onclick="filterTable();">Search</button>
                     <button type="button" class="btn btn-xs btn-warning" onclick="clearFilterTable();">Clear</button>
                 </div>
             </div>
@@ -62,6 +62,9 @@
                     $('#btn-edit').attr('href', '#');
                     $('#btn-delete').attr('href', '#');
                 }
+            },
+            rowDblClick:function(e, row){
+                location.replace('<?php echo site_url(); ?>employee-level-edit-' + row + '.html');
             },
         });
     });
