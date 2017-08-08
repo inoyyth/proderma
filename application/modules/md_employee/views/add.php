@@ -15,6 +15,10 @@
                                 <input type="text" name="employee_nip" parsley-trigger="change" required placeholder="NIP" class="form-control">
                             </div>
                             <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" name="employee_name" parsley-trigger="change" required placeholder="Full Name" class="form-control">
+                            </div>
+                            <div class="form-group">
                                 <label>Position</label>
                                 <select name="id_jabatan" parsley-trigger="change" required placeholder="Position" class="form-control">
                                     <option value=""></option>
@@ -22,10 +26,6 @@
                                     <option value="<?php echo $vJabatan['id'];?>"><?php echo $vJabatan['jabatan'];?></option>
                                     <?php } ?>
                                 </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Full Name</label>
-                                <input type="text" name="employee_name" parsley-trigger="change" required placeholder="Full Name" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Email</label>

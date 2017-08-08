@@ -16,6 +16,10 @@
                                 <input type="text" name="employee_nip" value="<?php echo $data['employee_nip'];?>" parsley-trigger="change" required placeholder="NIP" class="form-control">
                             </div>
                             <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" name="employee_name" value="<?php echo $data['employee_name'];?>" parsley-trigger="change" required placeholder="Full Name" class="form-control">
+                            </div>
+                            <div class="form-group">
                                 <label>Position</label>
                                 <select id="id-jabatan" name="id_jabatan" parsley-trigger="change" required placeholder="Position" class="form-control">
                                     <option value=""></option>
@@ -27,10 +31,6 @@
                             <div class="form-group" id="pass-field" style="display: none;">
                                 <label>Password</label>
                                 <input type="password" id="sales-password" name="sales_password" parsley-trigger="change" required placeholder="Password" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Full Name</label>
-                                <input type="text" name="employee_name" value="<?php echo $data['employee_name'];?>" parsley-trigger="change" required placeholder="Full Name" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Email</label>
