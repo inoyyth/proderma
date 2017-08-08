@@ -194,6 +194,10 @@ $route['payment-due-date'] = 't_pay_duedate';
 $route['payment-due-date-edit-(:num)'] = 't_pay_duedate/edit/$1';
 $route['payment-due-date-save'] = 't_pay_duedate/save';
 
+$route['report-penjualan'] = 'r_penjualan';
+
+$route['report-pendapatan'] = 'r_pendapatan';
+
 $route['log-pdf'] = 'log_pdf';
 
 $route['form-produksi-add'] = 't_produksi/add';
