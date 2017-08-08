@@ -416,7 +416,7 @@ class Api extends MX_Controller {
         }
     }
 
-    public function form_kujungan() {
+    public function form_kunjungan() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (file_get_contents('php://input')) {
                 $data = json_decode(file_get_contents('php://input'), true);
