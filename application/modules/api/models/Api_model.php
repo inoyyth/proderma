@@ -7,7 +7,7 @@ class Api_model extends CI_Model {
                 *
                 ');
         $this->db->from('m_employee');
-        $this->db->where(array('token' => $token));
+        $this->db->where(array('token' => $token, 'employee_status'=>1));
         $query = $this->db->get();
         if ($query->num_rows() == 1) {
             return $query->row_array(); //if data is true
