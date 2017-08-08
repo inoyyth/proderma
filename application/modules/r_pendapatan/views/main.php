@@ -105,7 +105,7 @@
         }
         $.ajax({
             type: "POST",
-            url: '<?php echo base_url('r_penjualan/getReport');?>',
+            url: '<?php echo base_url('r_pendapatan/getReport');?>',
             data: dt,
             success: function(i, data){
                 console.log(data);
@@ -136,7 +136,7 @@
                         dataLabels: {
                             enabled: true
                         },
-                        enableMouseTracking: false
+                        enableMouseTracking: true
                     }
                 },
                 series: [{
@@ -156,7 +156,7 @@
                 paginationSize: 200,
                 fitColumns:true, //fit columns to width of table (optional),
                 ajaxType: "POST", //ajax HTTP request type
-                ajaxURL: "<?php echo base_url('r_penjualan/getListTable'); ?>", //ajax URL
+                ajaxURL: "<?php echo base_url('r_pendapatan/getListTable'); ?>", //ajax URL
                 ajaxParams: tabulatorAjaxParams,
                 groupBy:"kelompok",
                 columns: [//Define Table Columns
@@ -164,7 +164,8 @@
                     {title: "SO.Code", field: "so_code", tooltip: true},
                     {title: "Cust.Code", field: "customer_code", tooltip: true},
                     {title: "Cust.Name", field: "customer_name"},
-                    {title: "SO.Date", field: "so_date"}
+                    {title: "SO.Date", field: "so_date"},
+                    {title: "Total", field: "so_grand_total",formatter: 'money'}
                 ],
                 selectable: 1,
             });

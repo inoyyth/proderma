@@ -1,24 +1,8 @@
 <?php
 
-Class M_r_penjualan extends CI_Model {
+Class M_r_pendapatan extends CI_Model {
 
     var $table = "t_sales_order";
-
-    public function save() {
-        $id = $this->input->post('id');
-        $data = array(
-            'jabatan' => $this->input->post('jabatan'),
-            'jabatan_status' => $this->input->post('jabatan_status')
-        );
-        if (empty($id)) {
-            $this->db->insert($this->table, $this->main_model->create_sys($data));
-            return true;
-        } else {
-            $this->db->update($this->table, $this->main_model->update_sys($data), array('id' => $id));
-            return true;
-        }
-        return false;
-    }
 
     public function getListTable($field, $table, $join, $like, $where, $sort, $limit) {
         $this->db->select($field);
@@ -40,7 +24,7 @@ Class M_r_penjualan extends CI_Model {
     }
 
     public function getYearlyReport($year) {
-        $this->db->select('count(id) as total, month(so_date) as bulan');
+        $this->db->select('sum(so_grand_total) as total, month(so_date) as bulan');
         $this->db->from('t_sales_order');
         $this->db->where(array('so_status' => 1, 'YEAR(so_date)' => $year));
         $this->db->group_by('MONTH(so_date)');
@@ -49,7 +33,7 @@ Class M_r_penjualan extends CI_Model {
     }
     
     public function getDailyReport($month,$year) {
-        $this->db->select('count(id) as total, day(so_date) as tgl');
+        $this->db->select('sum(so_grand_total) as total, day(so_date) as tgl');
         $this->db->from('t_sales_order');
         $this->db->where(array('so_status' => 1, 'YEAR(so_date)' => $year, 'MONTH(so_date)' => $month));
         $this->db->group_by('so_date');

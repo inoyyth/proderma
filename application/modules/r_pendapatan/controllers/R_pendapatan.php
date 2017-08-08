@@ -1,20 +1,20 @@
 <?php
 
-class R_penjualan extends MX_Controller {
+class R_pendapatan extends MX_Controller {
 
     var $table = "t_sales_order";
 
     public function __construct() {
         parent::__construct();
-        $this->load->model(array('M_r_penjualan' => 'm_penjualan', 'Datatable_model' => 'data_table'));
+            $this->load->model(array('M_r_pendapatan' => 'm_pendapatan', 'Datatable_model' => 'data_table'));
         $this->load->library(array('Auth_log'));
         //set breadcrumb
-        $this->breadcrumbs->push('Report Penjualan', '/employee-level');
+        $this->breadcrumbs->push('Report Pendapatan', '/employee-level');
     }
 
     public function index() {
-        $data['template_title'] = array('Report Penjualan', 'List');
-        $data['view'] = 'r_penjualan/main';
+        $data['template_title'] = array('Report Pendapatan', 'List');
+        $data['view'] = 'r_pendapatan/main';
         $this->load->view('default', $data);
     }
 
@@ -27,7 +27,7 @@ class R_penjualan extends MX_Controller {
 
         if ($month == NULL || $month == "") {
 
-            $dt = $this->m_penjualan->getYearlyReport($year)->result_array();
+            $dt = $this->m_pendapatan->getYearlyReport($year)->result_array();
             $dt_bulan = array();
             foreach ($dt as $k => $v) {
                 $dt_bulan[] = $arr_month[$v['bulan']];
@@ -37,12 +37,12 @@ class R_penjualan extends MX_Controller {
                 $dt_value[] = (int) $v['total'];
             }
 
-            $title = 'Yearly Report ' . $year;
+            $title = 'Income Report ' . $year;
             $subtitle = 'Sales Order';
             $category = $dt_bulan;
             $value = $dt_value;
         } else {
-            $dt = $this->m_penjualan->getDailyReport($month, $year)->result_array();
+            $dt = $this->m_pendapatan->getDailyReport($month, $year)->result_array();
             $dt_tgl = array();
             foreach ($dt as $k => $v) {
                 $dt_tgl[] = $v['tgl'];
@@ -52,7 +52,7 @@ class R_penjualan extends MX_Controller {
                 $dt_value[] = (int) $v['total'];
             }
 
-            $title = 'Monthly Report ' . $arr_month_long[$month];
+            $title = 'Income Report ' . $arr_month_long[$month];
             $subtitle = 'Sales Order';
             unset($arr_month[0]);
             $category = $dt_tgl;
@@ -119,7 +119,7 @@ class R_penjualan extends MX_Controller {
             'limit' => $limit
         );
 
-        $list = $this->m_penjualan->getListTable($field, $table, $join, $like, $where, $sort, $limit_row);
+        $list = $this->m_pendapatan->getListTable($field, $table, $join, $like, $where, $sort, $limit_row);
 
         $total_records = $this->data_table->count_all($table, $where);
         $total_pages = ceil($total_records / $limit);
