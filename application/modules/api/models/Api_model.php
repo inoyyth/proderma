@@ -189,6 +189,15 @@ class Api_model extends CI_Model {
         $this->db->where(array('m_customer.customer_status' => 1, 'm_customer.current_lead_customer_status' => 'C'));
         return $this->db->get()->result_array();
     }
+    
+    public function get_lead_customer($q) {
+        $this->db->select('m_customer.*,m_group_product.group_product');
+        $this->db->from('m_customer');
+        $this->db->join('m_group_product', 'm_group_product.id=m_customer.id_group_customer_product', 'INNER');
+        $this->db->or_like(array('m_customer.customer_code' => $q, 'm_customer.customer_name' => $q));
+        $this->db->where(array('m_customer.customer_status' => 1, 'm_customer.current_lead_customer_status' => 'L'));
+        return $this->db->get()->result_array();
+    }
 
     public function logout($token) {
         if ($this->db->update('m_employee', array('token' => NULL), array('token' => $token))) {
