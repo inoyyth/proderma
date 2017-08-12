@@ -105,7 +105,7 @@
         }
         $.ajax({
             type: "POST",
-            url: '<?php echo base_url('r_pendapatan/getReport');?>',
+            url: '<?php echo base_url('r_product/getReport');?>',
             data: dt,
             success: function(i, data){
                 console.log(data);
@@ -156,7 +156,7 @@
                 paginationSize: 200,
                 fitColumns:true, //fit columns to width of table (optional),
                 ajaxType: "POST", //ajax HTTP request type
-                ajaxURL: "<?php echo base_url('r_pendapatan/getListTable'); ?>", //ajax URL
+                ajaxURL: "<?php echo base_url('r_product/getListTable'); ?>", //ajax URL
                 ajaxParams: tabulatorAjaxParams,
                 groupBy:"kelompok",
                 columns: [//Define Table Columns
