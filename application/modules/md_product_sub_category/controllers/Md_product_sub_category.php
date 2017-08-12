@@ -88,7 +88,7 @@ class Md_product_sub_category extends MX_Controller {
     }
 
     function delete($id) {
-        if ($this->db->update($this->table, array('product_category_status' => 3),array('id'=>$id))) {
+        if ($this->db->update($this->table, array('product_sub_category_status' => 3),array('id'=>$id))) {
             $this->session->set_flashdata('success', 'Data Berhasil Di Hapus !');
         } else {
             $this->session->set_flashdata('error', 'Data Gagal Di Hapus !');

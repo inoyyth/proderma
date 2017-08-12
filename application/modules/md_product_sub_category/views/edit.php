@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     <button class="btn btn-primary" type="submit">Save</button>
-                    <a href="<?php echo site_url('master-product-category'); ?>" class="btn btn-default">Cancel</a>
+                    <a href="<?php echo site_url('master-product-sub-category'); ?>" class="btn btn-default">Cancel</a>
                 </div>
             </div>
         </div>
