@@ -69,10 +69,28 @@ class Api_model extends CI_Model {
             return $prefix . $separator . $hsl;
         }
     }
+    
+    public function __generate_code2($tables, $prefix, $separator, $digit = 4, $date = true, $loop = false, $where=array(),$field,$order) {
+        $tgl = date('y');
+        $this->db->select($field);
+        $this->db->where($where);
+        $this->db->order_by($order,'DESC');
+        if ($loop == false) {
+            $maxi = $this->db->get($tables)->row($field);
+        } else {
+            $maxi = $this->db->get_where($tables, array('DATE(sys_create_date)' => date('Y-m-d')))->row('max_id');
+        }
+        $hsl = str_pad((intval(preg_replace("/[^0-9,.]/", "", $maxi)) == 0 ? 1 : intval(preg_replace("/[^0-9,.]/", "", $maxi)) + 1), $digit, '0', STR_PAD_LEFT);
+        if ($date == true) {
+            return $prefix . $separator . date('Ymd') . $separator . $hsl;
+        } else {
+            return $prefix . $separator . $hsl;
+        }
+    }
 
     public function register_customer($data) {
         $val = array(
-            'customer_code' => $data['customer_code'],
+            'customer_code' => $this->__generate_code2('m_customer', $this->config->item('customer_code').'/1','/' , $digit = 5, true,false, $where=array(),'id','id'),
             'customer_name' => $data['customer_name'],
             'customer_clinic' => $data['customer_clinic'],
             'customer_province' => $data['province_id'],
@@ -84,6 +102,7 @@ class Api_model extends CI_Model {
             'customer_phone' => $data['telephone'],
             'customer_email' => $data['email'],
             'id_group_customer_product' => $data['group_id'],
+            'id_status_list_customer' => 1,
             'customer_internal_notes' => $data['notes'],
             'photo_path' => $data['path_image'],
             'current_lead_customer_status' => $data['current_lead_customer_status']
@@ -117,7 +136,7 @@ class Api_model extends CI_Model {
 
     public function register_lead($data) {
         $val = array(
-            'customer_code' => $data['customer_code'],
+            'customer_code' => $this->__generate_code2('m_customer', $this->config->item('customer_code').'/0','/' , $digit = 5, true,false, $where=array(),'id','id'),
             'customer_name' => $data['customer_name'],
             'customer_clinic' => $data['customer_clinic'],
             'customer_province' => $data['province_id'],
@@ -316,6 +335,20 @@ class Api_model extends CI_Model {
             return true;
         }
         return false;
+    }
+    
+    public function get_master_area() {
+        $this->db->select('id,area_code,area_name,area_description');
+        $this->db->from('m_area');
+        $this->db->where(array('area_status' => 1));
+        return $this->db->get()->result_array();
+    }
+    
+    public function get_master_sub_area($province) {
+        $this->db->select('id,id_area,subarea_name,subarea_code,subarea_description');
+        $this->db->from('m_subarea');
+        $this->db->where(array('id_area' => $province,'subarea_status'=>1));
+        return $this->db->get()->result_array();
     }
 
 }

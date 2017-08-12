@@ -35,12 +35,12 @@ class Api extends MX_Controller {
         return '/assets/' . $folder . '/' . $image_name;
     }
     
-    private function __file_to_base64($path,$name) {
-        $new_name = $name.".pdf";
+    private function __file_to_base64($path,$name,$format='pdf') {
+        $new_name = $name.".".$format;
         $dt = array(
            'file' => base64_encode(file_get_contents(base_url().$path)),
             'name' => $new_name,
-            'format' => 'pdf'
+            'format' => $format
         );
        return $dt;
     }
@@ -81,9 +81,15 @@ class Api extends MX_Controller {
                 } else {
                     $data['path_image'] = "";
                     $field = array(
-                        'customer_code' => "Is Required",
-                        'customer_name' => 'Is Required',
-                        'customer_clinic' => 'Is Required'
+                        'customer_name' => 'Customer Name Is Required',
+                        'customer_clinic' => 'Clinic Name Is Required',
+                        'province_id' => 'Province Is Required',
+                        'city_id' => 'City Is Required',
+                        'district_id' => 'District Is Required',
+                        'address' => 'Address Is Required',
+                        'telephone' => 'telephone Is Required',
+                        'id_area' => 'Area Is Required',
+                        'id_subarea' => 'Subarea Is Required'
                     );
                     $data['current_lead_customer_status'] = "C";
                     $this->__cek_empty_data($data, $field);
@@ -91,7 +97,7 @@ class Api extends MX_Controller {
                         $fetch_image = $this->__fetchImage($data['images'], 'images/md_customer');
                         $data['path_image'] = $fetch_image;
                     }
-                    if ($this->Api_model->register_lead($data)) {
+                    if ($this->Api_model->register_customer($data)) {
                         $this->output->set_status_header('200');
                         $dt = array(
                             'code' => 200,
@@ -198,9 +204,15 @@ class Api extends MX_Controller {
                 } else {
                     $data['path_image'] = "";
                     $field = array(
-                        'customer_code' => "Is Required",
-                        'customer_name' => 'Is Required',
-                        'customer_clinic' => 'Is Required'
+                        'customer_name' => 'Customer Name Is Required',
+                        'customer_clinic' => 'Clinic Name Is Required',
+                        'province_id' => 'Province Is Required',
+                        'city_id' => 'City Is Required',
+                        'district_id' => 'District Is Required',
+                        'address' => 'Address Is Required',
+                        'telephone' => 'telephone Is Required',
+                        'id_area' => 'Area Is Required',
+                        'id_subarea' => 'Subarea Is Required'
                     );
                     $data['current_lead_customer_status'] = "L";
                     $this->__cek_empty_data($data, $field);
@@ -616,7 +628,7 @@ class Api extends MX_Controller {
                 
                 $dtx = array();
                 foreach ($data as $k=>$v) {
-                    $b64Doc = $this->__file_to_base64($v['promo_file'],$v['promo_name']);
+                    $b64Doc = $this->__file_to_base64($v['promo_file'],$v['promo_name'],'pdf');
                     $dtx[] = array(
                         'promo_code'=>$v['promo_code'],
                         'promo_name' => $v['promo_name'],
@@ -685,6 +697,52 @@ class Api extends MX_Controller {
                 $this->output->set_status_header('404');
                 redirect('error404');
             }
+        } else {
+            $this->output->set_status_header('404');
+            redirect('error404');
+        }
+    }
+    
+    function get_master_area() {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            if ($data = $this->Api_model->get_master_area()) {
+                $this->output->set_status_header('200');
+                $dt = array(
+                    'code' => 200,
+                    'message' => 'Success !!!',
+                    'data' => $data
+                );
+            } else {
+                $this->output->set_status_header('500');
+                $dt = array(
+                    'code' => 500,
+                    'message' => 'Query Error!!!'
+                );
+            }
+            echo json_encode($dt);
+        } else {
+            $this->output->set_status_header('404');
+            redirect('error404');
+        }
+    }
+    
+    function get_master_sub_area() {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            if ($data = $this->Api_model->get_master_sub_area($_GET['master_area_id'])) {
+                $this->output->set_status_header('200');
+                $dt = array(
+                    'code' => 200,
+                    'message' => 'Success !!!',
+                    'data' => $data
+                );
+            } else {
+                $this->output->set_status_header('500');
+                $dt = array(
+                    'code' => 500,
+                    'message' => 'Query Error!!!'
+                );
+            }
+            echo json_encode($dt);
         } else {
             $this->output->set_status_header('404');
             redirect('error404');

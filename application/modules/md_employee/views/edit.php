@@ -5,7 +5,7 @@
                 <div class="porlets-content">
                     <div class="row">
                         <div class="col-md-4">
-                            <img id="image1" src="<?php echo base_url($data['photo_path']); ?>" alt="..." class="img-circle img-responsive">
+                            <img id="image1" width="250px" height="170" src="<?php echo base_url($data['photo_path']); ?>" alt="..." class="img-rounded img-responsive">
                             <input type="file" onchange="readURL(this);" class="form-control input-sm" name="path_foto" id="path_foto">
                             <input type="hidden" name="image_hidden" value="<?php echo $data['photo_path'];?>">
                         </div>

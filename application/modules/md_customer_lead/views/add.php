@@ -18,10 +18,10 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <input type="hidden" name="id">
-                                    <div class="form-group">
+                                    <!--<div class="form-group">
                                         <label>Code</label>
                                         <input type="text" name="customer_code" value="<?php echo $code;?>" readonly="true" parsley-trigger="change" required placeholder="Code" class="form-control">
-                                    </div>
+                                    </div>-->
                                     <div class="form-group">
                                         <label>Name</label>
                                         <input type="text" name="customer_name" parsley-trigger="change" required placeholder="Name" class="form-control">

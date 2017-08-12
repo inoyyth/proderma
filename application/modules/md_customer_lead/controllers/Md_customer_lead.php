@@ -200,5 +200,10 @@ class Md_customer_lead extends MX_Controller {
         $this->db->update('m_customer',array('customer_as_priority'=>'false'),array('id'=>$id));
         return true;
     }
-
+    
+    public function setAsPriority($id){
+        $data = $this->db->get_where('m_customer',array('id'=>$id))->row_array();
+        $this->db->update('m_customer',array('current_lead_customer_status'=>'C', 'id_group_customer_product' => 1, 'id_status_list_customer' => 1,'customer_code'=>  str_replace('CST/0/', 'CST/1/', $data['customer_code'])),array('id'=>$id));
+        return true;
+    }
 }

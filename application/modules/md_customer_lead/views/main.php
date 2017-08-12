@@ -93,6 +93,7 @@
         <a href="#" type="button" id="btn-delete" class="btn btn-xs btn-danger" onclick="return confirm('Yakin hapus data?');"><i class="fa fa-remove"></i> Delete</a>
         <a href="#" type="button" id="btn-priority" class="btn btn-xs btn-default"><i class="fa fa-info-circle"></i> Set Priority</a>
         <a href="#" type="button" id="btn-undo-priority" class="btn btn-xs btn-default"><i class="fa fa-info-circle"></i> Undo Priority</a>
+        <a href="#" type="button" id="btn-set-customer" class="btn btn-xs btn-default"><i class="fa fa-info-circle"></i> Set As Customer</a>
     </div>
     <div class="col-lg-12">
         <div id="example-table"></div>
@@ -204,11 +205,13 @@
                     $('#btn-delete').attr('href', '<?php echo site_url(); ?>lead-customer-delete-' + data[0]['id'] + '.html');
                     $('#btn-priority').attr('href', '<?php echo site_url(); ?>lead-customer-set-priority-' + data[0]['id'] + '.html');
                     $('#btn-undo-priority').attr('href', '<?php echo site_url(); ?>lead-customer-undo-priority-' + data[0]['id'] + '.html');
+                    $('#btn-set-customer').attr('href', '<?php echo site_url(); ?>md_customer_lead/setAsPriority/' + data[0]['id']);
                 } else {
                     $('#btn-edit').attr('href', '#');
                     $('#btn-delete').attr('href', '#');
                     $('#btn-priority').attr('href', '#');
                     $('#btn-undo-priority').attr('href', '#');
+                    $('#btn-set-customer').attr('href', '#');
                 }
             },
             rowDblClick:function(e, row){
@@ -240,6 +243,26 @@
     }
     
     $('#btn-priority,#btn-undo-priority').click(function() {
+        var dt = $(this);
+        var url = dt[0].href;
+        console.log(url);
+        if(url === "<?php echo site_url('lead-customer');?>#"){
+            alert('Silahkan pilih ada yang akan di update');
+            return false;
+        } else {
+            $.ajax({
+               url: url,
+               type: 'get',
+               success: function (){
+                   filterTable();
+               }
+            });
+        }
+        
+        return false;
+    });
+    
+    $('#btn-set-customer').click(function() {
         var dt = $(this);
         var url = dt[0].href;
         console.log(url);

@@ -57,12 +57,20 @@ class Api_Login extends MX_Controller {
                         'password'=>'Is Required',
                     );
                     
-                    if ($data_login = $this->Api_model->login($data)) {              
+                    if ($data_login = $this->Api_model->login($data)) {      
+                        $b64Doc = $this->__file_to_base64($data_login['photo_path'],$data_login['employee_nip'],'jpg');
                         $this->output->set_status_header('200');
                         $dt=array(
                             'code'=>200,
                             'message'=>'Success !!!',
-                            'data' => array('token' => $data_login['token'])
+                            'data' => array(
+                                'token' => $data_login['token'],
+                                'employee_nip' => $data_login['employee_nip'],
+                                'employee_name' => $data_login['employee_name'],
+                                'employee_email' => $data_login['employee_email'],
+                                'employee_phone' => $data_login['employee_phone'],
+                                'image' => $b64Doc
+                            )
                         );
                     } else {
                         $this->output->set_status_header('200');
@@ -82,5 +90,15 @@ class Api_Login extends MX_Controller {
             $this->output->set_status_header('404');
             redirect('error404');
         }
+    }
+    
+    private function __file_to_base64($path,$name,$format='pdf') {
+        $new_name = $name.".".$format;
+        $dt = array(
+           'file' => base64_encode(file_get_contents(base_url().$path)),
+            'name' => $new_name,
+            'format' => $format
+        );
+       return $dt;
     }
 }

@@ -56,6 +56,7 @@ Class M_md_customer extends CI_Model {
             'photo_path' => $image_name
         );
         if (empty($id)) {
+            $data['customer_code'] =  $this->main_model->generate_code('m_customer', $this->config->item('customer_code').'/1','/' , $digit = 5, true,false, $where=array(),'id','id');
             $this->db->insert($this->table, $this->main_model->create_sys($data));
             return true;
         } else {
