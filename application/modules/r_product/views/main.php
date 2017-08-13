@@ -170,5 +170,29 @@
                 selectable: 1,
             });
         });
+
+        $("#product-table").tabulator({
+                fitColumns: true,
+                pagination: true,
+                movableCols: true,
+                height: "320px", // set height of table (optional),
+                pagination:"remote",
+                paginationSize: 200,
+                fitColumns:true, //fit columns to width of table (optional),
+                ajaxType: "POST", //ajax HTTP request type
+                ajaxURL: "<?php echo base_url('r_product/getListTable'); ?>", //ajax URL
+                ajaxParams: tabulatorAjaxParams,
+                groupBy:"kelompok",
+                columns: [//Define Table Columns
+                    {formatter: "rownum", align: "center", width: 40},
+                    {title: "SO.Code", field: "so_code", tooltip: true},
+                    {title: "Cust.Code", field: "customer_code", tooltip: true},
+                    {title: "Cust.Name", field: "customer_name"},
+                    {title: "SO.Date", field: "so_date"},
+                    {title: "Total", field: "so_grand_total",formatter: 'money'}
+                ],
+                selectable: 1,
+            });
+        });
     }
 </script>

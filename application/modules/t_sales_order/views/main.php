@@ -97,10 +97,14 @@
     
         $("#btn-print").click(function (event) {
             event.preventDefault();
-            var baseUrl = '<?php echo base_url('leasing_covernote/print_covernotex'); ?>';
-            $("#print-content").load($(this).attr('href')); 
-            $('#modalPrint').modal('show');
+            if($(this).attr('href') !== "") {
+                $("#print-content").load($(this).attr('href')); 
+                $('#modalPrint').modal('show');
+            } else {
+                alert('please select data');
+            }
         });
+
     });
 
     function clearFilterTable() {

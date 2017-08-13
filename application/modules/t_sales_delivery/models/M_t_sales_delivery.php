@@ -76,4 +76,19 @@ Class M_t_sales_delivery extends CI_Model {
         return $this->db->get();
     }
 
+    public function get_list_product($id) {
+        $this->db->select(array("t_sales_order_product.*",
+            "m_product.product_code",
+            "m_product.product_name",
+            "m_product.product_price",
+            "sum(t_sales_order_product.qty * m_product.product_price) as SubTotal"));
+        $this->db->from('t_sales_order_product');
+        $this->db->join('m_product','m_product.id=t_sales_order_product.id_product', 'left');
+        $this->db->where(array(
+            't_sales_order_product.id_sales_order' => $id,
+        ));
+        $this->db->group_by(array('t_sales_order_product.id'));
+        return $this->db->get();
+    }
+
 }
