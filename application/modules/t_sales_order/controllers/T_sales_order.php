@@ -120,4 +120,10 @@ class T_sales_order extends MX_Controller {
         //output to json format
         echo json_encode($output);
     }
+    
+    public function printdetail($id) {
+        $data['data'] = $this->m_t_sales_order->get_detail($id)->row_array();
+        $data['data_product'] = $this->m_t_sales_order->get_detail_product($id)->row_array();
+        $this->load->view('t_sales_order/print',$data);
+    }
 }

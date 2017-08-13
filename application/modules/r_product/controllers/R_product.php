@@ -1,20 +1,20 @@
 <?php
 
-class R_pendapatan extends MX_Controller {
+class R_product extends MX_Controller {
 
     var $table = "t_sales_order";
 
     public function __construct() {
         parent::__construct();
-            $this->load->model(array('M_r_pendapatan' => 'm_pendapatan', 'Datatable_model' => 'data_table'));
+            $this->load->model(array('M_r_product' => 'm_pendapatan', 'Datatable_model' => 'data_table'));
         $this->load->library(array('Auth_log'));
         //set breadcrumb
-        $this->breadcrumbs->push('Report Pendapatan', '/employee-level');
+        $this->breadcrumbs->push('Report Product', '/employee-level');
     }
 
     public function index() {
-        $data['template_title'] = array('Report Pendapatan', 'List');
-        $data['view'] = 'r_pendapatan/main';
+        $data['template_title'] = array('Report Product', 'List');
+        $data['view'] = 'r_product/main';
         $this->load->view('default', $data);
     }
 

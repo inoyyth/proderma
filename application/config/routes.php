@@ -158,6 +158,7 @@ $route['sales-order-edit-(:num)'] = 't_sales_order/edit/$1';
 $route['sales-order-delete-(:num)'] = 't_sales_order/delete/$1';
 $route['sales-order-detail-(:num)'] = 't_sales_order/detail/$1';
 $route['sales-order-save'] = 't_sales_order/save';
+$route['sales-order-print-(:num)'] = 't_sales_order/printdetail/$1';
 
 $route['ojt'] = 't_sales_visit';
 $route['ojt-add'] = 't_sales_visit/add';
@@ -197,6 +198,8 @@ $route['payment-due-date-save'] = 't_pay_duedate/save';
 $route['report-penjualan'] = 'r_penjualan';
 
 $route['report-pendapatan'] = 'r_pendapatan';
+
+$route['report-product'] = 'r_product';
 
 $route['log-pdf'] = 'log_pdf';
 

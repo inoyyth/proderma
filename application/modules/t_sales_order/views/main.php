@@ -40,9 +40,20 @@
         <!--<a href="<?php echo site_url('sales-order-add'); ?>" type="button" id="btn-add" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> New</a>-->
         <a href="#" type="button" id="btn-edit" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> Detail</a>
         <a href="#" type="button" id="btn-delete" class="btn btn-xs btn-danger" onclick="return confirm('Yakin hapus data?');"><i class="fa fa-remove"></i> Delete</a>
+        <a href="#" type="button" id="btn-print" class="btn btn-xs btn-default"><i class="fa fa-print"></i> Print</a>
     </div>
     <div class="col-lg-12">
         <div id="example-table"></div>
+    </div>
+</div>
+<div class="modal fade bs-example-modal-lg" id="modalPrint" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div id="print-content"></div>
+        </div>
     </div>
 </div>
 
@@ -72,14 +83,23 @@
                 if (data.length > 0) {
                     $('#btn-edit').attr('href', '<?php echo site_url(); ?>sales-order-detail-' + data[0]['id'] + '.html');
                     $('#btn-delete').attr('href', '<?php echo site_url(); ?>sales-order-delete-' + data[0]['id'] + '.html');
+                    $('#btn-print').attr('href', '<?php echo site_url(); ?>sales-order-print-' + data[0]['id'] + '.html');
                 } else {
                     $('#btn-edit').attr('href', '#');
                     $('#btn-delete').attr('href', '#');
+                    $('#btn-print').attr('href', '#');
                 }
             },
             rowDblClick:function(e, row){
                 location.replace('<?php echo site_url(); ?>sales-order-detail-' + row + '.html');
             },
+        });
+    
+        $("#btn-print").click(function (event) {
+            event.preventDefault();
+            var baseUrl = '<?php echo base_url('leasing_covernote/print_covernotex'); ?>';
+            $("#print-content").load($(this).attr('href')); 
+            $('#modalPrint').modal('show');
         });
     });
 

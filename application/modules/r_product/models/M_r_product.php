@@ -1,6 +1,6 @@
 <?php
 
-Class M_r_pendapatan extends CI_Model {
+Class M_r_product extends CI_Model {
 
     var $table = "t_sales_order";
 
