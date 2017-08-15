@@ -65,6 +65,7 @@ class Api_Login extends MX_Controller {
                             'message'=>'Success !!!',
                             'data' => array(
                                 'token' => $data_login['token'],
+								'id' => $data_login['id'],
                                 'employee_nip' => $data_login['employee_nip'],
                                 'employee_name' => $data_login['employee_name'],
                                 'employee_email' => $data_login['employee_email'],
