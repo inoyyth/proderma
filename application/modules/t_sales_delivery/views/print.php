@@ -1,13 +1,3 @@
-<?php
-if ($data['so_discount_type'] == 'Fixed') {
-    $discount_value = $data['so_discount_value'];
-} else {
-    $discount_value = (($data_product['grand_total'] * intval($data['so_discount_value'])) / 100);
-}
-
-$tax = (($data_product['grand_total'] * 10) / 100);
-
-?>
 <style>
     @media screen {
         #printSection {
@@ -37,7 +27,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
 		}
     }
 </style>
-<div id="printThis" style="padding: 10px;text-align: justify;">
+<div id="printThis">
     <div style="width: 200px;padding-left: 10px;padding-top: 10px;">
         <img style="width: 190px;" src="<?php echo base_url('assets/images/logo.png'); ?>">
         <br>
@@ -48,27 +38,19 @@ $tax = (($data_product['grand_total'] * 10) / 100);
         </div>
     </div>
     <div style="text-align: center;">
-        <div style="font-size: 16x;font-weight: bolder;"><u>SALES ORDER</u></div>
+        <div style="font-size: 16x;font-weight: bolder;"><u>SALES DELIVERY</u></div>
     </div>
 <br>
-    <div style="padding-left: 10px;padding-right: 10px;">
+    <div style="padding-left: 10px;padding-right: 10px;font-size: 10px;">
         <table>
             <td style="width: 450px;">
                 <table>
                     <tr>
-                        <td style="width: 80px;">
-                            NIP
+                        <td style="width: 100px;">
+                            DO.CODE
                         </td>
                         <td>
-                            : <?php echo $data['employee_nip']; ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            NAME
-                        </td>
-                        <td>
-                            : <?php echo $data['employee_name']; ?>
+                            : <?php echo $data['do_code']; ?>
                         </td>
                     </tr>
                     <tr>
@@ -79,32 +61,12 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                             : <?php echo $data['so_code']; ?>
                         </td>
                     </tr>
-                </table>
-            <td>
-            <td>
-                <table>
-                    <tr>
-                        <td style="width: 80px;">
-                            CUST.CODE
-                        </td>
-                        <td>
-                            : <?php echo $data['customer_code']; ?>
-                        </td>
-                    </tr>
                     <tr>
                         <td>
-                            CUST.NAME
+                            DELIVERY DATE
                         </td>
                         <td>
-                            : <?php echo $data['customer_name']; ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            SO.DATE
-                        </td>
-                        <td>
-                            : <?php echo $data['so_date']; ?>
+                            : <?php echo tanggalan($data['do_date']); ?>
                         </td>
                     </tr>
                 </table>
@@ -139,43 +101,16 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                     </tr>
                     <?php } ?>
                     </tbody>
-                    <tfooter>
-                        <tr style="text-align: right">
-                            <td colspan="3"><?php echo formatrp($data_product['total_item']);?></td>
-                            <td>Total</td>
-                            <td><?php echo formatrp($data_product['grand_total']);?></td>
-                        </tr>
-                        <tr style="text-align: right">
-                            <td colspan="4">Discount</td>
-                            <td><?php echo formatrp($discount_value);?></td>
-                        </tr>
-                        <tr style="text-align: right">
-                            <td colspan="4">Tax</td>
-                            <td><?php echo formatrp($tax);?></td>
-                        </tr>
-                        <tr style="text-align: right">
-                            <td colspan="4">Total Price</td>
-                            <td><?php echo formatrp(((intval($data_product['grand_total']) - intval($discount_value)) + intval($tax))); ?></td>
-                        </tr>
-                    </tfooter>
                 </table>    
-            </div>
-            <div class="col-lg-12">
-                <table>
-                    <tr>
-                        <td>Payment Term</td>
-                        <td>: <?php echo $data['payment_type']; ?></td>
-                    </tr>
-                </table>
             </div>
         </div>
     </div>
 <br>
 <br>
-    <div class="text-right">
-        <p>Jakarta, <?php echo date('d-m-Y');?></p>
+    <div class="text-right" style="font-size: 10px;">
+        <p>Jakarta, <?php echo tanggalan(date('Y-m-d'));?></p>
     </div>
-    <div style="padding-left: 10px;padding-right: 10px;">
+    <div style="padding-left: 10px;padding-right: 10px;font-size: 10px;">
         <table>
             <tr>
                 <td style="width: 500px;">

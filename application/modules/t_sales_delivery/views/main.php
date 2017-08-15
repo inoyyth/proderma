@@ -32,16 +32,28 @@
     </div>
     <div class="col-lg-12" style="padding-bottom: 2px;">
         <a href="<?php echo site_url('sales-delivery-add'); ?>" type="button" id="btn-add" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> New</a>
-        <a href="#" type="button" id="btn-edit" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> Detail</a>
-        <a href="#" type="button" id="btn-delete" class="btn btn-xs btn-danger" onclick="return confirm('Yakin hapus data?');"><i class="fa fa-remove"></i> Delete</a>
+        <a href="#" type="button" id="btn-edit" class="btn btn-xs btn-warning btn-dsb"><i class="fa fa-edit"></i> Detail</a>
+        <a href="#" type="button" id="btn-delete" class="btn btn-xs btn-danger btn-dsb" onclick="return confirm('Yakin hapus data?');"><i class="fa fa-remove"></i> Delete</a>
+        <a href="#" type="button" id="btn-print" class="btn btn-xs btn-default btn-dsb"><i class="fa fa-print"></i> Print</a>
     </div>
     <div class="col-lg-12">
         <div id="example-table"></div>
     </div>
 </div>
 <div id="modal-mapping"></div>
+<div class="modal fade bs-example-modal-lg" id="modalPrint" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div id="print-content"></div>
+        </div>
+    </div>
+</div>
 <script>
     $(document).ready(function () {
+        $(".btn-dsb").attr('disabled',true);
         $("#example-table").tabulator({
             fitColumns: true,
             pagination: true,
@@ -63,15 +75,29 @@
                 if (data.length > 0) {
                     $('#btn-edit').attr('href', '<?php echo site_url(); ?>sales-delivery-detail-' + data[0]['id'] + '.html');
                     $('#btn-delete').attr('href', '<?php echo site_url(); ?>sales-delivery-delete-' + data[0]['id'] + '.html');
+                    $('#btn-print').attr('href', '<?php echo site_url(); ?>sales-delivery-print-' + data[0]['id'] + '.html');
+                    $(".btn-dsb").removeAttr('disabled',true);
                 } else {
+                    $(".btn-dsb").attr('disabled',true);
                     $('#btn-edit').attr('href', '#');
                     $('#btn-view').attr('href', '#');
+                    $('#btn-print').attr('href', '#');
                 }
             },
             rowDblClick:function(e, row){
                 location.replace('<?php echo site_url(); ?>sales-delivery-detail-' + row + '.html');
             },
         });
+    });
+
+    $("#btn-print").click(function (event) {
+        event.preventDefault();
+        if($(this).attr('href') !== "") {
+            $("#print-content").load($(this).attr('href')); 
+            $('#modalPrint').modal('show');
+        } else {
+            alert('please select data');
+        }
     });
 
     function clearFilterTable() {
