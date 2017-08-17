@@ -105,7 +105,7 @@
         }
         $.ajax({
             type: "POST",
-            url: '<?php echo base_url('r_penjualan/getReport');?>',
+            url: '<?php echo base_url('r_customer/getReport');?>',
             data: dt,
             success: function(i, data){
                 console.log(data);
@@ -140,7 +140,7 @@
                     }
                 },
                 series: [{
-                    name: 'Sales Order',
+                    name: 'Customer',
                     data: data.value
                 }]
             });
@@ -156,15 +156,15 @@
                 paginationSize: 200,
                 fitColumns:true, //fit columns to width of table (optional),
                 ajaxType: "POST", //ajax HTTP request type
-                ajaxURL: "<?php echo base_url('r_penjualan/getListTable'); ?>", //ajax URL
+                ajaxURL: "<?php echo base_url('r_customer/getListTable'); ?>", //ajax URL
                 ajaxParams: tabulatorAjaxParams,
                 groupBy:"kelompok",
                 columns: [//Define Table Columns
                     {formatter: "rownum", align: "center", width: 40},
-                    {title: "SO.Code", field: "so_code", tooltip: true},
                     {title: "Cust.Code", field: "customer_code", tooltip: true},
                     {title: "Cust.Name", field: "customer_name"},
-                    {title: "SO.Date", field: "so_date"}
+                    {title: "Area", field: "area_name"},
+                    {title: "Subarea", field: "subarea_name"},
                 ],
                 selectable: 1,
             });

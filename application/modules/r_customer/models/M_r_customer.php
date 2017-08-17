@@ -40,20 +40,20 @@ Class M_r_customer extends CI_Model {
     }
 
     public function getYearlyReport($year) {
-        $this->db->select('count(id) as total, month(so_date) as bulan');
+        $this->db->select('count(id) as total, MONTH(sys_create_date) as bulan');
         $this->db->from('m_customer');
-        $this->db->where(array('so_status' => 1, 'YEAR(so_date)' => $year));
-        $this->db->group_by('MONTH(so_date)');
-        $this->db->order_by('MONTH(so_date)', 'ASC');
+        $this->db->where(array('customer_status<>' => 3, 'current_lead_customer_status' => 'C', 'YEAR(sys_create_date)' => $year));
+        $this->db->group_by('MONTH(sys_create_date)');
+        $this->db->order_by('MONTH(sys_create_date)', 'ASC');
         return $this->db->get();
     }
-    
-    public function getDailyReport($month,$year) {
-        $this->db->select('count(id) as total, day(so_date) as tgl');
+
+    public function getDailyReport($month, $year) {
+        $this->db->select('count(id) as total, day(sys_create_date) as tgl');
         $this->db->from('m_customer');
-        $this->db->where(array('so_status' => 1, 'YEAR(so_date)' => $year, 'MONTH(so_date)' => $month));
-        $this->db->group_by('so_date');
-        $this->db->order_by('so_date', 'ASC');
+        $this->db->where(array('customer_status<>' => 3, 'current_lead_customer_status' => 'C', 'YEAR(sys_create_date)' => $year, 'MONTH(sys_create_date)' => $month));
+        $this->db->group_by('sys_create_date');
+        $this->db->order_by('sys_create_date', 'ASC');
         return $this->db->get();
     }
 

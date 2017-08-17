@@ -14,7 +14,7 @@ class R_customer extends MX_Controller {
 
     public function index() {
         $data['template_title'] = array('Report Customer', 'List');
-        $data['view'] = 'r_penjualan/main';
+        $data['view'] = 'r_customer/main';
         $this->load->view('default', $data);
     }
 
@@ -38,7 +38,7 @@ class R_customer extends MX_Controller {
             }
 
             $title = 'Yearly Report ' . $year;
-            $subtitle = 'Sales Order';
+            $subtitle = 'Customer';
             $category = $dt_bulan;
             $value = $dt_value;
         } else {
@@ -53,7 +53,7 @@ class R_customer extends MX_Controller {
             }
 
             $title = 'Monthly Report ' . $arr_month_long[$month];
-            $subtitle = 'Sales Order';
+            $subtitle = 'Customer';
             unset($arr_month[0]);
             $category = $dt_tgl;
             $value = $dt_value;
@@ -73,44 +73,49 @@ class R_customer extends MX_Controller {
         $page = ($_POST['page'] == 0 ? 1 : $_POST['page']);
         $limit = $_POST['size'];
 
-        $table = 't_sales_order';
+        $table = 'm_customer';
 
         if ($this->input->post('month') == NULL || $this->input->post('month') == '') {
             $field = array(
-                "t_sales_order.*",
-                "m_customer.customer_code",
-                "m_customer.customer_name",
-                "MONTHNAME(t_sales_order.so_date) AS kelompok"
+                "m_customer.*",
+                "m_area.area_name",
+                "m_subarea.subarea_name",
+                "MONTHNAME(m_customer.sys_create_date) AS kelompok"
             );
         } else {
             $field = array(
-                "t_sales_order.*",
-                "m_customer.customer_code",
-                "m_customer.customer_name",
-                "day(t_sales_order.so_date) AS kelompok"
+                "m_customer.*",
+                "m_area.area_name",
+                "m_subarea.subarea_name",
+                "day(m_customer.sys_create_date) AS kelompok"
             );
         }
 
         $offset = ($page - 1) * $limit;
 
         $join = array(
-            array('table' => 'm_customer', 'where' => 'm_customer.id=t_sales_order.id_customer', 'join' => 'left')
+            array('table' => 'm_area', 'where' => 'm_area.id=m_customer.id_area', 'join' => 'left'),
+            array('table' => 'm_subarea', 'where' => 'm_subarea.id=m_customer.id_subarea', 'join' => 'left')
         );
         $like = array();
         $where = array();
         if ($this->input->post('month') == NULL || $this->input->post('month') == '') {
             $where = array(
-                'YEAR(t_sales_order.so_date)' => $this->input->post('year'),
+                'YEAR(m_customer.sys_create_date)' => $this->input->post('year'),
+                'm_customer.customer_status <>' => 3,
+                'm_customer.current_lead_customer_status' => 'C'
             );
             //$groupby = array('MONTH(so_date)');
         } else {
             $where = array(
-                'MONTH(t_sales_order.so_date)' => $this->input->post('month'),
-                'YEAR(t_sales_order.so_date)' => $this->input->post('year'),
+                'MONTH(m_customer.sys_create_date)' => $this->input->post('month'),
+                'YEAR(m_customer.sys_create_date)' => $this->input->post('year'),
+                'm_customer.customer_status <>' => 3,
+                'm_customer.current_lead_customer_status' => 'C'
             );
         }
         $sort = array(
-            'sort_field' => isset($_POST['sort']) ? $_POST['sort'] : "t_sales_order.so_date",
+            'sort_field' => isset($_POST['sort']) ? $_POST['sort'] : "m_customer.sys_create_date",
             'sort_direction' => isset($_POST['sort_dir']) ? $_POST['sort_dir'] : "asc"
         );
 
