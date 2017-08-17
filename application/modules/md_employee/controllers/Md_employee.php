@@ -26,6 +26,7 @@ class Md_employee extends MX_Controller {
         
         $field = array(
             "m_employee.*",
+            "IF(m_employee.employee_gender='F','Female','Male') AS gender",
             "m_jabatan.jabatan",
             "IF(m_employee.employee_status=1,'Active','Not Active') AS status"
         );

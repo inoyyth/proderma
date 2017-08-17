@@ -88,7 +88,7 @@
                 {title: "Position", field: "jabatan", sorter: "string"},
                 {title: "Email", field: "employee_email", sorter: "string"},
                 {title: "Phone", field: "employee_phone", sorter: "string"},
-                {title: "Gender", field: "employee_gender", sorter: "string"},
+                {title: "Gender", field: "gender", sorter: "string"},
                 {title: "Status", field: "status", sorter: "string"}
             ],
             selectable: 1,

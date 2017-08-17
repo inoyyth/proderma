@@ -202,6 +202,8 @@ $route['report-pendapatan'] = 'r_pendapatan';
 
 $route['report-product'] = 'r_product';
 
+$route['report-performance'] = 'r_performance';
+
 $route['log-pdf'] = 'log_pdf';
 
 $route['form-produksi-add'] = 't_produksi/add';
