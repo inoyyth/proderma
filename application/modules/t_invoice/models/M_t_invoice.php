@@ -16,7 +16,7 @@ Class M_t_invoice extends CI_Model {
         if (empty($id)) {
             if($this->db->insert($this->table, $this->main_model->create_sys($data))) {
                 if ($this->input->post('date_status') == "1") {
-                    $dt_duedate = array('id_invoice'=>$this->db->insert_id());
+                    $dt_duedate = array('id_invoice'=>$this->db->insert_id(),'create_date'=>date('Y-m-d'));
                     $this->db->insert('t_pay_duedate',$dt_duedate);
                 }
             }
