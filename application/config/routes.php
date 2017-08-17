@@ -206,6 +206,8 @@ $route['report-performance'] = 'r_performance';
 
 $route['report-customer'] = 'r_customer';
 
+$route['report-piutang'] = 'r_piutang';
+
 $route['log-pdf'] = 'log_pdf';
 
 $route['form-produksi-add'] = 't_produksi/add';
