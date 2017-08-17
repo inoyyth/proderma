@@ -1,26 +1,10 @@
 <?php
 
-Class M_r_penjualan extends CI_Model {
+Class M_r_performance extends CI_Model {
 
     var $table = "t_sales_order";
 
-    public function save() {
-        $id = $this->input->post('id');
-        $data = array(
-            'jabatan' => $this->input->post('jabatan'),
-            'jabatan_status' => $this->input->post('jabatan_status')
-        );
-        if (empty($id)) {
-            $this->db->insert($this->table, $this->main_model->create_sys($data));
-            return true;
-        } else {
-            $this->db->update($this->table, $this->main_model->update_sys($data), array('id' => $id));
-            return true;
-        }
-        return false;
-    }
-
-    public function getListTable($field, $table, $join, $like, $where, $sort, $limit) {
+    public function getListTable($field, $table, $join, $like, $where, $sort, $limit,$where_in) {
         $this->db->select($field);
         $this->db->from($table);
         if (count($join) > 0) {
@@ -31,6 +15,7 @@ Class M_r_penjualan extends CI_Model {
         if (count($where) > 0) {
             $this->db->where($where);
         }
+        $this->db->where_in('m_employee.employee_nip',$where_in);
         if (count($like) > 0) {
             $this->db->like($like);
         }
@@ -39,21 +24,57 @@ Class M_r_penjualan extends CI_Model {
         return $sql = $this->db->get()->result_array();
     }
 
-    public function getYearlyReport($year) {
-        $this->db->select('count(id) as total, month(so_date) as bulan');
-        $this->db->from('t_sales_order');
-        $this->db->where(array('so_status' => 1, 'YEAR(so_date)' => $year));
-        $this->db->group_by('MONTH(so_date)');
-        $this->db->order_by('MONTH(so_date)', 'ASC');
-        return $this->db->get();
+    public function getYearlyReport($year,$employee) {
+        $dt = array();
+        for ($i=1;$i<=12;$i++) {
+            $query = $this->__getDateYearly($i,$year,$employee);
+            $dt[] = (int) $query['total'];
+        }
+        return $dt;
     }
     
-    public function getDailyReport($month,$year) {
-        $this->db->select('count(id) as total, day(so_date) as tgl');
+    public function getDailyReport($month,$year,$employee) {
+        $dt = array();
+        if ($month < 10) {
+            $month = '0'.$month;
+        }
+        for ($i=1;$i<=31;$i++) {
+            if($i < 10) {
+                $i = '0'.$i;
+            }
+            $query = $this->__getDateMonthly($i,$month,$year,$employee);
+            $dt[] = (int) $query['total'];
+        }
+        return $dt;
+    }
+    
+    public function __getDateYearly($i,$year,$employee) {
+        $this->db->select('count(so_code) as total');
         $this->db->from('t_sales_order');
-        $this->db->where(array('so_status' => 1, 'YEAR(so_date)' => $year, 'MONTH(so_date)' => $month));
-        $this->db->group_by('so_date');
-        $this->db->order_by('so_date', 'ASC');
+        $this->db->join('m_employee','m_employee.id=t_sales_order.id_sales','INNER');
+        $this->db->where(array('so_status' => 1, 'YEAR(so_date)' => $year, 'MONTH(so_date)' => $i,'m_employee.employee_nip'=>$employee));
+        return $this->db->get()->row_array();
+    }
+    
+    public function __getDateMonthly($i,$month,$year,$employee) {
+        $this->db->select('count(so_code) as total');
+        $this->db->from('t_sales_order');
+        $this->db->join('m_employee','m_employee.id=t_sales_order.id_sales','INNER');
+        $this->db->where(array('so_status' => 1, 'so_date' => $year.'-'.$month.'-'.$i , 'm_employee.employee_nip'=>$employee));
+        return $this->db->get()->row_array();
+    }
+    
+    public function getProductByCode($employee) {
+        $this->db->select('id');
+        $this->db->from('m_product');
+        $this->db->where_in('product_code',$employee);
+        return $this->db->get_where();
+    }
+    
+    public function countProduct($data) {
+        $this->db->select('SUM(qty) as total');
+        $this->db->from('t_sales_order_product');
+        $this->db->where(array('id_sales_order'=>$data['so_id'], 'id_product'=>$data['product_id']));
         return $this->db->get();
     }
 
