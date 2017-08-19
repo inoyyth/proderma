@@ -81,6 +81,7 @@ class Api extends MX_Controller {
                 } else {
                     $data['path_image'] = "";
                     $field = array(
+                        'id_master_list' => 'ID customer list Is Required',
                         'customer_name' => 'Customer Name Is Required',
                         'customer_clinic' => 'Clinic Name Is Required',
                         'province_id' => 'Province Is Required',
@@ -98,11 +99,19 @@ class Api extends MX_Controller {
                         $data['path_image'] = $fetch_image;
                     }
                     if ($this->Api_model->register_customer($data)) {
-                        $this->output->set_status_header('200');
-                        $dt = array(
-                            'code' => 200,
-                            'message' => 'Success !!!'
-                        );
+                        if ($this->db->update('m_customer',array('current_lead_customer_status'=>'N'),array('id'=>$data['id_master_list']))) {
+                            $this->output->set_status_header('200');
+                            $dt = array(
+                                'code' => 200,
+                                'message' => 'Success !!!'
+                            );
+                        } else {
+                            $this->output->set_status_header('500');
+                            $dt = array(
+                            'code' => 500,
+                            'message' => 'Query Error!!!'
+                            );
+                        }
                     } else {
                         $this->output->set_status_header('500');
                         $dt = array(
