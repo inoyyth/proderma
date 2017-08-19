@@ -734,6 +734,7 @@ class Api extends MX_Controller {
                 foreach ($data as $k => $v) {
                     $b64Doc = $this->__file_to_base64($v['promo_file'], $v['promo_name'], 'pdf');
                     $dtx[] = array(
+                        'promo_id' => $v['id'],
                         'promo_code' => $v['promo_code'],
                         'promo_name' => $v['promo_name'],
                         'promo_description' => $v['promo_description'],
