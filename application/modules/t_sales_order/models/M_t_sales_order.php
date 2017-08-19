@@ -81,6 +81,10 @@ Class M_t_sales_order extends CI_Model {
         $this->db->select($table.'.*,'
                           . 'm_customer.customer_code,'
                           . 'm_customer.customer_name,'
+                          . 'm_customer.customer_address,'
+                          . 'm_customer.customer_phone,'
+                          . 'm_area.area_name,'
+                          . 'm_subarea.subarea_name,'
                           . 'm_employee.employee_nip,'
                           . 'm_employee.employee_name,'
                           . 'm_employee.photo_path,'
@@ -92,6 +96,8 @@ Class M_t_sales_order extends CI_Model {
         $this->db->join('m_customer','m_customer.id='.$table.'.id_customer','INNER');
         $this->db->join('m_employee','m_employee.id='.$table.'.id_sales','INNER');
         $this->db->join('m_payment_type','m_payment_type.id='.$table.'.so_payment_term','INNER');
+        $this->db->join('m_area','m_area.id=m_customer.id_area','INNER');
+        $this->db->join('m_subarea','m_subarea.id=m_customer.id_subarea','INNER');
         $this->db->where(array($table.'.id'=>$id));
         return $this->db->get();
     }

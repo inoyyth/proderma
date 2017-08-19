@@ -77,6 +77,26 @@ class Account extends MX_Controller {
         $data['view'] = 'account/edit';
         $this->load->view('default', $data);
     }
+    
+    public function edit_profile($id) {
+        $this->breadcrumbs->push('Edit', '/user-profile');
+        $data['detail'] = $this->db->get_where($this->table, array('id' => $id))->row_array();
+        $data['view'] = 'account/edit_profile';
+        $this->load->view('default', $data);
+    }
+    
+    public function save_profile() {
+        if ($_POST) {
+            if ($this->m_account->save_profile()) {
+                $this->session->set_flashdata('success', 'Data Berhasil Di Simpan !');
+            } else {
+                $this->session->set_flashdata('error', 'Data Gagal Di Simpan !');
+            }
+            redirect("user-management");
+        } else {
+            show_404();
+        }
+    } 
 
     function delete($id) {
         if ($this->db->delete($this->table, array('id' => $id))) {

@@ -69,10 +69,34 @@ Class M_t_sales_delivery extends CI_Model {
     }
     
     public function get_detail($id) {
-        $this->db->select('t_delivery_order.*,t_sales_order.so_code');
+        $this->db->select('
+                t_delivery_order.*,
+                t_sales_order.so_code,
+                t_sales_order.so_date,
+                t_invoice.invoice_code,
+                t_invoice.id as id_invoice
+                ');
         $this->db->from('t_delivery_order');
         $this->db->join('t_sales_order','t_delivery_order.id_so=t_sales_order.id');
+        $this->db->join('t_invoice','t_invoice.id_do=t_delivery_order.id');
         $this->db->where('t_delivery_order.id',$id);
+        return $this->db->get();
+    }
+    
+    public function get_customer($id_so) {
+        $this->db->select('
+                m_customer.customer_name,
+                m_customer.customer_address,
+                m_customer.customer_phone,
+                m_area.area_name,
+                m_employee.employee_name,
+                m_subarea.subarea_name');
+        $this->db->from('m_customer');
+        $this->db->join('t_sales_order','t_sales_order.id_customer=m_customer.id');
+        $this->db->join('m_area','m_area.id=m_customer.id_area');
+        $this->db->join('m_subarea','m_subarea.id=m_customer.id_subarea');
+        $this->db->join('m_employee','m_employee.id=t_sales_order.id_sales');
+        $this->db->where('t_sales_order.id',$id_so);
         return $this->db->get();
     }
 

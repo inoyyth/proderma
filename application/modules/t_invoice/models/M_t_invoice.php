@@ -76,10 +76,64 @@ Class M_t_invoice extends CI_Model {
     }
 
     public function get_detail($id) {
-        $this->db->select('t_invoice.*,t_delivery_order.do_code');
+        $this->db->select('t_invoice.*,t_delivery_order.do_code,t_sales_order.id');
         $this->db->from('t_invoice');
         $this->db->join('t_delivery_order', 't_invoice.id_do=t_delivery_order.id');
+        $this->db->join('t_sales_order', 't_invoice.id_so=t_sales_order.id');
         $this->db->where('t_invoice.id', $id);
+        return $this->db->get();
+    }
+    
+    public function get_detail_product($id) {
+        $table = 't_sales_order_product';
+        $this->db->select('count(t_sales_order_product.id) AS total_type, sum(t_sales_order_product.qty) AS total_item, sum(t_sales_order_product.qty * m_product.product_price) AS grand_total');
+        $this->db->from($table);
+        $this->db->join('m_product','m_product.id='.$table.'.id_product','INNER');
+        $this->db->where(array($table.'.id_sales_order'=>$id));
+        return $this->db->get();
+    }
+    
+    public function get_detail_so($id) {
+        $table = 't_sales_order';
+        $this->db->select($table.'.*,'
+                          . 'm_customer.customer_code,'
+                          . 'm_customer.customer_name,'
+                          . 'm_customer.customer_address,'
+                          . 'm_customer.customer_phone,'
+                          . 'm_employee.employee_nip,'
+                          . 'm_employee.employee_name,'
+                          . 'm_employee.photo_path,'
+                          . 'm_employee.employee_email,'
+                          . 'm_employee.employee_phone,'
+                          . 'm_payment_type.payment_type,'
+                          . 't_invoice.id as id_invoice,'
+                          . 't_invoice.invoice_code,'
+                          . 't_invoice.invoice_date,'
+                          . 't_delivery_order.do_code,'
+                          . 't_delivery_order.do_date'
+                );
+        $this->db->from($table);
+        $this->db->join('m_customer','m_customer.id='.$table.'.id_customer','INNER');
+        $this->db->join('m_employee','m_employee.id='.$table.'.id_sales','INNER');
+        $this->db->join('m_payment_type','m_payment_type.id='.$table.'.so_payment_term','INNER');
+        $this->db->join('t_delivery_order','t_delivery_order.id_so='.$table.'.id','INNER');
+        $this->db->join('t_invoice','t_invoice.id_so='.$table.'.id','INNER');
+        $this->db->where(array($table.'.id'=>$id));
+        return $this->db->get();
+    }
+    
+    public function get_list_product($id) {
+        $this->db->select(array("t_sales_order_product.*",
+            "m_product.product_code",
+            "m_product.product_name",
+            "m_product.product_price",
+            "sum(t_sales_order_product.qty * m_product.product_price) as SubTotal"));
+        $this->db->from('t_sales_order_product');
+        $this->db->join('m_product','m_product.id=t_sales_order_product.id_product', 'left');
+        $this->db->where(array(
+            't_sales_order_product.id_sales_order' => $id,
+        ));
+        $this->db->group_by(array('t_sales_order_product.id'));
         return $this->db->get();
     }
 

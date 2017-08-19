@@ -79,7 +79,7 @@
 
                 <div class="navbar-buttons navbar-header pull-right" role="navigation">
                     <ul class="nav ace-nav">
-                        <li class="grey dropdown-modal">
+                        <!--<li class="grey dropdown-modal">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <i class="ace-icon fa fa-tasks"></i>
                                 <span class="badge badge-grey">4</span>
@@ -332,7 +332,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> -->
 
                         <li class="light-blue dropdown-modal">
                             <a data-toggle="dropdown" href="#" class="dropdown-toggle">
@@ -346,15 +346,15 @@
                             </a>
 
                             <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                                <li>
+                                <!--<li>
                                     <a href="#">
                                         <i class="ace-icon fa fa-cog"></i>
                                         Settings
                                     </a>
-                                </li>
+                                </li>-->
 
                                 <li>
-                                    <a href="profile.html">
+                                    <a href="<?php echo site_url('user-profile-'.$this->sessionGlobal['id']);?>">
                                         <i class="ace-icon fa fa-user"></i>
                                         Profile
                                     </a>

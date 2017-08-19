@@ -1,3 +1,13 @@
+<?php
+if ($data['so_discount_type'] == 'Fixed') {
+    $discount_value = $data['so_discount_value'];
+} else {
+    $discount_value = (($data_product['grand_total'] * intval($data['so_discount_value'])) / 100);
+}
+
+$tax = (($data_product['grand_total'] * 10) / 100);
+
+?>
 <style>
     @media screen {
         #printSection {
@@ -15,33 +25,33 @@
             position:absolute;
             left:0;
             top:0;
-			font-size: 10px;
+			font-size: 9px;
         }
-		#footer {
-		   position:fixed;
-		   left:0px;
-		   bottom:0px;
-		   height:100px;
-		   width:100%;
-		   background:#999;
-		}
+        #footer {
+           position:fixed;
+           left:0px;
+           bottom:0px;
+           height:100px;
+           width:100%;
+           background:#999;
+        }
     }
 </style>
-<div id="printThis">
-    <div style="width: 200px;padding-left: 10px;padding-top: 2px;">
+<div id="printThis" style="padding: 10px;text-align: justify;">
+    <div style="width: 200px;padding-left: 10px;">
         <img style="width: 190px;" src="<?php echo base_url('assets/images/logo.png'); ?>">
         <br>
-        <div style="text-align: center;font-size: 10px;">
+        <div style="text-align: center;font-size: 9px;">
             PT.WHOTO INDONESIA SEJAHTERA<br>
             Jl. Palem 8 Blok F No.1032 <br>
             Jakamulya Bekasi 17146
         </div>
     </div>
     <div style="text-align: center;">
-        <div style="font-size: 16x;font-weight: bolder;"><u>PURCHASE ORDER</u></div>
+        <div style="font-size: 16x;font-weight: bolder;"><u>FAKTUR</u></div>
     </div>
 <br>
-    <div style="padding-left: 10px;padding-right: 10px;font-size: 10px;">
+    <div style="padding-left: 10px;padding-right: 10px;">
         <table>
             <td style="width: 600px;">
                 <table>
@@ -58,7 +68,7 @@
                             Nama
                         </td>
                         <td>
-                            : <?php echo $customer['customer_name']; ?>
+                            : <?php echo $data['customer_name']; ?>
                         </td>
                     </tr>
                     <tr>
@@ -66,7 +76,7 @@
                             Alamat
                         </td>
                         <td>
-                            : <?php echo $customer['customer_address']; ?>
+                            : <?php echo $data['customer_address']; ?>
                         </td>
                     </tr>
                     <tr>
@@ -74,7 +84,7 @@
                             Telepon
                         </td>
                         <td>
-                            : <?php echo $customer['customer_phone']; ?>
+                            : <?php echo $data['customer_phone']; ?>
                         </td>
                     </tr>
                     <tr>
@@ -135,45 +145,83 @@
                         <th>Code</th>
                         <th>Name</th>
                         <th>Qty</th>
+                        <th>Price</th>
+                        <th>Subtotal</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <?php 
-                        $total = 0;
-                        foreach($list_product as $k=>$v) {
-                            $total = $total+$v['qty']
-                    ?>
+                    <?php foreach($list_product as $k=>$v) {?>
                     <tr>
                         <td><?php echo $v['product_code'];?></td>
                         <td><?php echo $v['product_name'];?></td>
                         <td style="text-align:right;"><?php echo formatrp($v['qty']);?></td>
+                        <td style="text-align:right;"><?php echo formatrp($v['product_price']);?></td>
+                        <td style="text-align:right;"><?php echo formatrp($v['SubTotal']);?></td>
                     </tr>
                     <?php } ?>
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="2" class="text-right">Total</td>
-                            <td class="text-right"><?php echo formatrp($total);?> Pcs</td>
+                    <tfooter>
+                        <tr style="text-align: right">
+                            <td colspan="3"><?php echo formatrp($data_product['total_item']);?></td>
+                            <td>SubTotal</td>
+                            <td><?php echo formatrp($data_product['grand_total']);?></td>
                         </tr>
-                    </tfoot>
+                        <tr style="text-align: right">
+                            <td colspan="4">Discount</td>
+                            <td><?php echo formatrp($discount_value);?></td>
+                        </tr>
+                        <tr style="text-align: right">
+                            <td colspan="4">Tax</td>
+                            <td><?php echo formatrp($tax);?></td>
+                        </tr>
+                        <tr style="text-align: right">
+                            <td colspan="4">Total</td>
+                            <td><?php echo formatrp(((intval($data_product['grand_total']) - intval($discount_value)) + intval($tax))); ?></td>
+                        </tr>
+                        <tr style="text-align: right">
+                            <td>Terbilang</td>
+                            <td colspan="4" style="text-align: center;font-weight: bold;"><?php echo terbilang(((intval($data_product['grand_total']) - intval($discount_value)) + intval($tax))); ?></td>
+                        </tr>
+                    </tfooter>
                 </table>    
+            </div>
+            <div class="col-lg-12">
+                <table>
+                    <tr>
+                        <td>Payment Term</td>
+                        <td>: <?php echo $data['payment_type']; ?></td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
     <br>
-    <br>
-    <div class="text-right" style="padding-right: 10px;font-size: 10px;">
-        <p>Jakarta, <?php echo tanggalan(date('Y-m-d'));?></p>
+    <div class="text-right" style="padding-right: 10px;">
+        <p>Jakarta, <?php echo date('d-m-Y');?></p>
     </div>
-    <br>
-    <div style="padding-left: 10px;padding-right: 10px;font-size: 10px;">
+    <div class="text-left" style="padding-left: 10px;line-height: 20%;">
+        <p>Pembayaran ditransfers ke rekening kami:</p>
+        <p>Bank Mandiri Cab.Taman Galaxy</p>
+        <p>Rek no. 167.000.555.8555</p>
+        <p>Bank BRI</p>
+        <p>Rek no. 1150.01.000110.306</p>
+        <p>Bank BCA</p>
+        <p>Rek no. 577.079.4449</p>
+        <p>Bank BNI</p>
+        <p>Rek no.488.3761.71</p>
+        <p>an Whoto Indonesia Sejahtera</p>
+    </div>
+    <div class="text-center" style="padding-right: 10px;padding-left: 10px;">
+        <p style="border: 1px solid;font-weight: bold;">( TIDAK MENERIMA PEMBAYARAN DENGAN TUNAI ATAUPUN PEMBAYARAN SELAIN KE REKENING DIATAS  </p>
+    </div>
+    <div style="padding-left: 10px;padding-right: 10px;font-size: 9px;">
         <table style="border:1px solid;width: 100%;">
             <tr>
                 <td style="width: 30%;text-align: center;">
-                    Tanda Terima
+                    Hormat Kami
                 </td>
                 <td style="width: 30%;text-align: center;">
-                    Pengirim
+                    Yang Menerima Faktur
                 </td>
             </tr>
             <tr style="height: 50px;">
@@ -186,18 +234,15 @@
                 <td style="text-align: center;">
                      (.................................)
                 </td>
+            <tr>
+                <td style="text-align: center;">
+                    Sales Manager
+                </td>
+                <td style="text-align: center;">
+                    &nbsp;
+                </td>
+            </tr>
         </table>
-    </div>
-    <br>
-    <div style="padding-left: 10px;padding-right: 10px;font-size: 10px;">
-        <p style="width: 400px;border: 1px solid;text-align: justify;padding: 2px;font-weight: bold;">
-            Note: Barang jika sudah di terima harap segera dicek,
-            dan jika ada kerusakan harus segera di laporkan
-            kepada marketing yang bersangkutan. <br>
-            Apabila lewat dari 3 (tiga) hari dari barang yang sudah diterima,
-            kami tidak menerima komplain, dianggap tidak ada masalah.<br>
-            Dan kami tidak menerima retur diateas jangka waktu 3 (tiga) hari setelah barang diterima
-        </p>
     </div>
 </div>
 <br>

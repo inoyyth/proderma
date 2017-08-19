@@ -1,3 +1,13 @@
+<?php
+if ($data['so_discount_type'] == 'Fixed') {
+    $discount_value = $data['so_discount_value'];
+} else {
+    $discount_value = (($data_product['grand_total'] * intval($data['so_discount_value'])) / 100);
+}
+
+$tax = (($data_product['grand_total'] * 10) / 100);
+
+?>
 <style>
     @media screen {
         #printSection {
@@ -27,8 +37,8 @@
 		}
     }
 </style>
-<div id="printThis">
-    <div style="width: 200px;padding-left: 10px;padding-top: 2px;">
+<div id="printThis" style="padding: 10px;text-align: justify;">
+    <div style="width: 200px;padding-left: 10px;padding-top: 10px;">
         <img style="width: 190px;" src="<?php echo base_url('assets/images/logo.png'); ?>">
         <br>
         <div style="text-align: center;font-size: 10px;">
@@ -38,84 +48,63 @@
         </div>
     </div>
     <div style="text-align: center;">
-        <div style="font-size: 16x;font-weight: bolder;"><u>PURCHASE ORDER</u></div>
+        <div style="font-size: 16x;font-weight: bolder;"><u>SALES ORDER</u></div>
     </div>
 <br>
-    <div style="padding-left: 10px;padding-right: 10px;font-size: 10px;">
+    <div style="padding-left: 10px;padding-right: 10px;">
         <table>
-            <td style="width: 600px;">
+            <td style="width: 450px;">
                 <table>
                     <tr>
-                        <td style="width: 70px;">
-                            Kepada
+                        <td style="width: 80px;">
+                            NIP
                         </td>
                         <td>
-                            YTH.
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 70px;">
-                            Nama
-                        </td>
-                        <td>
-                            : <?php echo $customer['customer_name']; ?>
+                            : <?php echo $data['employee_nip']; ?>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            Alamat
+                            NAME
                         </td>
                         <td>
-                            : <?php echo $customer['customer_address']; ?>
+                            : <?php echo $data['employee_name']; ?>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            Telepon
+                            SO.CODE
                         </td>
                         <td>
-                            : <?php echo $customer['customer_phone']; ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td rowspan="2">
-                            
+                            : <?php echo $data['so_code']; ?>
                         </td>
                     </tr>
                 </table>
             <td>
-            <td style="width: 350px;">
+            <td>
                 <table>
                     <tr>
-                        <td style="width: 70px;">
-                            No.Faktur
+                        <td style="width: 80px;">
+                            CUST.CODE
                         </td>
                         <td>
-                            : <?php echo $data['invoice_code']; ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Tgl.Pemesanan
-                        </td>
-                        <td>
-                            : <?php echo tanggalan($data['so_date']); ?>
+                            : <?php echo $data['customer_code']; ?>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            Tgl.Surat Jalan
+                            CUST.NAME
                         </td>
                         <td>
-                            : <?php echo tanggalan($data['do_date']); ?>
+                            : <?php echo $data['customer_name']; ?>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            Tgl.Jatuh Temp
+                            SO.DATE
                         </td>
                         <td>
-                            : <?php echo ($due_date['pay_date'] == null ? '-' : tanggalan($due_date['pay_date'])); ?>
+                            : <?php echo $data['so_date']; ?>
                         </td>
                     </tr>
                 </table>
@@ -135,69 +124,82 @@
                         <th>Code</th>
                         <th>Name</th>
                         <th>Qty</th>
+                        <th>Price</th>
+                        <th>Subtotal</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <?php 
-                        $total = 0;
-                        foreach($list_product as $k=>$v) {
-                            $total = $total+$v['qty']
-                    ?>
+                    <?php foreach($list_product as $k=>$v) {?>
                     <tr>
                         <td><?php echo $v['product_code'];?></td>
                         <td><?php echo $v['product_name'];?></td>
                         <td style="text-align:right;"><?php echo formatrp($v['qty']);?></td>
+                        <td style="text-align:right;"><?php echo formatrp($v['product_price']);?></td>
+                        <td style="text-align:right;"><?php echo formatrp($v['SubTotal']);?></td>
                     </tr>
                     <?php } ?>
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="2" class="text-right">Total</td>
-                            <td class="text-right"><?php echo formatrp($total);?> Pcs</td>
+                    <tfooter>
+                        <tr style="text-align: right">
+                            <td colspan="3"><?php echo formatrp($data_product['total_item']);?></td>
+                            <td>Total</td>
+                            <td><?php echo formatrp($data_product['grand_total']);?></td>
                         </tr>
-                    </tfoot>
+                        <tr style="text-align: right">
+                            <td colspan="4">Discount</td>
+                            <td><?php echo formatrp($discount_value);?></td>
+                        </tr>
+                        <tr style="text-align: right">
+                            <td colspan="4">Tax</td>
+                            <td><?php echo formatrp($tax);?></td>
+                        </tr>
+                        <tr style="text-align: right">
+                            <td colspan="4">Total Price</td>
+                            <td><?php echo formatrp(((intval($data_product['grand_total']) - intval($discount_value)) + intval($tax))); ?></td>
+                        </tr>
+                    </tfooter>
                 </table>    
+            </div>
+            <div class="col-lg-12">
+                <table>
+                    <tr>
+                        <td>Payment Term</td>
+                        <td>: <?php echo $data['payment_type']; ?></td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
-    <br>
-    <br>
-    <div class="text-right" style="padding-right: 10px;font-size: 10px;">
-        <p>Jakarta, <?php echo tanggalan(date('Y-m-d'));?></p>
+<br>
+<br>
+    <div class="text-right">
+        <p>Jakarta, <?php echo date('d-m-Y');?></p>
     </div>
-    <br>
-    <div style="padding-left: 10px;padding-right: 10px;font-size: 10px;">
-        <table style="border:1px solid;width: 100%;">
+    <div style="padding-left: 10px;padding-right: 10px;">
+        <table>
             <tr>
-                <td style="width: 30%;text-align: center;">
-                    Tanda Terima
+                <td style="width: 500px;">
+                    <table>
+                        <tr>
+                            <td>Diserahkan,</td>
+                        </tr>
+                        <tr>
+                            <td style="height: 100px;">(...................................),</td>
+                        </tr>
+                    </table>
                 </td>
-                <td style="width: 30%;text-align: center;">
-                    Pengirim
+                <td>
+                    <table>
+                        <tr>
+                            <td>Diterima ,</td>
+                        </tr>
+                        <tr>
+                            <td style="height: 100px;">(...................................),</td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
-            <tr style="height: 50px;">
-                <td colspan="3">&nbsp;</td>
-            </tr>
-            <tr>
-                <td style="text-align: center;">
-                    (.................................)
-                </td>
-                <td style="text-align: center;">
-                     (.................................)
-                </td>
         </table>
-    </div>
-    <br>
-    <div style="padding-left: 10px;padding-right: 10px;font-size: 10px;">
-        <p style="width: 400px;border: 1px solid;text-align: justify;padding: 2px;font-weight: bold;">
-            Note: Barang jika sudah di terima harap segera dicek,
-            dan jika ada kerusakan harus segera di laporkan
-            kepada marketing yang bersangkutan. <br>
-            Apabila lewat dari 3 (tiga) hari dari barang yang sudah diterima,
-            kami tidak menerima komplain, dianggap tidak ada masalah.<br>
-            Dan kami tidak menerima retur diateas jangka waktu 3 (tiga) hari setelah barang diterima
-        </p>
     </div>
 </div>
 <br>
