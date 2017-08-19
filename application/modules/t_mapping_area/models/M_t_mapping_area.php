@@ -50,6 +50,7 @@ Class M_t_mapping_area extends CI_Model {
         $this->db->from('m_customer');
         $this->db->join('m_subarea', 'm_subarea.id=m_customer.id_subarea', 'left');
         $this->db->join('m_area', 'm_area.id=m_customer.id_area', 'left');
+        $this->db->where(array('current_lead_customer_status'=>'C'));
         if (count($currCustomer) > 0) {
             $this->db->where_not_in('m_customer.id', $currCustomer);
         }

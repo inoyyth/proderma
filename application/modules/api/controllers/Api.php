@@ -34,15 +34,15 @@ class Api extends MX_Controller {
         $success = file_put_contents($file, $data);
         return '/assets/' . $folder . '/' . $image_name;
     }
-    
-    private function __file_to_base64($path,$name,$format='pdf') {
-        $new_name = $name.".".$format;
+
+    private function __file_to_base64($path, $name, $format = 'pdf') {
+        $new_name = $name . "." . $format;
         $dt = array(
-           'file' => base64_encode(file_get_contents(base_url().$path)),
+            'file' => base64_encode(file_get_contents(base_url() . $path)),
             'name' => $new_name,
             'format' => $format
         );
-       return $dt;
+        return $dt;
     }
 
     private function __cek_empty_data($data = array(), $field = array()) {
@@ -324,11 +324,19 @@ class Api extends MX_Controller {
                     'data' => $data
                 );
             } else {
-                $this->output->set_status_header('500');
-                $dt = array(
-                    'code' => 500,
-                    'message' => 'Query Error!!!'
-                );
+                if (count($data) < 1) {
+                    $this->output->set_status_header('201');
+                    $dt = array(
+                        'code' => 201,
+                        'message' => 'Data Not Found'
+                    );
+                } else {
+                    $this->output->set_status_header('500');
+                    $dt = array(
+                        'code' => 500,
+                        'message' => 'Query Error!!!'
+                    );
+                }
             }
             echo json_encode($dt);
         } else {
@@ -336,7 +344,7 @@ class Api extends MX_Controller {
             redirect('error404');
         }
     }
-    
+
     function get_lead_customer() {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             if ($data = $this->Api_model->get_lead_customer($_GET['q'])) {
@@ -347,11 +355,19 @@ class Api extends MX_Controller {
                     'data' => $data
                 );
             } else {
-                $this->output->set_status_header('500');
-                $dt = array(
-                    'code' => 500,
-                    'message' => 'Query Error!!!'
-                );
+                if (count($data) < 1) {
+                    $this->output->set_status_header('201');
+                    $dt = array(
+                        'code' => 201,
+                        'message' => 'Data Not Found'
+                    );
+                } else {
+                    $this->output->set_status_header('500');
+                    $dt = array(
+                        'code' => 500,
+                        'message' => 'Query Error!!!'
+                    );
+                }
             }
             echo json_encode($dt);
         } else {
@@ -369,11 +385,19 @@ class Api extends MX_Controller {
                     'message' => 'Success !!!',
                 );
             } else {
-                $this->output->set_status_header('500');
-                $dt = array(
-                    'code' => 500,
-                    'message' => 'Query Error!!!'
-                );
+                if (count($data) < 1) {
+                    $this->output->set_status_header('201');
+                    $dt = array(
+                        'code' => 201,
+                        'message' => 'Data Not Found'
+                    );
+                } else {
+                    $this->output->set_status_header('500');
+                    $dt = array(
+                        'code' => 500,
+                        'message' => 'Query Error!!!'
+                    );
+                }
             }
             echo json_encode($dt);
         } else {
@@ -392,11 +416,19 @@ class Api extends MX_Controller {
                     'data' => $data
                 );
             } else {
-                $this->output->set_status_header('500');
-                $dt = array(
-                    'code' => 500,
-                    'message' => 'Query Error!!!'
-                );
+                if (count($data) < 1) {
+                    $this->output->set_status_header('201');
+                    $dt = array(
+                        'code' => 201,
+                        'message' => 'Data Not Found'
+                    );
+                } else {
+                    $this->output->set_status_header('500');
+                    $dt = array(
+                        'code' => 500,
+                        'message' => 'Query Error!!!'
+                    );
+                }
             }
             echo json_encode($dt);
         } else {
@@ -415,11 +447,19 @@ class Api extends MX_Controller {
                     'data' => $data
                 );
             } else {
-                $this->output->set_status_header('500');
-                $dt = array(
-                    'code' => 500,
-                    'message' => 'Query Error!!!'
-                );
+                if (count($data) < 1) {
+                    $this->output->set_status_header('201');
+                    $dt = array(
+                        'code' => 201,
+                        'message' => 'Data Not Found'
+                    );
+                } else {
+                    $this->output->set_status_header('500');
+                    $dt = array(
+                        'code' => 500,
+                        'message' => 'Query Error!!!'
+                    );
+                }
             }
             echo json_encode($dt);
         } else {
@@ -438,11 +478,19 @@ class Api extends MX_Controller {
                     'data' => $data
                 );
             } else {
-                $this->output->set_status_header('500');
-                $dt = array(
-                    'code' => 500,
-                    'message' => 'Query Error!!!'
-                );
+                if (count($data) < 1) {
+                    $this->output->set_status_header('201');
+                    $dt = array(
+                        'code' => 201,
+                        'message' => 'Data Not Found'
+                    );
+                } else {
+                    $this->output->set_status_header('500');
+                    $dt = array(
+                        'code' => 500,
+                        'message' => 'Query Error!!!'
+                    );
+                }
             }
             echo json_encode($dt);
         } else {
@@ -468,11 +516,11 @@ class Api extends MX_Controller {
                         'id_customer' => 'ID customer Is Required',
                         'id_sales' => 'ID sales Is Required',
                         'activity' => 'Activity is required',
-                        'longitude'=> 'Longitude is required',
+                        'longitude' => 'Longitude is required',
                         'latitude' => 'Latitude is required',
                         'signature' => 'Signature is required'
                     );
-                    
+
                     $this->__cek_empty_data($data, $field);
                     if (!empty($data['signature'])) {
                         $fetch_image = $this->__fetchImage($data['signature'], 'images/sales_visitor');
@@ -485,11 +533,19 @@ class Api extends MX_Controller {
                             'message' => 'Success !!!'
                         );
                     } else {
-                        $this->output->set_status_header('500');
-                        $dt = array(
-                            'code' => 500,
-                            'message' => 'Query Error!!!'
-                        );
+                        if (count($data) < 1) {
+                            $this->output->set_status_header('201');
+                            $dt = array(
+                                'code' => 201,
+                                'message' => 'Data Not Found'
+                            );
+                        } else {
+                            $this->output->set_status_header('500');
+                            $dt = array(
+                                'code' => 500,
+                                'message' => 'Query Error!!!'
+                            );
+                        }
                     }
                 }
                 echo json_encode($dt);
@@ -502,7 +558,7 @@ class Api extends MX_Controller {
             redirect('error404');
         }
     }
-    
+
     public function sales_order() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (file_get_contents('php://input')) {
@@ -520,7 +576,7 @@ class Api extends MX_Controller {
                         'id_customer' => 'ID customer Is Required',
                         'id_sales' => 'ID sales Is Required',
                         'payment_type' => 'Activity is required',
-                        'status'=> 'Status is required',
+                        'status' => 'Status is required',
                         'total' => 'Total is required',
                         'discount_type' => 'Discount type is required',
                         'discount_value' => 'Discount value is required',
@@ -528,9 +584,9 @@ class Api extends MX_Controller {
                         'grand_total' => 'Grand total is required',
                         'signature' => 'Signature is required'
                     );
-                    
+
                     $this->__cek_empty_data($data, $field);
-                    
+
                     if (count($data['product']) < 1) {
                         $this->output->set_status_header('200');
                         $dt = array(
@@ -541,12 +597,12 @@ class Api extends MX_Controller {
                         echo json_encode($dt);
                         exit;
                     }
-                    
+
                     if (!empty($data['signature'])) {
                         $fetch_image = $this->__fetchImage($data['signature'], 'images/sales_order');
                         $data['signature_path'] = $fetch_image;
                     }
-                    
+
                     if ($this->Api_model->sales_order($data)) {
                         $this->output->set_status_header('200');
                         $dt = array(
@@ -554,11 +610,19 @@ class Api extends MX_Controller {
                             'message' => 'Success !!!'
                         );
                     } else {
-                        $this->output->set_status_header('500');
-                        $dt = array(
-                            'code' => 500,
-                            'message' => 'Query Error!!!'
-                        );
+                        if (count($data) < 1) {
+                            $this->output->set_status_header('201');
+                            $dt = array(
+                                'code' => 201,
+                                'message' => 'Data Not Found'
+                            );
+                        } else {
+                            $this->output->set_status_header('500');
+                            $dt = array(
+                                'code' => 500,
+                                'message' => 'Query Error!!!'
+                            );
+                        }
                     }
                 }
                 echo json_encode($dt);
@@ -571,7 +635,7 @@ class Api extends MX_Controller {
             redirect('error404');
         }
     }
-    
+
     function get_activity() {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             if ($data = $this->Api_model->get_activity()) {
@@ -582,11 +646,19 @@ class Api extends MX_Controller {
                     'data' => $data
                 );
             } else {
-                $this->output->set_status_header('500');
-                $dt = array(
-                    'code' => 500,
-                    'message' => 'Query Error!!!'
-                );
+                if(count($data) < 1) {
+                    $this->output->set_status_header('201');
+                    $dt = array(
+                        'code' => 201,
+                        'message' => 'Data Not Found'
+                    );
+                } else {
+                    $this->output->set_status_header('500');
+                    $dt = array(
+                        'code' => 500,
+                        'message' => 'Query Error!!!'
+                    );
+                }
             }
             echo json_encode($dt);
         } else {
@@ -594,7 +666,7 @@ class Api extends MX_Controller {
             redirect('error404');
         }
     }
-    
+
     public function plan() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (file_get_contents('php://input')) {
@@ -611,15 +683,15 @@ class Api extends MX_Controller {
                         'visit_form_sales' => 'Sales Is Required',
                         'visit_form_activity' => 'Activity Is Required',
                         'visit_form_attendence' => 'Attendence is required',
-                        'visit_form_start_date'=> 'Start date is required',
+                        'visit_form_start_date' => 'Start date is required',
                         'visit_form_end_date' => 'End date is required',
                         'visit_form_location' => 'Location is required',
                         'visit_form_description' => 'Description is required',
                         'visit_form_objective' => 'Objective is required'
                     );
-                    
+
                     $this->__cek_empty_data($data, $field);
-                    
+
                     if ($this->Api_model->plan($data)) {
                         $this->output->set_status_header('200');
                         $dt = array(
@@ -644,16 +716,16 @@ class Api extends MX_Controller {
             redirect('error404');
         }
     }
-    
+
     public function promo() {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             if ($data = $this->Api_model->promo()) {
-                
+
                 $dtx = array();
-                foreach ($data as $k=>$v) {
-                    $b64Doc = $this->__file_to_base64($v['promo_file'],$v['promo_name'],'pdf');
+                foreach ($data as $k => $v) {
+                    $b64Doc = $this->__file_to_base64($v['promo_file'], $v['promo_name'], 'pdf');
                     $dtx[] = array(
-                        'promo_code'=>$v['promo_code'],
+                        'promo_code' => $v['promo_code'],
                         'promo_name' => $v['promo_name'],
                         'promo_description' => $v['promo_description'],
                         'promo_start_date' => $v['promo_start_date'],
@@ -668,11 +740,19 @@ class Api extends MX_Controller {
                     'data' => $dtx
                 );
             } else {
-                $this->output->set_status_header('500');
-                $dt = array(
-                    'code' => 500,
-                    'message' => 'Query Error!!!'
-                );
+                if(count($data) < 1) {
+                    $this->output->set_status_header('201');
+                    $dt = array(
+                        'code' => 201,
+                        'message' => 'Data Not Found'
+                    );
+                } else {
+                    $this->output->set_status_header('500');
+                    $dt = array(
+                        'code' => 500,
+                        'message' => 'Query Error!!!'
+                    );
+                }
             }
             echo json_encode($dt);
         } else {
@@ -680,7 +760,7 @@ class Api extends MX_Controller {
             redirect('error404');
         }
     }
-    
+
     public function log_pdf() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (file_get_contents('php://input')) {
@@ -698,9 +778,9 @@ class Api extends MX_Controller {
                         'promo_code' => 'Promo Code Is Required',
                         'datetime' => 'Datetime is required'
                     );
-                    
+
                     $this->__cek_empty_data($data, $field);
-                    
+
                     if ($this->Api_model->log_pdf($data)) {
                         $this->output->set_status_header('200');
                         $dt = array(
@@ -725,7 +805,7 @@ class Api extends MX_Controller {
             redirect('error404');
         }
     }
-    
+
     function get_master_area() {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             if ($data = $this->Api_model->get_master_area()) {
@@ -736,11 +816,19 @@ class Api extends MX_Controller {
                     'data' => $data
                 );
             } else {
-                $this->output->set_status_header('500');
-                $dt = array(
-                    'code' => 500,
-                    'message' => 'Query Error!!!'
-                );
+                if(count($data) < 1) {
+                    $this->output->set_status_header('201');
+                    $dt = array(
+                        'code' => 201,
+                        'message' => 'Data Not Found'
+                    );
+                } else {
+                    $this->output->set_status_header('500');
+                    $dt = array(
+                        'code' => 500,
+                        'message' => 'Query Error!!!'
+                    );
+                }
             }
             echo json_encode($dt);
         } else {
@@ -748,7 +836,7 @@ class Api extends MX_Controller {
             redirect('error404');
         }
     }
-    
+
     function get_master_sub_area() {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             if ($data = $this->Api_model->get_master_sub_area($_GET['master_area_id'])) {
@@ -759,11 +847,19 @@ class Api extends MX_Controller {
                     'data' => $data
                 );
             } else {
-                $this->output->set_status_header('500');
-                $dt = array(
-                    'code' => 500,
-                    'message' => 'Query Error!!!'
-                );
+                if(count($data) < 1) {
+                    $this->output->set_status_header('201');
+                    $dt = array(
+                        'code' => 201,
+                        'message' => 'Data Not Found'
+                    );
+                } else {
+                    $this->output->set_status_header('500');
+                    $dt = array(
+                        'code' => 500,
+                        'message' => 'Query Error!!!'
+                    );
+                }
             }
             echo json_encode($dt);
         } else {
