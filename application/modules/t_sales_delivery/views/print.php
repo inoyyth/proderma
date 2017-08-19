@@ -38,7 +38,7 @@
         </div>
     </div>
     <div style="text-align: center;">
-        <div style="font-size: 16x;font-weight: bolder;"><u>PURCHASE ORDER</u></div>
+        <div style="font-size: 16x;font-weight: bolder;"><u>SURAT JALAN</u></div>
     </div>
 <br>
     <div style="padding-left: 10px;padding-right: 10px;font-size: 10px;">
