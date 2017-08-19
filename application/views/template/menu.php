@@ -14,7 +14,7 @@
             }
         </script>
 
-        <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+        <!--<div class="sidebar-shortcuts" id="sidebar-shortcuts">
             <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
                 <button class="btn btn-success">
                     <i class="ace-icon fa fa-signal"></i>
@@ -42,7 +42,7 @@
 
                 <span class="btn btn-danger"></span>
             </div>
-        </div><!-- /.sidebar-shortcuts -->
+        </div>--><!-- /.sidebar-shortcuts -->
         
         <?php
         echo $this->multi_menu->render(array(

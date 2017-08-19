@@ -59,6 +59,7 @@ $route['user-management-add'] = 'account/add';
 $route['user-management-edit-(:num)'] = 'account/edit/$1';
 $route['user-management-delete-(:num)'] = 'account/delete/$1';
 $route['user-management-save'] = 'account/save';
+$route['user-management-save-profile'] = 'account/save_profile';
 
 $route['master-employee'] = 'md_employee';
 $route['master-employee-add'] = 'md_employee/add';
@@ -207,6 +208,8 @@ $route['report-performance'] = 'r_performance';
 $route['report-customer'] = 'r_customer';
 
 $route['report-piutang'] = 'r_piutang';
+
+$route['user-profile-(:num)'] = 'account/edit_profile/$1';
 
 $route['log-pdf'] = 'log_pdf';
 
