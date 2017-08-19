@@ -160,6 +160,7 @@ class T_sales_delivery extends MX_Controller {
 
     public function printdetail($id) {
         $data['data'] = $this->m_sales_delivery->get_detail($id)->row_array();
+        $data['customer'] = $this->m_sales_delivery->get_customer($data['data']['id_so'])->row_array();
         $data['list_product'] = $this->m_sales_delivery->get_list_product($data['data']['id_so'])->result_array();
         $this->load->view('t_sales_delivery/print',$data);
     }
