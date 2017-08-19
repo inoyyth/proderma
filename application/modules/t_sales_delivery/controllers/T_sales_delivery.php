@@ -162,6 +162,7 @@ class T_sales_delivery extends MX_Controller {
         $data['data'] = $this->m_sales_delivery->get_detail($id)->row_array();
         $data['customer'] = $this->m_sales_delivery->get_customer($data['data']['id_so'])->row_array();
         $data['list_product'] = $this->m_sales_delivery->get_list_product($data['data']['id_so'])->result_array();
+        $data['due_date'] = $this->db->get_where('t_pay_duedate',array('id_invoice'=>$data['data']['id_invoice']))->row_array();
         $this->load->view('t_sales_delivery/print',$data);
     }
 

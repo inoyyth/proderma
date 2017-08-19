@@ -191,6 +191,7 @@ $route['invoice-add'] = 't_invoice/add';
 $route['invoice-edit-(:num)'] = 't_invoice/edit/$1';
 $route['invoice-delete-(:num)'] = 't_invoice/delete/$1';
 $route['invoice-detail-(:num)'] = 't_invoice/detail/$1';
+$route['invoice-print-(:num)'] = 't_invoice/printdetail/$1';
 $route['invoice-save'] = 't_invoice/save';
 
 $route['payment-due-date'] = 't_pay_duedate';

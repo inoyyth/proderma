@@ -69,9 +69,16 @@ Class M_t_sales_delivery extends CI_Model {
     }
     
     public function get_detail($id) {
-        $this->db->select('t_delivery_order.*,t_sales_order.so_code');
+        $this->db->select('
+                t_delivery_order.*,
+                t_sales_order.so_code,
+                t_sales_order.so_date,
+                t_invoice.invoice_code,
+                t_invoice.id as id_invoice
+                ');
         $this->db->from('t_delivery_order');
         $this->db->join('t_sales_order','t_delivery_order.id_so=t_sales_order.id');
+        $this->db->join('t_invoice','t_invoice.id_do=t_delivery_order.id');
         $this->db->where('t_delivery_order.id',$id);
         return $this->db->get();
     }

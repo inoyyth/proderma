@@ -168,4 +168,12 @@ class T_invoice extends MX_Controller {
         //output to json format
         echo json_encode($output);
     }
+    
+    public function printdetail($id) {
+        $data['data'] = $this->m_invoice->get_detail_so($id)->row_array();
+        $data['list_product'] = $this->m_invoice->get_list_product($id)->result_array();
+        $data['data_product'] = $this->m_invoice->get_detail_product($id)->row_array();
+        $data['due_date'] = $this->db->get_where('t_pay_duedate',array('id_invoice'=>$data['data']['id_invoice']))->row_array();
+        $this->load->view('t_invoice/print',$data);
+    }
 }
