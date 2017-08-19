@@ -191,9 +191,10 @@ class Api_model extends CI_Model {
     }
     
     public function get_lead_customer($q) {
-        $this->db->select('m_customer.*,m_group_product.group_product');
+        $this->db->select('m_customer.*,source_lead_customer.source_lead_customer,status_lead_customer.status_lead_customer');
         $this->db->from('m_customer');
-        $this->db->join('m_group_product', 'm_group_product.id=m_customer.id_group_customer_product', 'INNER');
+        $this->db->join('source_lead_customer', 'source_lead_customer.id=m_customer.id_source_lead_customer', 'INNER');
+        $this->db->join('status_lead_customer', 'status_lead_customer.id=m_customer.id_status_lead_customer', 'INNER');
         $this->db->or_like(array('m_customer.customer_code' => $q, 'm_customer.customer_name' => $q));
         $this->db->where(array('m_customer.customer_status' => 1, 'm_customer.current_lead_customer_status' => 'L'));
         return $this->db->get()->result_array();
