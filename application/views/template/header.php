@@ -69,7 +69,7 @@
                 </button>
 
                 <div class="navbar-header pull-left">
-                    <a href="index.html" class="navbar-brand">
+                    <a href="<?php echo site_url('dashboard');?>" class="navbar-brand">
                         <small>
                             <i class="fa fa-leaf"></i>
                             Sales Monitoring System

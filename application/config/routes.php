@@ -212,6 +212,8 @@ $route['report-piutang'] = 'r_piutang';
 
 $route['user-profile-(:num)'] = 'account/edit_profile/$1';
 
+$route['status-transaksi'] = 'r_transaksi';
+
 $route['log-pdf'] = 'log_pdf';
 
 $route['form-produksi-add'] = 't_produksi/add';
