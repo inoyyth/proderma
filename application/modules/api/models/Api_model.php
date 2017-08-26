@@ -185,7 +185,9 @@ class Api_model extends CI_Model {
         $this->db->select('m_customer.*,m_group_product.group_product');
         $this->db->from('m_customer');
         $this->db->join('m_group_product', 'm_group_product.id=m_customer.id_group_customer_product', 'INNER');
+        $this->db->group_start();
         $this->db->or_like(array('m_customer.customer_code' => $q, 'm_customer.customer_name' => $q));
+        $this->db->group_end();
         $this->db->where(array('m_customer.customer_status' => 1, 'm_customer.current_lead_customer_status' => 'C'));
         return $this->db->get()->result_array();
     }
@@ -195,7 +197,10 @@ class Api_model extends CI_Model {
         $this->db->from('m_customer');
         $this->db->join('source_lead_customer', 'source_lead_customer.id=m_customer.id_source_lead_customer', 'INNER');
         $this->db->join('status_lead_customer', 'status_lead_customer.id=m_customer.id_status_lead_customer', 'INNER');
+        $this->db->join('m_group_product', 'm_group_product.id=m_customer.id_group_customer_product', 'INNER');
+        $this->db->group_start();
         $this->db->or_like(array('m_customer.customer_code' => $q, 'm_customer.customer_name' => $q));
+        $this->db->group_end();
         $this->db->where(array('m_customer.customer_status' => 1, 'm_customer.current_lead_customer_status' => 'L'));
         return $this->db->get()->result_array();
     }
@@ -359,6 +364,23 @@ class Api_model extends CI_Model {
         $this->db->from('m_subarea');
         $this->db->where(array('id_area' => $province,'subarea_status'=>1));
         return $this->db->get()->result_array();
+    }
+    
+    public function log_sales($data) {
+        $cekExist = $this->db->select('count(*) as total')
+                    ->from('log_sales')
+                    ->where(array('id_sales'=>$data['id_sales']))
+                    ->get()->row_array();
+        $dataX = array('longitude'=>$data['longitude'],'latitude'=>$data['latitude'],'datetime'=>date('Y-m-d H:I:s'));
+        if($cekExist['total'] > 0) {
+            $sql = $this->db->update('log_sales',$dataX,array('id_sales'=>$data['id_sales']));
+        }else{
+            $sql = $this->db->insert('log_sales',array_merge($dataX,array('id_sales'=>$data['id_sales'])));
+        }
+        if ($sql) {
+            return true;
+        }
+        return false;
     }
 
 }

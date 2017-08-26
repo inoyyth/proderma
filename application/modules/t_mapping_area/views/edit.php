@@ -51,6 +51,16 @@
 </div>
 <div class="row" style="margin-top: 20px;">
     <div class="col-lg-5">
+        <div class="row" style="margin-bottom: 10px;"> 
+            <div class="col-lg-12">
+                <div class="input-group">
+                    <input type="text" id="search-available-txt" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default btn-sm" id="search-available-btn" type="button">Go!</button>
+                    </span>
+              </div><!-- /input-group -->
+            </div>
+        </div>
         <div id="available_area"></div>
     </div>
     <div class="col-lg-2">
@@ -62,6 +72,16 @@
         </div>
     </div>
     <div class="col-lg-5">
+        <div class="row" style="margin-bottom: 10px;"> 
+            <div class="col-lg-12">
+                <div class="input-group">
+                    <input type="text" id="search-current-txt" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default btn-sm" id="search-current-btn" type="button">Go!</button>
+                    </span>
+              </div><!-- /input-group -->
+            </div>
+        </div>
         <div id="current_area"></div>
     </div>
 </div>
@@ -89,6 +109,14 @@
             selectable: 100
         });
         
+        $("#search-available-btn").click(function(){
+            var params = {
+                query: $('#search-available-txt').val(),
+            };
+
+            $("#available_area").tabulator("setData", "<?php echo base_url('t_mapping_area/getAvailableCustomer/'.$data_sales['id']); ?>", params);
+        });
+        
         $("#current_area").tabulator({
             fitColumns: true,
             pagination: false,
@@ -107,6 +135,14 @@
                 {title: "CUstomer Name", field: "customer_name", sorter: "string", tooltip: true},
              ],
             selectable: 100
+        });
+        
+        $("#search-current-btn").click(function(){
+            var params = {
+                query: $('#search-current-txt').val(),
+            };
+
+            $("#current_area").tabulator("setData", "<?php echo base_url('t_mapping_area/getCurrentCustomer/'.$data_sales['id']); ?>", params);
         });
         
         $("#area-add").click(function(e){
