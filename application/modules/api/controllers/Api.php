@@ -325,7 +325,7 @@ class Api extends MX_Controller {
 
     function get_list_customer() {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            if ($data = $this->Api_model->get_list_customer($_GET['q'])) {
+            if ($data = $this->Api_model->get_list_customer($_GET['q'],$_GET['id_sales'])) {
                 $this->output->set_status_header('200');
                 $dt = array(
                     'code' => 200,
@@ -898,6 +898,83 @@ class Api extends MX_Controller {
                     $this->__cek_empty_data($data, $field);
 
                     if ($this->Api_model->log_sales($data)) {
+                        $this->output->set_status_header('200');
+                        $dt = array(
+                            'code' => 200,
+                            'message' => 'Success !!!'
+                        );
+                    } else {
+                        $this->output->set_status_header('500');
+                        $dt = array(
+                            'code' => 500,
+                            'message' => 'Query Error!!!'
+                        );
+                    }
+                }
+                echo json_encode($dt);
+            } else {
+                $this->output->set_status_header('404');
+                redirect('error404');
+            }
+        } else {
+            $this->output->set_status_header('404');
+            redirect('error404');
+        }
+    }
+    
+    function list_task() {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            if ($data = $this->Api_model->list_task($_GET['id_sales'],$_GET['status'])) {
+                $this->output->set_status_header('200');
+                $dt = array(
+                    'code' => 200,
+                    'message' => 'Success !!!',
+                    'data' => $data
+                );
+            } else {
+                if (count($data) < 1) {
+                    $this->output->set_status_header('201');
+                    $dt = array(
+                        'code' => 201,
+                        'message' => 'Data Not Found'
+                    );
+                } else {
+                    $this->output->set_status_header('500');
+                    $dt = array(
+                        'code' => 500,
+                        'message' => 'Query Error!!!'
+                    );
+                }
+            }
+            echo json_encode($dt);
+        } else {
+            $this->output->set_status_header('404');
+            redirect('error404');
+        }
+    }
+    
+    public function update_task() {
+        if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+            if (file_get_contents('php://input')) {
+                $data = json_decode(file_get_contents('php://input'), true);
+                if (count($data) < 1) {
+                    $this->output->set_status_header('403');
+                    $dt = array(
+                        'code' => 403,
+                        'message' => 'Forbidden, data false'
+                    );
+                } else {
+                    $field = array(
+                        'id_sales' => "ID Sales Is Required",
+                        'id_task' => 'ID Task Is Required',
+                        'status' => 'Status Is Required',
+                        'longitude' => 'Longitude is required',
+                        'latitude' => 'Latitude is required'
+                    );
+
+                    $this->__cek_empty_data($data, $field);
+
+                    if ($this->Api_model->update_task($data)) {
                         $this->output->set_status_header('200');
                         $dt = array(
                             'code' => 200,
