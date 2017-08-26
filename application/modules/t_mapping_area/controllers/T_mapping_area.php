@@ -130,7 +130,10 @@ class T_mapping_area extends MX_Controller {
 
         $join = array();
         
-        $like = array();
+        $like = array(
+            'm_customer.customer_name'=>isset($_POST['query'])?$_POST['query']:"",
+            'm_customer.customer_code'=>isset($_POST['query'])?$_POST['query']:""
+        );
         $where = array();
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_area.area_name",
@@ -181,7 +184,10 @@ class T_mapping_area extends MX_Controller {
 
         $join = array();
         
-        $like = array();
+        $like = array(
+            'm_customer.customer_name'=>isset($_POST['query'])?$_POST['query']:"",
+            'm_customer.customer_code'=>isset($_POST['query'])?$_POST['query']:""
+        );
         $where = array();
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_area.area_name",

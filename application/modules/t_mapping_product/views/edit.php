@@ -95,6 +95,16 @@
 
     <div class="col-xs-12 col-sm-12">
         <div class="col-lg-5">
+            <div class="row" style="margin-bottom: 10px;"> 
+                <div class="col-lg-12">
+                    <div class="input-group">
+                        <input type="text" id="search-available-txt" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default btn-sm" id="search-available-btn" type="button">Go!</button>
+                        </span>
+                  </div><!-- /input-group -->
+                </div>
+            </div>
             <div id="available-product"></div>
         </div>
         <div class="col-lg-2">
@@ -106,6 +116,16 @@
             </div>
         </div>
         <div class="col-lg-5">
+            <div class="row" style="margin-bottom: 10px;"> 
+                <div class="col-lg-12">
+                    <div class="input-group">
+                        <input type="text" id="search-current-txt" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default btn-sm" id="search-current-btn" type="button">Go!</button>
+                        </span>
+                  </div><!-- /input-group -->
+                </div>
+            </div>
             <div id="current-product"></div>
         </div>
     </div>
@@ -121,9 +141,9 @@
             movableCols: false,
             height: "520px", // set height of table (optional),
             pagination:"remote",
-                    paginationSize: 50,
+            paginationSize: 50,
             fitColumns:true, //fit columns to width of table (optional),
-                    ajaxType: "POST", //ajax HTTP request type
+            ajaxType: "POST", //ajax HTTP request type
             groupBy: "product_category",
             ajaxURL: "<?php echo base_url('t_mapping_product/getAvailableProduct/' . $customer['id']); ?>", //ajax URL
             ajaxParams: {group_product: $("#id-group-product").val()},
@@ -131,9 +151,19 @@
                 {formatter: "rownum", align: "center", width: 40},
                 //{title: "Area", field: "area_name", sorter: "string", tooltip: true},
                 {title: "Sub Category", field: "sub_category_name", sorter: "string", tooltip: true},
+                {title: "Code", field: "product_code", sorter: "string", tooltip: true},
                 {title: "Name", field: "product_name", sorter: "string", tooltip: true},
             ],
             selectable: 100
+        });
+        
+        $("#search-available-btn").click(function(){
+            var params = {
+                query: $('#search-available-txt').val(),
+                group_product: $("#id-group-product").val()
+            };
+
+            $("#available-product").tabulator("setData", "<?php echo base_url('t_mapping_product/getAvailableProduct/' . $customer['id']); ?>", params);
         });
 
         $("#current-product").tabulator({
@@ -150,11 +180,19 @@
             //ajaxParams: {group_product:$("#id-group-product").val()},
             columns: [//Define Table Columns
                 {formatter: "rownum", align: "center", width: 40},
-                //{title: "Area", field: "area_name", sorter: "string", tooltip: true},
                 {title: "Sub Category", field: "sub_category_name", sorter: "string", tooltip: true},
-                {title: "Name", field: "product_name", sorter: "string", tooltip: true},
+                {title: "Code", field: "product_code", sorter: "string", tooltip: true},
+                {title: "Name", field: "product_name", sorter: "string", tooltip: true}
             ],
             selectable: 100
+        });
+        
+        $("#search-current-btn").click(function(){
+            var params = {
+                query: $('#search-current-txt').val(),
+            };
+
+            $("#current-product").tabulator("setData", "<?php echo base_url('t_mapping_product/getCurrentProduct/' . $customer['id']); ?>", params);
         });
 
         $("#product-add").click(function (e) {

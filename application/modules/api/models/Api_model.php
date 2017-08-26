@@ -7,7 +7,7 @@ class Api_model extends CI_Model {
                 *
                 ');
         $this->db->from('m_employee');
-        $this->db->where(array('token' => $token, 'employee_status'=>1));
+        $this->db->where(array('token' => $token, 'employee_status' => 1));
         $query = $this->db->get();
         if ($query->num_rows() == 1) {
             return $query->row_array(); //if data is true
@@ -69,12 +69,12 @@ class Api_model extends CI_Model {
             return $prefix . $separator . $hsl;
         }
     }
-    
-    public function __generate_code2($tables, $prefix, $separator, $digit = 4, $date = true, $loop = false, $where=array(),$field,$order) {
+
+    public function __generate_code2($tables, $prefix, $separator, $digit = 4, $date = true, $loop = false, $where = array(), $field, $order) {
         $tgl = date('y');
         $this->db->select($field);
         $this->db->where($where);
-        $this->db->order_by($order,'DESC');
+        $this->db->order_by($order, 'DESC');
         if ($loop == false) {
             $maxi = $this->db->get($tables)->row($field);
         } else {
@@ -90,7 +90,7 @@ class Api_model extends CI_Model {
 
     public function register_customer($data) {
         $val = array(
-            'customer_code' => $this->__generate_code2('m_customer', $this->config->item('customer_code').'/1','/' , $digit = 5, true,false, $where=array(),'id','id'),
+            'customer_code' => $this->__generate_code2('m_customer', $this->config->item('customer_code') . '/1', '/', $digit = 5, true, false, $where = array(), 'id', 'id'),
             'customer_name' => $data['customer_name'],
             'customer_clinic' => $data['customer_clinic'],
             'customer_province' => $data['province_id'],
@@ -136,7 +136,7 @@ class Api_model extends CI_Model {
 
     public function register_lead($data) {
         $val = array(
-            'customer_code' => $this->__generate_code2('m_customer', $this->config->item('customer_code').'/0','/' , $digit = 5, true,false, $where=array(),'id','id'),
+            'customer_code' => $this->__generate_code2('m_customer', $this->config->item('customer_code') . '/0', '/', $digit = 5, true, false, $where = array(), 'id', 'id'),
             'customer_name' => $data['customer_name'],
             'customer_clinic' => $data['customer_clinic'],
             'customer_province' => $data['province_id'],
@@ -181,21 +181,27 @@ class Api_model extends CI_Model {
         return $this->db->get()->result_array();
     }
 
-    public function get_list_customer($q) {
+    public function get_list_customer($q, $id_sales) {
         $this->db->select('m_customer.*,m_group_product.group_product');
         $this->db->from('m_customer');
         $this->db->join('m_group_product', 'm_group_product.id=m_customer.id_group_customer_product', 'INNER');
+        $this->db->join('sales_mapping_area', 'sales_mapping_area.id_customer=m_customer.id', 'INNER');
+        $this->db->group_start();
         $this->db->or_like(array('m_customer.customer_code' => $q, 'm_customer.customer_name' => $q));
-        $this->db->where(array('m_customer.customer_status' => 1, 'm_customer.current_lead_customer_status' => 'C'));
+        $this->db->group_end();
+        $this->db->where(array('sales_mapping_area.id_sales' => $id_sales, 'm_customer.customer_status' => 1, 'm_customer.current_lead_customer_status' => 'C'));
         return $this->db->get()->result_array();
     }
-    
+
     public function get_lead_customer($q) {
         $this->db->select('m_customer.*,source_lead_customer.source_lead_customer,status_lead_customer.status_lead_customer');
         $this->db->from('m_customer');
         $this->db->join('source_lead_customer', 'source_lead_customer.id=m_customer.id_source_lead_customer', 'INNER');
         $this->db->join('status_lead_customer', 'status_lead_customer.id=m_customer.id_status_lead_customer', 'INNER');
+        $this->db->join('m_group_product', 'm_group_product.id=m_customer.id_group_customer_product', 'INNER');
+        $this->db->group_start();
         $this->db->or_like(array('m_customer.customer_code' => $q, 'm_customer.customer_name' => $q));
+        $this->db->group_end();
         $this->db->where(array('m_customer.customer_status' => 1, 'm_customer.current_lead_customer_status' => 'L'));
         return $this->db->get()->result_array();
     }
@@ -346,19 +352,59 @@ class Api_model extends CI_Model {
         }
         return false;
     }
-    
+
     public function get_master_area() {
         $this->db->select('id,area_code,area_name,area_description');
         $this->db->from('m_area');
         $this->db->where(array('area_status' => 1));
         return $this->db->get()->result_array();
     }
-    
+
     public function get_master_sub_area($province) {
         $this->db->select('id,id_area,subarea_name,subarea_code,subarea_description');
         $this->db->from('m_subarea');
-        $this->db->where(array('id_area' => $province,'subarea_status'=>1));
+        $this->db->where(array('id_area' => $province, 'subarea_status' => 1));
         return $this->db->get()->result_array();
+    }
+
+    public function log_sales($data) {
+        $cekExist = $this->db->select('count(*) as total')
+                        ->from('log_sales')
+                        ->where(array('id_sales' => $data['id_sales']))
+                        ->get()->row_array();
+        $dataX = array('longitude' => $data['longitude'], 'latitude' => $data['latitude'], 'datetime' => date('Y-m-d H:I:s'));
+        if ($cekExist['total'] > 0) {
+            $sql = $this->db->update('log_sales', $dataX, array('id_sales' => $data['id_sales']));
+        } else {
+            $sql = $this->db->insert('log_sales', array_merge($dataX, array('id_sales' => $data['id_sales'])));
+        }
+        if ($sql) {
+            return true;
+        }
+        return false;
+    }
+
+    public function list_task($id_sales, $status) {
+        $this->db->select('sales_visit_form.*,m_activity.activity_name');
+        $this->db->from('sales_visit_form');
+        $this->db->join('m_activity', 'm_activity.id=sales_visit_form.visit_form_activity');
+        $this->db->like('sales_visit_form.visit_form_progress', $status);
+        $this->db->where(array('visit_form_sales' => $id_sales, 'visit_form_status' => 1));
+        return $this->db->get()->result_array();
+    }
+
+    public function update_task($data) {
+        $dt = array(
+            'visit_form_progress' => $data['status'],
+            'visit_form_longitude' => $data['longitude'],
+            'visit_form_latitude' => $data['latitude'],
+            'sys_update_date' => date('Y-m-d H:I:s')
+        );
+        $sql = $this->db->update('sales_visit_form', $dt, array('id' => $data['id_task'], 'visit_form_sales' => $data['id_sales']));
+        if ($sql) {
+            return true;
+        }
+        return false;
     }
 
 }

@@ -75,17 +75,6 @@
                                 <label>Description</label>
                                 <textarea name="visit_form_description" parsley-trigger="change" required placeholder="Description" class="form-control"></textarea>
                             </div>
-                            <div class="form-group">
-                                <label>Objective</label>
-                                <select name="visit_form_objective" parsley-trigger="change" required placeholder="Objective" class="form-control">
-                                    <?php
-                                        $arrayObject = array('order','kirim','tagih','canvas');
-                                        foreach ($arrayObject as $vObject) {
-                                            echo "<option value='".$vObject."'>". ucfirst($vObject) . "</option>";
-                                        }
-                                    ?>
-                                </select>
-                            </div>
                         </div>
                     </div>
                     <button class="btn btn-primary" type="submit">Save</button>

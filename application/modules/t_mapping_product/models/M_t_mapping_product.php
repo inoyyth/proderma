@@ -75,6 +75,9 @@ Class M_t_mapping_product extends CI_Model {
                 $this->db->join($vJoin['table'], $vJoin['where'], $vJoin['join']);
             }
         }
+        $this->db->group_start();
+        $this->db->or_like($like);
+        $this->db->group_end();
         $this->db->where('m_product.id_group_product',$where['id_group_product']);
         if (count($currProduct) > 0) {
             $this->db->where_not_in('m_product.id', $currProduct);
@@ -99,6 +102,9 @@ Class M_t_mapping_product extends CI_Model {
                 $this->db->join($vJoin['table'], $vJoin['where'], $vJoin['join']);
             }
         }
+        $this->db->group_start();
+        $this->db->or_like($like);
+        $this->db->group_end();
         $this->db->where('mapping_product.id_customer', $where['id_customer']);
         $this->db->order_by($sort['sort_field'], $sort['sort_direction']);
         $this->db->limit($limit['limit'], $limit['offset']);
