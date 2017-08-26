@@ -161,7 +161,10 @@ class T_mapping_product extends MX_Controller {
             
         );
         
-        $like = array();
+        $like = array(
+            'm_product.product_name'=>isset($_POST['query'])?$_POST['query']:"",
+            'm_product.product_code'=>isset($_POST['query'])?$_POST['query']:""
+        );
         $where = array('id_group_product'=>$this->input->post('group_product'));
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_product.id",
@@ -207,7 +210,10 @@ class T_mapping_product extends MX_Controller {
             
         );
         
-        $like = array();
+        $like = array(
+            'm_product.product_name'=>isset($_POST['query'])?$_POST['query']:"",
+            'm_product.product_code'=>isset($_POST['query'])?$_POST['query']:""
+        );
         $where = array();
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_product.id",
