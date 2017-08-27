@@ -215,6 +215,8 @@ $route['user-profile-(:num)'] = 'account/edit_profile/$1';
 
 $route['status-transaksi'] = 'r_transaksi';
 
+$route['sales-tracker'] = 'sales_tracker';
+
 $route['log-pdf'] = 'log_pdf';
 
 $route['form-produksi-add'] = 't_produksi/add';
