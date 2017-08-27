@@ -242,16 +242,17 @@ class Api_model extends CI_Model {
 
     public function sales_visitor($data) {
         $dt = array(
-            'sales_visit_date' => $data['date'],
+            'sales_visit_date' => $data['sales_visit_date'],
             'id_customer' => $data['id_customer'],
             'assistant_name' => $data['assistant_name'],
             'sales_visit_note' => $data['visit_note'],
             'id_sales' => $data['id_sales'],
-            'order_id' => $data['order_id'],
+            'order_id' => $this->main_model->generate_code('sales_visit', 'PL','-' , $digit = 7, false,false, $where=array(),'id','id'),
             'activity' => $data['activity'],
             'end_date' => $data['end_date'],
             'longitude' => $data['longitude'],
             'latitude' => $data['latitude'],
+            'sales_visit_customer_Type' => $data['sales_visit_customer_Type'],
             'signature_path' => $data['signature_path'],
             'sys_create_date' => date('Y-m-d H:i:s')
         );
@@ -401,6 +402,30 @@ class Api_model extends CI_Model {
             'sys_update_date' => date('Y-m-d H:I:s')
         );
         $sql = $this->db->update('sales_visit_form', $dt, array('id' => $data['id_task'], 'visit_form_sales' => $data['id_sales']));
+        if ($sql) {
+            return true;
+        }
+        return false;
+    }
+    
+    public function list_plan($id_sales, $status) {
+        $this->db->select('sales_visit.*,m_objective.objective');
+        $this->db->from('sales_visit');
+        $this->db->join('m_objective', 'm_objective.id=sales_visit.activity');
+        $this->db->like('sales_visit.sales_visit_progress', $status);
+        $this->db->where(array('sales_visit.id_sales' => $id_sales, 'sales_visit.status' => 1));
+        return $this->db->get()->result_array();
+    }
+    
+    public function update_plan($data) {
+        $dt = array(
+            'longitude' => $data['longitude'],
+            'latitude' => $data['latitude'],
+            'sales_visit_progress'=>$data['sales_visit_progress'],
+            'signature_path' => $data['signature_path'],
+            'sys_update_date' => date('Y-m-d H:I:s')
+        );
+        $sql = $this->db->update('sales_visit', $dt, array('id' => $data['id_plan'], 'id_sales' => $data['id_sales']));
         if ($sql) {
             return true;
         }

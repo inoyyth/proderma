@@ -163,6 +163,7 @@ $route['sales-order-print-(:num)'] = 't_sales_order/printdetail/$1';
 
 $route['ojt'] = 't_sales_visit';
 $route['ojt-add'] = 't_sales_visit/add';
+$route['ojt-save'] = 't_sales_visit/save';
 $route['ojt-detail-(:num)'] = 't_sales_visit/detail/$1';
 
 $route['visit-form'] = 't_visit_form';

@@ -17,6 +17,12 @@ class T_sales_visit extends MX_Controller {
         $data['view'] = 't_sales_visit/main';
         $this->load->view('default', $data);
     }
+    
+    public function add() {
+        $data['sales'] = $this->db->get_where('m_employee',array('employee_status'=>1,'id_jabatan'=>1))->result_array();
+        $data['view'] = 't_sales_visit/add';
+        $this->load->view('default', $data);
+    }
 
     public function getListTable() {
         $page = ($_POST['page']==0?1:$_POST['page']);
@@ -29,7 +35,7 @@ class T_sales_visit extends MX_Controller {
             "IF(sales_visit.status=1,'Active','Not Active') AS status",
             "m_employee.employee_name",
             "m_customer.customer_name",
-            "m_activity.activity_name"
+            "m_objective.objective"
         );
         
         $offset = ($page - 1) * $limit;
@@ -37,7 +43,7 @@ class T_sales_visit extends MX_Controller {
         $join = array(
             array('table' => 'm_employee', 'where' => 'm_employee.id=sales_visit.id_sales', 'join' => 'left'),
             array('table' => 'm_customer', 'where' => 'm_customer.id=sales_visit.id_customer', 'join' => 'left'),
-            array('table' => 'm_activity', 'where' => 'm_activity.id=sales_visit.activity', 'join' => 'left')
+            array('table' => 'm_objective', 'where' => 'm_objective.id=sales_visit.activity', 'join' => 'left')
         );
         
         $like = array(
@@ -68,11 +74,35 @@ class T_sales_visit extends MX_Controller {
         //output to json format
         echo json_encode($output);
     }
+    
+    public function getCustomerList() {
+        $query = $this->m_t_sales_visit->getCustomerList($this->input->get('query'),$this->input->get('cust_type'))->result_array();
+        echo json_encode($query);
+    }
 
     public function detail($id) {
         $this->breadcrumbs->push('Plan Detail', '/ojt-detail');
         $data['data'] = $this->m_t_sales_visit->getDetail($id)->row_array();
         $data['view'] = 't_sales_visit/detail';
         $this->load->view('default', $data);
+    }
+    
+    public function getActivity() {
+        $dt = $this->db->get_where('m_objective',array('objective_customer'=>$this->input->post('consumer_type')))->result_array();
+        echo json_encode($dt,true);
+    }
+    
+    function save() {
+        //var_dump(serialize($_POST['menu']));die;
+        if ($_POST) {
+            if ($this->m_t_sales_visit->save()) {
+                $this->session->set_flashdata('success', 'Data Berhasil Di Simpan !');
+            } else {
+                $this->session->set_flashdata('error', 'Data Gagal Di Simpan !');
+            }
+            redirect("ojt");
+        } else {
+            show_404();
+        }
     }
 }

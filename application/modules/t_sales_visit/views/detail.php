@@ -111,9 +111,15 @@
                 </div>
             </div>
             <div class="profile-info-row">
+                <div class="profile-info-name"> Progress </div>
+                <div class="profile-info-value">
+                    <span class="editable editable-click" id="age"><?php echo $data['sales_visit_progress']; ?></span>
+                </div>
+            </div>
+            <div class="profile-info-row">
                 <div class="profile-info-name"> Signature </div>
                 <div class="profile-info-value">
-                    <img id="avatar" class="editable img-responsive" alt="Alex's Avatar" src="<?php echo base_url($data['signature_path']); ?>" />
+                    <img id="avatar" class="editable img-responsive" alt="No Signature" src="<?php echo base_url($data['signature_path']); ?>" />
                 </div>
             </div>
         </div>
