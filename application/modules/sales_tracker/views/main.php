@@ -56,6 +56,7 @@ $(document).ready(function(){
         }).always(function() {
             console.log( "complete" );
         });
+        setTimeout(function(){ loadMap(); console.log('load map');}, 600000);
     }
     
     
