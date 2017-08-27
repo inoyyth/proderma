@@ -521,13 +521,12 @@ class Api extends MX_Controller {
                 } else {
                     $data['signature_path'] = "";
                     $field = array(
-                        'date' => "Date Is Required",
+                        'sales_visit_date' => "Date Is Required",
                         'id_customer' => 'ID customer Is Required',
                         'id_sales' => 'ID sales Is Required',
                         'activity' => 'Activity is required',
                         'longitude' => 'Longitude is required',
-                        'latitude' => 'Latitude is required',
-                        'signature' => 'Signature is required'
+                        'latitude' => 'Latitude is required'
                     );
 
                     $this->__cek_empty_data($data, $field);
@@ -975,6 +974,87 @@ class Api extends MX_Controller {
                     $this->__cek_empty_data($data, $field);
 
                     if ($this->Api_model->update_task($data)) {
+                        $this->output->set_status_header('200');
+                        $dt = array(
+                            'code' => 200,
+                            'message' => 'Success !!!'
+                        );
+                    } else {
+                        $this->output->set_status_header('500');
+                        $dt = array(
+                            'code' => 500,
+                            'message' => 'Query Error!!!'
+                        );
+                    }
+                }
+                echo json_encode($dt);
+            } else {
+                $this->output->set_status_header('404');
+                redirect('error404');
+            }
+        } else {
+            $this->output->set_status_header('404');
+            redirect('error404');
+        }
+    }
+    
+    function list_plan() {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            if ($data = $this->Api_model->list_plan($_GET['id_sales'],$_GET['status'])) {
+                $this->output->set_status_header('200');
+                $dt = array(
+                    'code' => 200,
+                    'message' => 'Success !!!',
+                    'data' => $data
+                );
+            } else {
+                if (count($data) < 1) {
+                    $this->output->set_status_header('201');
+                    $dt = array(
+                        'code' => 201,
+                        'message' => 'Data Not Found'
+                    );
+                } else {
+                    $this->output->set_status_header('500');
+                    $dt = array(
+                        'code' => 500,
+                        'message' => 'Query Error!!!'
+                    );
+                }
+            }
+            echo json_encode($dt);
+        } else {
+            $this->output->set_status_header('404');
+            redirect('error404');
+        }
+    }
+    
+    public function update_plan() {
+        if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+            if (file_get_contents('php://input')) {
+                $data = json_decode(file_get_contents('php://input'), true);
+                if (count($data) < 1) {
+                    $this->output->set_status_header('403');
+                    $dt = array(
+                        'code' => 403,
+                        'message' => 'Forbidden, data false'
+                    );
+                } else {
+                    $field = array(
+                        'id_sales' => "ID Sales Is Required",
+                        'id_plan' => 'ID Plan Is Required',
+                        'sales_visit_progress' => 'Sales Progress Is Required',
+                        'longitude' => 'Longitude is required',
+                        'latitude' => 'Latitude is required',
+                        'signature' => 'Signature is required'
+                    );
+
+                    $this->__cek_empty_data($data, $field);
+                    if (!empty($data['signature'])) {
+                        $fetch_image = $this->__fetchImage($data['signature'], 'images/sales_visitor');
+                        $data['signature_path'] = $fetch_image;
+                    }
+                    if ($this->Api_model->update_plan($data)) {
                         $this->output->set_status_header('200');
                         $dt = array(
                             'code' => 200,

@@ -51,7 +51,10 @@ Class M_t_visit_form extends CI_Model {
     public function getCustomerList($q) {
         $this->db->select('id,CONCAT(customer_code," - ",customer_name) as cus_concat');
         $this->db->from('m_customer');
+        $this->db->group_start();
         $this->db->or_like(array('customer_name'=>$q,'customer_code'=>$q));
+        $this->db->group_end();
+        $this->db->where(array('customer_status' => 1));
         return $this->db->get();
     }
     
