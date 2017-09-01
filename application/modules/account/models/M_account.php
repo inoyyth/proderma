@@ -131,7 +131,7 @@ Class M_account extends CI_Model {
     }
     
     public function getListTable($table,$join,$like,$where,$sort,$limit) {
-        $this->db->select('*');
+        $this->db->select("*,IF(status=1,'Active','Not Active') AS status_account");
         $this->db->from($table);
         if(count($join) > 0) {
             $this->db->join($join);

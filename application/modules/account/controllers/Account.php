@@ -31,7 +31,7 @@ class Account extends MX_Controller {
             'nama_lengkap'=>isset($_POST['nama_lengkap'])?$_POST['nama_lengkap']:"",
             'last_login'=>isset($_POST['last_login'])?$_POST['last_login']:""
         );
-        $where = array('status' => '1');
+        $where = array('status<>' => '3');
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"id",
             'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
@@ -49,7 +49,9 @@ class Account extends MX_Controller {
                 'id' => $result['id'],
                 'username' => $result['username'],
                 'nama_lengkap' => $result['nama_lengkap'],
-                'last_login' => $result['last_login']
+                'last_login' => $result['last_login'],
+                'status' => $result['status_account'],
+                'super_admin' => $result['super_admin']
             );
         }
         $total_records = $this->data_table->count_all($table, $where);
@@ -99,7 +101,7 @@ class Account extends MX_Controller {
     } 
 
     function delete($id) {
-        if ($this->db->delete($this->table, array('id' => $id))) {
+        if ($this->db->update($this->table,array('status'=>3), array('id' => $id))) {
             $this->session->set_flashdata('success', 'Data Berhasil Di Hapus !');
         } else {
             $this->session->set_flashdata('error', 'Data Gagal Di Hapus !');
