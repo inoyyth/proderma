@@ -33,6 +33,11 @@ Class M_md_employee extends CI_Model {
                 }
              }
         }
+        if ($this->sessionGlobal['super_admin'] == '1') {
+            $branch = $this->sessionGlobal['id_branch'];
+        } else {
+            $branch = $this->input->post('id_branch');
+        }
         $data = array(
             'id_jabatan' => $this->input->post('id_jabatan'),
             'employee_nip' => $this->input->post('employee_nip'),
@@ -41,6 +46,7 @@ Class M_md_employee extends CI_Model {
             'employee_phone' => $this->input->post('employee_phone'),
             'employee_gender' => $this->input->post('employee_gender'),
             'employee_status' => $this->input->post('employee_status'),
+            'id_branch' => $branch,
             'photo_path' => $image_name
         );
         if (empty($id)) {

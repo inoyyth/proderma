@@ -39,8 +39,10 @@ require dirname(__FILE__).'/Base.php';
 class MX_Controller 
 {
 	public $autoload = array();
-	
-	public function __construct() 
+        public $sessionGlobal = array();
+
+
+        public function __construct() 
 	{
         date_default_timezone_set('Asia/Jakarta');
 		$class = str_replace(CI::$APP->config->item('controller_suffix'), '', get_class($this));
