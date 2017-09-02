@@ -36,7 +36,7 @@
                                 </select>
                             </div>
                             <div class="form-group" id="remote-attendance">
-                                <label class="small">Attendance</label>
+                                <label class="small">Customer</label>
                                 <input type="hidden" id="visit-form-attendence" name="visit_form_attendence">
                                 <input class="typeahead form-control input-sm" style="text-transform: uppercase;" required="true" type="text">
                             </div>
