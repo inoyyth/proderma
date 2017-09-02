@@ -122,10 +122,9 @@
             paginationSize: 10,
             fitColumns:true, //fit columns to width of table (optional),
             ajaxType: "POST", //ajax HTTP request type
-            ajaxURL: "<?php echo base_url('md_branch/getListBank/'.$data['id']); ?>", //ajax URL
-            //ajaxParams:{key1:"value1", key2:"value2"}, //ajax parameters
+            ajaxURL: "<?php echo base_url('md_branch/getListBank'); ?>", //ajax URL
+            ajaxParams:{id_branch:"<?php echo $data['id'];?>"}, //ajax parameters
             columns: [//Define Table Columns
-                {formatter: "rownum", align: "center", width: 40},
                 {title: "Name", field: "branch_bank_name", sorter: "string", tooltip: true},
                 {title: "Branch", field: "branch_bank_account_branch", sorter: "string", tooltip: true},
                 {title: "Acc.Name", field: "branch_bank_account_name", sorter: "string", tooltip: true},
@@ -172,7 +171,8 @@
                     data: $(this).serialize(), // serializes the form's elements.
                     dataType: "json",
                     success: function(data){
-                        $("#example-table").tabulator("setData", "<?php echo base_url('md_branch/getListBank/'.$data['id']); ?>");
+                        var params = {id_branch:"<?php echo $data['id'];?>"};
+                        $("#example-table").tabulator("setData", "<?php echo base_url('md_branch/getListBank/'.$data['id']); ?>", params);
                         $("#modal-bank").modal('hide');
                     },
                     error: function(data){
@@ -191,7 +191,8 @@
                 url: "<?php echo base_url('md_branch/deleteBank');?>",
                 data: {id:selectedData[0]['id']}, // serializes the form's elements.
                 success: function(data){
-                    $("#example-table").tabulator("setData", "<?php echo base_url('md_branch/getListBank/'.$data['id']); ?>");
+                    var params = {id_branch:"<?php echo $data['id'];?>"};
+                    $("#example-table").tabulator("setData", "<?php echo base_url('md_branch/getListBank/'.$data['id']); ?>", params);
                     alert('Delete data is success !!!');
                 },
                 error: function(data){

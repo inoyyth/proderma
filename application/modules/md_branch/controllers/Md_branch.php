@@ -77,7 +77,7 @@ class Md_branch extends MX_Controller {
         $join = array();
         
         $like = array();
-        $where = array('m_branch_bank.branch_bank_status !=' => '3');
+        $where = array('m_branch_bank.branch_bank_status !=' => '3','id_branch'=>$this->input->post('id_branch'));
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"id",
             'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
