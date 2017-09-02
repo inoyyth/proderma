@@ -431,5 +431,12 @@ class Api_model extends CI_Model {
         }
         return false;
     }
+    
+    public function get_objective($cust_type) {
+        $this->db->select('id,objective');
+        $this->db->from('m_objective');
+        $this->db->where(array('objective_status' => 1,'objective_customer'=>$cust_type));
+        return $this->db->get()->result_array();
+    }
 
 }
