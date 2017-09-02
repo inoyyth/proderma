@@ -45,6 +45,9 @@ class Md_employee extends MX_Controller {
             'm_employee.employee_gender'=>isset($_POST['gender'])?$_POST['gender']:""
         );
         $where = array('m_employee.employee_status !=' => '3');
+        if($this->sessionGlobal['super_admin'] == "1") {
+            $where['m_employee.id_branch'] = $this->sessionGlobal['id_branch'];
+        }
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_employee.id",
             'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
@@ -78,6 +81,7 @@ class Md_employee extends MX_Controller {
 
     public function add() {
         $this->breadcrumbs->push('Add', '/master-employee-add');
+        $data['branch'] = $this->db->get_where('m_branch',array('branch_status'=>1))->result_array();
         $data['jabatan'] = $this->db->get_where('m_jabatan',array('jabatan_status'=>1))->result_array();
         $data['view'] = "md_employee/add";
         $this->load->view('default', $data);

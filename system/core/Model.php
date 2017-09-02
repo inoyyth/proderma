@@ -53,9 +53,12 @@ class CI_Model {
 	 *
 	 * @return	void
 	 */
+        public $sessionGlobal = array();
+        
 	public function __construct()
 	{
 		log_message('info', 'Model Class Initialized');
+                $this->sessionGlobal = $this->session->userdata('logged_in_admin');
 	}
 
 	// --------------------------------------------------------------------
