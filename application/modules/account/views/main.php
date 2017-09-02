@@ -67,6 +67,8 @@
                 {formatter: "rownum", align: "center", width: 40},
                 {title: "Username", field: "username", sorter: "string", tooltip: true},
                 {title: "Full Name", field: "nama_lengkap", sorter: "string", tooltip: true},
+                {title: "Admin Status", field: "superadmin_txt", sorter: "string", tooltip: true},
+                {title: "Office", field: "branch_name", sorter: "string", tooltip: true},
                 {title: "Last Login", field: "last_login", sorter: "string"},
                 {title: "Status", field: "status", sorter: "string"},
             ],

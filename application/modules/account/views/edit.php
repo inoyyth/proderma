@@ -28,8 +28,19 @@
                                 <input type="text" name="nama_lengkap" value="<?php echo $detail['nama_lengkap']; ?>" parsley-trigger="change" required placeholder="Isi Nama Lengkap" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label>As SuperAdmin</label>
-                                <input type="checkbox" name="super_admin"class="form-control" value="2" <?php echo (@$detail['super_admin'] == "2" ? "checked" : ""); ?>>
+                                <label>Admin Status</label>
+                                <select name="superadmin" id="superadmin-cb" placeholder="Pilih Status" parsley-trigger="change" required class="form-control">
+                                    <option value="1" <?php echo ($detail['super_admin'] == '1' ? "selected" : ""); ?>>Sub Admin</option>
+                                    <option value="2" <?php echo ($detail['super_admin'] == '2' ? "selected" : ""); ?>>Super Admin</option>
+                                </select>
+                            </div>
+                            <div class="form-group" id="ctn-branch" style="display: none;">
+                                <label>Office</label>
+                                <select name="id_branch" id="idbranch-cb" placeholder="Select Office" class="form-control">
+                                    <?php foreach($office as $kOffice=>$vOffice):?>
+                                    <option value="<?php echo $vOffice['id'];?>"><?php echo $vOffice['branch_name'];?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label>Telepon</label>
@@ -133,8 +144,24 @@
     </form>
 </div>
 <script>
-    $(document).ready(function () {
-
+    $(document).ready(function (){
+        if ($("#superadmin-cb").val() === "1") {
+            $("#ctn-branch").show();
+            $("#idbranch-cb").attr('parsley-required',true).attr('parsley-trigger','change');
+        } else {
+            $("#ctn-branch").hide();
+            $("#idbranch-cb").removeAttr('parsley-required').removeAttr('parsley-trigger');
+        }
+        
+        $("#superadmin-cb").change(function(){
+             if ($(this).val() === "1") {
+                 $("#ctn-branch").show();
+                 $("#idbranch-cb").attr('parsley-required',true).attr('parsley-trigger','change');
+             } else {
+                 $("#ctn-branch").hide();
+                 $("#idbranch-cb").removeAttr('parsley-required').removeAttr('parsley-trigger');
+             }
+        });
     });
     function readURL(input) {
         if (input.files && input.files[0]) {
