@@ -21,7 +21,7 @@
                                 </select>
                             </div>
                             <div class="form-group" id="remote-attendance">
-                                <label>Attendance</label>
+                                <label>Customer</label>
                                 <input type="hidden" required="true" id="id-customer" name="id_customer">
                                 <input id="atc" class="typeahead form-control input-sm" style="text-transform: uppercase;" placeholder="type customer code or name" required="true" type="text">
                             </div>
