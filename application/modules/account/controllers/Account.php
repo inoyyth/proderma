@@ -24,14 +24,22 @@ class Account extends MX_Controller {
         $limit = $_POST['size'];
 
         $offset = ($page - 1) * $limit;
+        
+        $field = array(
+            "account.*",
+            "m_branch.branch_name",
+            "IF(account.status=1,'Active','Not Active') AS status_account"
+        );
 
-        $join = array();
+        $join = array(
+            array('table' => 'm_branch', 'where' => 'm_branch.id=account.id_branch', 'join' => 'left')
+        );
         $like = array(
             'username'=>isset($_POST['username'])?$_POST['username']:"",
             'nama_lengkap'=>isset($_POST['nama_lengkap'])?$_POST['nama_lengkap']:"",
             'last_login'=>isset($_POST['last_login'])?$_POST['last_login']:""
         );
-        $where = array('status' => '1');
+        $where = array('status<>' => '3');
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"id",
             'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
@@ -42,14 +50,18 @@ class Account extends MX_Controller {
             'limit' => $limit
         );
 
-        $list = $this->m_account->getListTable($table, $join, $like, $where, $sort, $limit_row);
+        $list = $this->m_account->getListTable($field,$table, $join, $like, $where, $sort, $limit_row);
 
         foreach ($list as $result) {
             $data[] = array(
                 'id' => $result['id'],
                 'username' => $result['username'],
                 'nama_lengkap' => $result['nama_lengkap'],
-                'last_login' => $result['last_login']
+                'last_login' => $result['last_login'],
+                'branch_name' => $result['branch_name'],
+                'status' => $result['status_account'],
+                'super_admin' => $result['super_admin'],
+                'superadmin_txt' => ($result['super_admin'] == "1" ? "Sub Admin" : "Super Admin")
             );
         }
         $total_records = $this->data_table->count_all($table, $where);
@@ -65,6 +77,7 @@ class Account extends MX_Controller {
 
     public function add() {
         $this->breadcrumbs->push('Add', '/user-management-add');
+        $data['office'] = $this->db->get_where('m_branch',array('branch_status'=>1))->result_array();
         $data['list_menu'] = $this->m_account->get_active_menu();
         $data['view'] = "account/add";
         $this->load->view('default', $data);
@@ -72,6 +85,7 @@ class Account extends MX_Controller {
 
     public function edit($id) {
         $this->breadcrumbs->push('Edit', '/user-management-edit');
+        $data['office'] = $this->db->get_where('m_branch',array('branch_status'=>1))->result_array();
         $data['detail'] = $this->db->get_where($this->table, array('id' => $id))->row_array();
         $data['list_menu'] = $this->m_account->get_active_menu();
         $data['view'] = 'account/edit';
@@ -99,7 +113,7 @@ class Account extends MX_Controller {
     } 
 
     function delete($id) {
-        if ($this->db->delete($this->table, array('id' => $id))) {
+        if ($this->db->update($this->table,array('status'=>3), array('id' => $id))) {
             $this->session->set_flashdata('success', 'Data Berhasil Di Hapus !');
         } else {
             $this->session->set_flashdata('error', 'Data Gagal Di Hapus !');

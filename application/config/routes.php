@@ -73,6 +73,12 @@ $route['employee-level-edit-(:num)'] = 'md_level/edit/$1';
 $route['employee-level-delete-(:num)'] = 'md_level/delete/$1';
 $route['employee-level-save'] = 'md_level/save';
 
+$route['branch'] = 'md_branch';
+$route['branch-add'] = 'md_branch/add';
+$route['branch-edit-(:num)'] = 'md_branch/edit/$1';
+$route['branch-delete-(:num)'] = 'md_branch/delete/$1';
+$route['branch-save'] = 'md_branch/save';
+
 $route['master-product'] = 'md_product';
 $route['master-product-add'] = 'md_product/add';
 $route['master-product-edit-(:num)'] = 'md_product/edit/$1';

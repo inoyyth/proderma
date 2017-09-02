@@ -12,26 +12,17 @@
                 <div class="widget-main">
                     <div class="row">
                         <form class="form-filter-table">
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                                 <div class="form-group">
-                                    <label class="small">Username</label>
-                                    <input type="text" class="form-control input-sm" id="username">
+                                    <label class="small">Code</label>
+                                    <input type="text" class="form-control input-sm" id="search-code">
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                                 <div class="form-group">
-                                    <label class="small">Full Name</label>
-                                    <input type="text" class="form-control input-sm" id="nama_lengkap">
+                                    <label class="small">Name</label>
+                                    <input type="text" class="form-control input-sm" id="search-name">
                                 </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="form-group">
-                                    <label class="small">Last Login</label>
-                                    <input type="text" class="form-control input-sm" id="last_login">
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-
                             </div>
                         </form>
                     </div>
@@ -40,7 +31,7 @@
         </div>
     </div>
     <div class="col-lg-12" style="padding-bottom: 2px;">
-        <a href="<?php echo site_url('user-management-add');?>" type="button" id="btn-add" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> New</a>
+        <a href="<?php echo site_url('branch-add'); ?>" type="button" id="btn-add" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> New</a>
         <a href="#" type="button" id="btn-edit" class="btn btn-xs btn-warning btn-dsb"><i class="fa fa-edit"></i> Edit</a>
         <a href="#" type="button" id="btn-delete" class="btn btn-xs btn-danger btn-dsb" onclick="return confirm('Yakin hapus data?');"><i class="fa fa-remove"></i> Delete</a>
     </div>
@@ -58,38 +49,36 @@
             movableCols: true,
             height: "320px", // set height of table (optional),
             pagination:"remote",
-            paginationSize: 10,
+                    paginationSize: 10,
             fitColumns:true, //fit columns to width of table (optional),
-            ajaxType: "POST", //ajax HTTP request type
-            ajaxURL: "<?php echo base_url('account/getListTable'); ?>", //ajax URL
+                    ajaxType: "POST", //ajax HTTP request type
+            ajaxURL: "<?php echo base_url('md_branch/getListTable'); ?>", //ajax URL
             //ajaxParams:{key1:"value1", key2:"value2"}, //ajax parameters
             columns: [//Define Table Columns
                 {formatter: "rownum", align: "center", width: 40},
-                {title: "Username", field: "username", sorter: "string", tooltip: true},
-                {title: "Full Name", field: "nama_lengkap", sorter: "string", tooltip: true},
-                {title: "Admin Status", field: "superadmin_txt", sorter: "string", tooltip: true},
-                {title: "Office", field: "branch_name", sorter: "string", tooltip: true},
-                {title: "Last Login", field: "last_login", sorter: "string"},
-                {title: "Status", field: "status", sorter: "string"},
+                {title: "ID", field: "id", sorter: "string", tooltip: true},
+                {title: "Code", field: "branch_code", sorter: "string", tooltip: true},
+                {title: "Name", field: "branch_name", sorter: "string", tooltip: true},
+                {title: "Address", field: "branch_address", sorter: "string", tooltip: true},
+                {title: "Email", field: "branch_email", sorter: "string", tooltip: true},
+                {title: "Telp", field: "branch_telp", sorter: "string", tooltip: true},
+                {title: "Status", field: "status", sorter: "string", tooltip: true}
             ],
-            selectable:1,
-            rowSelectionChanged:function(data, rows){
+            selectable: 1,
+            rowSelectionChanged: function (data, rows) {
                 console.log(data);
-                if(data.length > 0) {
-                    $('#btn-edit').attr('href','<?php echo site_url();?>user-management-edit-'+data[0]['id']+'.html');
-                    $('#btn-delete').attr('href','<?php echo site_url();?>user-management-delete-'+data[0]['id']+'.html');
+                if (data.length > 0) {
+                    $('#btn-edit').attr('href', '<?php echo site_url(); ?>branch-edit-' + data[0]['id'] + '.html');
+                    $('#btn-delete').attr('href', '<?php echo site_url(); ?>branch-delete-' + data[0]['id'] + '.html');
                     $(".btn-dsb").removeAttr('disabled',true).css('pointer-events','auto');
-                    if(data[0]['super_admin'] === "2" ) {
-                        $("#btn-delete").attr('disabled',true).css('pointer-events','none');
-                    }
                 } else {
+                    $('#btn-edit').attr('href', '#');
+                    $('#btn-delete').attr('href', '#');
                     $(".btn-dsb").attr('disabled',true).css('pointer-events','none');
-                    $('#btn-edit').attr('href','#');
-                    $('#btn-delete').attr('href','#');
                 }
             },
             rowDblClick:function(e, row){
-                location.replace('<?php echo site_url(); ?>user-management-edit-' + row + '.html');
+                location.replace('<?php echo site_url(); ?>branch-edit-' + row + '.html');
             },
         });
     });
@@ -102,11 +91,10 @@
     function filterTable() {
         console.log('filter');
         var params = {
-            username: $('#username').val(),
-            nama_lengkap: $('#nama_lengkap').val(),
-            last_login: $('#last_login').val()
+            code: $('#search-code').val(),
+            name: $('#search-name').val()
         };
 
-        $("#example-table").tabulator("setData", "<?php echo base_url('account/getListTable'); ?>", params);
+        $("#example-table").tabulator("setData", "<?php echo base_url('md_branch/getListTable'); ?>", params);
     }
 </script>
