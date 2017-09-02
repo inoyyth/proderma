@@ -334,9 +334,9 @@ class Api extends MX_Controller {
                 );
             } else {
                 if (count($data) < 1) {
-                    $this->output->set_status_header('201');
+                    $this->output->set_status_header('200');
                     $dt = array(
-                        'code' => 201,
+                        'code' => 200,
                         'message' => 'Data Not Found'
                     );
                 } else {
@@ -365,9 +365,9 @@ class Api extends MX_Controller {
                 );
             } else {
                 if (count($data) < 1) {
-                    $this->output->set_status_header('201');
+                    $this->output->set_status_header('200');
                     $dt = array(
-                        'code' => 201,
+                        'code' => 200,
                         'message' => 'Data Not Found'
                     );
                 } else {
@@ -395,9 +395,9 @@ class Api extends MX_Controller {
                 );
             } else {
                 if (count($data) < 1) {
-                    $this->output->set_status_header('201');
+                    $this->output->set_status_header('200');
                     $dt = array(
-                        'code' => 201,
+                        'code' => 200,
                         'message' => 'Data Not Found'
                     );
                 } else {
@@ -426,9 +426,9 @@ class Api extends MX_Controller {
                 );
             } else {
                 if (count($data) < 1) {
-                    $this->output->set_status_header('201');
+                    $this->output->set_status_header('200');
                     $dt = array(
-                        'code' => 201,
+                        'code' => 200,
                         'message' => 'Data Not Found'
                     );
                 } else {
@@ -457,9 +457,9 @@ class Api extends MX_Controller {
                 );
             } else {
                 if (count($data) < 1) {
-                    $this->output->set_status_header('201');
+                    $this->output->set_status_header('200');
                     $dt = array(
-                        'code' => 201,
+                        'code' => 200,
                         'message' => 'Data Not Found'
                     );
                 } else {
@@ -488,9 +488,9 @@ class Api extends MX_Controller {
                 );
             } else {
                 if (count($data) < 1) {
-                    $this->output->set_status_header('201');
+                    $this->output->set_status_header('200');
                     $dt = array(
-                        'code' => 201,
+                        'code' => 200,
                         'message' => 'Data Not Found'
                     );
                 } else {
@@ -542,9 +542,9 @@ class Api extends MX_Controller {
                         );
                     } else {
                         if (count($data) < 1) {
-                            $this->output->set_status_header('201');
+                            $this->output->set_status_header('200');
                             $dt = array(
-                                'code' => 201,
+                                'code' => 200,
                                 'message' => 'Data Not Found'
                             );
                         } else {
@@ -598,8 +598,8 @@ class Api extends MX_Controller {
                     if (count($data['product']) < 1) {
                         $this->output->set_status_header('200');
                         $dt = array(
-                            'code' => 201,
-                            'message' => "Failed",
+                            'code' => 200,
+                            'message' => "Data Not Found",
                             'data' => $dx
                         );
                         echo json_encode($dt);
@@ -619,9 +619,9 @@ class Api extends MX_Controller {
                         );
                     } else {
                         if (count($data) < 1) {
-                            $this->output->set_status_header('201');
+                            $this->output->set_status_header('200');
                             $dt = array(
-                                'code' => 201,
+                                'code' => 200,
                                 'message' => 'Data Not Found'
                             );
                         } else {
@@ -655,9 +655,9 @@ class Api extends MX_Controller {
                 );
             } else {
                 if(count($data) < 1) {
-                    $this->output->set_status_header('201');
+                    $this->output->set_status_header('200');
                     $dt = array(
-                        'code' => 201,
+                        'code' => 200,
                         'message' => 'Data Not Found'
                     );
                 } else {
@@ -750,9 +750,9 @@ class Api extends MX_Controller {
                 );
             } else {
                 if(count($data) < 1) {
-                    $this->output->set_status_header('201');
+                    $this->output->set_status_header('200');
                     $dt = array(
-                        'code' => 201,
+                        'code' => 200,
                         'message' => 'Data Not Found'
                     );
                 } else {
@@ -826,9 +826,9 @@ class Api extends MX_Controller {
                 );
             } else {
                 if(count($data) < 1) {
-                    $this->output->set_status_header('201');
+                    $this->output->set_status_header('200');
                     $dt = array(
-                        'code' => 201,
+                        'code' => 200,
                         'message' => 'Data Not Found'
                     );
                 } else {
@@ -857,9 +857,9 @@ class Api extends MX_Controller {
                 );
             } else {
                 if(count($data) < 1) {
-                    $this->output->set_status_header('201');
+                    $this->output->set_status_header('200');
                     $dt = array(
-                        'code' => 201,
+                        'code' => 200,
                         'message' => 'Data Not Found'
                     );
                 } else {
@@ -932,9 +932,9 @@ class Api extends MX_Controller {
                 );
             } else {
                 if (count($data) < 1) {
-                    $this->output->set_status_header('201');
+                    $this->output->set_status_header('200');
                     $dt = array(
-                        'code' => 201,
+                        'code' => 200,
                         'message' => 'Data Not Found'
                     );
                 } else {
@@ -1009,9 +1009,9 @@ class Api extends MX_Controller {
                 );
             } else {
                 if (count($data) < 1) {
-                    $this->output->set_status_header('201');
+                    $this->output->set_status_header('200');
                     $dt = array(
-                        'code' => 201,
+                        'code' => 200,
                         'message' => 'Data Not Found'
                     );
                 } else {
