@@ -247,7 +247,7 @@ class Api_model extends CI_Model {
             'assistant_name' => $data['assistant_name'],
             'sales_visit_note' => $data['visit_note'],
             'id_sales' => $data['id_sales'],
-            'order_id' => $this->main_model->generate_code('sales_visit', 'PL','-' , $digit = 7, false,false, $where=array(),'id','id'),
+            'order_id' => $this->main_model->generate_code('sales_visit', 'PL', '-', $digit = 7, false, false, $where = array(), 'id', 'id'),
             'activity' => $data['activity'],
             'end_date' => $data['end_date'],
             'longitude' => $data['longitude'],
@@ -407,7 +407,7 @@ class Api_model extends CI_Model {
         }
         return false;
     }
-    
+
     public function list_plan($id_sales, $status) {
         $this->db->select('sales_visit.*,m_objective.objective');
         $this->db->from('sales_visit');
@@ -416,12 +416,12 @@ class Api_model extends CI_Model {
         $this->db->where(array('sales_visit.id_sales' => $id_sales, 'sales_visit.status' => 1));
         return $this->db->get()->result_array();
     }
-    
+
     public function update_plan($data) {
         $dt = array(
             'longitude' => $data['longitude'],
             'latitude' => $data['latitude'],
-            'sales_visit_progress'=>$data['sales_visit_progress'],
+            'sales_visit_progress' => $data['sales_visit_progress'],
             'signature_path' => $data['signature_path'],
             'sys_update_date' => date('Y-m-d H:I:s')
         );
@@ -431,12 +431,27 @@ class Api_model extends CI_Model {
         }
         return false;
     }
-    
+
     public function get_objective($cust_type) {
         $this->db->select('id,objective');
         $this->db->from('m_objective');
-        $this->db->where(array('objective_status' => 1,'objective_customer'=>$cust_type));
+        $this->db->where(array('objective_status' => 1, 'objective_customer' => $cust_type));
         return $this->db->get()->result_array();
+    }
+
+    public function log_sales_transaction($data) {
+        $dt = array(
+            'table' => $data['table'],
+            'id_related' => $data['id_related'],
+            'id_sales' => $data['id_sales'],
+            'datetime' => $data['datetime'],
+            'status' => $data['status']
+        );
+        $sql = $this->db->insert('sales_transaction_log', $data);
+        if ($sql) {
+            return true;
+        }
+        return false;
     }
 
 }
