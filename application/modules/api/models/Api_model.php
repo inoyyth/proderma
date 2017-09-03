@@ -462,5 +462,16 @@ class Api_model extends CI_Model {
         $this->db->where(array('so_status' => 1, 'id_sales' => $id_sales));
         return $this->db->get()->result_array();
     }
+    
+    public function list_invoice($id_sales,$status) {
+        $this->db->select('t_invoice.*,t_sales_order.so_code,m_customer.customer_name,customer_code,m_payment_type.payment_type');
+        $this->db->from('t_invoice');
+        $this->db->join('t_sales_order','t_sales_order.id=t_invoice.id_so','INNER');
+        $this->db->join('m_customer','m_customer.id=t_sales_order.id_customer','INNER');
+        $this->db->join('m_payment_type','m_payment_type.id=t_sales_order.so_payment_term','INNER');
+        $this->db->like(array('invoice_sales_status' => $status));
+        $this->db->where(array('invoice_status' => 1, 'id_sales' => $id_sales));
+        return $this->db->get()->result_array();
+    }
 
 }
