@@ -1186,5 +1186,36 @@ class Api extends MX_Controller {
             redirect('error404');
         }
     }
+    
+    function list_invoice() {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            if ($data = $this->Api_model->list_invoice($_GET['id_sales'],$_GET['status'])) {
+                $this->output->set_status_header('200');
+                $dt = array(
+                    'code' => 200,
+                    'message' => 'Success !!!',
+                    'data' => $data
+                );
+            } else {
+                if (count($data) < 1) {
+                    $this->output->set_status_header('200');
+                    $dt = array(
+                        'code' => 200,
+                        'message' => 'Data Not Found'
+                    );
+                } else {
+                    $this->output->set_status_header('500');
+                    $dt = array(
+                        'code' => 500,
+                        'message' => 'Query Error!!!'
+                    );
+                }
+            }
+            echo json_encode($dt);
+        } else {
+            $this->output->set_status_header('404');
+            redirect('error404');
+        }
+    }
 
 }
