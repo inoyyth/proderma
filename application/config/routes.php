@@ -159,6 +159,10 @@ $route['import-master-list'] = 'import_master_list';
 $route['import-master-list-template'] = 'import_master_list/template_excel';
 $route['import-master-list-upload'] = 'import_master_list/upload_excel';
 
+$route['import-customer-list'] = 'import_customer_list';
+$route['import-customer-list-template'] = 'import_customer_list/template_excel';
+$route['import-customer-list-upload'] = 'import_customer_list/upload_excel';
+
 $route['sales-order'] = 't_sales_order';
 $route['sales-order-add'] = 't_sales_order/add';
 $route['sales-order-edit-(:num)'] = 't_sales_order/edit/$1';
@@ -204,6 +208,8 @@ $route['invoice-save'] = 't_invoice/save';
 $route['payment-due-date'] = 't_pay_duedate';
 $route['payment-due-date-edit-(:num)'] = 't_pay_duedate/edit/$1';
 $route['payment-due-date-save'] = 't_pay_duedate/save';
+
+$route['location'] = 'md_location';
 
 $route['report-penjualan'] = 'r_penjualan';
 

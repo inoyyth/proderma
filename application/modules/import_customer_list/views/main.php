@@ -16,7 +16,7 @@
                     <div class="form-group" style="margin-left: 10px;">
                         <button type="submit" id="myButton" data-loading-text="Loading..." class="btn btn-primary btn-sm">Generate</button> 
                         <button type="button" class="btn btn-warning btn-sm" id="cancel-form">Cancel</button>
-                        <a href="<?php echo site_url('import-master-list-template'); ?>" class="btn btn-success btn-sm">[Download Template]</a>
+                        <a href="<?php echo site_url('import-customer-list-template'); ?>" class="btn btn-success btn-sm">[Download Template]</a>
                     </div>
                 </form>
             </div>
@@ -86,7 +86,7 @@
             var formData = new FormData(this);
             //console.log(formData);
             $.ajax({
-                url: "<?php echo base_url('import-master-list-upload'); ?>",
+                url: "<?php echo base_url('import-customer-list-upload'); ?>",
                 type: "post",
                 data: formData,
                 cache: false,
@@ -96,7 +96,7 @@
                 success: function (e) {
                     $btn.button('reset');
                     $('#id-input-file-3').ace_file_input('reset_input');
-                    $("#example-table").tabulator("setData", "<?php echo base_url('import_master_list/getListTable'); ?>");
+                    $("#example-table").tabulator("setData", "<?php echo base_url('import_customer_list/getListTable'); ?>");
                     //table.ajax.reload();
                 },
                 error: function (e) {
@@ -117,7 +117,7 @@
             paginationSize: 50,
             fitColumns: true, //fit columns to width of table (optional),
             ajaxType: "POST", //ajax HTTP request type
-            ajaxURL: "<?php echo base_url('import_master_list/getListTable'); ?>", //ajax URL
+            ajaxURL: "<?php echo base_url('import_customer_list/getListTable'); ?>", //ajax URL
             //ajaxParams:{key1:"value1", key2:"value2"}, //ajax parameters
             columns: [//Define Table Columns
                 {formatter: "rownum", align: "center", width: 40},
@@ -150,7 +150,7 @@
             var selectedData = $("#example-table").tabulator("getSelectedData");
             var json = JSON.stringify(selectedData); 
             $.ajax({
-                url: "<?php echo base_url('import_master_list/deleteListTable');?>",
+                url: "<?php echo base_url('import_customer_list/deleteListTable');?>",
                 type: "post",
                 data: {"data":json},
                 cache: false,
@@ -159,7 +159,7 @@
                 dataType : "json",
                 success: function (e) {
                     if(e.code == 200){
-                        $("#example-table").tabulator("setData", "<?php echo base_url('import_master_list/getListTable'); ?>");
+                        $("#example-table").tabulator("setData", "<?php echo base_url('import_customer_list/getListTable'); ?>");
                     } else {
                         alert(e.message);
                     }
@@ -174,7 +174,7 @@
             var selectedData = $("#example-table").tabulator("getSelectedData");
             var json = JSON.stringify(selectedData); 
             $.ajax({
-                url: "<?php echo base_url('import_master_list/saveListTable');?>",
+                url: "<?php echo base_url('import_customer_list/saveListTable');?>",
                 type: "post",
                 data: {"data":json},
                 cache: false,
@@ -183,7 +183,7 @@
                 dataType : "json",
                 success: function (e) {
                     if(e.code == 200){
-                        $("#example-table").tabulator("setData", "<?php echo base_url('import_master_list/getListTable'); ?>");
+                        $("#example-table").tabulator("setData", "<?php echo base_url('import_customer_list/getListTable'); ?>");
                     } else {
                         alert(e.message);
                     }
