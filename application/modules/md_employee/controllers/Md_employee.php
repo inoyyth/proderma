@@ -89,6 +89,7 @@ class Md_employee extends MX_Controller {
 
     public function edit($id) {
         $this->breadcrumbs->push('Edit', '/master-employee-edit');
+        $data['branch'] = $this->db->get_where('m_branch',array('branch_status'=>1))->result_array();
         $data['jabatan'] = $this->db->get_where('m_jabatan',array('jabatan_status'=>1))->result_array();
         $data['data'] = $this->db->get_where($this->table, array('id' => $id))->row_array();
         $data['view'] = 'md_employee/edit';
