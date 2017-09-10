@@ -10,6 +10,10 @@ Class Main_model extends CI_Model {
         if ($this->session->userdata('logged_in_admin') != FALSE) {
             $session = $this->session->userdata('logged_in_admin');
             $menu = unserialize($session['access_menu']);
+            $query = array();
+            if($menu == null) {
+                return $query;
+            }
             $menuResult = array();
             foreach ($menu as $k => $v) {
                 $menuResult[] = $v['menu'];
