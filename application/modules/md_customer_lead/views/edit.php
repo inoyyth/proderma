@@ -101,6 +101,17 @@
                                             <?php } ?>
                                         </select>
                                     </div>
+                                    <?php if($this->sessionGlobal['super_admin'] == "2"){ ?>
+                                    <div class="form-group">
+                                        <label>Branch Office</label>
+                                        <select name="id_branch" parsley-trigger="change" required placeholder="Branch Office" class="form-control">
+                                            <option value=""></option>
+                                            <?php foreach($branch as $kBranch=>$vBranch) { ?>
+                                            <option value="<?php echo $vBranch['id'];?>" <?php echo ($data['id_branch']==$vBranch['id'] ? "selected" : "");?>><?php echo $vBranch['branch_name'];?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                    <?php } ?>
                                     <div class="form-group">
                                         <label>Internal Notes</label>
                                         <textarea name="customer_internal_notes" parsley-trigger="change" required placeholder="Notes" class="form-control"><?php echo $data['customer_internal_notes'];?></textarea>

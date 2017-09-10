@@ -77,6 +77,9 @@ class Md_customer_lead extends MX_Controller {
         }
         
         $where = array_merge_recursive($array_status,$array_province,$array_city,$array_district,$array_source_lead,$array_status_lead);
+        if($this->sessionGlobal['super_admin'] == "1") {
+            $where['m_customer.id_branch'] = $this->sessionGlobal['id_branch'];
+        }
         
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_customer.id",
@@ -103,6 +106,7 @@ class Md_customer_lead extends MX_Controller {
 
     public function add() {
         $this->breadcrumbs->push('Add', '/lead-customer-add');
+        $data['branch'] = $this->db->get_where('m_branch',array('branch_status'=>1))->result_array();
         $data['code'] = $this->main_model->generate_code('m_customer', $this->config->item('customer_code').'/0','/' , $digit = 5, true,false, $where=array(),'id','id');
         $data['province'] = $this->db->get('province')->result_array();
         $data['source_lead_customer'] = $this->db->get_where('source_lead_customer',array('source_lead_customer_status'=>1))->result_array();
@@ -113,6 +117,7 @@ class Md_customer_lead extends MX_Controller {
 
     public function edit($id) {
         $this->breadcrumbs->push('Edit', '/lead-customer-edit');
+        $data['branch'] = $this->db->get_where('m_branch',array('branch_status'=>1))->result_array();
         $data['province'] = $this->db->get('province')->result_array();
         $data['source_lead_customer'] = $this->db->get_where('source_lead_customer',array('source_lead_customer_status'=>1))->result_array();
         $data['status_lead_customer'] = $this->db->get_where('status_lead_customer',array('status_lead_customer_status'=>1))->result_array();

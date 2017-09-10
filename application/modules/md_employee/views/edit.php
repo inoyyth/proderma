@@ -53,7 +53,7 @@
                                 <select name="id_branch" parsley-trigger="change" required placeholder="Branch Office" class="form-control">
                                     <option value=""></option>
                                     <?php foreach($branch as $kBranch=>$vBranch) { ?>
-                                    <option value="<?php echo $vBranch['id'];?>" <?php echo ($data['id_branch']==$vBranch ? "selected" : "");?>><?php echo $vBranch['branch_name'];?></option>
+                                    <option value="<?php echo $vBranch['id'];?>" <?php echo ($data['id_branch']==$vBranch['id'] ? "selected" : "");?>><?php echo $vBranch['branch_name'];?></option>
                                     <?php } ?>
                                 </select>
                             </div>

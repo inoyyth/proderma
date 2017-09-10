@@ -33,6 +33,13 @@ Class M_md_customer extends CI_Model {
                 }
              }
         }
+        
+        if ($this->sessionGlobal['super_admin'] == '1') {
+            $branch = $this->sessionGlobal['id_branch'];
+        } else {
+            $branch = $this->input->post('id_branch');
+        }
+        
         $data = array(
             'customer_code' => $this->input->post('customer_code'),
             'customer_name' => $this->input->post('customer_name'),
@@ -53,6 +60,7 @@ Class M_md_customer extends CI_Model {
             'customer_status' => "1",
             'id_area' => $this->input->post('id_area'),
             'id_subarea' => $this->input->post('id_subarea'),
+            'id_branch' => $branch,
             'photo_path' => $image_name
         );
         if (empty($id)) {

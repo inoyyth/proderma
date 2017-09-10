@@ -33,6 +33,13 @@ Class M_md_customer_lead extends CI_Model {
                 }
              }
         }
+        
+        if ($this->sessionGlobal['super_admin'] == '1') {
+            $branch = $this->sessionGlobal['id_branch'];
+        } else {
+            $branch = $this->input->post('id_branch');
+        }
+        
         $data = array(
             'customer_code' => $this->input->post('customer_code'),
             'customer_name' => $this->input->post('customer_name'),
@@ -49,6 +56,7 @@ Class M_md_customer_lead extends CI_Model {
             'id_status_lead_customer' => $this->input->post('id_status_lead_customer'),
             'customer_internal_notes' => $this->input->post('customer_internal_notes'),
             'customer_status' => $this->input->post('customer_status'),
+            'id_branch' => $branch,
             'current_lead_customer_status' => "L",
             'customer_status' => "1",
             'photo_path' => $image_name

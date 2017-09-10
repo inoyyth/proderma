@@ -77,7 +77,9 @@ class Md_customer extends MX_Controller {
         }
         
         $where = array_merge_recursive($array_status,$array_province,$array_city,$array_district,$array_group_customer,$array_status_list_customer);
-        
+        if($this->sessionGlobal['super_admin'] == "1") {
+            $where['m_customer.id_branch'] = $this->sessionGlobal['id_branch'];
+        }
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_customer.id",
             'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
@@ -103,6 +105,7 @@ class Md_customer extends MX_Controller {
 
     public function add() {
         $this->breadcrumbs->push('Add', '/customer-add');
+        $data['branch'] = $this->db->get_where('m_branch',array('branch_status'=>1))->result_array();
         $data['area'] = $this->db->get_where('m_area',array('area_status'=>1))->result_array();
         $data['code'] = $this->main_model->generate_code('m_customer', $this->config->item('customer_code').'/1','/' , $digit = 5, true,false, $where=array(),'id','id');
         $data['province'] = $this->db->get('province')->result_array();
@@ -114,6 +117,7 @@ class Md_customer extends MX_Controller {
 
     public function edit($id) {
         $this->breadcrumbs->push('Edit', '/customer-edit');
+        $data['branch'] = $this->db->get_where('m_branch',array('branch_status'=>1))->result_array();
         $data['area'] = $this->db->get_where('m_area',array('area_status'=>1))->result_array();
         $data['province'] = $this->db->get('province')->result_array();
         $data['group'] = $this->db->get_where('group_customer_product',array('group_customer_product_status'=>1))->result_array();

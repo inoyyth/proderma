@@ -25,7 +25,7 @@ class Import_master_list extends MX_Controller {
         $this->load->library("phpexcel/PHPExcel");
         $this->load->library("phpexcel/PHPExcel/IOFactory");
         $objPHPExcel = new PHPExcel();
-        $objPHPExcel->getActiveSheet()->getStyle('A1:P1')->applyFromArray(
+        $objPHPExcel->getActiveSheet()->getStyle('A1:Q1')->applyFromArray(
                 array(
                     'fill' => array(
                         'type' => PHPExcel_Style_Fill::FILL_SOLID,
@@ -38,7 +38,7 @@ class Import_master_list extends MX_Controller {
                     )
                 )
         );
-        $objPHPExcel->getActiveSheet()->getStyle('R1:S1')->applyFromArray(
+        $objPHPExcel->getActiveSheet()->getStyle('S1:T1')->applyFromArray(
                 array(
                     'fill' => array(
                         'type' => PHPExcel_Style_Fill::FILL_SOLID,
@@ -51,7 +51,7 @@ class Import_master_list extends MX_Controller {
                     )
                 )
         );
-        $objPHPExcel->getActiveSheet()->getStyle('U1:V1')->applyFromArray(
+        $objPHPExcel->getActiveSheet()->getStyle('V1:W1')->applyFromArray(
                 array(
                     'fill' => array(
                         'type' => PHPExcel_Style_Fill::FILL_SOLID,
@@ -64,7 +64,7 @@ class Import_master_list extends MX_Controller {
                     )
                 )
         );
-        $objPHPExcel->getActiveSheet()->getStyle('X1:Y1')->applyFromArray(
+        $objPHPExcel->getActiveSheet()->getStyle('Y1:Z1')->applyFromArray(
                 array(
                     'fill' => array(
                         'type' => PHPExcel_Style_Fill::FILL_SOLID,
@@ -77,7 +77,20 @@ class Import_master_list extends MX_Controller {
                     )
                 )
         );
-        $objPHPExcel->getActiveSheet()->getStyle('AA1:AB1')->applyFromArray(
+        $objPHPExcel->getActiveSheet()->getStyle('AB1:AC1')->applyFromArray(
+                array(
+                    'fill' => array(
+                        'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                        'color' => array('rgb' => 'B3FFb3')
+                    ),
+                    'borders' => array(
+                        'allborders' => array(
+                            'style' => PHPExcel_Style_Border::BORDER_THIN
+                        )
+                    )
+                )
+        );
+        $objPHPExcel->getActiveSheet()->getStyle('AE1:AF1')->applyFromArray(
                 array(
                     'fill' => array(
                         'type' => PHPExcel_Style_Fill::FILL_SOLID,
@@ -91,29 +104,31 @@ class Import_master_list extends MX_Controller {
                 )
         );
         $objPHPExcel->setActiveSheetIndex(0);
-        $HeaderTitle = array('Name', 'Specialis', 'Clinic', 'Province', 'City', 'District', 'Longitude', 'Latitude', 'Address', 'Telephone', 'Email', 'ID Source Lead', 'ID Status Lead', 'Notes', 'ID Area', 'ID Group Product');
+        $HeaderTitle = array('Name', 'Specialis', 'Clinic', 'Province', 'City', 'District', 'Longitude', 'Latitude', 'Address', 'Telephone', 'Email', 'ID Source Lead', 'ID Status Lead', 'Notes', 'ID Area', 'ID Group Product', 'ID Branch');
         $headerMulai = "A";
         foreach ($HeaderTitle as $headerTitleV) {
             $objPHPExcel->getActiveSheet()->SetCellValue($headerMulai . "1", $headerTitleV);
             $headerMulai++;
         }
-        $objPHPExcel->getActiveSheet()->SetCellValue('R1', 'ID Source Lead');
-        $objPHPExcel->getActiveSheet()->SetCellValue('S1', 'Detail Source Lead');
-        $objPHPExcel->getActiveSheet()->SetCellValue('U1', 'ID Status Lead');
-        $objPHPExcel->getActiveSheet()->SetCellValue('V1', 'Detail Status Lead');
-        $objPHPExcel->getActiveSheet()->SetCellValue('X1', 'ID Area');
-        $objPHPExcel->getActiveSheet()->SetCellValue('Y1', 'Detail Area');
-        $objPHPExcel->getActiveSheet()->SetCellValue('AA1', 'ID Group Product');
-        $objPHPExcel->getActiveSheet()->SetCellValue('AB1', 'Detail Group Product');
+        $objPHPExcel->getActiveSheet()->SetCellValue('S1', 'ID Source Lead');
+        $objPHPExcel->getActiveSheet()->SetCellValue('T1', 'Detail Source Lead');
+        $objPHPExcel->getActiveSheet()->SetCellValue('V1', 'ID Status Lead');
+        $objPHPExcel->getActiveSheet()->SetCellValue('W1', 'Detail Status Lead');
+        $objPHPExcel->getActiveSheet()->SetCellValue('Y1', 'ID Area');
+        $objPHPExcel->getActiveSheet()->SetCellValue('Z1', 'Detail Area');
+        $objPHPExcel->getActiveSheet()->SetCellValue('AB1', 'ID Group Product');
+        $objPHPExcel->getActiveSheet()->SetCellValue('AC1', 'Detail Group Product');
+        $objPHPExcel->getActiveSheet()->SetCellValue('AE1', 'ID Branch');
+        $objPHPExcel->getActiveSheet()->SetCellValue('AF1', 'Detail Branch');
        
         $rowCount1 = $this->countRow;
         $source = $this->db->get_where('source_lead_customer',array('source_lead_customer_status'=>1))->result_array();
         foreach ($source as $k => $row) {
-            $objPHPExcel->getActiveSheet()->SetCellValue('R' . $rowCount1, $row['id']);
-            $objPHPExcel->getActiveSheet()->SetCellValue('S' . $rowCount1, $row['source_lead_customer']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('S' . $rowCount1, $row['id']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('T' . $rowCount1, $row['source_lead_customer']);
             $rowCount1++;
         }
-        $objPHPExcel->getActiveSheet()->getStyle('R2:S'.(count($source)+1))->applyFromArray(
+        $objPHPExcel->getActiveSheet()->getStyle('S2:T'.(count($source)+1))->applyFromArray(
                 array(
                     'fill' => array(
                         'type' => PHPExcel_Style_Fill::FILL_SOLID,
@@ -130,11 +145,11 @@ class Import_master_list extends MX_Controller {
         $rowCount2 = $this->countRow;
         $status = $this->db->get_where('status_lead_customer',array('status_lead_customer_status'=>1))->result_array();
         foreach ($status as $k => $row) {
-            $objPHPExcel->getActiveSheet()->SetCellValue('U' . $rowCount2, $row['id']);
-            $objPHPExcel->getActiveSheet()->SetCellValue('V' . $rowCount2, $row['status_lead_customer']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('V' . $rowCount2, $row['id']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('W' . $rowCount2, $row['status_lead_customer']);
             $rowCount2++;
         }
-        $objPHPExcel->getActiveSheet()->getStyle('U2:V'.(count($status)+1))->applyFromArray(
+        $objPHPExcel->getActiveSheet()->getStyle('V2:W'.(count($status)+1))->applyFromArray(
                 array(
                     'fill' => array(
                         'type' => PHPExcel_Style_Fill::FILL_SOLID,
@@ -151,11 +166,11 @@ class Import_master_list extends MX_Controller {
         $rowCount3 = $this->countRow;
         $status = $this->db->get_where('m_subarea',array('subarea_status'=>1))->result_array();
         foreach ($status as $k => $row) {
-            $objPHPExcel->getActiveSheet()->SetCellValue('X' . $rowCount3, $row['id_area']."-".$row['id']);
-            $objPHPExcel->getActiveSheet()->SetCellValue('Y' . $rowCount3, $row['subarea_name']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('Y' . $rowCount3, $row['id_area']."-".$row['id']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('Z' . $rowCount3, $row['subarea_name']);
             $rowCount3++;
         }
-        $objPHPExcel->getActiveSheet()->getStyle('X2:Y'.(count($status)+1))->applyFromArray(
+        $objPHPExcel->getActiveSheet()->getStyle('Y2:Z'.(count($status)+1))->applyFromArray(
                 array(
                     'fill' => array(
                         'type' => PHPExcel_Style_Fill::FILL_SOLID,
@@ -172,11 +187,11 @@ class Import_master_list extends MX_Controller {
         $rowCount4 = $this->countRow;
         $status = $this->db->get_where('m_group_product',array('group_product_status'=>1))->result_array();
         foreach ($status as $k => $row) {
-            $objPHPExcel->getActiveSheet()->SetCellValue('AA' . $rowCount4, $row['id']);
-            $objPHPExcel->getActiveSheet()->SetCellValue('AB' . $rowCount4, $row['group_product']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('AB' . $rowCount4, $row['id']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('AC' . $rowCount4, $row['group_product']);
             $rowCount4++;
         }
-        $objPHPExcel->getActiveSheet()->getStyle('AA2:AB'.(count($status)+1))->applyFromArray(
+        $objPHPExcel->getActiveSheet()->getStyle('AB2:AC'.(count($status)+1))->applyFromArray(
                 array(
                     'fill' => array(
                         'type' => PHPExcel_Style_Fill::FILL_SOLID,
@@ -189,6 +204,28 @@ class Import_master_list extends MX_Controller {
                     )
                 )
         );
+        
+        $rowCount5 = $this->countRow;
+        $status = $this->db->get_where('m_branch',array('branch_status'=>1))->result_array();
+        foreach ($status as $k => $row) {
+            $objPHPExcel->getActiveSheet()->SetCellValue('AE' . $rowCount5, $row['id']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('AF' . $rowCount5, $row['branch_name']);
+            $rowCount5++;
+        }
+        $objPHPExcel->getActiveSheet()->getStyle('AE2:AF'.(count($status)+1))->applyFromArray(
+                array(
+                    'fill' => array(
+                        'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                        'color' => array('rgb' => '80BFFF')
+                    ),
+                    'borders' => array(
+                        'allborders' => array(
+                            'style' => PHPExcel_Style_Border::BORDER_THIN
+                        )
+                    )
+                )
+        );
+        
         
         $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
         $fileName = 'assets/excelTemplate/templateMasterList.xlsx';
@@ -300,6 +337,7 @@ class Import_master_list extends MX_Controller {
                         "area" => $explode_area[0],
                         "subarea" => $explode_area[1],
                         "group_product" => $rowData[0][15],
+                        "id_branch" => $rowData[0][16],
                         "sys_create_user" => $this->sessionGlobal['id'],
                         "sys_create_date" => date('Y-m-d H:i:s')
                     );
@@ -360,13 +398,14 @@ class Import_master_list extends MX_Controller {
                 'id_area'=>$v['area'],
                 'id_subarea'=>$v['subarea'],
                 'id_group_customer_product'=>$v['group_product'],
+                'id_branch'=>$v['id_branch'],
                 'current_lead_customer_status'=>'L',
                 'sys_create_date'=>date('Y-m-d H:i:s'),
                 'sys_create_user'=>$this->sessionGlobal['id']
             );
             
             if($this->db->insert('m_customer', $dt)){
-                $this->db->delete('m_customer_temp',array('id'=>$v['id']));
+                $this->db->delete('m_customer_list_temp',array('id'=>$v['id']));
             } else {
                 $result = array('code'=>204,'message'=>'failed');
                 echo json_encode($result);
