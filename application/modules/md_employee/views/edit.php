@@ -1,5 +1,5 @@
 <div class="row">
-    <form action="<?php echo base_url("master-employee-save"); ?>" method="post"  enctype="multipart/form-data" parsley-validate novalidate>
+    <form id="form-employee" action="<?php echo base_url("master-employee-save"); ?>" method="post"  enctype="multipart/form-data" parsley-validate novalidate>
         <div class="col-md-8">
             <div class="block-web">
                 <div class="porlets-content">
@@ -30,7 +30,7 @@
                             </div>
                             <div class="form-group" id="pass-field" style="display: none;">
                                 <label>Password</label>
-                                <input type="password" id="sales-password" name="sales_password" parsley-trigger="change" required placeholder="Password" class="form-control">
+                                <input type="password" id="sales-password" name="sales_password" parsley-trigger="change" placeholder="Password" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Email</label>
@@ -76,23 +76,40 @@
 </div>
 <script>
     $(document).ready(function (){
-       if($("#id-jabatan").val() == 1){
-           var id_employee = $("#id-employee").val();
-           $.ajax({
-                type:"POST",
-                url:"<?php echo base_url('md_employee/getPassEmployee');?>",
-                dataType: "json",
-                data: {id:id_employee},
-                success: function(result){
-                    console.log(result);
-                }
-            }).done(function (result){
-                $("#sales-password").val(result.data.password);
+        if($("#id-jabatan").val() == 1){
+            var id_employee = $("#id-employee").val();
+            $.ajax({
+                 type:"POST",
+                 url:"<?php echo base_url('md_employee/getPassEmployee');?>",
+                 dataType: "json",
+                 data: {id:id_employee},
+                 success: function(result){
+                     console.log(result);
+                 }
+             }).done(function (result){
+                 $("#sales-password").val(result.data.password);
+                 $("#pass-field").show();
+             }).fail(function() {
+                 alert( "error" );
+               });
+        }
+       
+        $("#id-jabatan").change(function(){
+            if ($(this).val() == 1) {
                 $("#pass-field").show();
-            }).fail(function() {
-                alert( "error" );
-              });
-       }
+            } else {
+                $("#pass-field").hide();
+            }
+        });
+        
+        $("#form-employee").submit(function(){
+            if ($("#id-jabatan").val() == 1) {
+                if ($("#sales-password").val() === "") {
+                    alert('PASSWORD IS REQUIRED!!!');
+                    return false;
+                }
+            }
+        });
     });
     function readURL(input) {
         if (input.files && input.files[0]) {
