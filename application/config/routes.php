@@ -167,6 +167,10 @@ $route['import-product'] = 'import_master_product';
 $route['import-product-template'] = 'import_master_product/template_excel';
 $route['import-product-upload'] = 'import_master_product/upload_excel';
 
+$route['import-employee'] = 'import_master_employee';
+$route['import-employee-template'] = 'import_master_employee/template_excel';
+$route['import-employee-upload'] = 'import_master_employee/upload_excel';
+
 $route['sales-order'] = 't_sales_order';
 $route['sales-order-add'] = 't_sales_order/add';
 $route['sales-order-edit-(:num)'] = 't_sales_order/edit/$1';
