@@ -39,6 +39,9 @@ class T_mapping_area extends MX_Controller {
             'm_employee.employee_name'=>isset($_POST['employee_name'])?$_POST['employee_name']:""
         );
         $where = array('m_employee.id_jabatan'=>1);
+        if($this->sessionGlobal['super_admin'] == "1") {
+            $where['m_employee.id_branch'] = $this->sessionGlobal['id_branch'];
+        }
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_employee.id",
             'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
