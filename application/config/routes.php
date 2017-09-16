@@ -219,6 +219,8 @@ $route['payment-due-date-save'] = 't_pay_duedate/save';
 
 $route['location'] = 'md_location';
 
+$route['location-manage'] = 'md_location_manage';
+
 $route['report-penjualan'] = 'r_penjualan';
 
 $route['report-pendapatan'] = 'r_pendapatan';

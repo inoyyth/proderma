@@ -18,7 +18,7 @@ class Md_location extends MX_Controller {
     }
     
     public function getLocation() {
-        $data = $this->db->get_where($this->input->post('table'),array($this->input->post('field')=>$this->input->post('where')))->result_array();
+        $data = $this->db->get_where($this->input->post('table'),array($this->input->post('field')=>$this->input->post('where'),$this->input->post('table').'_status'=>1))->result_array();
         echo json_encode($data,true);
     }
 
