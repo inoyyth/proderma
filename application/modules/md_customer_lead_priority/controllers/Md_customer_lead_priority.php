@@ -77,6 +77,9 @@ class Md_customer_lead_priority extends MX_Controller {
         }
         
         $where = array_merge_recursive($array_status,$array_province,$array_city,$array_district,$array_source_lead,$array_status_lead);
+        if($this->sessionGlobal['super_admin'] == "1") {
+            $where['m_customer.id_branch'] = $this->sessionGlobal['id_branch'];
+        }
         
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_customer.id",
