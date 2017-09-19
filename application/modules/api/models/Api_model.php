@@ -19,7 +19,7 @@ class Api_model extends CI_Model {
     public function login($data) {
         $this->db->select("*");
         $this->db->from("m_employee");
-        $this->db->where(array("employee_email" => $data['username'], "id_jabatan" => 1, "employee_status" => 1));
+        $this->db->where(array("employee_nip" => $data['username'], "id_jabatan" => 1, "employee_status" => 1));
         $query = $this->db->get();
         if ($query->num_rows() == 1) {
             $dt = $query->row_array();
