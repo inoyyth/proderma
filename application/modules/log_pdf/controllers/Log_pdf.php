@@ -41,7 +41,10 @@ class Log_pdf extends MX_Controller {
             'm_employee.employee_name'=>isset($_POST['name'])?$_POST['name']:"",
             'date(pdf_log.datetime)'=>isset($_POST['date'])?$_POST['date']:""
         );
-        $where = array();
+		$where = array();
+        if($this->sessionGlobal['super_admin'] == "1") {
+            $where['m_employee.id_branch'] = $this->sessionGlobal['id_branch'];
+        }
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"pdf_log.id",
             'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
@@ -54,14 +57,14 @@ class Log_pdf extends MX_Controller {
         
         $list = $this->m_log_pdf->getListTable($field,$table, $join, $like, $where, $sort, $limit_row);
 
-        $total_records = $this->data_table->count_all($table, $where);
+        $total_records = $this->data_table->count_all($table/*,$where*/);
         $total_pages = ceil($total_records / $limit);
         $output = array(
             "last_page" => $total_pages,
-            "recordsTotal" => $this->data_table->count_all($table, $where),
+            "recordsTotal" => $this->data_table->count_all($table/*$where*/),
             "data" => $list,
         );
-        //output to json format
+        //output to json format,
         echo json_encode($output);
     }
 }
