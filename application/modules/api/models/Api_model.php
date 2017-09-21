@@ -38,9 +38,10 @@ class Api_model extends CI_Model {
         $token = bin2hex(openssl_random_pseudo_bytes(16));
         $dt = array('token' => $token);
         $this->db->update('m_employee', $dt, array('id' => $data['id']));
-        $this->db->select("*");
+        $this->db->select("m_employee.*,m_branch.branch_name");
         $this->db->from("m_employee");
-        $this->db->where(array("id" => $data['id']));
+		$this->db->join('m_branch','m_branch.id=m_employee.id_branch','INNER');
+        $this->db->where(array("m_employee.id" => $data['id']));
         $query = $this->db->get();
 
         return $query->row_array();
@@ -333,9 +334,10 @@ class Api_model extends CI_Model {
         return false;
     }
 
-    public function promo() {
+    public function promo($id_branch) {
         $this->db->select('*');
         $this->db->from('m_promo_product');
+		$this->db->having('id_branch',intval($id_branch));
         $this->db->where(array('promo_status' => 1));
         return $this->db->get()->result_array();
     }

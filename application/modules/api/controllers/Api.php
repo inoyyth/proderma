@@ -727,7 +727,7 @@ class Api extends MX_Controller {
 
     public function promo() {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            if ($data = $this->Api_model->promo()) {
+            if ($data = $this->Api_model->promo($_GET['id_branch'])) {
 
                 $dtx = array();
                 foreach ($data as $k => $v) {

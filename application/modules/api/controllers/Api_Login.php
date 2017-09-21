@@ -70,6 +70,8 @@ class Api_Login extends MX_Controller {
                                 'employee_name' => $data_login['employee_name'],
                                 'employee_email' => $data_login['employee_email'],
                                 'employee_phone' => $data_login['employee_phone'],
+								'id_branch' => $data_login['id_branch'],
+								'branch_name' => $data_login['branch_name'],
                                 'image' => $b64Doc
                             )
                         );

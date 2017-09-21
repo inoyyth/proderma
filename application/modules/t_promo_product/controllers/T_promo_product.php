@@ -38,6 +38,9 @@ class T_promo_product extends MX_Controller {
             'm_promo_product.promo_name'=>isset($_POST['name'])?$_POST['name']:"",
         );
         $where = array('m_promo_product.promo_status !=' => '3');
+		if($this->sessionGlobal['super_admin'] == "1") {
+            $where['m_promo_product.id_branch'] = $this->sessionGlobal['id_branch'];
+        }
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_promo_product.id",
             'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
@@ -64,6 +67,7 @@ class T_promo_product extends MX_Controller {
     public function add() {
         $this->breadcrumbs->push('Add', '/promo-product-add');
         $data['code'] = $this->main_model->generate_code('m_promo_product', $this->config->item('promo_code').'/1','/' , $digit = 5, true,false, $where=array(),'id','id');
+		$data['admin_status'] = $this->sessionGlobal['super_admin'];
         $data['view'] = "t_promo_product/add";
         $this->load->view('default', $data);
     }
@@ -71,6 +75,7 @@ class T_promo_product extends MX_Controller {
     public function edit($id) {
         $this->breadcrumbs->push('Edit', '/promo-product-edit');
         $data['data'] = $this->db->get_where($this->table, array('id' => $id))->row_array();
+		$data['admin_status'] = $this->sessionGlobal['super_admin'];
         $data['view'] = 't_promo_product/edit';
         $this->load->view('default', $data);
     }
@@ -97,6 +102,11 @@ class T_promo_product extends MX_Controller {
             show_404();
         }
     }
+	
+	public function getListBranch() {
+		$dt = $this->db->get_where('m_branch',array('branch_status'=>1))->result_array();
+		echo json_encode($dt);
+	}
 
     public function print_pdf() {
         $data['template'] = array("template" => "t_promo_product/" . $_GET['template'], "filename" => $_GET['name']);
