@@ -6,6 +6,11 @@ Class M_t_sales_visit extends CI_Model {
 
     public function save() {
         $id = $this->input->post('id');
+		if ($this->sessionGlobal['super_admin'] == '1') {
+            $branch = $this->sessionGlobal['id_branch'];
+        } else {
+            $branch = $this->input->post('id_branch');
+        }
         $data = array(
             'sales_visit_date' => $this->input->post('sales_visit_date'),
             'id_customer' => $this->input->post('id_customer'),
@@ -16,6 +21,7 @@ Class M_t_sales_visit extends CI_Model {
             'end_date' => $this->input->post('end_date'),
             'longitude' => $this->input->post('longitude'),
             'latitude' => $this->input->post('latitude'),
+			'id_branch' => $branch
         );
         if (empty($id)) {
             $data['order_id'] =  $this->main_model->generate_code('sales_visit', 'PL','-' , $digit = 7, false,false, $where=array(),'id','id');
@@ -76,8 +82,22 @@ Class M_t_sales_visit extends CI_Model {
         $this->db->group_start();
         $this->db->or_like(array('customer_name' => $q, 'customer_code' => $q));
         $this->db->group_end();
+		if($this->sessionGlobal['super_admin'] == "1") {
+            $this->db->where('id_branch',$this->sessionGlobal['id_branch']);
+        }
         $this->db->where(array('current_lead_customer_status' => $status, 'customer_status' => 1));
         return $this->db->get();
     }
+	
+	public function getEmployee() {
+		$this->db->select('*');
+		$this->db->from('m_employee');
+		$this->db->where(array('employee_status'=>1,'id_jabatan'=>1));
+		if($this->sessionGlobal['super_admin'] == "1") {
+            $this->db->where('id_branch',$this->sessionGlobal['id_branch']);
+        }
+		$this->db->order_by('employee_name','asc');
+		return $this->db->get();
+	}
 
 }
