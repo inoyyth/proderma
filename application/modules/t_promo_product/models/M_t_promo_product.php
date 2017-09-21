@@ -15,7 +15,7 @@ Class M_t_promo_product extends CI_Model {
             'upload_url' => './assets/images/' . $folder,
             'encrypt_name' => true,
             'detect_mime' => true,
-            'allowed_types' => 'pdf', 'max_size' => 30000);
+            'allowed_types' => 'pdf');
         $this->upload->initialize($image_config);
         if ($this->upload->do_upload('promo_file')) {
             $image = $this->upload->data();
@@ -29,7 +29,7 @@ Class M_t_promo_product extends CI_Model {
                     $image_name = 'assets/images/' . $folder . '/user_icon.png';
                 }else{
                     $this->session->set_flashdata('error', $this->upload->display_errors());
-                    redirect("master-employee-tambah");
+                    redirect("promo-product-add");
                 }
              }
         }
@@ -40,7 +40,8 @@ Class M_t_promo_product extends CI_Model {
             'promo_file' => $image_name,
             'promo_start_date' => $this->input->post('promo_start_date'),
             'promo_end_date' => $this->input->post('promo_end_date'),
-            'promo_status' => $this->input->post('promo_status')
+            'promo_status' => $this->input->post('promo_status'),
+			'id_branch' => $this->input->post('branch_list')
         );
         if (empty($id)) {
             $this->db->insert($this->table, $this->main_model->create_sys($data));
