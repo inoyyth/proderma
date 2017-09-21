@@ -44,6 +44,9 @@ class T_sales_order extends MX_Controller {
         $where = array(
             't_sales_order.so_status !=' => '3',
         );
+		if($this->sessionGlobal['super_admin'] == "1") {
+            $where['m_customer.id_branch'] = $this->sessionGlobal['id_branch'];
+        }
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"t_sales_order.id",
             'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
@@ -56,7 +59,7 @@ class T_sales_order extends MX_Controller {
         
         $list = $this->m_t_sales_order->getListTable($field,$table, $join, $like, $where, $sort, $limit_row);
 
-        $total_records = $this->data_table->count_all($table, $where);
+        $total_records = count($list);
         $total_pages = ceil($total_records / $limit);
         $output = array(
             "last_page" => $total_pages,
