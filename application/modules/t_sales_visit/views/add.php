@@ -31,6 +31,17 @@
 
                                 </select>
                             </div>
+							<?php if($this->sessionGlobal['super_admin'] == "2"){ ?>
+							<div class="form-group">
+								<label>Branch Office</label>
+								<select name="id_branch" parsley-trigger="change" required placeholder="Branch Office" class="form-control">
+									<option value=""></option>
+									<?php foreach($branch as $kBranch=>$vBranch) { ?>
+									<option value="<?php echo $vBranch['id'];?>"><?php echo $vBranch['branch_name'];?></option>
+									<?php } ?>
+								</select>
+							</div>
+							<?php } ?>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">

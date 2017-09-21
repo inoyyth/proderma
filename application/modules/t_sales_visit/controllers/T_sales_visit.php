@@ -19,8 +19,9 @@ class T_sales_visit extends MX_Controller {
     }
     
     public function add() {
-        $data['sales'] = $this->db->get_where('m_employee',array('employee_status'=>1,'id_jabatan'=>1))->result_array();
-        $data['view'] = 't_sales_visit/add';
+        $data['sales'] = $this->m_t_sales_visit->getEmployee()->result_array();
+        $data['branch'] = $this->db->get_where('m_branch',array('branch_status'=>1))->result_array();
+		$data['view'] = 't_sales_visit/add';
         $this->load->view('default', $data);
     }
 
@@ -52,6 +53,9 @@ class T_sales_visit extends MX_Controller {
             'm_employee.employee_name'=>isset($_POST['sales_name'])?$_POST['sales_name']:""
         );
         $where = array('sales_visit.status !=' => '3');
+		if($this->sessionGlobal['super_admin'] == "1") {
+            $where['sales_visit.id_branch'] = $this->sessionGlobal['id_branch'];
+        }
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"sales_visit.id",
             'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
