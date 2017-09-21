@@ -134,6 +134,12 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                     <span class="editable editable-click" id="city"><?php echo formatrp(((intval($data_product['grand_total']) - intval($discount_value)) + intval($tax))); ?></span>
                 </div>
             </div>
+			<div class="profile-info-row">
+                <div class="profile-info-name"> Signature </div>
+                <div class="profile-info-value text-right">
+					<img class="img-responsive" src="<?php echo base_url($data['so_signature']);?>">
+				</div>
+			</div>
         </div>
     </div>
 </div>
