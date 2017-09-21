@@ -58,6 +58,17 @@
                 <div class="porlets-content">
                     <div class="row">
                         <div class="col-md-12">
+							<?php if($this->sessionGlobal['super_admin'] == "2"){ ?>
+							<div class="form-group">
+								<label>Branch Office</label>
+								<select name="id_branch" parsley-trigger="change" required placeholder="Branch Office" class="form-control">
+									<option value=""></option>
+									<?php foreach($branch as $kBranch=>$vBranch) { ?>
+									<option value="<?php echo $vBranch['id'];?>" <?php echo ($data['id_branch']==$vBranch['id'] ? "selected" : "");?>><?php echo $vBranch['branch_name'];?></option>
+									<?php } ?>
+								</select>
+							</div>
+							<?php } ?>
                             <div class="form-group">
                                 <label>Date</label>
                                 <div class="input-daterange input-group">

@@ -47,6 +47,9 @@ class T_visit_form extends MX_Controller {
             'm_customer.customer_name'=>isset($_POST['attendence'])?$_POST['attendence']:""
         );
         $where = array('sales_visit_form.visit_form_status !=' => '3');
+		if($this->sessionGlobal['super_admin'] == "1") {
+            $where['sales_visit_form.id_branch'] = $this->sessionGlobal['id_branch'];
+        }
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"sales_visit_form.id",
             'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
@@ -72,9 +75,10 @@ class T_visit_form extends MX_Controller {
 
     public function add() {
         $this->breadcrumbs->push('Add', '/visit-form-add');
-        $data['employee']= $this->db->get_where('m_employee',array('employee_status'=>1))->result_array();
+        $data['employee']= $this->m_visit_form->getEmployee()->result_array();
         $data['activity']= $this->db->get_where('m_activity',array('activity_status'=>1))->result_array();
-        $data['code'] = $this->main_model->generate_code('sales_visit_form', $this->config->item('ojt_code') . "-" . date('ym'),'/' , $digit = 5, false,false, $where=array(),'id','id');
+        $data['branch'] = $this->db->get_where('m_branch',array('branch_status'=>1))->result_array();
+		$data['code'] = $this->main_model->generate_code('sales_visit_form', $this->config->item('ojt_code') . "-" . date('ym'),'/' , $digit = 5, false,false, $where=array(),'id','id');
         $data['view'] = "t_visit_form/add";
         $this->load->view('default', $data);
     }
@@ -82,7 +86,8 @@ class T_visit_form extends MX_Controller {
     public function edit($id) {
         $this->breadcrumbs->push('Edit', '/visit-form-edit');
         $data['employee']= $this->db->get_where('m_employee',array('employee_status'=>1))->result_array();
-        $data['activity']= $this->db->get_where('m_activity',array('activity_status'=>1))->result_array();
+        $data['branch'] = $this->db->get_where('m_branch',array('branch_status'=>1))->result_array();
+		$data['activity']= $this->db->get_where('m_activity',array('activity_status'=>1))->result_array();
         $data['data'] = $this->m_visit_form->getEditData($this->table, $id)->row_array();
         $data['view'] = 't_visit_form/edit';
         $this->load->view('default', $data);
