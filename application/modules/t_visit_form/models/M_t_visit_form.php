@@ -6,6 +6,11 @@ Class M_t_visit_form extends CI_Model {
 
     public function save() {
         $id = $this->input->post('id');
+		if ($this->sessionGlobal['super_admin'] == '1') {
+            $branch = $this->sessionGlobal['id_branch'];
+        } else {
+            $branch = $this->input->post('id_branch');
+        }
         $data = array(
             'visit_form_code' => $this->input->post('visit_form_code'),
             'visit_form_subject' => $this->input->post('visit_form_subject'),
@@ -17,7 +22,8 @@ Class M_t_visit_form extends CI_Model {
             'visit_form_location' => $this->input->post('visit_form_location'),
             'visit_form_description' => $this->input->post('visit_form_description'),
             'visit_form_objective' => $this->input->post('visit_form_objective'),
-            'visit_form_status' => $this->input->post('visit_form_status')
+            'visit_form_status' => $this->input->post('visit_form_status'),
+			'id_branch' => $branch,
         );
         if (empty($id)) {
             $this->db->insert($this->table, $this->main_model->create_sys($data));
@@ -54,7 +60,11 @@ Class M_t_visit_form extends CI_Model {
         $this->db->group_start();
         $this->db->or_like(array('customer_name'=>$q,'customer_code'=>$q));
         $this->db->group_end();
-        $this->db->where(array('customer_status' => 1));
+		if($this->sessionGlobal['super_admin'] == "1") {
+            $this->db->where('id_branch',$this->sessionGlobal['id_branch']);
+        }
+		$this->db->where('current_lead_customer_status','C');
+        $this->db->where('customer_status',1);
         return $this->db->get();
     }
     
@@ -65,5 +75,15 @@ Class M_t_visit_form extends CI_Model {
         $this->db->where(array($table.'.id'=>$id));
         return $this->db->get();
     }
+	
+	public function getEmployee() {
+		$this->db->select('*');
+		$this->db->from('m_employee');
+		$this->db->where('employee_status',1);
+		if($this->sessionGlobal['super_admin'] == "1") {
+            $this->db->where('id_branch',$this->sessionGlobal['id_branch']);
+        }
+		return $this->db->get();
+	}
 
 }
