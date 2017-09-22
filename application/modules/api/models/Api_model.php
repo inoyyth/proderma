@@ -33,6 +33,13 @@ class Api_model extends CI_Model {
             return false;
         }
     }
+	
+	private function __salesDetail($id_sales) {
+		$this->db->select("*");
+		$this->db->from("m_employee");
+		$this->db->where(array("id" => $id_sales));
+		return $this->db->get()->row_array();
+	}
 
     private function __setToken($data) {
         $token = bin2hex(openssl_random_pseudo_bytes(16));
@@ -265,6 +272,7 @@ class Api_model extends CI_Model {
     }
 
     public function sales_order($data) {
+		$sales = $this->__salesDetail($data['id_sales']);
         $dt = array(
             'so_code' => $this->__generate_code('t_sales_order', 'SO', '/', 8, true, true, 'id', 'so_code'),
             'so_date' => $data['date'],
@@ -279,7 +287,8 @@ class Api_model extends CI_Model {
             'so_tax_amount' => $data['tax_amount'],
             'so_grand_total' => $data['grand_total'],
             'sys_create_user' => $data['id_sales'],
-            'sys_create_date' => date('Y-m-d H:i:s')
+            'sys_create_date' => date('Y-m-d H:i:s'),
+			'id_branch' => $sales['id_branch']
         );
 
         if ($this->db->insert('t_sales_order', $dt)) {
