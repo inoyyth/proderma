@@ -41,6 +41,9 @@ class T_sales_delivery extends MX_Controller {
             't_sales_order.so_code'=>isset($_POST['so_code'])?$_POST['so_code']:""
         );
         $where = array('t_delivery_order.do_status !=' => '3');
+		if($this->sessionGlobal['super_admin'] == "1") {
+            $where['t_sales_order.id_branch'] = $this->sessionGlobal['id_branch'];
+        }
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"t_delivery_order.id",
             'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
@@ -53,11 +56,11 @@ class T_sales_delivery extends MX_Controller {
         
         $list = $this->m_sales_delivery->getListTable($field,$table, $join, $like, $where, $sort, $limit_row);
 
-        $total_records = $this->data_table->count_all($table, $where);
+        $total_records = count($list);
         $total_pages = ceil($total_records / $limit);
         $output = array(
             "last_page" => $total_pages,
-            "recordsTotal" => $this->data_table->count_all($table, $where),
+            "recordsTotal" => $total_records,
             "data" => $list,
         );
         //output to json format
@@ -98,6 +101,9 @@ class T_sales_delivery extends MX_Controller {
             //'t_sales_order.so_payment_term'=>isset($_POST['so_payment_term'])?$_POST['so_payment_term']:"",
             //'t_sales_order.so_discount_type'=>isset($_POST['so_discount_type'])?$_POST['so_discount_type']:""
         );
+		if($this->sessionGlobal['super_admin'] == "1") {
+            $where['t_sales_order.id_branch'] = $this->sessionGlobal['id_branch'];
+        }
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"t_sales_order.id",
             'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
@@ -110,7 +116,7 @@ class T_sales_delivery extends MX_Controller {
         
         $list = $this->m_sales_delivery->getListTableSo($field,$table, $join, $like, $where, $sort, $limit_row);
 
-        $total_records = $this->data_table->count_all($table, $where);
+        $total_records = count($list);
         $total_pages = ceil($total_records / $limit);
         $output = array(
             "last_page" => $total_pages,

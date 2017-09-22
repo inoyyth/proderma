@@ -45,7 +45,7 @@ class T_sales_order extends MX_Controller {
             't_sales_order.so_status !=' => '3',
         );
 		if($this->sessionGlobal['super_admin'] == "1") {
-            $where['m_customer.id_branch'] = $this->sessionGlobal['id_branch'];
+            $where['t_sales_order.id_branch'] = $this->sessionGlobal['id_branch'];
         }
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"t_sales_order.id",
