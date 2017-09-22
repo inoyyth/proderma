@@ -38,6 +38,9 @@ class R_transaksi extends MX_Controller {
         $where = array(
             't_sales_order.so_status !=' => '3',
         );
+		if($this->sessionGlobal['super_admin'] == "1") {
+            $where['t_sales_order.id_branch'] = $this->sessionGlobal['id_branch'];
+        }
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"t_sales_order.id",
             'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
