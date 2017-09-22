@@ -86,6 +86,7 @@
                 {title: "NIP", field: "employee_nip", sorter: "string", tooltip: true},
                 {title: "Name", field: "employee_name", sorter: "string", tooltip: true},
                 {title: "Position", field: "jabatan", sorter: "string"},
+				{title: "Branch", field: "branch_name", sorter: "string"},
                 {title: "Email", field: "employee_email", sorter: "string"},
                 {title: "Phone", field: "employee_phone", sorter: "string"},
                 {title: "Gender", field: "gender", sorter: "string"},

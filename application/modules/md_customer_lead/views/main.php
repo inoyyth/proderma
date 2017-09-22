@@ -192,6 +192,7 @@
                 {title: "Phone", field: "customer_phone", sorter: "string", tooltip: true},
                 {title: "Source Lead", field: "source_lead_customer", sorter: "string", tooltip: true},
                 {title: "Status Lead", field: "status_lead_customer", sorter: "string", tooltip: true},
+				{title: "Branch", field: "branch_name", sorter: "string", tooltip: true},
                 {title: "Priority Lead", field: "customer_as_priority", align:"center", sorter: "string", editable:true, formatter:"tickCross", editor:function(cell, value, data){
                         $("#example-table").tabulator("updateRow", 1, {id:1, name:"bob", gender:"male"});
                     },
