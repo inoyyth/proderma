@@ -44,6 +44,9 @@ class T_invoice extends MX_Controller {
             't_invoice.invoice_code'=>isset($_POST['invoice_code'])?$_POST['invoice_code']:""
         );
         $where = array('t_invoice.invoice_status !=' => '3');
+		if($this->sessionGlobal['super_admin'] == "1") {
+            $where['t_sales_order.id_branch'] = $this->sessionGlobal['id_branch'];
+        }
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"t_invoice.id",
             'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
@@ -56,11 +59,11 @@ class T_invoice extends MX_Controller {
         
         $list = $this->m_invoice->getListTable($field,$table, $join, $like, $where, $sort, $limit_row);
 
-        $total_records = $this->data_table->count_all($table, $where);
+        $total_records = count($list);
         $total_pages = ceil($total_records / $limit);
         $output = array(
             "last_page" => $total_pages,
-            "recordsTotal" => $this->data_table->count_all($table, $where),
+            "recordsTotal" => $total_records,
             "data" => $list,
         );
         //output to json format

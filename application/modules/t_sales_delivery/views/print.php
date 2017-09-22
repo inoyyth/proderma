@@ -88,10 +88,10 @@
                 <table>
                     <tr>
                         <td style="width: 70px;">
-                            No.Faktur
+                            No.DO
                         </td>
                         <td>
-                            : <?php echo $data['invoice_code']; ?>
+                            : <?php echo $data['do_code']; ?>
                         </td>
                     </tr>
                     <tr>
@@ -110,14 +110,14 @@
                             : <?php echo tanggalan($data['do_date']); ?>
                         </td>
                     </tr>
-                    <tr>
+                    <!--<tr>
                         <td>
                             Tgl.Jatuh Temp
                         </td>
                         <td>
-                            : <?php echo ($due_date['pay_date'] == null ? '-' : tanggalan($due_date['pay_date'])); ?>
+                            : <?php //echo ($due_date['pay_date'] == null ? '-' : tanggalan($due_date['pay_date'])); ?>
                         </td>
-                    </tr>
+                    </tr>-->
                 </table>
             <td>
         </table>
