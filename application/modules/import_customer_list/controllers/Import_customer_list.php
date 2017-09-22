@@ -322,7 +322,7 @@ class Import_customer_list extends MX_Controller {
     
     public function deleteListTable($dx=null){
         if($dx == null){
-            $data = json_decode($this->input->post('data'));
+            $data = json_decode($this->input->post('data'),true);
             $dt_array = array_column($data,'id');
         } else {
             $dt_array = $dx;
