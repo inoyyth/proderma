@@ -28,13 +28,15 @@ class Md_employee extends MX_Controller {
             "m_employee.*",
             "IF(m_employee.employee_gender='F','Female','Male') AS gender",
             "m_jabatan.jabatan",
+			"m_branch.branch_name",
             "IF(m_employee.employee_status=1,'Active','Not Active') AS status"
         );
         
         $offset = ($page - 1) * $limit;
 
         $join = array(
-            array('table' => 'm_jabatan', 'where' => 'm_jabatan.id=m_employee.id_jabatan', 'join' => 'left')
+            array('table' => 'm_jabatan', 'where' => 'm_jabatan.id=m_employee.id_jabatan', 'join' => 'left'),
+			array('table' => 'm_branch', 'where' => 'm_branch.id=m_employee.id_branch', 'join' => 'left')
         );
         $like = array(
             'm_jabatan.jabatan'=>isset($_POST['jabatan'])?$_POST['jabatan']:"",

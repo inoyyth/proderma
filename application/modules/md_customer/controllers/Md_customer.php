@@ -33,6 +33,7 @@ class Md_customer extends MX_Controller {
             "province.province_name",
             "city.city_name",
             "district.district_name",
+			"m_branch.branch_name",
             "IF(m_customer.customer_status=1,'Active','Not Active') AS status"
         );
         
@@ -43,7 +44,8 @@ class Md_customer extends MX_Controller {
             array('table' => 'status_list_customer', 'where' => 'status_list_customer.id=m_customer.id_status_list_customer', 'join' => 'left'),
             array('table' => 'province', 'where' => 'province.province_id=m_customer.customer_province', 'join' => 'left'),
             array('table' => 'city', 'where' => 'city.city_id=m_customer.customer_city', 'join' => 'left'),
-            array('table' => 'district', 'where' => 'district.district_id=m_customer.customer_district', 'join' => 'left')
+            array('table' => 'district', 'where' => 'district.district_id=m_customer.customer_district', 'join' => 'left'),
+			array('table' => 'm_branch', 'where' => 'm_branch.id=m_customer.id_branch', 'join' => 'left')
         );
         
         $like = array(

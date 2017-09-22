@@ -186,6 +186,7 @@
                 {title: "City", field: "city_name", sorter: "string", tooltip: true},
                 {title: "District", field: "district_name", sorter: "string", tooltip: true},
                 {title: "Address", field: "customer_address", sorter: "string", tooltip: true},
+				{title: "Branch", field: "branch_name", sorter: "string", tooltip: true},
                 {title: "Phone", field: "customer_phone", sorter: "string", tooltip: true},
                 {title: "Group Product", field: "group_customer_product", sorter: "string", tooltip: true},
                 {title: "Status", field: "status", sorter: "string", tooltip: true}
