@@ -184,7 +184,7 @@ class T_visit_form extends MX_Controller {
 		
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"sales_visit_form.id",
-            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"asc"
         );
 		
         $data['list'] = $this->m_visit_form->getListTable($field,$table, $join, $like, $where, $sort, false);
