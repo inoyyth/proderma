@@ -1,3 +1,13 @@
+<?php
+if ($data['so_discount_type'] == 1) {
+    $discount_value = $data['so_discount_value'];
+} else {
+    $discount_value = (($data_product['grand_total'] * intval($data['so_discount_value'])) / 100);
+}
+
+$tax = (($data_product['grand_total'] * 10) / 100);
+
+?>
 <style>
     @media screen {
         #printSection {
@@ -80,7 +90,7 @@
                 <table>
                     <tr>
                         <td style="width: 70px;">
-                            No. DO
+                            No. SO
                         </td>
                         <td>
                             : <?php echo $data['so_code']; ?>
@@ -128,7 +138,7 @@
                         <th>Name</th>
                         <th>Qty</th>
                         <th>Price</th>
-                        <th>Total</th>
+                        <th>SubTotal</th>
                         <th>Keterangan</th>
                     </tr>
                     </thead>
@@ -143,9 +153,30 @@
                         <td><?php echo $v['description'];?></td>
                     </tr>
                     <?php } ?>
+					<tr>
+						<td colspan="2" style="text-align: center;">Grand Total</td>
+						<td style="text-align: right;"><?php echo $data_product['total_item']; ?></td>
+						<td>&nbsp;</td>
+						<td style="text-align: right;"><?php echo formatrp($data_product['grand_total']); ?></td>
+					</tr>
+					<tr>
+						<td colspan="2" style="text-align: center;">Discount (+)</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td style="text-align: right;"><?php echo formatrp($discount_value); ?></td>
+					</tr>
+					<tr>
+						<td colspan="2" style="text-align: center;">Total</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td style="text-align: right;"><?php echo formatrp(((intval($data_product['grand_total']) - intval($discount_value)))); ?></td>
+					</tr>
                     </tbody>
                 </table>    
             </div>
+			<div class="col-lg-12" style="font-size: 8px;margin-top:-15px;">
+			* Semua Product Sudah Termasuk Ppn 10%.
+			</div>
         </div>
     </div>
     <br>

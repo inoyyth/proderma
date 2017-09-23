@@ -28,25 +28,44 @@ class T_sales_order extends MX_Controller {
             "t_sales_order.*",
             "m_customer.customer_code",
             "m_customer.customer_name",
+			"m_employee.employee_name",
             "IF(t_sales_order.so_status=1,'Active','Not Active') AS status"
         );
         
         $offset = ($page - 1) * $limit;
 
         $join = array(
-            array('table' => 'm_customer', 'where' => 'm_customer.id=t_sales_order.id_customer', 'join' => 'left')
+            array('table' => 'm_customer', 'where' => 'm_customer.id=t_sales_order.id_customer', 'join' => 'left'),
+			array('table' => 'm_employee', 'where' => 'm_employee.id=t_sales_order.id_sales', 'join' => 'left')
         );
+		
         $like = array(
             'm_customer.customer_code'=>isset($_POST['customer_code'])?$_POST['customer_code']:"",
             'm_customer.customer_name'=>isset($_POST['customer_name'])?$_POST['customer_name']:"",
+			'm_employee.employee_name'=>isset($_POST['employee_name'])?$_POST['employee_name']:"",
             't_sales_order.so_code'=>isset($_POST['so_code'])?$_POST['so_code']:""
         );
-        $where = array(
-            't_sales_order.so_status !=' => '3',
-        );
+
+        $where_1 = array('t_sales_order.so_status !=' => '3');
+		$where_2 = array();
+		if (isset($_POST['start']) && isset($_POST['end'])) {
+			if($_POST['start'] != null && $_POST['end'] != null) {
+				$where_2 = array(
+					'date(t_sales_order.so_date) >=' => $_POST['start'],
+					'date(t_sales_order.so_date) <=' => $_POST['end'],
+				);
+			} else if ($_POST['start'] != "") {
+				$where_2 = array('date(t_sales_order.so_date) =' => $_POST['start']);
+			} else if ($_POST['end'] != "") {
+				$where_2 = array('date(t_sales_order.so_date) =' => $_POST['end']);
+			}
+		}
+		$where_3 = array();
 		if($this->sessionGlobal['super_admin'] == "1") {
-            $where['t_sales_order.id_branch'] = $this->sessionGlobal['id_branch'];
+            $where_3['t_sales_order.id_branch'] = $this->sessionGlobal['id_branch'];
         }
+		$where = array_merge($where_1,$where_2,$where_3);
+		
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"t_sales_order.id",
             'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
@@ -129,5 +148,57 @@ class T_sales_order extends MX_Controller {
         $data['list_product'] = $this->m_t_sales_order->get_list_product($id)->result_array();
         $data['data_product'] = $this->m_t_sales_order->get_detail_product($id)->row_array();
         $this->load->view('t_sales_order/print',$data);
+    }
+	
+	public function print_excel() {
+		$table = 't_sales_order'; 
+        
+        $field = array(
+            "t_sales_order.*",
+            "m_customer.customer_code",
+            "m_customer.customer_name",
+			"m_employee.employee_name",
+			"m_employee.employee_nip",
+            "IF(t_sales_order.so_status=1,'Active','Not Active') AS status"
+        );
+        $join = array(
+            array('table' => 'm_customer', 'where' => 'm_customer.id=t_sales_order.id_customer', 'join' => 'left'),
+			array('table' => 'm_employee', 'where' => 'm_employee.id=t_sales_order.id_sales', 'join' => 'left')
+        );
+		
+        $like = array();
+		if (isset($_GET['sales']) && $_GET['sales'] != "") {
+			$like['m_employee.employee_name'] = $_GET['sales'];
+		}
+
+        $where_1 = array('t_sales_order.so_status !=' => '3');
+		$where_2 = array();
+		if (isset($_GET['start']) && isset($_GET['end'])) {
+			if($_GET['start'] != null && $_GET['end'] != null) {
+				$where_2 = array(
+					'date(t_sales_order.so_date) >=' => $_GET['start'],
+					'date(t_sales_order.so_date) <=' => $_GET['end'],
+				);
+			} else if ($_GET['start'] != "") {
+				$where_2 = array('date(t_sales_order.so_date) =' => $_GET['start']);
+			} else if ($_GET['end'] != "") {
+				$where_2 = array('date(t_sales_order.so_date) =' => $_GET['end']);
+			}
+		}
+		$where_3 = array();
+		if($this->sessionGlobal['super_admin'] == "1") {
+            $where_3['t_sales_order.id_branch'] = $this->sessionGlobal['id_branch'];
+        }
+		$where = array_merge($where_1,$where_2,$where_3);
+		
+        $sort = array(
+            'sort_field' => isset($_POST['sort'])?$_POST['sort']:"t_sales_order.id",
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"asc"
+        );
+		
+        $data['list'] = $this->m_t_sales_order->getListTable($field,$table, $join, $like, $where, $sort, false);
+        $data['template_excel'] = "t_sales_order/table_excel";
+        $data['file_name'] = "sales_order";
+        $this->load->view('template_excel', $data);
     }
 }

@@ -1,5 +1,5 @@
 <?php
-if ($data['so_discount_type'] == 'Fixed') {
+if ($data['so_discount_type'] == 1) {
     $discount_value = $data['so_discount_value'];
 } else {
     $discount_value = (($data_product['grand_total'] * intval($data['so_discount_value'])) / 100);
@@ -43,10 +43,17 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                     <span class="editable editable-click" id="signup"><?php echo $data['employee_phone']; ?></span>
                 </div>
             </div>
+			<div class="profile-info-row">
+                <div class="profile-info-name"> Branch </div>
+                <div class="profile-info-value">
+                    <span class="editable editable-click" id="signup"><?php echo $data['branch_name']; ?></span>
+                </div>
+            </div>
         </div>
         <br>
         <div class="row" style="padding-left: 24px;">
-            <a href="<?php echo site_url('sales-order'); ?>" class="btn btn-warning btn-sm">Back</a>
+            <a href="<?php echo site_url('sales-order'); ?>" class="btn btn-warning btn-sm">Back</a> 
+			<a href="<?php echo site_url('sales-order-print-'.$data['id']);?>" type="button" id="btn-print" class="btn btn-sm btn-default"><i class="fa fa-print"></i> Print</a>
         </div>
     </div>
     <div class="col-lg-5">
@@ -101,7 +108,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
             <div class="profile-info-row">
                 <div class="profile-info-name"> Disc.Type </div>
                 <div class="profile-info-value">
-                    <span class="editable editable-click" id="city"><?php echo $data['so_discount_type'] . ($data['so_discount_type'] == "Percent" ? " (" . $data['so_discount_value'] . "%)" : ""); ?></span>
+                    <span class="editable editable-click" id="city"><?php echo ($data['so_discount_type'] == 1 ? "Fixed" : "Percent") . ($data['so_discount_type'] == "2" ? " (" . $data['so_discount_value'] . "%)" : ""); ?></span>
                 </div>
             </div>
             <div class="profile-info-row">
@@ -122,16 +129,16 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                     <span class="editable editable-click" id="city"><?php echo formatrp($discount_value); ?></span>
                 </div>
             </div>
-            <div class="profile-info-row">
+            <!--<div class="profile-info-row">
                 <div class="profile-info-name"> Tax(10%) (+) </div>
                 <div class="profile-info-value text-right">
                     <span class="editable editable-click" id="city"><?php echo formatrp($tax); ?></span>
                 </div>
-            </div>
+            </div>-->
             <div class="profile-info-row">
                 <div class="profile-info-name"> TOTAL </div>
                 <div class="profile-info-value text-right">
-                    <span class="editable editable-click" id="city"><?php echo formatrp(((intval($data_product['grand_total']) - intval($discount_value)) + intval($tax))); ?></span>
+                    <span class="editable editable-click" id="city"><?php echo formatrp(((intval($data_product['grand_total']) - intval($discount_value)))); ?></span>
                 </div>
             </div>
 			<div class="profile-info-row">
@@ -140,6 +147,17 @@ $tax = (($data_product['grand_total'] * 10) / 100);
 					<img class="img-responsive" src="<?php echo base_url($data['so_signature']);?>">
 				</div>
 			</div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="modalPrint" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div id="print-content"></div>
         </div>
     </div>
 </div>
@@ -166,6 +184,16 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                 {title: "SubTotal", field: "SubTotal", formatter: "money", sorter: "number", tooltip: true},
                 {title: "Desc", field: "description", sorter: "string", tooltip: true},
              ]
+        });
+		
+		$("#btn-print").click(function (event) {
+            event.preventDefault();
+            if($(this).attr('href') !== "") {
+                $("#print-content").load($(this).attr('href')); 
+                $('#modalPrint').modal('show');
+            } else {
+                alert('please select data');
+            }
         });
     });
 </script>

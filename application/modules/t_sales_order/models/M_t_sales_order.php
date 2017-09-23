@@ -90,6 +90,7 @@ Class M_t_sales_order extends CI_Model {
                           . 'm_employee.photo_path,'
                           . 'm_employee.employee_email,'
                           . 'm_employee.employee_phone,'
+						  . 'm_branch.branch_name,'
                           . 'm_payment_type.payment_type'
                 );
         $this->db->from($table);
@@ -98,6 +99,7 @@ Class M_t_sales_order extends CI_Model {
         $this->db->join('m_payment_type','m_payment_type.id='.$table.'.so_payment_term','INNER');
         $this->db->join('m_area','m_area.id=m_customer.id_area','INNER');
         $this->db->join('m_subarea','m_subarea.id=m_customer.id_subarea','INNER');
+		$this->db->join('m_branch','m_branch.id=m_employee.id_branch','INNER');
         $this->db->where(array($table.'.id'=>$id));
         return $this->db->get();
     }
