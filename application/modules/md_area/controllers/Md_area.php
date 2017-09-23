@@ -104,9 +104,22 @@ class Md_area extends MX_Controller {
     }
 
     public function print_excel() {
-        $data['template_excel'] = "md_area/" . $_GET['template'];
-        $data['file_name'] = $_GET['name'];
-        $data['list'] = $this->db->get($this->table)->result_array();
+		$table = 'm_area'; 
+        
+        $field = array(
+            "m_area.*",
+            "IF(m_area.area_status=1,'Active','Not Active') AS status"
+        );
+		$join = array();
+        $like = array();
+        $where = array('m_area.area_status !=' => '3');
+        $sort = array(
+            'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_area.area_name",
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"asc"
+        );
+        $data['list'] = $this->m_md_area->getListTable($field,$table, $join, $like, $where, $sort, 100000);
+        $data['template_excel'] = "md_area/table_excel";
+        $data['file_name'] = "master_area";
         $this->load->view('template_excel', $data);
     }
 

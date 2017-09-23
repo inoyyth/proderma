@@ -52,13 +52,23 @@ class T_promo_product extends MX_Controller {
         );
         
         $list = $this->m_promo->getListTable($field,$table, $join, $like, $where, $sort, $limit_row);
-
-        $total_records = $this->data_table->count_all($table, $where);
+		$dx = array();
+		foreach ($list as $k => $v) {
+			$file = explode('/',$v['promo_file']);
+			$dx[] = array(
+				'promo_code' => $v['promo_code'],
+				'promo_name' => $v['promo_name'],
+				'promo_description' => $v['promo_description'],
+				'status' => $v['status'],
+				'file' => 'print-promo-'.end($file)
+			);
+		}
+        $total_records = count($this->m_promo->getListTable($field,$table, $join, $like, $where, $sort, false));
         $total_pages = ceil($total_records / $limit);
         $output = array(
             "last_page" => $total_pages,
-            "recordsTotal" => $this->data_table->count_all($table, $where),
-            "data" => $list,
+            "recordsTotal" => $total_records,
+            "data" => $dx,
         );
         //output to json format
         echo json_encode($output);
@@ -108,16 +118,39 @@ class T_promo_product extends MX_Controller {
 		echo json_encode($dt);
 	}
 
-    public function print_pdf() {
-        $data['template'] = array("template" => "t_promo_product/" . $_GET['template'], "filename" => $_GET['name']);
-        $data['list'] = $this->db->get($this->table)->result_array();
-        $this->printpdf->create_pdf($data);
+    public function print_pdf($filex) {
+        $file = base_url('assets/images/promo_product/'.$filex); 
+		$filename = 'promo.pdf'; /* Note: Always use .pdf at the end. */
+		$content = file_get_contents($file);
+
+		header('Content-type: application/pdf');
+		header('Content-Disposition: inline; filename="' . $file. '"');
+		header('Content-Transfer-Encoding: binary');
+		//header('Content-Length: ' . filesize($content));
+		header('Accept-Ranges: bytes');
+
+		@readfile($file);
     }
 
     public function print_excel() {
-        $data['template_excel'] = "t_promo_product/" . $_GET['template'];
-        $data['file_name'] = $_GET['name'];
-        $data['list'] = $this->db->get($this->table)->result_array();
+		$table = 'm_promo_product'; 
+        $field = array(
+            "m_promo_product.*",
+            "IF(m_promo_product.promo_status=1,'Active','Not Active') AS status"
+        );
+        $join = array();
+        $like = array();
+        $where = array('m_promo_product.promo_status !=' => '3');
+		if($this->sessionGlobal['super_admin'] == "1") {
+            $where['m_promo_product.id_branch'] = $this->sessionGlobal['id_branch'];
+        }
+        $sort = array(
+            'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_promo_product.id",
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
+        );
+        $data['list'] = $this->m_promo->getListTable($field,$table, $join, $like, $where, $sort, false);
+        $data['template_excel'] = "t_promo_product/table_excel";
+        $data['file_name'] = "master_promo";
         $this->load->view('template_excel', $data);
     }
 

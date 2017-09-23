@@ -23,6 +23,7 @@ Class M_t_visit_form extends CI_Model {
             'visit_form_description' => $this->input->post('visit_form_description'),
             'visit_form_objective' => $this->input->post('visit_form_objective'),
             'visit_form_status' => $this->input->post('visit_form_status'),
+			'visit_form_progress' => ($this->input->post('visit_form_progress') != null ? $this->input->post('visit_form_progress') : 'PENDING'),
 			'id_branch' => $branch,
         );
         if (empty($id)) {
@@ -50,7 +51,9 @@ Class M_t_visit_form extends CI_Model {
             $this->db->like($like);
         }
         $this->db->order_by($sort['sort_field'],$sort['sort_direction']);
-        $this->db->limit($limit['limit'],$limit['offset']);
+		if ($limit) {
+			$this->db->limit($limit['limit'],$limit['offset']);
+		}
         return $sql = $this->db->get()->result_array();
     }
     
@@ -79,7 +82,7 @@ Class M_t_visit_form extends CI_Model {
 	public function getEmployee() {
 		$this->db->select('*');
 		$this->db->from('m_employee');
-		$this->db->where('employee_status',1);
+		$this->db->where(array('employee_status'=>1,'id_jabatan'=>6));
 		if($this->sessionGlobal['super_admin'] == "1") {
             $this->db->where('id_branch',$this->sessionGlobal['id_branch']);
         }

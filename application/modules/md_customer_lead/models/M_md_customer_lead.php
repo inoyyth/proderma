@@ -87,7 +87,9 @@ Class M_md_customer_lead extends CI_Model {
             $this->db->like($like);
         }
         $this->db->order_by($sort['sort_field'],$sort['sort_direction']);
-        $this->db->limit($limit['limit'],$limit['offset']);
+		if(isset($limit)) {
+			$this->db->limit($limit['limit'],$limit['offset']);
+		}
         return $sql = $this->db->get()->result_array();
         //echo json_encode($sql);
     }

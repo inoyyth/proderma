@@ -26,13 +26,15 @@ class T_mapping_area extends MX_Controller {
         
         $field = array(
             "m_employee.*",
-            "m_jabatan.jabatan"
+            "m_jabatan.jabatan",
+			"m_branch.branch_name"
         );
         
         $offset = ($page - 1) * $limit;
 
         $join = array(
             array('table' => 'm_jabatan', 'where' => 'm_employee.id_jabatan=m_jabatan.id', 'join' => 'left'),
+			array('table' => 'm_branch', 'where' => 'm_employee.id_branch=m_branch.id', 'join' => 'left')
          );
         
         $like = array(
@@ -56,11 +58,11 @@ class T_mapping_area extends MX_Controller {
         
         //log_message('debug',print_r($dtx,TRUE));
         
-        $total_records = $this->data_table->count_all($table, $where);
+        $total_records = count($this->m_mapping_area->getListTable($field,$table, $join, $like, $where, $sort, false));
         $total_pages = ceil($total_records / $limit);
         $output = array(
             "last_page" => ($total_pages==0?1:$total_pages),
-            "recordsTotal" => $this->data_table->count_all($table, $where),
+            "recordsTotal" => $total_records,
             "data" => $list,
         );
         //output to json format
@@ -104,19 +106,6 @@ class T_mapping_area extends MX_Controller {
             $dt[] = array($v['customer_clinic'],$v['customer_latitude'],$v['customer_longitude']);
         }
         echo json_encode($dt);
-    }
-
-    public function print_pdf() {
-        $data['template'] = array("template" => "md_level/" . $_GET['template'], "filename" => $_GET['name']);
-        $data['list'] = $this->db->get($this->table)->result_array();
-        $this->printpdf->create_pdf($data);
-    }
-
-    public function print_excel() {
-        $data['template_excel'] = "md_level/" . $_GET['template'];
-        $data['file_name'] = $_GET['name'];
-        $data['list'] = $this->db->get($this->table)->result_array();
-        $this->load->view('template_excel', $data);
     }
     
     public function getAvailableCustomer($id) {
@@ -248,5 +237,32 @@ class T_mapping_area extends MX_Controller {
         } else {
             echo json_encode(array('code'=>204));
         }
+    }
+	
+	public function print_excel() {
+		$table = 'm_employee'; 
+        $field = array(
+            "m_employee.*",
+            "m_jabatan.jabatan",
+			"m_branch.branch_name"
+        );
+        $join = array(
+            array('table' => 'm_jabatan', 'where' => 'm_employee.id_jabatan=m_jabatan.id', 'join' => 'left'),
+			array('table' => 'm_branch', 'where' => 'm_employee.id_branch=m_branch.id', 'join' => 'left')
+		);
+        $like = array();
+        $where = array('m_employee.id_jabatan'=>1);
+        if($this->sessionGlobal['super_admin'] == "1") {
+            $where['m_employee.id_branch'] = $this->sessionGlobal['id_branch'];
+        }
+        $sort = array(
+            'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_employee.employee_name",
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"asc"
+        );
+		
+        $data['list'] = $this->m_mapping_area->getListTable($field,$table, $join, $like, $where, $sort, 100000);
+        $data['template_excel'] = "t_mapping_area/table_excel";
+        $data['file_name'] = "mapping_area";
+        $this->load->view('template_excel', $data);
     }
 }

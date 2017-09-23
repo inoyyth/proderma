@@ -27,13 +27,15 @@ class Md_product extends MX_Controller {
         $field = array(
             "m_product.*",
             "m_product_category.product_category",
+			"m_group_product.group_product",
             "IF(m_product.product_status=1,'Active','Not Active') AS status"
         );
         
         $offset = ($page - 1) * $limit;
 
         $join = array(
-            array('table' => 'm_product_category', 'where' => 'm_product_category.id=m_product.id_product_category', 'join' => 'left')
+            array('table' => 'm_product_category', 'where' => 'm_product_category.id=m_product.id_product_category', 'join' => 'left'),
+			array('table' => 'm_group_product', 'where' => 'm_group_product.id=m_product.id_group_product', 'join' => 'left')
         );
         $like = array(
             'm_product_category.product_category'=>isset($_POST['category'])?$_POST['category']:"",
@@ -112,9 +114,28 @@ class Md_product extends MX_Controller {
     }
 
     public function print_excel() {
-        $data['template_excel'] = "md_product/" . $_GET['template'];
-        $data['file_name'] = $_GET['name'];
-        $data['list'] = $this->db->get($this->table)->result_array();
+		$table = 'm_product'; 
+        
+        $field = array(
+            "m_product.*",
+            "m_product_category.product_category",
+			"m_group_product.group_product",
+            "IF(m_product.product_status=1,'Active','Not Active') AS status"
+        );
+		$join = array(
+            array('table' => 'm_product_category', 'where' => 'm_product_category.id=m_product.id_product_category', 'join' => 'left'),
+			array('table' => 'm_group_product', 'where' => 'm_group_product.id=m_product.id_group_product', 'join' => 'left')
+        );
+		$like = array();
+		$where = array('m_product.product_status !=' => '3');
+		$sort = array(
+            'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_product.product_name",
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"asc"
+        );
+		
+        $data['list'] = $this->m_md_product->getListTable($field,$table, $join, $like, $where, $sort, 100000);
+        $data['template_excel'] = "md_product/table_excel";
+        $data['file_name'] = "master_product";
         $this->load->view('template_excel', $data);
     }
     

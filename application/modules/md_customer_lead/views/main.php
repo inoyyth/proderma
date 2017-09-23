@@ -94,6 +94,7 @@
         <a href="#" type="button" id="btn-priority" class="btn btn-xs btn-default"><i class="fa fa-info-circle"></i> Set Priority</a>
         <a href="#" type="button" id="btn-undo-priority" class="btn btn-xs btn-default"><i class="fa fa-info-circle"></i> Undo Priority</a>
         <a href="#" type="button" id="btn-set-customer" class="btn btn-xs btn-default"><i class="fa fa-info-circle"></i> Set As Customer</a>
+		<a href="<?php echo base_url('md_customer_lead/print_excel');?>" type="button" id="btn-excel" class="btn btn-xs btn-default"><i class="fa fa-edit"></i> Excel</a>
     </div>
     <div class="col-lg-12">
         <div id="example-table"></div>

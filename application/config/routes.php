@@ -196,6 +196,7 @@ $route['promo-product-edit-(:num)'] = 't_promo_product/edit/$1';
 $route['promo-product-delete-(:num)'] = 't_promo_product/delete/$1';
 $route['promo-product-detail-(:num)'] = 't_promo_product/detail/$1';
 $route['promo-product-save'] = 't_promo_product/save';
+$route['print-promo-(:any)'] = 't_promo_product/print_pdf/$1';
 
 $route['sales-delivery'] = 't_sales_delivery';
 $route['sales-delivery-add'] = 't_sales_delivery/add';

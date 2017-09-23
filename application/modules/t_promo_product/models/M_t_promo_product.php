@@ -68,7 +68,9 @@ Class M_t_promo_product extends CI_Model {
             $this->db->like($like);
         }
         $this->db->order_by($sort['sort_field'],$sort['sort_direction']);
-        $this->db->limit($limit['limit'],$limit['offset']);
+		if ($limit) {
+			$this->db->limit($limit['limit'],$limit['offset']);
+		}
         return $sql = $this->db->get()->result_array();
     }
 

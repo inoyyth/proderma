@@ -1,20 +1,24 @@
 <table border="1" cellpadding="2">
-        <tr>
-            <td align="center">Username</td>
-			<td align="center">Nama Lengkap</td>
-            <td align="center">Telepon</td>
+        <tr style="font-weight: bolder;">
+            <td align="center">NIP</td>
+			<td align="center">Name</td>
+            <td align="center">Position</td>
+            <td align="center">Branch</td>
             <td align="center">Email</td>
-            <td align="center">Last Login</td>
+			<td align="center">Phone</td>
+			<td align="center">Gender</td>
 			<td align="center">Status</td>
         </tr>
 		<?php foreach($list as $kList=>$vList){ ?>
 			<tr>
-				<td><?php echo $vList['username'];?></td>
-				<td><?php echo $vList['nama_lengkap'];?></td>
-                <td><?php echo $vList['no_telp'];?></td>
-                <td><?php echo $vList['email'];?></td>
-                <td><?php echo $vList['last_login'];?></td>
-				<td><?php echo get_status($vList['status']);?></td>
+				<td><?php echo $vList['employee_nip'];?></td>
+				<td><?php echo $vList['employee_name'];?></td>
+				<td><?php echo $vList['jabatan'];?></td>
+				<td><?php echo $vList['branch_name'];?></td>
+                <td><?php echo $vList['employee_email'];?></td>
+				<td><?php echo $vList['employee_phone'];?></td>
+                <td><?php echo $vList['gender'];?></td>
+                <td><?php echo $vList['status'];?></td>
 			</tr>
 		<?php } ?>
     </table>

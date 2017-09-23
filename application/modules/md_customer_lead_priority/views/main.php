@@ -89,6 +89,7 @@
     </div>
     <div class="col-lg-12" style="padding-bottom: 2px;">
         <!--<a href="#" type="button" id="btn-edit" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> Edit</a>-->
+		<a href="<?php echo base_url('md_customer_lead_priority/print_excel');?>" type="button" id="btn-excel" class="btn btn-xs btn-default"><i class="fa fa-edit"></i> Excel</a>
     </div>
     <div class="col-lg-12">
         <div id="example-table"></div>

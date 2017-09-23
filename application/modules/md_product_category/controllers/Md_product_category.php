@@ -103,9 +103,23 @@ class Md_product_category extends MX_Controller {
     }
 
     public function print_excel() {
-        $data['template_excel'] = "md_product_category/" . $_GET['template'];
-        $data['file_name'] = $_GET['name'];
-        $data['list'] = $this->db->get($this->table)->result_array();
+		$table = 'm_product_category'; 
+        
+        $field = array(
+            "m_product_category.*",
+            "IF(m_product_category.product_category_status=1,'Active','Not Active') AS status"
+        );
+		$join = array();
+		$like = array();
+		$where = array('m_product_category.product_category_status !=' => '3');
+        $sort = array(
+            'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_product_category.product_category",
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"asc"
+        );
+		
+        $data['list'] = $this->m_md_product_category->getListTable($field,$table, $join, $like, $where, $sort, 100000);
+        $data['template_excel'] = "md_product_category/table_excel";
+        $data['file_name'] = "master_product_category";
         $this->load->view('template_excel', $data);
     }
 
