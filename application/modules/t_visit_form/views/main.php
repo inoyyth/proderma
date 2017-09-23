@@ -26,7 +26,7 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
-                                    <label class="small">Sales</label>
+                                    <label class="small">Supervisor</label>
                                     <input type="text" class="form-control input-sm" id="search-sales">
                                 </div>
                             </div>
@@ -111,7 +111,7 @@
     }
 
     function filterTable() {
-        $('#btn-excel').attr('href', '<?php echo base_url();?>t_visit_form/print_excel?start_date=' + $('#search-start').val() + '&end_date=' + $('#search-end').val());
+        $('#btn-excel').attr('href', '<?php echo base_url();?>t_visit_form/print_excel?start_date=' + $('#search-start').val() + '&end_date=' + $('#search-end').val() + '&supervisor=' + $('#search-sales').val());
         var params = {
             code: $('#search-code').val(),
             sales: $('#search-sales').val(),

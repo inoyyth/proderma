@@ -159,7 +159,9 @@ class T_visit_form extends MX_Controller {
             array('table' => 'm_activity', 'where' => 'm_activity.id=sales_visit_form.visit_form_activity', 'join' => 'left')
         );
 		$like = array();
-		
+		if (isset($_GET['supervisor']) && $_GET['supervisor'] != "") {
+			$like['m_employee.employee_name'] = $_GET['supervisor'];
+		}
 		$where_1 = array('sales_visit_form.visit_form_status !=' => '3');
 		$where_2 = array();
 		if (isset($_GET['start_date']) && isset($_GET['end_date'])) {
