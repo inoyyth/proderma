@@ -56,9 +56,9 @@ class T_visit_form extends MX_Controller {
 					'date(sales_visit_form.visit_form_end_date) <=' => $_POST['end'],
 				);
 			} else if ($_POST['start'] != "") {
-				$where_2 = array('date(sales_visit_form.visit_form_start_date) =' => $_POST['start']);
+				$where_2 = array('date(sales_visit_form.visit_form_start_date) >=' => $_POST['start']);
 			} else if ($_POST['end'] != "") {
-				$where_2 = array('date(sales_visit_form.visit_form_end_date) =' => $_POST['end']);
+				$where_2 = array('date(sales_visit_form.visit_form_end_date) <=' => $_POST['end']);
 			}
 		}
 		$where_3 = array();
@@ -165,15 +165,15 @@ class T_visit_form extends MX_Controller {
 		$where_1 = array('sales_visit_form.visit_form_status !=' => '3');
 		$where_2 = array();
 		if (isset($_GET['start_date']) && isset($_GET['end_date'])) {
-			if($_GET['start_date'] != null && $_GET['start_date'] != null) {
+			if($_GET['start_date'] != null && $_GET['end_date'] != null) {
 				$where_2 = array(
 					'date(sales_visit_form.visit_form_start_date) >=' => $_GET['start_date'],
-					'date(sales_visit_form.visit_form_end_date) <=' => $_GET['start_date'],
+					'date(sales_visit_form.visit_form_end_date) <=' => $_GET['end_date'],
 				);
 			} else if ($_GET['start_date'] != "") {
-				$where_2 = array('date(sales_visit_form.visit_form_start_date) =' => $_GET['start_date']);
-			} else if ($_GET['start_date'] != "") {
-				$where_2 = array('date(sales_visit_form.visit_form_end_date) =' => $_GET['start_date']);
+				$where_2 = array('date(sales_visit_form.visit_form_start_date) >=' => $_GET['start_date']);
+			} else if ($_GET['end_date'] != "") {
+				$where_2 = array('date(sales_visit_form.visit_form_end_date) <=' => $_GET['end_date']);
 			}
 		}
 		$where_3 = array();
