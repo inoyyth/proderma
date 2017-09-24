@@ -84,6 +84,7 @@
 				{title: "Customer Code", field: "customer_code", sorter: "string", tooltip: true},
 				{title: "Customer Name", field: "customer_name", sorter: "string", tooltip: true},
                 {title: "Date", field: "do_date", sorter: "string", tooltip: true},
+				{title: "Progress", field: "do_sales_status", sorter: "string", tooltip: true},
              ],
             selectable: 1,
             rowSelectionChanged: function (data, rows) {

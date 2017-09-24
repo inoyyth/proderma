@@ -17,6 +17,16 @@
                                 <label>Invoice Date</label>
                                 <input type="text" name="do_date" readonly="true" value="<?php echo $data['invoice_date']; ?>" parsley-trigger="change" required  class="form-control">
                             </div>
+							<div class="form-group">
+                                <label>Invoice Progress</label>
+                                <input type="text" name="do_date" readonly="true" value="<?php echo $data['invoice_sales_status']; ?>" parsley-trigger="change" required  class="form-control">
+                            </div>
+							<?php if($data['so_payment_term'] == 3) { ?>
+							<div class="form-group">
+                                <label>Due Date</label>
+                                <input type="text" name="do_date" readonly="true" value="<?php echo $data['due_date']; ?>" parsley-trigger="change" required  class="form-control">
+                            </div>
+							<?php } ?>
                         </div>
                     </div>
                     <a href="<?php echo site_url('invoice'); ?>" class="btn btn-default">Back</a>
