@@ -88,6 +88,7 @@
     </div>
 </div>
 <script src="<?php echo base_url(); ?>themes/assets/plugin/Highcharts-5.0.14/code/js/highcharts.js"></script>
+<script src="<?php echo base_url(); ?>themes/assets/plugin/Highcharts-5.0.14/code/js/modules/exporting.js"></script>
 <script>
     $(document).ready(function () {
         
@@ -131,6 +132,11 @@
                         text: 'Value'
                     }
                 },
+				navigation: {
+					buttonOptions: {
+						enabled: true
+					}
+				},
                 plotOptions: {
                     line: {
                         dataLabels: {

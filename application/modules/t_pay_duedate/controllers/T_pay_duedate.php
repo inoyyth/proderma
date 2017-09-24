@@ -30,6 +30,7 @@ class T_pay_duedate extends MX_Controller {
             "t_delivery_order.do_code",
             "t_invoice.invoice_code",
             "t_invoice.due_date",
+			"t_invoice.no_faktur",
             "(CASE WHEN DATE(due_date) <= DATE(NOW()) AND t_pay_duedate.pay_duedate_status = 'WAIT' THEN 'red' WHEN DATE(due_date) <= DATE(NOW()) AND t_pay_duedate.pay_duedate_status = 'DONE' THEN 'green' WHEN DATE(due_date) >= DATE(NOW()) AND t_pay_duedate.pay_duedate_status = 'DONE' THEN 'green' ELSE 'yellow' END) AS color"
         );
         
@@ -46,10 +47,25 @@ class T_pay_duedate extends MX_Controller {
             't_delivery_order.do_code'=>isset($_POST['do_code'])?$_POST['do_code']:"",
             't_invoice.invoice_code'=>isset($_POST['invoice_code'])?$_POST['invoice_code']:"",
         );
-        $where = array();
+        $where_2 = array();
+		if (isset($_POST['start']) && isset($_POST['end'])) {
+			if($_POST['start'] != null && $_POST['end'] != null) {
+				$where_2 = array(
+					'date(t_invoice.due_date) >=' => $_POST['start'],
+					'date(t_invoice.due_date) <=' => $_POST['end'],
+				);
+			} else if ($_POST['start'] != "") {
+				$where_2 = array('date(t_invoice.due_date) >=' => $_POST['start']);
+			} else if ($_POST['end'] != "") {
+				$where_2 = array('date(t_invoice.due_date) <=' => $_POST['end']);
+			}
+		}
+		$where_3 = array();
 		if($this->sessionGlobal['super_admin'] == "1") {
-            $where['t_sales_order.id_branch'] = $this->sessionGlobal['id_branch'];
+            $where_3['t_sales_order.id_branch'] = $this->sessionGlobal['id_branch'];
         }
+		$where = array_merge($where_2,$where_3);
+		
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"t_pay_duedate.id",
             'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
@@ -62,7 +78,7 @@ class T_pay_duedate extends MX_Controller {
         
         $list = $this->m_duedate->getListTable($field,$table, $join, $like, $where, $sort, $limit_row);
 
-        $total_records = count($list);
+        $total_records = count($this->m_duedate->getListTable($field,$table, $join, $like, $where, $sort, false));
         $total_pages = ceil($total_records / $limit);
         $output = array(
             "last_page" => $total_pages,
@@ -92,5 +108,53 @@ class T_pay_duedate extends MX_Controller {
         } else {
             show_404();
         }
+    }
+	
+	public function print_excel() {
+		$table = 't_pay_duedate'; 
+        $field = array(
+            "t_pay_duedate.*",
+            "t_sales_order.so_code",
+            "t_delivery_order.do_code",
+            "t_invoice.invoice_code",
+            "t_invoice.due_date",
+			"t_invoice.no_faktur",
+            "(CASE WHEN DATE(due_date) <= DATE(NOW()) AND t_pay_duedate.pay_duedate_status = 'WAIT' THEN 'red' WHEN DATE(due_date) <= DATE(NOW()) AND t_pay_duedate.pay_duedate_status = 'DONE' THEN 'green' WHEN DATE(due_date) >= DATE(NOW()) AND t_pay_duedate.pay_duedate_status = 'DONE' THEN 'green' ELSE 'yellow' END) AS color"
+        );
+        $join = array(
+            array('table' => 't_invoice', 'where' => 't_pay_duedate.id_invoice=t_invoice.id', 'join' => 'left'),
+            array('table' => 't_delivery_order', 'where' => 't_invoice.id_do=t_delivery_order.id', 'join' => 'left'),
+            array('table' => 't_sales_order', 'where' => 't_invoice.id_so=t_sales_order.id', 'join' => 'left')
+        );
+        
+        $like = array();
+        $where_2 = array();
+		if (isset($_GET['start']) && isset($_GET['end'])) {
+			if($_GET['start'] != null && $_GET['end'] != null) {
+				$where_2 = array(
+					'date(t_invoice.due_date) >=' => $_GET['start'],
+					'date(t_invoice.due_date) <=' => $_GET['end'],
+				);
+			} else if ($_GET['start'] != "") {
+				$where_2 = array('date(t_invoice.due_date) >=' => $_GET['start']);
+			} else if ($_GET['end'] != "") {
+				$where_2 = array('date(t_invoice.due_date) <=' => $_GET['end']);
+			}
+		}
+		$where_3 = array();
+		if($this->sessionGlobal['super_admin'] == "1") {
+            $where_3['t_sales_order.id_branch'] = $this->sessionGlobal['id_branch'];
+        }
+		$where = array_merge($where_2,$where_3);
+		
+        $sort = array(
+            'sort_field' => isset($_POST['sort'])?$_POST['sort']:"t_pay_duedate.id",
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
+        );
+        
+		$data['list'] = $this->m_duedate->getListTable($field,$table, $join, $like, $where, $sort, false);
+        $data['template_excel'] = "t_pay_duedate/table_excel";
+        $data['file_name'] = "duedate_transaction";
+        $this->load->view('template_excel', $data);
     }
 }
