@@ -15,7 +15,7 @@
                                 <input type="text" name="visit_form_subject" parsley-trigger="change" value="<?php echo $data['visit_form_subject'];?>" required placeholder="Subject" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label>Sales</label>
+                                <label>Supervisor</label>
                                 <select name="visit_form_sales" parsley-trigger="change" required placeholder="Sales" class="form-control">
                                     <option value="" selected="true"> - </option>
                                     <?php
@@ -86,6 +86,14 @@
                             <div class="form-group">
                                 <label>Description</label>
                                 <textarea name="visit_form_description" parsley-trigger="change" required placeholder="Description" class="form-control"><?php echo $data['visit_form_description'];?></textarea>
+                            </div>
+							<div class="form-group">
+                                <label>Activity Progress</label>
+                                <select name="visit_form_progress" placeholder="Status" required class="form-control">
+                                    <option value="PENDING" <?php echo ($data['visit_form_progress'] == "PENDING" ? 'selected' : '');?>>PENDING</option>
+                                    <option value="PROCESS" <?php echo ($data['visit_form_progress'] == "PROCESS"? 'selected' : '');?>>PROCESS</option>
+									<option value="COMPLETE" <?php echo ($data['visit_form_progress'] == "COMPLETE"? 'selected' : '');?>>COMPLETE</option>
+                                </select>
                             </div>
                         </div>
                     </div>

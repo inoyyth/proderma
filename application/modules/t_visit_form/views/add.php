@@ -14,7 +14,7 @@
                                 <input type="text" name="visit_form_subject" parsley-trigger="change" required placeholder="Subject" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label>Sales</label>
+                                <label>Supervisor</label>
                                 <select name="visit_form_sales" parsley-trigger="change" required placeholder="Sales" class="form-control">
                                     <option value="" selected="true"> - </option>
                                     <?php

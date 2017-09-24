@@ -71,7 +71,9 @@ Class M_r_transaksi extends CI_Model {
             $this->db->group_by(array_filter($groupby));
         }
         $this->db->order_by($sort['sort_field'],$sort['sort_direction']);
-        $this->db->limit($limit['limit'],$limit['offset']);
+        if ($limit) {
+			$this->db->limit($limit['limit'],$limit['offset']);
+		}
         return $sql = $this->db->get()->result_array();
         //echo json_encode($sql);
     }

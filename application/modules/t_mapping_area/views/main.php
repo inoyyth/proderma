@@ -26,6 +26,7 @@
     </div>
     <div class="col-lg-12" style="padding-bottom: 2px;">
         <a href="#" type="button" id="btn-edit" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> Edit</a>
+		<a href="<?php echo base_url('t_mapping_area/print_excel');?>" type="button" id="btn-excel" class="btn btn-xs btn-default"><i class="fa fa-edit"></i> Excel</a>
         <!--<a href="#" type="button" id="btn-view" class="btn btn-xs btn-success"><i class="fa fa-edit"></i> View</a>-->
     </div>
     <div class="col-lg-12">
@@ -50,6 +51,7 @@
                 {title: "NIP", field: "employee_nip", sorter: "string", tooltip: true},
                 {title: "Name", field: "employee_name", sorter: "string", tooltip: true},
                 {title: "Position", field: "jabatan", sorter: "string", tooltip: true},
+				{title: "Branch", field: "branch_name", sorter: "string", tooltip: true}
              ],
             selectable: 1,
             rowSelectionChanged: function (data, rows) {

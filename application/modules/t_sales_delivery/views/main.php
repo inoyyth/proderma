@@ -24,6 +24,18 @@
                                     <input type="text" class="form-control input-sm" id="search-do-code">
                                 </div>
                             </div>
+							<div class="col-lg-2">
+                                <div class="form-group">
+                                    <label class="small">Start Date</label>
+                                    <input type="text" class="form-control input-sm date-picker" id="search-start">
+                                </div>
+                            </div>
+							<div class="col-lg-2">
+                                <div class="form-group">
+                                    <label class="small">End Date</label>
+                                    <input type="text" class="form-control input-sm date-picker" id="search-end">
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -35,6 +47,7 @@
         <a href="#" type="button" id="btn-edit" class="btn btn-xs btn-warning btn-dsb"><i class="fa fa-edit"></i> Detail</a>
         <a href="#" type="button" id="btn-delete" class="btn btn-xs btn-danger btn-dsb" onclick="return confirm('Yakin hapus data?');"><i class="fa fa-remove"></i> Delete</a>
         <a href="#" type="button" id="btn-print" class="btn btn-xs btn-default btn-dsb"><i class="fa fa-print"></i> Print</a>
+		<a href="<?php echo base_url('t_sales_delivery/print_excel');?>" type="button" id="btn-excel" class="btn btn-xs btn-default"><i class="fa fa-edit"></i> Excel</a>
     </div>
     <div class="col-lg-12">
         <div id="example-table"></div>
@@ -68,7 +81,10 @@
                 {formatter: "rownum", align: "center", width: 40},
                 {title: "DO Code", field: "do_code", sorter: "string", tooltip: true},
                 {title: "SO Code", field: "so_code", sorter: "string", tooltip: true},
+				{title: "Customer Code", field: "customer_code", sorter: "string", tooltip: true},
+				{title: "Customer Name", field: "customer_name", sorter: "string", tooltip: true},
                 {title: "Date", field: "do_date", sorter: "string", tooltip: true},
+				{title: "Progress", field: "do_sales_status", sorter: "string", tooltip: true},
              ],
             selectable: 1,
             rowSelectionChanged: function (data, rows) {
@@ -106,9 +122,12 @@
     }
 
     function filterTable() {
+		$('#btn-excel').attr('href', '<?php echo base_url();?>t_sales_delivery/print_excel?start=' + $('#search-start').val() + '&end=' + $('#search-end').val());
         var params = {
             so_code: $('#search-so-code').val(),
             do_code: $('#search-do-code').val(),
+			start: $('#search-start').val(),
+			end: $('#search-end').val(),
         };
 
         $("#example-table").tabulator("setData", "<?php echo base_url('t_sales_delivery/getListTable'); ?>", params);

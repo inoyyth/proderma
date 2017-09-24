@@ -89,16 +89,24 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                     </tr>
                     <tr>
                         <td rowspan="2">
-                            
+                            &nbsp;
                         </td>
                     </tr>
                 </table>
             <td>
             <td style="width: 350px;">
                 <table>
-                    <tr>
+					<tr>
                         <td style="width: 70px;">
                             No.Faktur
+                        </td>
+                        <td>
+                            : <?php echo $data['no_faktur']; ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 70px;">
+                            Invoice Code
                         </td>
                         <td>
                             : <?php echo $data['invoice_code']; ?>
@@ -170,17 +178,17 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                             <td colspan="4">Discount</td>
                             <td><?php echo formatrp($discount_value);?></td>
                         </tr>
-                        <tr style="text-align: right">
+                        <!--<tr style="text-align: right">
                             <td colspan="4">Tax</td>
                             <td><?php echo formatrp($tax);?></td>
-                        </tr>
+                        </tr>-->
                         <tr style="text-align: right">
                             <td colspan="4">Total</td>
-                            <td><?php echo formatrp(((intval($data_product['grand_total']) - intval($discount_value)) + intval($tax))); ?></td>
+                            <td><?php echo formatrp(((intval($data_product['grand_total']) - intval($discount_value)))); ?></td>
                         </tr>
                         <tr style="text-align: right">
                             <td>Terbilang</td>
-                            <td colspan="4" style="text-align: center;font-weight: bold;"><?php echo terbilang(((intval($data_product['grand_total']) - intval($discount_value)) + intval($tax))); ?></td>
+                            <td colspan="4" style="text-align: center;font-weight: bold;"><?php echo terbilang(((intval($data_product['grand_total']) - intval($discount_value)))); ?></td>
                         </tr>
                     </tfooter>
                 </table>    
@@ -190,6 +198,10 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                     <tr>
                         <td>Payment Term</td>
                         <td>: <?php echo $data['payment_type']; ?></td>
+                    </tr>
+					<tr>
+                        <td style="text-align: right;">NB</td>
+                        <td>: Semua Product Sudah Termasuk Ppn 10%.</td>
                     </tr>
                 </table>
             </div>

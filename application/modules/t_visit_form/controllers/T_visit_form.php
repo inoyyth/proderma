@@ -46,10 +46,27 @@ class T_visit_form extends MX_Controller {
             'm_employee.employee_name'=>isset($_POST['sales'])?$_POST['sales']:"",
             'm_customer.customer_name'=>isset($_POST['attendence'])?$_POST['attendence']:""
         );
-        $where = array('sales_visit_form.visit_form_status !=' => '3');
+		
+        $where_1 = array('sales_visit_form.visit_form_status !=' => '3');
+		$where_2 = array();
+		if (isset($_POST['start']) && isset($_POST['end'])) {
+			if($_POST['start'] != null && $_POST['end'] != null) {
+				$where_2 = array(
+					'date(sales_visit_form.visit_form_start_date) >=' => $_POST['start'],
+					'date(sales_visit_form.visit_form_end_date) <=' => $_POST['end'],
+				);
+			} else if ($_POST['start'] != "") {
+				$where_2 = array('date(sales_visit_form.visit_form_start_date) >=' => $_POST['start']);
+			} else if ($_POST['end'] != "") {
+				$where_2 = array('date(sales_visit_form.visit_form_end_date) <=' => $_POST['end']);
+			}
+		}
+		$where_3 = array();
 		if($this->sessionGlobal['super_admin'] == "1") {
-            $where['sales_visit_form.id_branch'] = $this->sessionGlobal['id_branch'];
+            $where_3['sales_visit_form.id_branch'] = $this->sessionGlobal['id_branch'];
         }
+		$where = array_merge($where_1,$where_2,$where_3);
+		
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"sales_visit_form.id",
             'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
@@ -62,7 +79,7 @@ class T_visit_form extends MX_Controller {
         
         $list = $this->m_visit_form->getListTable($field,$table, $join, $like, $where, $sort, $limit_row);
 
-        $total_records = $this->data_table->count_all($table, $where);
+        $total_records = count($this->m_visit_form->getListTable($field,$table, $join, $like, $where, $sort, false));
         $total_pages = ceil($total_records / $limit);
         $output = array(
             "last_page" => $total_pages,
@@ -85,7 +102,7 @@ class T_visit_form extends MX_Controller {
 
     public function edit($id) {
         $this->breadcrumbs->push('Edit', '/visit-form-edit');
-        $data['employee']= $this->db->get_where('m_employee',array('employee_status'=>1))->result_array();
+         $data['employee']= $this->m_visit_form->getEmployee()->result_array();
         $data['branch'] = $this->db->get_where('m_branch',array('branch_status'=>1))->result_array();
 		$data['activity']= $this->db->get_where('m_activity',array('activity_status'=>1))->result_array();
         $data['data'] = $this->m_visit_form->getEditData($this->table, $id)->row_array();
@@ -128,9 +145,51 @@ class T_visit_form extends MX_Controller {
     }
 
     public function print_excel() {
-        $data['template_excel'] = "t_visit_form/" . $_GET['template'];
-        $data['file_name'] = $_GET['name'];
-        $data['list'] = $this->db->get($this->table)->result_array();
+		$table = 'sales_visit_form'; 
+        $field = array(
+            "sales_visit_form.*",
+            "m_customer.customer_name",
+            "m_employee.employee_name",
+            "m_activity.activity_name",
+            "IF(sales_visit_form.visit_form_status=1,'Active','Not Active') AS status"
+        );
+        $join = array(
+            array('table' => 'm_customer', 'where' => 'm_customer.id=sales_visit_form.visit_form_attendence', 'join' => 'left'),
+            array('table' => 'm_employee', 'where' => 'm_employee.id=sales_visit_form.visit_form_sales', 'join' => 'left'),
+            array('table' => 'm_activity', 'where' => 'm_activity.id=sales_visit_form.visit_form_activity', 'join' => 'left')
+        );
+		$like = array();
+		if (isset($_GET['supervisor']) && $_GET['supervisor'] != "") {
+			$like['m_employee.employee_name'] = $_GET['supervisor'];
+		}
+		$where_1 = array('sales_visit_form.visit_form_status !=' => '3');
+		$where_2 = array();
+		if (isset($_GET['start_date']) && isset($_GET['end_date'])) {
+			if($_GET['start_date'] != null && $_GET['end_date'] != null) {
+				$where_2 = array(
+					'date(sales_visit_form.visit_form_start_date) >=' => $_GET['start_date'],
+					'date(sales_visit_form.visit_form_end_date) <=' => $_GET['end_date'],
+				);
+			} else if ($_GET['start_date'] != "") {
+				$where_2 = array('date(sales_visit_form.visit_form_start_date) >=' => $_GET['start_date']);
+			} else if ($_GET['end_date'] != "") {
+				$where_2 = array('date(sales_visit_form.visit_form_end_date) <=' => $_GET['end_date']);
+			}
+		}
+		$where_3 = array();
+		if($this->sessionGlobal['super_admin'] == "1") {
+            $where_3['sales_visit_form.id_branch'] = $this->sessionGlobal['id_branch'];
+        }
+		$where = array_merge($where_1,$where_2,$where_3);
+		
+        $sort = array(
+            'sort_field' => isset($_POST['sort'])?$_POST['sort']:"sales_visit_form.id",
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"asc"
+        );
+		
+        $data['list'] = $this->m_visit_form->getListTable($field,$table, $join, $like, $where, $sort, false);
+        $data['template_excel'] = "t_visit_form/table_excel";
+        $data['file_name'] = "task_master";
         $this->load->view('template_excel', $data);
     }
 

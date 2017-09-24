@@ -93,11 +93,11 @@ class T_mapping_product extends MX_Controller {
         
         $list = $this->m_mapping_product->getListTable($field,$table, $join, $like, $where, $sort, $limit_row);
 
-        $total_records = $this->data_table->count_all($table, $where);
+        $total_records = count($this->m_mapping_product->getListTable($field,$table, $join, $like, $where, $sort, false));
         $total_pages = ceil($total_records / $limit);
         $output = array(
             "last_page" => ($total_pages==0?1:$total_pages),
-            "recordsTotal" => $this->data_table->count_all($table, $where),
+            "recordsTotal" => $total_records,
             "data" => $list,
         );
         //output to json format
@@ -140,9 +140,32 @@ class T_mapping_product extends MX_Controller {
     }
 
     public function print_excel() {
-        $data['template_excel'] = "md_level/" . $_GET['template'];
-        $data['file_name'] = $_GET['name'];
-        $data['list'] = $this->db->get($this->table)->result_array();
+		$table = 'm_customer'; 
+        $field = array(
+			"m_customer.id",
+            "m_customer.customer_code",
+			"m_customer.customer_name",
+            "group_customer_product.group_customer_product",
+            "status_list_customer.status_list_customer",
+            "IF(m_customer.customer_status=1,'Active','Not Active') AS status"
+        );
+		$join = array(
+            array('table' => 'group_customer_product', 'where' => 'group_customer_product.id=m_customer.id_group_customer_product', 'join' => 'left'),
+            array('table' => 'status_list_customer', 'where' => 'status_list_customer.id=m_customer.id_status_list_customer', 'join' => 'left')
+        );
+		$like = array();
+		$where = array('m_customer.customer_status !='=>'3');
+		$sort = array(
+            'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_customer.customer_name",
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"asc"
+        );
+		if($this->sessionGlobal['super_admin'] == "1") {
+            $where['m_customer.id_branch'] = $this->sessionGlobal['id_branch'];
+        }
+		
+        $data['list'] = $this->m_mapping_product->getListTable($field,$table, $join, $like, $where, $sort, false);
+        $data['template_excel'] = "t_mapping_product/table_excel";
+        $data['file_name'] = "mapping_product";
         $this->load->view('template_excel', $data);
     }
     

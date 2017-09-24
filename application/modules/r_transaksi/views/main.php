@@ -18,6 +18,18 @@
                                     <input type="text" class="form-control input-sm" id="search-so-code">
                                 </div>
                             </div>
+							<div class="col-lg-2">
+                                <div class="form-group">
+                                    <label class="small">SO.Start Date</label>
+                                    <input type="text" class="form-control input-sm date-picker" id="search-start">
+                                </div>
+                            </div>
+							<div class="col-lg-2">
+                                <div class="form-group">
+                                    <label class="small">SO.End Date</label>
+                                    <input type="text" class="form-control input-sm date-picker" id="search-end">
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -29,6 +41,7 @@
         <!--<a href="#" type="button" id="btn-edit" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> Detail</a>
         <a href="#" type="button" id="btn-delete" class="btn btn-xs btn-danger" onclick="return confirm('Yakin hapus data?');"><i class="fa fa-remove"></i> Delete</a>
         <a href="#" type="button" id="btn-print" class="btn btn-xs btn-default"><i class="fa fa-print"></i> Print</a>-->
+		<a href="<?php echo base_url('r_transaksi/print_excel');?>" type="button" id="btn-excel" class="btn btn-xs btn-default"><i class="fa fa-edit"></i> Excel</a>
     </div>
     <div class="col-lg-12">
         <div id="example-table"></div>
@@ -61,6 +74,7 @@
             columns: [//Define Table Columns
                 {formatter: "rownum", align: "center", width: 40},
                 {title: "SO.Code", field: "so_code", sorter: "string", tooltip: true},
+				{title: "SO.Date", field: "so_date", sorter: "string", tooltip: true},
                 {title: "DO.Status", field: "do_status", sorter: "string", tooltip: true},
                 {title: "Invoice Status", field: "invoice_status", sorter: "string"},
                 {title: "Duedate Status", field: "due_date", sorter: "string"}
@@ -80,6 +94,10 @@
                 alert('please select data');
             }
         });
+		
+		$("#btn-excel").click(function(){
+			$("#example-table").tabulator("download", "xlsx", "data.xlsx");
+		});
 
     });
 
@@ -89,11 +107,13 @@
     }
 
     function filterTable() {
-        console.log('filter');
+        $('#btn-excel').attr('href', '<?php echo base_url();?>r_transaksi/print_excel?start=' + $('#search-start').val() + '&end=' + $('#search-end').val());
         var params = {
             customer_code: $('#search-customer-code').val(),
             customer_name: $('#search-customer-name').val(),
             so_code: $('#search-so-code').val(),
+			start: $('#search-start').val(),
+			end: $('#search-end').val(),
         };
 
         $("#example-table").tabulator("setData", "<?php echo base_url('r_transaksi/getListTable'); ?>", params);

@@ -11,6 +11,7 @@ Class M_t_invoice extends CI_Model {
             'id_so' => $this->input->post('id_so'),
             'id_do' => $this->input->post('id_do'),
             'invoice_date' => $this->input->post('invoice_date'),
+			'no_faktur' => $this->input->post('no_faktur'),
             'due_date' => ($this->input->post('due_date') !== NULL ? $this->input->post('due_date') : NULL)
         );
         if (empty($id)) {
@@ -43,7 +44,9 @@ Class M_t_invoice extends CI_Model {
             $this->db->like($like);
         }
         $this->db->order_by($sort['sort_field'], $sort['sort_direction']);
-        $this->db->limit($limit['limit'], $limit['offset']);
+        if ($limit) {
+			$this->db->limit($limit['limit'],$limit['offset']);
+		}
         return $sql = $this->db->get()->result_array();
     }
 
@@ -71,12 +74,14 @@ Class M_t_invoice extends CI_Model {
             $this->db->like($like);
         }
         $this->db->order_by($sort['sort_field'], $sort['sort_direction']);
-        $this->db->limit($limit['limit'], $limit['offset']);
+        if ($limit) {
+			$this->db->limit($limit['limit'],$limit['offset']);
+		}
         return $sql = $this->db->get()->result_array();
     }
 
     public function get_detail($id) {
-        $this->db->select('t_invoice.*,t_delivery_order.do_code,t_sales_order.id');
+        $this->db->select('t_invoice.*,t_delivery_order.do_code,t_sales_order.id,t_sales_order.so_payment_term');
         $this->db->from('t_invoice');
         $this->db->join('t_delivery_order', 't_invoice.id_do=t_delivery_order.id');
         $this->db->join('t_sales_order', 't_invoice.id_so=t_sales_order.id');
@@ -108,6 +113,7 @@ Class M_t_invoice extends CI_Model {
                           . 'm_payment_type.payment_type,'
                           . 't_invoice.id as id_invoice,'
                           . 't_invoice.invoice_code,'
+						  . 't_invoice.no_faktur,'
                           . 't_invoice.invoice_date,'
                           . 't_delivery_order.do_code,'
                           . 't_delivery_order.do_date'

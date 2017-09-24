@@ -103,9 +103,22 @@ class Md_level extends MX_Controller {
     }
 
     public function print_excel() {
-        $data['template_excel'] = "md_level/" . $_GET['template'];
-        $data['file_name'] = $_GET['name'];
-        $data['list'] = $this->db->get($this->table)->result_array();
+		$table = "m_jabatan";
+		$field = array(
+            "m_jabatan.*",
+            "IF(m_jabatan.jabatan_status=1,'Active','Not Active') AS status"
+        );
+		$join = array();
+		$like = array();
+		$where = array('m_jabatan.jabatan_status !=' => '3');
+		$sort = array(
+            'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_jabatan.id",
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
+        );
+		
+        $data['list'] = $this->m_md_level->getListTable($field,$table, $join, $like, $where, $sort, 100000);
+        $data['template_excel'] = "md_level/table_excel";
+        $data['file_name'] = "master_jabatan";
         $this->load->view('template_excel', $data);
     }
 

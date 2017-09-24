@@ -28,6 +28,8 @@ class T_invoice extends MX_Controller {
             "t_invoice.*",
             "t_sales_order.so_code",
             "t_delivery_order.do_code",
+			"m_customer.customer_code",
+			"m_customer.customer_name",
             "IF(t_invoice.invoice_status=1,'Active','Not Active') AS status"
         );
         
@@ -35,7 +37,8 @@ class T_invoice extends MX_Controller {
 
         $join = array(
             array('table' => 't_sales_order', 'where' => 't_sales_order.id=t_invoice.id_so', 'join' => 'left'),
-            array('table' => 't_delivery_order', 'where' => 't_delivery_order.id=t_invoice.id_do', 'join' => 'left')
+            array('table' => 't_delivery_order', 'where' => 't_delivery_order.id=t_invoice.id_do', 'join' => 'left'),
+			array('table' => 'm_customer', 'where' => 'm_customer.id=t_sales_order.id_customer', 'join' => 'left')
         );
         
         $like = array(
@@ -43,10 +46,26 @@ class T_invoice extends MX_Controller {
             't_sales_order.so_code'=>isset($_POST['so_code'])?$_POST['so_code']:"",
             't_invoice.invoice_code'=>isset($_POST['invoice_code'])?$_POST['invoice_code']:""
         );
-        $where = array('t_invoice.invoice_status !=' => '3');
+        $where_1 = array('t_invoice.invoice_status !=' => '3');
+		$where_2 = array();
+		if (isset($_POST['start']) && isset($_POST['end'])) {
+			if($_POST['start'] != null && $_POST['end'] != null) {
+				$where_2 = array(
+					'date(t_invoice.invoice_date) >=' => $_POST['start'],
+					'date(t_invoice.invoice_date) <=' => $_POST['end'],
+				);
+			} else if ($_POST['start'] != "") {
+				$where_2 = array('date(t_invoice.invoice_date) >=' => $_POST['start']);
+			} else if ($_POST['end'] != "") {
+				$where_2 = array('date(t_invoice.invoice_date) <=' => $_POST['end']);
+			}
+		}
+		$where_3 = array();
 		if($this->sessionGlobal['super_admin'] == "1") {
-            $where['t_sales_order.id_branch'] = $this->sessionGlobal['id_branch'];
+            $where_3['t_sales_order.id_branch'] = $this->sessionGlobal['id_branch'];
         }
+		$where = array_merge($where_1,$where_2,$where_3);
+		
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"t_invoice.id",
             'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
@@ -59,7 +78,7 @@ class T_invoice extends MX_Controller {
         
         $list = $this->m_invoice->getListTable($field,$table, $join, $like, $where, $sort, $limit_row);
 
-        $total_records = count($list);
+        $total_records = count($this->m_invoice->getListTable($field,$table, $join, $like, $where, $sort, false));
         $total_pages = ceil($total_records / $limit);
         $output = array(
             "last_page" => $total_pages,
@@ -113,13 +132,6 @@ class T_invoice extends MX_Controller {
         $this->printpdf->create_pdf($data);
     }
 
-    public function print_excel() {
-        $data['template_excel'] = "t_invoice/" . $_GET['template'];
-        $data['file_name'] = $_GET['name'];
-        $data['list'] = $this->db->get($this->table)->result_array();
-        $this->load->view('template_excel', $data);
-    }
-    
     public function getListTableDo() {
         $page = ($_POST['page']==0?1:$_POST['page']);
         $limit = $_POST['size'];
@@ -149,6 +161,9 @@ class T_invoice extends MX_Controller {
             'm_customer.customer_name'=>isset($_POST['customer_name'])?$_POST['customer_name']:""
         );
         $where = array('t_delivery_order.do_status !=' => '3');
+		if($this->sessionGlobal['super_admin'] == "1") {
+            $where['t_sales_order.id_branch'] = $this->sessionGlobal['id_branch'];
+        }
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"t_delivery_order.id",
             'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
@@ -161,7 +176,7 @@ class T_invoice extends MX_Controller {
         
         $list = $this->m_invoice->getListTableDo($field,$table, $join, $like, $where, $sort, $limit_row);
 
-        $total_records = $this->data_table->count_all($table, $where);
+        $total_records = count($this->m_invoice->getListTableDo($field,$table, $join, $like, $where, $sort, false));
         $total_pages = ceil($total_records / $limit);
         $output = array(
             "last_page" => $total_pages,
@@ -178,5 +193,52 @@ class T_invoice extends MX_Controller {
         $data['data_product'] = $this->m_invoice->get_detail_product($id)->row_array();
         $data['due_date'] = $this->db->get_where('t_pay_duedate',array('id_invoice'=>$data['data']['id_invoice']))->row_array();
         $this->load->view('t_invoice/print',$data);
+    }
+	
+	public function print_excel() {
+		$table = 't_invoice'; 
+        $field = array(
+            "t_invoice.*",
+            "t_sales_order.so_code",
+            "t_delivery_order.do_code",
+			"m_customer.customer_code",
+			"m_customer.customer_name",
+            "IF(t_invoice.invoice_status=1,'Active','Not Active') AS status"
+        );
+        $join = array(
+            array('table' => 't_sales_order', 'where' => 't_sales_order.id=t_invoice.id_so', 'join' => 'left'),
+            array('table' => 't_delivery_order', 'where' => 't_delivery_order.id=t_invoice.id_do', 'join' => 'left'),
+			array('table' => 'm_customer', 'where' => 'm_customer.id=t_sales_order.id_customer', 'join' => 'left')
+        );
+        $like = array();
+        $where_1 = array('t_invoice.invoice_status !=' => '3');
+		$where_2 = array();
+		if (isset($_GET['start']) && isset($_GET['end'])) {
+			if($_GET['start'] != null && $_GET['end'] != null) {
+				$where_2 = array(
+					'date(t_invoice.invoice_date) >=' => $_GET['start'],
+					'date(t_invoice.invoice_date) <=' => $_GET['end'],
+				);
+			} else if ($_GET['start'] != "") {
+				$where_2 = array('date(t_invoice.invoice_date) >=' => $_GET['start']);
+			} else if ($_GET['end'] != "") {
+				$where_2 = array('date(t_invoice.invoice_date) <=' => $_GET['end']);
+			}
+		}
+		$where_3 = array();
+		if($this->sessionGlobal['super_admin'] == "1") {
+            $where_3['t_sales_order.id_branch'] = $this->sessionGlobal['id_branch'];
+        }
+		$where = array_merge($where_1,$where_2,$where_3);
+		
+        $sort = array(
+            'sort_field' => isset($_POST['sort'])?$_POST['sort']:"t_invoice.id",
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
+        );
+        
+		$data['list'] = $this->m_invoice->getListTable($field,$table, $join, $like, $where, $sort, false);
+        $data['template_excel'] = "t_invoice/table_excel";
+        $data['file_name'] = "invoice";
+        $this->load->view('template_excel', $data);
     }
 }

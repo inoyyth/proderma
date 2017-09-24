@@ -80,10 +80,22 @@
     </div>
     <div class="col-lg-5">
         <div class="profile-user-info profile-user-info-striped">
+			<div class="profile-info-row">
+				<div class="profile-info-name"> Branch </div>
+				<div class="profile-info-value">
+					<span class="editable editable-click" id="city"><?php echo $data['branch_name']; ?></span>
+				</div>
+			</div>
+			<div class="profile-info-row">
+				<div class="profile-info-name"> Related Code </div>
+				<div class="profile-info-value">
+					<span class="editable editable-click" id="city"><?php echo $data['related_code']; ?></span>
+				</div>
+			</div>
             <div class="profile-info-row">
                 <div class="profile-info-name"> Activity </div>
                 <div class="profile-info-value">
-                    <span class="editable editable-click" id="city"><?php echo $data['activity_name']; ?></span>
+                    <span class="editable editable-click" id="city"><?php echo $data['objective']; ?></span>
                 </div>
             </div>
             <div class="profile-info-row">

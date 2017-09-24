@@ -26,7 +26,7 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
-                                    <label class="small">Sales</label>
+                                    <label class="small">Supervisor</label>
                                     <input type="text" class="form-control input-sm" id="search-sales">
                                 </div>
                             </div>
@@ -34,6 +34,18 @@
                                 <div class="form-group">
                                     <label class="small">Attenndence</label>
                                     <input type="text" class="form-control input-sm" id="search-attendence">
+                                </div>
+                            </div>
+							<div class="col-lg-2">
+                                <div class="form-group">
+                                    <label class="small">Start Date</label>
+                                    <input type="text" class="form-control input-sm date-picker" id="search-start">
+                                </div>
+                            </div>
+							<div class="col-lg-2">
+                                <div class="form-group">
+                                    <label class="small">End Date</label>
+                                    <input type="text" class="form-control input-sm date-picker" id="search-end">
                                 </div>
                             </div>
                         </form>
@@ -46,6 +58,7 @@
         <a href="<?php echo site_url('visit-form-add'); ?>" type="button" id="btn-add" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> New</a>
         <a href="#" type="button" id="btn-edit" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> Edit</a>
         <a href="#" type="button" id="btn-delete" class="btn btn-xs btn-danger" onclick="return confirm('Yakin hapus data?');"><i class="fa fa-remove"></i> Delete</a>
+		<a href="<?php echo base_url('t_visit_form/print_excel');?>" type="button" id="btn-excel" class="btn btn-xs btn-default"><i class="fa fa-edit"></i> Excel</a>
     </div>
     <div class="col-lg-12">
         <div id="example-table"></div>
@@ -70,12 +83,14 @@
                 {title: "Code", field: "visit_form_code", sorter: "string", tooltip: true},
                 {title: "Subject", field: "visit_form_subject", sorter: "string", tooltip: true},
                 {title: "Attendence", field: "customer_name", sorter: "string", tooltip: true},
-                {title: "Sales", field: "employee_name", sorter: "string", tooltip: true},
-                {title: "Activity", field: "activity_name", sorter: "string", tooltip: true}
+                {title: "Supervisor", field: "employee_name", sorter: "string", tooltip: true},
+                {title: "Activity", field: "activity_name", sorter: "string", tooltip: true},
+				{title: "Start", field: "visit_form_start_date", sorter: "string", tooltip: true},
+				{title: "End", field: "visit_form_end_date", sorter: "string", tooltip: true},
+				{title: "Activity Progress", field: "visit_form_progress", sorter: "string", tooltip: true}
             ],
             selectable: 1,
             rowSelectionChanged: function (data, rows) {
-                console.log(data);
                 if (data.length > 0) {
                     $('#btn-edit').attr('href', '<?php echo site_url(); ?>visit-form-edit-' + data[0]['id'] + '.html');
                     $('#btn-delete').attr('href', '<?php echo site_url(); ?>visit-form-delete-' + data[0]['id'] + '.html');
@@ -96,12 +111,14 @@
     }
 
     function filterTable() {
-        console.log('filter');
+        $('#btn-excel').attr('href', '<?php echo base_url();?>t_visit_form/print_excel?start_date=' + $('#search-start').val() + '&end_date=' + $('#search-end').val() + '&supervisor=' + $('#search-sales').val());
         var params = {
             code: $('#search-code').val(),
             sales: $('#search-sales').val(),
             subject: $('#search-subject').val(),
             attendence: $('#search-attendence').val(),
+			start: $('#search-start').val(),
+			end: $('#search-end').val(),
         };
 
         $("#example-table").tabulator("setData", "<?php echo base_url('t_visit_form/getListTable'); ?>", params);

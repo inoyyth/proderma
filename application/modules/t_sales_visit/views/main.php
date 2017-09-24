@@ -12,12 +12,6 @@
                 <div class="widget-main">
                     <div class="row">
                         <form class="form-filter-table">
-                            <div class="col-lg-2">
-                                <div class="form-group">
-                                    <label class="small">Date</label>
-                                    <input type="text" class="form-control input-sm" id="search-visit-date">
-                                </div>
-                            </div>
                              <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Customer</label>
@@ -30,6 +24,18 @@
                                     <input type="text" class="form-control input-sm" id="search-sales-name">
                                 </div>
                             </div>
+							<div class="col-lg-2">
+                                <div class="form-group">
+                                    <label class="small">Start Date</label>
+                                    <input type="text" class="form-control input-sm date-picker" id="search-start">
+                                </div>
+                            </div>
+							<div class="col-lg-2">
+                                <div class="form-group">
+                                    <label class="small">End Date</label>
+                                    <input type="text" class="form-control input-sm date-picker" id="search-end">
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -40,6 +46,7 @@
         <a href="<?php echo site_url('ojt-add'); ?>" type="button" id="btn-add" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> New</a>
         <a href="#" type="button" id="btn-edit" class="btn btn-xs btn-warning"><i class="fa fa-search"></i> Detail</a>
         <!--<a href="#" type="button" id="btn-delete" class="btn btn-xs btn-danger" onclick="return confirm('Yakin hapus data?');"><i class="fa fa-remove"></i> Delete</a>-->
+		<a href="<?php echo base_url('t_sales_visit/print_excel');?>" type="button" id="btn-excel" class="btn btn-xs btn-default"><i class="fa fa-edit"></i> Excel</a>
     </div>
     <div class="col-lg-12">
         <div id="example-table"></div>
@@ -67,6 +74,7 @@
                 {title: "Sales", field: "employee_name", sorter: "string", tooltip: true},
                 {title: "Order ID", field: "order_id", sorter: "string", tooltip: true},
                 {title: "Activity", field: "objective", sorter: "string", tooltip: true},
+				{title: "Related Code", field: "related_code", sorter: "string", tooltip: true},
                 {title: "Progress", field: "sales_visit_progress", sorter: "string", tooltip: true}
             ],
             selectable: 1,
@@ -90,11 +98,12 @@
     }
 
     function filterTable() {
-        console.log('filter');
+		$('#btn-excel').attr('href', '<?php echo base_url();?>t_sales_visit/print_excel?start_date=' + $('#search-start').val() + '&end_date=' + $('#search-end').val() + '&sales=' + $('#search-sales-name').val());
         var params = {
-            visit_date: $('#search-visit-date').val(),
             customer_name: $('#search-customer-name').val(),
-            sales_name: $('#search-sales-name').val()
+            sales_name: $('#search-sales-name').val(),
+			start: $('#search-start').val(),
+			end: $('#search-end').val()
         };
 
         $("#example-table").tabulator("setData", "<?php echo base_url('t_sales_visit/getListTable'); ?>", params);

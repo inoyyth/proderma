@@ -128,9 +128,30 @@ class Md_employee extends MX_Controller {
     }
 
     public function print_excel() {
-        $data['template_excel'] = "md_employee/" . $_GET['template'];
-        $data['file_name'] = $_GET['name'];
-        $data['list'] = $this->db->get($this->table)->result_array();
+		$table="m_employee";
+		$field = array(
+            "m_employee.*",
+            "IF(m_employee.employee_gender='F','Female','Male') AS gender",
+            "m_jabatan.jabatan",
+			"m_branch.branch_name",
+            "IF(m_employee.employee_status=1,'Active','Not Active') AS status"
+        );
+		$join = array(
+            array('table' => 'm_jabatan', 'where' => 'm_jabatan.id=m_employee.id_jabatan', 'join' => 'left'),
+			array('table' => 'm_branch', 'where' => 'm_branch.id=m_employee.id_branch', 'join' => 'left')
+        );
+		$where = array('m_employee.employee_status !=' => '3');
+        if($this->sessionGlobal['super_admin'] == "1") {
+            $where['m_employee.id_branch'] = $this->sessionGlobal['id_branch'];
+        }
+		$like = array();
+		$sort = array(
+            'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_employee.employee_name",
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"asc"
+        );
+        $data['list'] = $this->m_md_employee->getListTable($field,$table, $join, $like, $where, $sort, 100000);
+        $data['template_excel'] = "md_employee/table_excel";
+        $data['file_name'] = "master_employee";
         $this->load->view('template_excel', $data);
     }
     

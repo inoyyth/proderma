@@ -119,9 +119,26 @@ class Md_subarea extends MX_Controller {
     }
 
     public function print_excel() {
-        $data['template_excel'] = "md_subarea/" . $_GET['template'];
-        $data['file_name'] = $_GET['name'];
-        $data['list'] = $this->db->get($this->table)->result_array();
+		$table = 'm_subarea'; 
+        
+        $field = array(
+            "m_subarea.*",
+            "m_area.area_name",
+            "IF(m_subarea.subarea_status=1,'Active','Not Active') AS status"
+        );
+        $join = array(
+             array('table' => 'm_area', 'where' => 'm_area.id=m_subarea.id_area', 'join' => 'left')
+        );
+        $like = array();
+        $where = array('m_subarea.subarea_status !=' => '3');
+        $sort = array(
+            'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_subarea.subarea_name",
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"asc"
+        );
+		
+		$data['list'] = $this->m_md_subarea->getListTable($field,$table, $join, $like, $where, $sort, 100000);
+        $data['template_excel'] = "md_subarea/table_excel";
+        $data['file_name'] = "master_subarea";
         $this->load->view('template_excel', $data);
     }
 

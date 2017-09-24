@@ -9,6 +9,10 @@
                                 <label>Invoice Code</label>
                                 <input type="text" name="invoice_code" readonly="true" value="<?php echo $code; ?>" parsley-trigger="change" required  class="form-control">
                             </div>
+							<div class="form-group">
+                                <label>No. Faktur</label>
+                                <input type="text" name="no_faktur" class="form-control">
+                            </div>
                             <div class="form-group">
                                 <label>Delivery Order Code</label>
                                 <input type="hidden" name="id_do" id="id_do">
@@ -22,13 +26,13 @@
                             </div>
                             <div class="form-group">
                                 <label>Invoice Date</label>
-                                <input type="text" name="invoice_date" parsley-trigger="change" required  class="form-control date-picker">
+                                <input type="text" name="invoice_date" value="<?php echo date('Y-m-d');?>"  parsley-trigger="change" required  class="form-control date-picker">
                             </div>
                             <div id="payment-content" style="display: none;">
                                 <div class="form-group">
                                     <label>Due Date</label>
                                     <input type="hidden" name="date_status" id="date-status" value="2">
-                                    <input type="text" name="due_date" id="due-date" class="form-control date-picker">
+                                    <input type="text" name="due_date" id="due-date" class="form-control" readonly="true">
                                 </div>
                             </div>
                         </div>
@@ -122,7 +126,14 @@
                     $("#id_so").val(selectedData[0]['id_so']);
                     $("#id_do").val(selectedData[0]['id']);
                     $("#do_code").val(selectedData[0]['do_code']);
+					
                     if (selectedData[0]['so_payment_term'] == 3) {
+						//console.log(selectedData[0]['do_date']);
+						var someDate = new Date(selectedData[0]['do_date']);
+						someDate.setDate(someDate.getDate() + 21); //number  of days to add, e.x. 15 days
+						var dateFormated = someDate.toISOString().substr(0,10);
+						
+						$("#due-date").val(dateFormated);
                         $("#payment-content").show();
                         $("#date-status").val('1');
                     } else {

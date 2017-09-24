@@ -30,6 +30,23 @@
                                     <input type="text" class="form-control input-sm" id="search-so-code">
                                 </div>
                             </div>
+							<div class="col-lg-2">
+                                <div class="form-group">
+                                    <label class="small">Sales</label>
+                                    <input type="text" class="form-control input-sm" id="search-so-sales">
+                                </div>
+                            </div>
+							<div class="col-lg-2">
+                                <div class="form-group">
+                                    <label class="small">Start Date</label>
+                                    <input type="text" class="form-control input-sm date-picker" id="search-start">
+                                </div>
+                            </div>
+							<div class="col-lg-2">
+                                <div class="form-group">
+                                    <label class="small">End Date</label>
+                                    <input type="text" class="form-control input-sm date-picker" id="search-end">
+                                </div>
                         </form>
                     </div>
                 </div>
@@ -41,6 +58,7 @@
         <a href="#" type="button" id="btn-edit" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> Detail</a>
         <a href="#" type="button" id="btn-delete" class="btn btn-xs btn-danger" onclick="return confirm('Yakin hapus data?');"><i class="fa fa-remove"></i> Delete</a>
         <a href="#" type="button" id="btn-print" class="btn btn-xs btn-default"><i class="fa fa-print"></i> Print</a>
+		<a href="<?php echo base_url('t_sales_order/print_excel');?>" type="button" id="btn-excel" class="btn btn-xs btn-default"><i class="fa fa-edit"></i> Excel</a>
     </div>
     <div class="col-lg-12">
         <div id="example-table"></div>
@@ -75,6 +93,7 @@
                 {title: "SO.Code", field: "so_code", sorter: "string", tooltip: true},
                 {title: "Cust.Code", field: "customer_code", sorter: "string", tooltip: true},
                 {title: "Cust.Name", field: "customer_name", sorter: "string"},
+				{title: "Sales Name", field: "employee_name", sorter: "string"},
                 {title: "SO.Date", field: "so_date", sorter: "string"}
             ],
             selectable: 1,
@@ -113,11 +132,14 @@
     }
 
     function filterTable() {
-        console.log('filter');
+		$('#btn-excel').attr('href', '<?php echo base_url();?>t_sales_order/print_excel?start=' + $('#search-start').val() + '&end=' + $('#search-end').val() + '&sales=' + $('#search-so-sales').val());
         var params = {
             customer_code: $('#search-customer-code').val(),
             customer_name: $('#search-customer-name').val(),
             so_code: $('#search-so-code').val(),
+			employee_name: $('#search-so-sales').val(),
+			start: $('#search-start').val(),
+			end: $('#search-end').val(),
         };
 
         $("#example-table").tabulator("setData", "<?php echo base_url('t_sales_order/getListTable'); ?>", params);

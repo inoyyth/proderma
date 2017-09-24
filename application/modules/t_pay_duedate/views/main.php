@@ -30,6 +30,18 @@
                                     <input type="text" class="form-control input-sm" id="search-invoice-code">
                                 </div>
                             </div>
+							<div class="col-lg-2">
+                                <div class="form-group">
+                                    <label class="small">Start Date</label>
+                                    <input type="text" class="form-control input-sm date-picker" id="search-start">
+                                </div>
+                            </div>
+							<div class="col-lg-2">
+                                <div class="form-group">
+                                    <label class="small">End Date</label>
+                                    <input type="text" class="form-control input-sm date-picker" id="search-end">
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -38,6 +50,7 @@
     </div>
     <div class="col-lg-12" style="padding-bottom: 2px;">
         <a href="#" type="button" id="btn-edit" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> Edit</a>
+		<a href="<?php echo base_url('t_pay_duedate/print_excel');?>" type="button" id="btn-excel" class="btn btn-xs btn-default"><i class="fa fa-edit"></i> Excel</a>
     </div>
     <div class="col-lg-12">
         <div id="example-table"></div>
@@ -59,6 +72,7 @@
             columns: [//Define Table Columns
                 {formatter: "rownum", align: "center", width: 40},
                 {title: "Invoice Code", field: "invoice_code", sorter: "string", tooltip: true},
+				{title: "No Faktur", field: "no_faktur", sorter: "string", tooltip: true},
                 {title: "DO.Code", field: "do_code", sorter: "string", tooltip: true},
                 {title: "SO.Code", field: "so_code", sorter: "string", tooltip: true},
                 {title: "Status", field: "pay_duedate_status", sorter: "string", tooltip: true},
@@ -87,11 +101,13 @@
     }
 
     function filterTable() {
-        console.log('filter');
+        $('#btn-excel').attr('href', '<?php echo base_url();?>t_pay_duedate/print_excel?start=' + $('#search-start').val() + '&end=' + $('#search-end').val());
         var params = {
             so_code: $('#search-so-code').val(),
             do_code: $('#search-do-code').val(),
             invoice_code: $('#search-invoice-code').val(),
+			start: $('#search-start').val(),
+			end: $('#search-end').val()
         };
 
         $("#example-table").tabulator("setData", "<?php echo base_url('t_pay_duedate/getListTable'); ?>", params);

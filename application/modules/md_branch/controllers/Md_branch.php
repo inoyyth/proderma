@@ -50,11 +50,11 @@ class Md_branch extends MX_Controller {
         
         $list = $this->m_md_branch->getListTable($field,$table, $join, $like, $where, $sort, $limit_row);
 
-        $total_records = $this->data_table->count_all($table, $where);
+        $total_records = count($this->m_md_branch->getListTable($field,$table, $join, $like, $where, $sort, false));
         $total_pages = ceil($total_records / $limit);
         $output = array(
             "last_page" => $total_pages,
-            "recordsTotal" => $this->data_table->count_all($table, $where),
+            "recordsTotal" => $total_records,
             "data" => $list,
         );
         //output to json format
@@ -167,9 +167,22 @@ class Md_branch extends MX_Controller {
     }
 
     public function print_excel() {
-        $data['template_excel'] = "md_branch/" . $_GET['template'];
-        $data['file_name'] = $_GET['name'];
-        $data['list'] = $this->db->get($this->table)->result_array();
+		$table = 'm_branch'; 
+        
+        $field = array(
+            "m_branch.*",
+            "IF(m_branch.branch_status=1,'Active','Not Active') AS status"
+        );
+        $join = array();
+		$like = array();
+        $where = array('m_branch.branch_status !=' => '3');
+        $sort = array(
+            'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_branch.branch_name",
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"asc"
+        );
+        $data['list'] = $this->m_md_branch->getListTable($field,$table, $join, $like, $where, $sort, 100000);
+        $data['template_excel'] = "md_branch/table_excel";
+        $data['file_name'] = "master_branch";
         $this->load->view('template_excel', $data);
     }
 

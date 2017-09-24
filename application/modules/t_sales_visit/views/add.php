@@ -31,6 +31,10 @@
 
                                 </select>
                             </div>
+							<div class="form-group">
+                                <label>Related Code</label>
+                                <input type="text" name="related_code" class="form-control">
+                            </div>
 							<?php if($this->sessionGlobal['super_admin'] == "2"){ ?>
 							<div class="form-group">
 								<label>Branch Office</label>

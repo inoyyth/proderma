@@ -94,11 +94,11 @@ class Md_customer extends MX_Controller {
         
         $list = $this->m_md_customer->getListTable($field,$table, $join, $like, $where, $sort, $limit_row);
 
-        $total_records = $this->data_table->count_all($table, $where);
+        $total_records = count($this->m_md_customer->getListTable($field,$table, $join, $like, $where, $sort, false));
         $total_pages = ceil($total_records / $limit);
         $output = array(
             "last_page" => ($total_pages==0?1:$total_pages),
-            "recordsTotal" => $this->data_table->count_all($table, $where),
+            "recordsTotal" => $total_records,
             "data" => $list,
         );
         //output to json format
@@ -206,9 +206,38 @@ class Md_customer extends MX_Controller {
     }
 
     public function print_excel() {
-        $data['template_excel'] = "md_customer/" . $_GET['template'];
-        $data['file_name'] = $_GET['name'];
-        $data['list'] = $this->db->get($this->table)->result_array();
+		$table = 'm_customer'; 
+        $field = array(
+            "m_customer.*",
+            "group_customer_product.group_customer_product",
+            "status_list_customer.status_list_customer",
+            "province.province_name",
+            "city.city_name",
+            "district.district_name",
+			"m_branch.branch_name",
+            "IF(m_customer.customer_status=1,'Active','Not Active') AS status"
+        );
+        $join = array(
+            array('table' => 'group_customer_product', 'where' => 'group_customer_product.id=m_customer.id_group_customer_product', 'join' => 'left'),
+            array('table' => 'status_list_customer', 'where' => 'status_list_customer.id=m_customer.id_status_list_customer', 'join' => 'left'),
+            array('table' => 'province', 'where' => 'province.province_id=m_customer.customer_province', 'join' => 'left'),
+            array('table' => 'city', 'where' => 'city.city_id=m_customer.customer_city', 'join' => 'left'),
+            array('table' => 'district', 'where' => 'district.district_id=m_customer.customer_district', 'join' => 'left'),
+			array('table' => 'm_branch', 'where' => 'm_branch.id=m_customer.id_branch', 'join' => 'left')
+        );
+        $like = array();
+		$where = array('m_customer.customer_status !=' => '3','m_customer.current_lead_customer_status'=>'C');
+		if($this->sessionGlobal['super_admin'] == "1") {
+            $where['m_customer.id_branch'] = $this->sessionGlobal['id_branch'];
+        }
+		$sort = array(
+            'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_customer.id",
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
+        );
+		
+        $data['list'] = $this->m_md_customer->getListTable($field,$table, $join, $like, $where, $sort, false);
+        $data['template_excel'] = "md_customer/table_excel";
+        $data['file_name'] = "master_customer";
         $this->load->view('template_excel', $data);
     }
 

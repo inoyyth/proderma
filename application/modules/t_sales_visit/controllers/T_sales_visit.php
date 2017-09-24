@@ -48,14 +48,30 @@ class T_sales_visit extends MX_Controller {
         );
         
         $like = array(
-            'sales_visit.sales_visit_date'=>isset($_POST['visit_date'])?$_POST['visit_date']:"",
             'm_customer.customer_name'=>isset($_POST['customer_name'])?$_POST['customer_name']:"",
             'm_employee.employee_name'=>isset($_POST['sales_name'])?$_POST['sales_name']:""
         );
-        $where = array('sales_visit.status !=' => '3');
+		
+        $where_1 = array('sales_visit.status !=' => '3');
+		$where_2 = array();
+		if (isset($_POST['start']) && isset($_POST['end'])) {
+			if($_POST['start'] != null && $_POST['end'] != null) {
+				$where_2 = array(
+					'date(sales_visit.sales_visit_date) >=' => $_POST['start'],
+					'date(sales_visit.end_date) <=' => $_POST['end'],
+				);
+			} else if ($_POST['start'] != "") {
+				$where_2 = array('date(sales_visit.sales_visit_date) =' => $_POST['start']);
+			} else if ($_POST['end'] != "") {
+				$where_2 = array('date(sales_visit.end_date) =' => $_POST['end']);
+			}
+		}
+		$where_3 = array();
 		if($this->sessionGlobal['super_admin'] == "1") {
-            $where['sales_visit.id_branch'] = $this->sessionGlobal['id_branch'];
+            $where_3['sales_visit.id_branch'] = $this->sessionGlobal['id_branch'];
         }
+		$where = array_merge($where_1,$where_2,$where_3);
+		
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"sales_visit.id",
             'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
@@ -68,11 +84,11 @@ class T_sales_visit extends MX_Controller {
         
         $list = $this->m_t_sales_visit->getListTable($field,$table, $join, $like, $where, $sort, $limit_row);
 
-        $total_records = $this->data_table->count_all($table, $where);
+        $total_records = count($this->m_t_sales_visit->getListTable($field,$table, $join, $like, $where, $sort, $limit_row));
         $total_pages = ceil($total_records / $limit);
         $output = array(
             "last_page" => $total_pages,
-            "recordsTotal" => $this->data_table->count_all($table, $where),
+            "recordsTotal" => $total_records,
             "data" => $list,
         );
         //output to json format
@@ -108,5 +124,60 @@ class T_sales_visit extends MX_Controller {
         } else {
             show_404();
         }
+    }
+	
+	 public function print_excel() {
+		 $table = 'sales_visit'; 
+        
+        $field = array(
+            "sales_visit.*",
+            "IF(sales_visit.status=1,'Active','Not Active') AS status",
+            "m_employee.employee_name",
+            "m_customer.customer_name",
+            "m_objective.objective",
+			"m_branch.branch_name"
+        );
+
+        $join = array(
+            array('table' => 'm_employee', 'where' => 'm_employee.id=sales_visit.id_sales', 'join' => 'left'),
+            array('table' => 'm_customer', 'where' => 'm_customer.id=sales_visit.id_customer', 'join' => 'left'),
+            array('table' => 'm_objective', 'where' => 'm_objective.id=sales_visit.activity', 'join' => 'left'),
+			array('table' => 'm_branch', 'where' => 'm_branch.id=sales_visit.id_branch', 'join' => 'left')
+        );
+        
+        $like = array();
+		if (isset($_GET['sales']) && $_GET['sales'] != "") {
+			$like['m_employee.employee_name'] = $_GET['sales'];
+		}
+		
+        $where_1 = array('sales_visit.status !=' => '3');
+		$where_2 = array();
+		if (isset($_POST['start']) && isset($_POST['end'])) {
+			if($_POST['start'] != null && $_POST['end'] != null) {
+				$where_2 = array(
+					'date(sales_visit.sales_visit_date) >=' => $_POST['start'],
+					'date(sales_visit.end_date) <=' => $_POST['end'],
+				);
+			} else if ($_POST['start'] != "") {
+				$where_2 = array('date(sales_visit.sales_visit_date) =' => $_POST['start']);
+			} else if ($_POST['end'] != "") {
+				$where_2 = array('date(sales_visit.end_date) =' => $_POST['end']);
+			}
+		}
+		$where_3 = array();
+		if($this->sessionGlobal['super_admin'] == "1") {
+            $where_3['sales_visit.id_branch'] = $this->sessionGlobal['id_branch'];
+        }
+		$where = array_merge($where_1,$where_2,$where_3);
+		
+        $sort = array(
+            'sort_field' => isset($_POST['sort'])?$_POST['sort']:"sales_visit.id",
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"asc"
+        );
+		 
+		$data['list'] = $this->m_t_sales_visit->getListTable($field,$table, $join, $like, $where, $sort, false);
+        $data['template_excel'] = "t_sales_visit/table_excel";
+        $data['file_name'] = "plan_master";
+        $this->load->view('template_excel', $data);
     }
 }

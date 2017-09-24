@@ -21,7 +21,8 @@ Class M_t_sales_visit extends CI_Model {
             'end_date' => $this->input->post('end_date'),
             'longitude' => $this->input->post('longitude'),
             'latitude' => $this->input->post('latitude'),
-			'id_branch' => $branch
+			'id_branch' => $branch,
+			'related_code' => $this->input->post('related_code'),
         );
         if (empty($id)) {
             $data['order_id'] =  $this->main_model->generate_code('sales_visit', 'PL','-' , $digit = 7, false,false, $where=array(),'id','id');
@@ -49,7 +50,9 @@ Class M_t_sales_visit extends CI_Model {
             $this->db->like($like);
         }
         $this->db->order_by($sort['sort_field'], $sort['sort_direction']);
-        $this->db->limit($limit['limit'], $limit['offset']);
+		if ($limit) {
+			$this->db->limit($limit['limit'], $limit['offset']);
+		}
         return $sql = $this->db->get()->result_array();
     }
 
@@ -66,13 +69,15 @@ Class M_t_sales_visit extends CI_Model {
                 . 'm_employee.employee_email,'
                 . 'm_employee.photo_path,'
                 . 'm_employee.employee_phone,'
-                . 'm_activity.activity_name'
+				. 'm_branch.branch_name,'
+                . 'm_objective.objective'
         );
         $this->db->from($table);
         $this->db->where($table . '.id', $id);
         $this->db->join('m_customer', 'm_customer.id=' . $table . '.id_customer', 'INNER');
         $this->db->join('m_employee', 'm_employee.id=' . $table . '.id_sales', 'INNER');
-        $this->db->join('m_activity', 'm_activity.id=' . $table . '.activity', 'INNER');
+        $this->db->join('m_objective', 'm_objective.id=' . $table . '.activity', 'INNER');
+		$this->db->join('m_branch', 'm_branch.id=' . $table . '.id_branch', 'INNER');
         return $this->db->get();
     }
 

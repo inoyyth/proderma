@@ -117,9 +117,33 @@ class Md_product_sub_category extends MX_Controller {
     }
 
     public function print_excel() {
-        $data['template_excel'] = "md_product_sub_category/" . $_GET['template'];
-        $data['file_name'] = $_GET['name'];
-        $data['list'] = $this->db->get($this->table)->result_array();
+		$table = 'm_product_sub_category'; 
+        
+        $field = array(
+            "m_product_sub_category.*",
+            "IF(m_product_sub_category.product_sub_category_status=1,'Active','Not Active') AS status",
+            "m_product_category.product_category"
+        );
+		$join = array(
+            array('table' => 'm_product_category', 'where' => 'm_product_category.id=m_product_sub_category.id_product_category', 'join' => 'left')
+        );
+		$like = array();
+		$array_status = array('m_product_sub_category.product_sub_category_status !=' => '3');
+        $array_category = array();
+        if(isset($_POST['category']) && $_POST['category'] != "") {
+            $array_category = array('m_product_sub_category.id_product_category'=>$_POST['category']);
+        }
+        
+        $where = array_merge_recursive($array_status,$array_category);
+        
+        $sort = array(
+            'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_product_sub_category.sub_category_name",
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"asc"
+        );
+		
+        $data['list'] = $this->m_md_product_sub_category->getListTable($field,$table, $join, $like, $where, $sort, 100000);
+        $data['template_excel'] = "md_product_sub_category/table_excel";
+        $data['file_name'] = "master_product_subcategory";
         $this->load->view('template_excel', $data);
     }
 
