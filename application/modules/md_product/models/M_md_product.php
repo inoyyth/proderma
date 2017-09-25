@@ -33,6 +33,13 @@ Class M_md_product extends CI_Model {
                 }
              }
         }
+        
+        if ($this->sessionGlobal['super_admin'] == '1') {
+            $branch = $this->sessionGlobal['id_branch'];
+        } else {
+            $branch = 0;
+        }
+        
         $data = array(
             'id_product_category' => $this->input->post('id_product_category'),
             'product_code' => $this->input->post('product_code'),
@@ -44,7 +51,8 @@ Class M_md_product extends CI_Model {
             'klasifikasi' => $this->input->post('klasifikasi'),
             'komposisi' => $this->input->post('komposisi'),
             'sediaan' => $this->input->post('sediaan'),
-            'photo_path' => $image_name
+            'photo_path' => $image_name,
+            'id_branch' => $branch
         );
         if (empty($id)) {
             $this->db->insert($this->table, $this->main_model->create_sys($data));
