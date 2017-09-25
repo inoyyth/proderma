@@ -46,7 +46,14 @@
                                 <label>Product Group</label>
                                 <select name="id_group_product" parsley-trigger="change" required placeholder="Gropp Product" class="form-control">
                                     <option value=""></option>
-                                    <?php foreach($group as $kGroup=>$vGroup) { ?>
+                                    <?php 
+                                    if($this->sessionGlobal['super_admin'] == "1"){
+                                        unset($group[0]);
+                                        unset($group[2]);
+                                    } else {
+                                        unset($group[1]);
+                                    }
+                                    foreach($group as $kGroup=>$vGroup) { ?>
                                     <option value="<?php echo $vGroup['id'];?>"><?php echo $vGroup['group_product'];?></option>
                                     <?php } ?>
                                 </select>

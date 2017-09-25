@@ -15,7 +15,7 @@
     'use strict';
 
     var defaultOptions = {
-        serverPath: './src/plugins/upload/trumbowyg.upload.php',
+        serverPath: '',
         fileFieldName: 'fileToUpload',
         data: [],                       // Additional data for ajax [{name: 'key', value: 'value'}]
         headers: {},                    // Additional headers
@@ -72,6 +72,11 @@
                 file: '文件',
                 uploadError: '错误'
             },
+            zh_tw: {
+                upload: '上傳',
+                file: '文件',
+                uploadError: '錯誤'
+            },            
             ru: {
                 upload: 'Загрузка',
                 file: 'Файл',
@@ -128,6 +133,12 @@
                                     trumbowyg.o.plugins.upload.data.map(function (cur) {
                                         data.append(cur.name, cur.value);
                                     });
+                                    
+                                    $.map(values, function(curr, key){
+                                        if(key !== 'file') { 
+                                            data.append(key, curr);
+                                        }
+                                    });
 
                                     if ($('.' + prefix + 'progress', $modal).length === 0) {
                                         $('.' + prefix + 'modal-title', $modal)
@@ -154,9 +165,7 @@
                                         contentType: false,
 
                                         progressUpload: function (e) {
-                                            $('.' + prefix + 'progress-bar').stop().animate({
-                                                width: Math.round(e.loaded * 100 / e.total) + '%'
-                                            }, 200);
+                                            $('.' + prefix + 'progress-bar').css('width', Math.round(e.loaded * 100 / e.total) + '%');
                                         },
 
                                         success: function (data) {
@@ -212,7 +221,7 @@
 
 
     function addXhrProgressEvent() {
-        if (!$.trumbowyg && !$.trumbowyg.addedXhrProgressEvent) {   // Avoid adding progress event multiple times
+        if (!$.trumbowyg.addedXhrProgressEvent) {   // Avoid adding progress event multiple times
             var originalXhr = $.ajaxSettings.xhr;
             $.ajaxSetup({
                 xhr: function () {

@@ -69,6 +69,7 @@ class Md_product extends MX_Controller {
 
     public function add() {
         $this->breadcrumbs->push('Add', '/master-product-add');
+        $data['branch'] = $this->db->get_where('m_branch',array('branch_status'=>1))->result_array();
         $data['category'] = $this->db->get_where('m_product_category',array('product_category_status'=>1))->result_array();
         $data['group'] = $this->db->get_where('m_group_product',array('group_product_status'=>1))->result_array();
         $data['view'] = "md_product/add";
@@ -77,6 +78,7 @@ class Md_product extends MX_Controller {
 
     public function edit($id) {
         $this->breadcrumbs->push('Edit', '/master-product-edit');
+        $data['branch'] = $this->db->get_where('m_branch',array('branch_status'=>1))->result_array();
         $data['category'] = $this->db->get_where('m_product_category',array('product_category_status'=>1))->result_array();
         $data['group'] = $this->db->get_where('m_group_product',array('group_product_status'=>1))->result_array();
         $data['data'] = $this->m_md_product->edit_data($this->table, array($this->table.'.id' => $id))->row_array();
