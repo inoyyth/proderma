@@ -83,6 +83,7 @@ $route['master-product'] = 'md_product';
 $route['master-product-add'] = 'md_product/add';
 $route['master-product-edit-(:num)'] = 'md_product/edit/$1';
 $route['master-product-delete-(:num)'] = 'md_product/delete/$1';
+$route['master-product-detail-(:num)'] = 'md_product/detail/$1';
 $route['master-product-save'] = 'md_product/save';
 
 $route['master-product-category'] = 'md_product_category';

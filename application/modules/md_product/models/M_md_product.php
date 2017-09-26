@@ -64,7 +64,7 @@ Class M_md_product extends CI_Model {
         return false;
     }
     
-    public function getListTable($field,$table,$join,$like,$where,$sort,$limit) {
+    public function getListTable($field,$table,$join,$like,$where,$sort,$limit,$where_in) {
         $this->db->select($field);
         $this->db->from($table);
         if(count($join) > 0) {
@@ -72,14 +72,19 @@ Class M_md_product extends CI_Model {
                 $this->db->join($vJoin['table'],$vJoin['where'],$vJoin['join']);
             }
         }
-        if(count($where) > 0) {
-            $this->db->where($where);
-        }
         if(count($like) > 0) {
             $this->db->like($like);
         }
+        if(count($where_in) > 0) {
+            $this->db->where_in($where_in['field'],$where_in['value']);
+        }
+        if(count($where) > 0) {
+            $this->db->where($where);
+        }
         $this->db->order_by($sort['sort_field'],$sort['sort_direction']);
-        $this->db->limit($limit['limit'],$limit['offset']);
+        if($limit) {
+            $this->db->limit($limit['limit'],$limit['offset']);
+        }
         return $sql = $this->db->get()->result_array();
         //echo json_encode($sql);
     }
@@ -89,6 +94,17 @@ Class M_md_product extends CI_Model {
         $this->db->from($table);
         $this->db->join('m_product_sub_category',$table.'.id_product_sub_category=m_product_sub_category.id', 'left');
         $this->db->where($where);
+        return $this->db->get();
+    }
+    
+    public function detailData($id) {
+        $this->db->select('m_product.*,m_product_category.product_category,m_product_sub_category.sub_category_name,m_group_product.group_product,m_branch.branch_name');
+        $this->db->from('m_product');
+        $this->db->join('m_product_category','m_product_category.id=m_product.id_product_category','inner');
+        $this->db->join('m_product_sub_category','m_product_sub_category.id=m_product.id_product_sub_category','inner');
+        $this->db->join('m_group_product','m_group_product.id=m_product.id_group_product','inner');
+        $this->db->join('m_branch','m_branch.id=m_product.id_branch','left');
+        $this->db->where('m_product.id',$id);
         return $this->db->get();
     }
 
