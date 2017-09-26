@@ -27,7 +27,7 @@ class Md_product extends MX_Controller {
         $field = array(
             "m_product.*",
             "m_product_category.product_category",
-			"m_group_product.group_product",
+            "m_group_product.group_product",
             "IF(m_product.product_status=1,'Active','Not Active') AS status"
         );
         
@@ -35,7 +35,7 @@ class Md_product extends MX_Controller {
 
         $join = array(
             array('table' => 'm_product_category', 'where' => 'm_product_category.id=m_product.id_product_category', 'join' => 'left'),
-			array('table' => 'm_group_product', 'where' => 'm_group_product.id=m_product.id_group_product', 'join' => 'left')
+            array('table' => 'm_group_product', 'where' => 'm_group_product.id=m_product.id_group_product', 'join' => 'left')
         );
         $like = array(
             'm_product_category.product_category'=>isset($_POST['category'])?$_POST['category']:"",
@@ -44,6 +44,11 @@ class Md_product extends MX_Controller {
             'm_product.product_price'=>isset($_POST['price'])?$_POST['price']:""
         );
         $where = array('m_product.product_status !=' => '3');
+        $where_in = array();
+        if($this->sessionGlobal['super_admin'] == "1") {
+            $where_in = array('field' => 'm_product.id_branch','value' => array(0,(int)$this->sessionGlobal['id_branch']));
+        }
+        
         $sort = array(
             'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_product.id",
             'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
@@ -54,13 +59,13 @@ class Md_product extends MX_Controller {
             'limit' => $limit
         );
         
-        $list = $this->m_md_product->getListTable($field,$table, $join, $like, $where, $sort, $limit_row);
+        $list = $this->m_md_product->getListTable($field,$table, $join, $like, $where, $sort, $limit_row,$where_in);
 
-        $total_records = $this->data_table->count_all($table, $where);
+        $total_records = count($this->m_md_product->getListTable($field,$table, $join, $like, $where, $sort, false, $where_in));
         $total_pages = ceil($total_records / $limit);
         $output = array(
             "last_page" => $total_pages,
-            "recordsTotal" => $this->data_table->count_all($table, $where),
+            "recordsTotal" => $total_records,
             "data" => $list,
         );
         //output to json format
@@ -83,6 +88,13 @@ class Md_product extends MX_Controller {
         $data['group'] = $this->db->get_where('m_group_product',array('group_product_status'=>1))->result_array();
         $data['data'] = $this->m_md_product->edit_data($this->table, array($this->table.'.id' => $id))->row_array();
         $data['view'] = 'md_product/edit';
+        $this->load->view('default', $data);
+    }
+    
+    public function detail($id) {
+        $this->breadcrumbs->push('Detail', '/master-product-detail');
+        $data['data'] = $this->m_md_product->detailData($id)->row_array();
+        $data['view'] = 'md_product/detail';
         $this->load->view('default', $data);
     }
 
@@ -116,7 +128,7 @@ class Md_product extends MX_Controller {
     }
 
     public function print_excel() {
-		$table = 'm_product'; 
+        $table = 'm_product'; 
         
         $field = array(
             "m_product.*",
