@@ -6,6 +6,23 @@
                 <div class="widget-main">
                     <div class="row">
                         <form class="form-filter-table">
+                            <?php if($this->sessionGlobal['super_admin'] == "1") { ?>
+                            <input type="hidden" id="search-branch" value="<?php echo $this->sessionGlobal['id_branch'];?>">
+                            <?php } else { ?>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label class="small">Branch</label>
+                                    <select class="form-control input-sm" placeholder="Month" id="search-branch">
+                                        <option value="all" selected > -All- </option>
+                                        <?php
+                                        foreach ($branch as $kBranch => $vBranch) {
+                                            echo "<option value='" . $vBranch['id']. "'>" . $vBranch['branch_name'] . "</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <?php } ?>
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Monthly</label>
@@ -88,6 +105,8 @@
     </div>
 </div>
 <script src="<?php echo base_url(); ?>themes/assets/plugin/Highcharts-5.0.14/code/js/highcharts.js"></script>
+<script src="<?php echo base_url(); ?>themes/assets/plugin/Highcharts-5.0.14/code/js/modules/exporting.js"></script>
+
 <script>
     $(document).ready(function () {
         
@@ -97,11 +116,11 @@
         var dt = {};
         var tabulatorAjaxParams = {};
         if (tp === 1){
-             dt = {month: $("#search-month").val(), year: $("#search-year").val()};
-             tabulatorAjaxParams = {month: $("#search-month").val(), year: $("#search-year").val()};
+             dt = {branch: $("#search-branch").val(), month: $("#search-month").val(), year: $("#search-year").val()};
+             tabulatorAjaxParams = {branch: $("#search-branch").val(), month: $("#search-month").val(), year: $("#search-year").val()};
         } else {
-             dt = {month: '', year: $("#search-year2").val()};
-             tabulatorAjaxParams = {month: '', year: $("#search-year2").val()};
+             dt = {branch: $("#search-branch").val(), month: '', year: $("#search-year2").val()};
+             tabulatorAjaxParams = {branch: $("#search-branch").val(), month: '', year: $("#search-year2").val()};
         }
         $.ajax({
             type: "POST",
@@ -129,6 +148,11 @@
                 yAxis: {
                     title: {
                         text: 'Value'
+                    }
+                },
+                navigation: {
+                    buttonOptions: {
+                            enabled: true
                     }
                 },
                 plotOptions: {
