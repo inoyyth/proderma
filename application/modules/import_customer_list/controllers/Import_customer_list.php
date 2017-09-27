@@ -343,11 +343,12 @@ class Import_customer_list extends MX_Controller {
         
         foreach ((array)$data as $k=>$v) {
             $dt = array(
-                'customer_code'=>$this->main_model->generate_code('m_customer', $this->config->item('customer_code').'/1','/' , $digit = 5, true,false, $where=array(),'id','id'),
+                'customer_code' => $this->m_master_list->generateCode($v['subarea']),
+                //'customer_code'=>$this->main_model->generate_code('m_customer', $this->config->item('customer_code').'/1','/' , $digit = 5, true,false, $where=array(),'id','id'),
                 'customer_name'=>$v['customer_name'],
                 'customer_specialis'=>$v['customer_specialis'],
                 'customer_clinic'=>$v['customer_clinic'],
-                'customer_address'=>$v['customer_address'],
+                'customer_address'=>$v['customer_address'], 
                 'customer_province'=>$v['customer_province'],
                 'customer_city'=>$v['customer_city'],
                 'customer_district'=>$v['customer_district'],

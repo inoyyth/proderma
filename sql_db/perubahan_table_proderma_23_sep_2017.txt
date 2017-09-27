@@ -8,3 +8,5 @@ proderma perubahan table :
 7. t_invoice = update dari oposi 'WAITING' ke opsi 'PENDING' untuk invoice_sales_status dan defaultnya 'PENDING'
 8. t_invoince = tambah field no_faktur VARCHAR(100)
 9. m_product = tambah field id_branch INT default 0
+10. province,city dan disctrict di hilangkan FK nya dari m_customer
+11. m_promo_product = add field promo_type ENUM('ECO','REG','PL)
