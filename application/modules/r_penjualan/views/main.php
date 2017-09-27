@@ -98,9 +98,11 @@
     </div>
 
     <div class="col-lg-12">
-        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div
+        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
     </div>
+    
     <div class="col-lg-12" id="tabulator-content" style="margin-bottom: 50px;">
+        <a style="display: none;margin-bottom: 5px;" type="button" id="btn-excel" class="btn btn-xs btn-default"><i class="fa fa-edit"></i> Excel</a>
         <div id="example-table"></div>
     </div>
 </div>
@@ -168,7 +170,11 @@
                     data: data.value
                 }]
             });
-            
+            var url= "<?php echo base_url('r_penjualan/print_excel');?>";
+            if (tp === 1){
+                url += "?branch=" + $("#search-branch").val() + "&month=" + $("#search-month").val() + "&year=" + $("#search-year").val() + "&year2=" + $("#search-year2").val();
+            $("#btn-excel").show();
+            $("#btn-excel").attr('href',url);
             $("#example-table").remove();
             $("#tabulator-content").append('<div id="example-table"></div>');
             $("#example-table").tabulator({
