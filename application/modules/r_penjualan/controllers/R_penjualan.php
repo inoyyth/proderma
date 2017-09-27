@@ -13,6 +13,7 @@ class R_penjualan extends MX_Controller {
     }
 
     public function index() {
+        $data['branch'] = $this->db->get_where('m_branch',array('branch_status' => 1))->result_array();
         $data['template_title'] = array('Report Penjualan', 'List');
         $data['view'] = 'r_penjualan/main';
         $this->load->view('default', $data);
@@ -21,13 +22,14 @@ class R_penjualan extends MX_Controller {
     public function getReport() {
         $month = $this->input->post('month');
         $year = $this->input->post('year');
+        $branch = $this->input->post('branch');
 
         $arr_month = array('', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
         $arr_month_long = array('', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'Augustus', 'September', 'October', 'November', 'December');
 
         if ($month == NULL || $month == "") {
 
-            $dt = $this->m_penjualan->getYearlyReport($year)->result_array();
+            $dt = $this->m_penjualan->getYearlyReport($year,$branch)->result_array();
             $dt_bulan = array();
             foreach ($dt as $k => $v) {
                 $dt_bulan[] = $arr_month[$v['bulan']];
@@ -42,7 +44,7 @@ class R_penjualan extends MX_Controller {
             $category = $dt_bulan;
             $value = $dt_value;
         } else {
-            $dt = $this->m_penjualan->getDailyReport($month, $year)->result_array();
+            $dt = $this->m_penjualan->getDailyReport($month, $year, $branch)->result_array();
             $dt_tgl = array();
             foreach ($dt as $k => $v) {
                 $dt_tgl[] = $v['tgl'];
@@ -109,6 +111,9 @@ class R_penjualan extends MX_Controller {
                 'YEAR(t_sales_order.so_date)' => $this->input->post('year'),
             );
         }
+        if ($this->input->post('branch') != "all") {
+            $where['t_sales_order.id_branch'] = $this->input->post('branch');
+        }
         $sort = array(
             'sort_field' => isset($_POST['sort']) ? $_POST['sort'] : "t_sales_order.so_date",
             'sort_direction' => isset($_POST['sort_dir']) ? $_POST['sort_dir'] : "asc"
@@ -130,6 +135,51 @@ class R_penjualan extends MX_Controller {
         );
         //output to json format
         echo json_encode($output);
+    }
+    
+    public function print_excel() {
+        $table = 't_delivery_order'; 
+        $field = array(
+            "t_delivery_order.*",
+            "t_sales_order.so_code",
+			"m_customer.customer_code",
+			"m_customer.customer_name",
+            "IF(t_delivery_order.do_status=1,'Active','Not Active') AS status"
+        );
+        $join = array(
+            array('table' => 't_sales_order', 'where' => 't_sales_order.id=t_delivery_order.id_so', 'join' => 'left'),
+			array('table' => 'm_customer', 'where' => 'm_customer.id=t_sales_order.id_customer', 'join' => 'left')
+        );
+        $like = array();
+        $where_1 = array('t_delivery_order.do_status !=' => '3');
+        $where_2 = array();
+        if (isset($_GET['start']) && isset($_GET['end'])) {
+            if ($_GET['start'] != null && $_GET['end'] != null) {
+                $where_2 = array(
+                    'date(t_delivery_order.do_date) >=' => $_GET['start'],
+                    'date(t_delivery_order.do_date) <=' => $_GET['end'],
+                );
+            } else if ($_GET['start'] != "") {
+            $where_2 = array('date(t_delivery_order.do_date) >=' => $_GET['start']);
+            } else if ($_GET['end'] != "") {
+            $where_2 = array('date(t_delivery_order.do_date) <=' => $_GET['end']);
+            }
+        }
+        $where_3 = array();
+        if($this->sessionGlobal['super_admin'] == "1") {
+            $where_3['t_sales_order.id_branch'] = $this->sessionGlobal['id_branch'];
+        }
+        $where = array_merge($where_1,$where_2,$where_3);
+
+        $sort = array(
+            'sort_field' => isset($_POST['sort'])?$_POST['sort']:"t_delivery_order.id",
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"desc"
+        );
+        
+		$data['list'] = $this->m_sales_delivery->getListTable($field,$table, $join, $like, $where, $sort, false);
+        $data['template_excel'] = "t_sales_delivery/table_excel";
+        $data['file_name'] = "delivery_order";
+        $this->load->view('template_excel', $data);
     }
 
 }
