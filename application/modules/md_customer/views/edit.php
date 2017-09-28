@@ -169,7 +169,7 @@
 <script>
     $(document).ready(function () {
         //initMap($("#customer-latitude").val(), $("#customer-longitude").val());
-        var option = "<option value='' disabled selected> </option>";
+        var option = "<option value='' disabled> </option>";
         $.ajax({//create an ajax request to load_page.php
             type: "GET",
             url: "<?php echo base_url(); ?>md_customer/getCityList?id=<?php echo $data['customer_province'];?>",
@@ -187,7 +187,7 @@
 
         });
         
-        var option_district = "<option value='' disabled selected> </option>";
+        var option_district = "<option value='' disabled> </option>";
         $.ajax({//create an ajax request to load_page.php
             type: "GET",
             url: "<?php echo base_url(); ?>md_customer/getDistrictList?id=<?php echo $data['customer_city'];?>",
@@ -205,7 +205,7 @@
 
         });
         
-        var option_subarea = "<option value='' disabled selected> </option>";
+        var option_subarea = "<option value='' disabled> </option>";
         $.ajax({//create an ajax request to load_page.php
             type: "GET",
             url: "<?php echo base_url(); ?>md_customer/getSubareaList?id=<?php echo $data['id_area'];?>",

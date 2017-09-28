@@ -7,12 +7,19 @@
                         <div class="col-md-12">
                             <input type="hidden" name="id">
                             <div class="form-group">
-                                <label>Promo Code</label>
-                                <input type="text" name="promo_code" readonly="true" parsley-trigger="change" required placeholder="Promo Code" value="<?php echo $code;?>" class="form-control">
-                            </div>
-                            <div class="form-group">
                                 <label>Promo Name</label>
                                 <input type="text" name="promo_name" parsley-trigger="change" required placeholder="Promo Name" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Promo Type</label>
+                                <select name="promo_type" placeholder="Promo Type" required class="form-control">
+                                    <?php 
+                                        $type = array('ECO','REG','PL');
+                                        foreach($type as $kType=>$vType) {
+                                    ?>
+                                    <option value="<?php echo $vType;?>"><?php echo $vType;?></option>
+                                    <?php } ?>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label>Promo Description</label>
@@ -32,9 +39,9 @@
                                     <input type="text" class="input-sm form-control" placeholder="End Date" name="promo_end_date" />
                                 </div>
                             </div>
-							<div class="form-group">
+                            <div class="form-group">
                                 <label>Branch Selection</label>
-								<input type="text" class="form-control" id="branch-list" readonly name="branch_list" parsley-trigger="change" required>
+                                <input type="text" class="form-control" id="branch-list" readonly name="branch_list" parsley-trigger="change" required>
                             </div>
                             <div class="form-group">
                                 <label>Status</label>

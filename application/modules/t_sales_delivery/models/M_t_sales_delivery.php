@@ -8,10 +8,10 @@ Class M_t_sales_delivery extends CI_Model {
         $id = $this->input->post('id');
         $data = array(
             'id_so' => $this->input->post('id_so'),
-            'do_code' => $this->input->post('do_code'),
             'do_date' => $this->input->post('do_date')
         );
         if (empty($id)) {
+            $data['do_code'] = $this->__generate_code($this->input->post('id_so'));
             $this->db->insert($this->table, $this->main_model->create_sys($data));
             return true;
         } else {
@@ -113,6 +113,28 @@ Class M_t_sales_delivery extends CI_Model {
             't_sales_order_product.id_sales_order' => $id,
         ));
         $this->db->group_by(array('t_sales_order_product.id'));
+        return $this->db->get();
+    }
+    
+    public function __generate_code($id_so) {
+        $customer = $this->db->get_where('t_sales_order',array('id'=>$id_so))->row_array();
+        $cust_area = $this->db->get_where('m_customer',array('id'=>$customer['id_customer']))->row_array();
+        $area =  $this->db->get_where('m_area',array('id'=>$cust_area['id_area']))->row_array();
+        
+        $getMaxById = $this->__getMaxById($area['area_code'],$area['area_nick_code'])->row_array();
+        $expldCode = explode('/',$getMaxById['so_code']);
+        $lastId = (int) end($expldCode);
+        $ll = $lastId + 1;
+        $fixCode = 'DO/CRM/'.$area['area_nick_code'].$area['area_code'] . '/' .romanic_number(date('m')) . '/' . substr(date('Y'),2,2).'/'.str_pad(($ll), 4, '0', STR_PAD_LEFT);
+        return $fixCode;
+    }
+    
+    private function __getMaxById($id_area,$area_nick) {
+        $this->db->select('do_code');
+        $this->db->from('t_delivery_order');
+        $this->db->like(array('do_code'=>$area_nick.$id_area));
+        $this->db->order_by('id','desc');
+        $this->db->limit(0,1);
         return $this->db->get();
     }
 

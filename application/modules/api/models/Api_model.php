@@ -54,28 +54,25 @@ class Api_model extends CI_Model {
         return $query->row_array();
     }
 
-    public function __generate_code($tables, $prefix, $separator, $digit = 4, $date = true, $loop = false, $field = 'id', $field_target) {
-        $tgl = date('y');
-        $where = array();
-        if ($loop == true) {
-            $where = array('YEAR(sys_create_date)' => date('Y'), 'MONTH(sys_create_date)' => date('m'));
-        }
-        $this->db->select($field_target);
-        $this->db->from($tables);
-        $this->db->where($where);
-        $this->db->order_by($field, 'DESC');
-        $this->db->limit(1);
-        $dt = $this->db->get()->row_array();
-        $explode_target = explode($separator, $dt[$field_target]);
-        $dt_target = intval(end($explode_target));
-        $maxi = $dt_target;
-
-        $hsl = str_pad(($maxi == 0 ? 1 : intval($maxi) + 1), $digit, '0', STR_PAD_LEFT);
-        if ($date == true) {
-            return $prefix . $separator . date('Ym') . $separator . $hsl;
-        } else {
-            return $prefix . $separator . $hsl;
-        }
+    public function __generate_code($id_customer) {
+        $cust_area = $this->db->get_where('m_customer',array('id'=>$id_customer))->row_array();
+        $area =  $this->db->get_where('m_area',array('id'=>$cust_area['id_area']))->row_array();
+        
+        $getMaxById = $this->__getMaxById($area['area_code'],$area['area_nick_code'])->row_array();
+        $expldCode = explode('/',$getMaxById['so_code']);
+        $lastId = (int) end($expldCode);
+        $ll = $lastId + 1;
+        $fixCode = 'SO/CRM/'.$area['area_nick_code'].$area['area_code'] . '/' .romanic_number(date('m')) . '/' . substr(date('Y'),2,2).'/'.str_pad(($ll), 4, '0', STR_PAD_LEFT);
+        return $fixCode;
+    }
+    
+    private function __getMaxById($id_area,$area_nick) {
+        $this->db->select('so_code');
+        $this->db->from('t_sales_order');
+        $this->db->like(array('so_code'=>$area_nick.$id_area));
+        $this->db->order_by('id','desc');
+        $this->db->limit(0,1);
+        return $this->db->get();
     }
 
     public function __generate_code2($tables, $prefix, $separator, $digit = 4, $date = true, $loop = false, $where = array(), $field, $order) {
@@ -274,7 +271,7 @@ class Api_model extends CI_Model {
     public function sales_order($data) {
 		$sales = $this->__salesDetail($data['id_sales']);
         $dt = array(
-            'so_code' => $this->__generate_code('t_sales_order', 'SO', '/', 8, true, true, 'id', 'so_code'),
+            'so_code' => $this->__generate_code($data['id_customer']),
             'so_date' => $data['date'],
             'id_customer' => $data['id_customer'],
             'id_sales' => $data['id_sales'],

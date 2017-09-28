@@ -16,6 +16,17 @@
                                 <input type="text" name="promo_name" parsley-trigger="change" value="<?php echo $data['promo_name'];?>" required placeholder="Promo Name" class="form-control">
                             </div>
                             <div class="form-group">
+                                <label>Promo Type</label>
+                                <select name="promo_type" placeholder="Promo Type" required class="form-control">
+                                    <?php 
+                                        $type = array('ECO','REG','PL');
+                                        foreach($type as $kType=>$vType) {
+                                    ?>
+                                    <option value="<?php echo $vType;?>" <?php echo ($data['promo_type']==$vType ? "selected" : "");?>><?php echo $vType;?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label>Promo Description</label>
                                 <textarea name="promo_description" parsley-trigger="change" required placeholder="Promo Description" class="form-control"><?php echo $data['promo_description'];?></textarea>
                             </div>
@@ -29,12 +40,12 @@
                                 <div class="input-daterange input-group">
                                     <input type="text" class="input-sm form-control" placeholder="Start Date" value="<?php echo $data['promo_start_date'];?>" name="promo_start_date" />
                                     <span class="input-group-addon">
-                                            <i class="fa fa-exchange"></i>
+                                        <i class="fa fa-exchange"></i>
                                     </span>
                                     <input type="text" class="input-sm form-control" placeholder="End Date" value="<?php echo $data['promo_end_date'];?>" name="promo_end_date" />
                                 </div>
                             </div>
-							<div class="form-group">
+                            <div class="form-group">
                                 <label>Branch Selection</label>
 								<input type="text" class="form-control" readonly id="branch-list" name="branch_list" value="<?php echo $data['id_branch'];?>" parsley-trigger="change" required>
                             </div>

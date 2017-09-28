@@ -34,16 +34,17 @@ Class M_t_promo_product extends CI_Model {
              }
         }
         $data = array(
-            'promo_code' => $this->input->post('promo_code'),
             'promo_name' => $this->input->post('promo_name'),
             'promo_description' => $this->input->post('promo_description'),
             'promo_file' => $image_name,
             'promo_start_date' => $this->input->post('promo_start_date'),
             'promo_end_date' => $this->input->post('promo_end_date'),
             'promo_status' => $this->input->post('promo_status'),
-			'id_branch' => $this->input->post('branch_list')
+            'id_branch' => $this->input->post('branch_list'),
+            'promo_type' => $this->input->post('promo_type')
         );
         if (empty($id)) {
+            $data['promo_code'] = $this->__getPromoCode($this->input->post('promo_type'));
             $this->db->insert($this->table, $this->main_model->create_sys($data));
             return true;
         } else {
@@ -72,6 +73,23 @@ Class M_t_promo_product extends CI_Model {
 			$this->db->limit($limit['limit'],$limit['offset']);
 		}
         return $sql = $this->db->get()->result_array();
+    }
+    
+    public function __getPromoCode($promoType) {
+        $getMaxById = $this->__getMaxById()->row_array();
+        $expldCode = explode('/',$getMaxById['promo_code']);
+        $lastId = (int) end($expldCode);
+        $ll = $lastId + 1;
+        $fixCode = 'PRM/'. $promoType . '/' . romanic_number(date('m')) . '/' . substr(date('Y'),2,2).'/'.str_pad(($ll), 4, '0', STR_PAD_LEFT);
+        return $fixCode;
+    }
+    
+    private function __getMaxById() {
+        $this->db->select('promo_code');
+        $this->db->from('m_promo_product');
+        $this->db->order_by('id','desc');
+        $this->db->limit(0,1);
+        return $this->db->get();
     }
 
 }

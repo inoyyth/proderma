@@ -56,6 +56,7 @@ class T_promo_product extends MX_Controller {
 		foreach ($list as $k => $v) {
 			$file = explode('/',$v['promo_file']);
 			$dx[] = array(
+                                'id' => $v['id'],
 				'promo_code' => $v['promo_code'],
 				'promo_name' => $v['promo_name'],
 				'promo_description' => $v['promo_description'],
@@ -77,7 +78,7 @@ class T_promo_product extends MX_Controller {
     public function add() {
         $this->breadcrumbs->push('Add', '/promo-product-add');
         $data['code'] = $this->main_model->generate_code('m_promo_product', $this->config->item('promo_code').'/1','/' , $digit = 5, true,false, $where=array(),'id','id');
-		$data['admin_status'] = $this->sessionGlobal['super_admin'];
+        $data['admin_status'] = $this->sessionGlobal['super_admin'];
         $data['view'] = "t_promo_product/add";
         $this->load->view('default', $data);
     }
@@ -85,7 +86,7 @@ class T_promo_product extends MX_Controller {
     public function edit($id) {
         $this->breadcrumbs->push('Edit', '/promo-product-edit');
         $data['data'] = $this->db->get_where($this->table, array('id' => $id))->row_array();
-		$data['admin_status'] = $this->sessionGlobal['super_admin'];
+        $data['admin_status'] = $this->sessionGlobal['super_admin'];
         $data['view'] = 't_promo_product/edit';
         $this->load->view('default', $data);
     }

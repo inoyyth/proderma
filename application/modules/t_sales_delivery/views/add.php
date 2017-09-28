@@ -6,10 +6,6 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>Delivery Order Code</label>
-                                <input type="text" name="do_code" readonly="true" value="<?php echo $code; ?>" parsley-trigger="change" required  class="form-control">
-                            </div>
-                            <div class="form-group">
                                 <label>Sales Order Code</label>
                                 <input type="hidden" name="id_so" id="id_so">
                                 <div class="input-group">
