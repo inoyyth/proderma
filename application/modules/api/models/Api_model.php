@@ -55,14 +55,14 @@ class Api_model extends CI_Model {
     }
 
     public function __generate_code($id_customer) {
-        $cust_area = $this->db->get('m_customer',array('id'=>$id_customer))->row_array();
+        $cust_area = $this->db->get_where('m_customer',array('id'=>$id_customer))->row_array();
         $area =  $this->db->get_where('m_area',array('id'=>$cust_area['id_area']))->row_array();
         
-        $getMaxById = $this->__getMaxById($area['id_area'],$area['area_nick_code'])->row_array();
+        $getMaxById = $this->__getMaxById($area['area_code'],$area['area_nick_code'])->row_array();
         $expldCode = explode('/',$getMaxById['so_code']);
         $lastId = (int) end($expldCode);
         $ll = $lastId + 1;
-        $fixCode = 'SO/CRM/'.$subarea['area_nick_code'].$area['area_code'] . '/' .romanic_number(date('m')) . '/' . substr(date('Y'),2,2).'/'.str_pad(($ll), 4, '0', STR_PAD_LEFT);
+        $fixCode = 'SO/CRM/'.$area['area_nick_code'].$area['area_code'] . '/' .romanic_number(date('m')) . '/' . substr(date('Y'),2,2).'/'.str_pad(($ll), 4, '0', STR_PAD_LEFT);
         return $fixCode;
     }
     

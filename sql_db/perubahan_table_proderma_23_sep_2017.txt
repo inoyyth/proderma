@@ -12,3 +12,4 @@ proderma perubahan table :
 11. m_promo_product = add field promo_type ENUM('ECO','REG','PL)
 12 . m_area = add field area_nick_code varchar(20)
 13 . m_subarea = add field subarea_nick_code varchar(20)
+14. t_delivery_order = set do_code size to varchar(100)
