@@ -30,7 +30,7 @@ Class M_import_customer_list extends CI_Model {
         $expldCode = explode('/',$getMaxById['customer_code']);
         $lastId = (int) end($expldCode);
         $ll = $lastId + 1;
-        $fixCode = 'ML/'.$subarea['subarea_code'].'/'.$subarea['subarea_nick_code'].'/'.str_pad(($ll), 3, '0', STR_PAD_LEFT);
+        $fixCode = 'CL/'.$subarea['subarea_code'].'/'.$subarea['subarea_nick_code'].'/'.str_pad(($ll), 3, '0', STR_PAD_LEFT);
         return $fixCode;
     }
     
