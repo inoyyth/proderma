@@ -269,7 +269,7 @@ class Api_model extends CI_Model {
     }
 
     public function sales_order($data) {
-		$sales = $this->__salesDetail($data['id_sales']);
+        $sales = $this->__salesDetail($data['id_sales']);
         $dt = array(
             'so_code' => $this->__generate_code($data['id_customer']),
             'so_date' => $data['date'],
@@ -285,7 +285,7 @@ class Api_model extends CI_Model {
             'so_grand_total' => $data['grand_total'],
             'sys_create_user' => $data['id_sales'],
             'sys_create_date' => date('Y-m-d H:i:s'),
-			'id_branch' => $sales['id_branch']
+            'id_branch' => $sales['id_branch']
         );
 
         if ($this->db->insert('t_sales_order', $dt)) {

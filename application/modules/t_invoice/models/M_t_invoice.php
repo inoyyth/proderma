@@ -7,7 +7,6 @@ Class M_t_invoice extends CI_Model {
     public function save() {
         $id = $this->input->post('id');
         $data = array(
-            'invoice_code' => $this->input->post('invoice_code'),
             'id_so' => $this->input->post('id_so'),
             'id_do' => $this->input->post('id_do'),
             'invoice_date' => $this->input->post('invoice_date'),
@@ -15,6 +14,7 @@ Class M_t_invoice extends CI_Model {
             'due_date' => ($this->input->post('due_date') !== NULL ? $this->input->post('due_date') : NULL)
         );
         if (empty($id)) {
+            $data['invoice_code'] = $this->__generate_code($this->input->post('id_so'));
             if($this->db->insert($this->table, $this->main_model->create_sys($data))) {
                 if ($this->input->post('date_status') == "1") {
                     $dt_duedate = array('id_invoice'=>$this->db->insert_id(),'create_date'=>date('Y-m-d'));
@@ -140,6 +140,28 @@ Class M_t_invoice extends CI_Model {
             't_sales_order_product.id_sales_order' => $id,
         ));
         $this->db->group_by(array('t_sales_order_product.id'));
+        return $this->db->get();
+    }
+    
+    public function __generate_code($id_so) {
+        $customer = $this->db->get_where('t_sales_order',array('id'=>$id_so))->row_array();
+        $cust_area = $this->db->get_where('m_customer',array('id'=>$customer['id_customer']))->row_array();
+        $area =  $this->db->get_where('m_area',array('id'=>$cust_area['id_area']))->row_array();
+        
+        $getMaxById = $this->__getMaxById($area['area_code'],$area['area_nick_code'])->row_array();
+        $expldCode = explode('/',$getMaxById['so_code']);
+        $lastId = (int) end($expldCode);
+        $ll = $lastId + 1;
+        $fixCode = 'INV/CRM/'.$area['area_nick_code'].$area['area_code'] . '/' .romanic_number(date('m')) . '/' . substr(date('Y'),2,2).'/'.str_pad(($ll), 4, '0', STR_PAD_LEFT);
+        return $fixCode;
+    }
+    
+    private function __getMaxById($id_area,$area_nick) {
+        $this->db->select('invoice_code');
+        $this->db->from('t_invoice');
+        $this->db->like(array('invoice_code'=>$area_nick.$id_area));
+        $this->db->order_by('id','desc');
+        $this->db->limit(0,1);
         return $this->db->get();
     }
 

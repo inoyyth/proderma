@@ -6,10 +6,6 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>Invoice Code</label>
-                                <input type="text" name="invoice_code" readonly="true" value="<?php echo $code; ?>" parsley-trigger="change" required  class="form-control">
-                            </div>
-							<div class="form-group">
                                 <label>No. Faktur</label>
                                 <input type="text" name="no_faktur" class="form-control">
                             </div>
