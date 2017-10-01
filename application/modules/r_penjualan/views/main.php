@@ -116,11 +116,14 @@
     
     function subReport(tp) {
         var dt = {};
+        var type = "";
         var tabulatorAjaxParams = {};
         if (tp === 1){
+             type = 'daily';
              dt = {branch: $("#search-branch").val(), month: $("#search-month").val(), year: $("#search-year").val()};
              tabulatorAjaxParams = {branch: $("#search-branch").val(), month: $("#search-month").val(), year: $("#search-year").val()};
         } else {
+             type = 'monthly';
              dt = {branch: $("#search-branch").val(), month: '', year: $("#search-year2").val()};
              tabulatorAjaxParams = {branch: $("#search-branch").val(), month: '', year: $("#search-year2").val()};
         }
@@ -171,8 +174,7 @@
                 }]
             });
             var url= "<?php echo base_url('r_penjualan/print_excel');?>";
-            if (tp === 1){
-                url += "?branch=" + $("#search-branch").val() + "&month=" + $("#search-month").val() + "&year=" + $("#search-year").val() + "&year2=" + $("#search-year2").val();
+            url += "?type=" + type + "&branch=" + $("#search-branch").val() + "&month=" + $("#search-month").val() + "&year=" + $("#search-year").val() + "&year2=" + $("#search-year2").val();
             $("#btn-excel").show();
             $("#btn-excel").attr('href',url);
             $("#example-table").remove();
