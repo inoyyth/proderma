@@ -86,6 +86,43 @@
     </div>
 </div>
 
+<div class="row" style="margin-top: 20px;">
+    <div class="col-lg-5">
+        <div class="row" style="margin-bottom: 10px;"> 
+            <div class="col-lg-12">
+                <div class="input-group">
+                    <input type="text" id="search-available-masterlist-txt" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default btn-sm" id="search-available-masterlist-btn" type="button">Go!</button>
+                    </span>
+              </div><!-- /input-group -->
+            </div>
+        </div>
+        <div id="available_masterlist_area"></div>
+    </div>
+    <div class="col-lg-2">
+        <div style="margin-top: 100%;">
+            <center>
+                <button class="btn btn-default" id="area-masterlist-add"> >> </button><br>
+                <button class="btn btn-default" id="area-masterlist-remove"> << </button>
+            </center>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="row" style="margin-bottom: 10px;"> 
+            <div class="col-lg-12">
+                <div class="input-group">
+                    <input type="text" id="search-current-masterlist-txt" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default btn-sm" id="search-current-masterlist-btn" type="button">Go!</button>
+                    </span>
+              </div><!-- /input-group -->
+            </div>
+        </div>
+        <div id="current_masterlist_area"></div>
+    </div>
+</div>
+
 <script>
     $(document).ready(function () {
         var idEmployee = <?php echo $data_sales['id'];?>;
@@ -162,7 +199,7 @@
                 console.log( "error" );
             }).always(function() {
                 console.log( "complete" );
-            });;
+            });
         });
         
         $("#area-remove").click(function(e){
@@ -182,7 +219,102 @@
                 console.log( "error" );
             }).always(function() {
                 console.log( "complete" );
-            });;
+            });
+        });
+        
+        $("#available_masterlist_area").tabulator({
+            fitColumns: true,
+            pagination: false,
+            movableCols: false,
+            height: "520px", // set height of table (optional),
+            pagination:"remote",
+            paginationSize: 500,
+            fitColumns:true, //fit columns to width of table (optional),
+            ajaxType: "POST", //ajax HTTP request type
+            groupBy:"subarea_name",
+            ajaxURL: "<?php echo base_url('t_mapping_area/getAvailableCustomerList/'.$data_sales['id']); ?>", //ajax URL
+            columns: [//Define Table Columns
+                {formatter: "rownum", align: "center", width: 40},
+                {title: "Customer List Code", field: "customer_code", sorter: "string", tooltip: true},
+                {title: "Customer List Name", field: "customer_name", sorter: "string", tooltip: true},
+             ],
+            selectable: 100
+        });
+        
+        $("#search-available-masterlist-btn").click(function(){
+            var params = {
+                query: $('#search-available-masterlist-txt').val(),
+            };
+
+            $("#available_masterlist_area").tabulator("setData", "<?php echo base_url('t_mapping_area/getAvailableCustomerList/'.$data_sales['id']); ?>", params);
+        });
+        
+        $("#current_masterlist_area").tabulator({
+            fitColumns: true,
+            pagination: false,
+            movableCols: false,
+            height: "520px", // set height of table (optional),
+            pagination:"remote",
+            paginationSize: 500,
+            fitColumns:true, //fit columns to width of table (optional),
+            ajaxType: "POST", //ajax HTTP request type
+            groupBy:"subarea_name",
+            ajaxURL: "<?php echo base_url('t_mapping_area/getCurrentCustomerList/'.$data_sales['id']); ?>", //ajax URL
+            columns: [//Define Table Columns
+                {formatter: "rownum", align: "center", width: 40},
+               //{title: "Area", field: "area_name", sorter: "string", tooltip: true},
+                {title: "Customer Code", field: "customer_code", sorter: "string", tooltip: true},
+                {title: "CUstomer Name", field: "customer_name", sorter: "string", tooltip: true},
+             ],
+            selectable: 100
+        });
+        
+        $("#search-current-masterlist-btn").click(function(){
+            var params = {
+                query: $('#search-current-masterlist-txt').val(),
+            };
+
+            $("#current_masterlist_area").tabulator("setData", "<?php echo base_url('t_mapping_area/getCurrentCustomerList/'.$data_sales['id']); ?>", params);
+        });
+        
+        $("#area-masterlist-add").click(function(e){
+            e.preventDefault();
+            var availableArea = $("#available_masterlist_area").tabulator("getSelectedData");
+            $.ajax({
+                url: "<?php echo base_url('t_mapping_area/insertCustomerList');?>",
+                type: "POST",
+                dataType: "json",
+                cache:false,
+                data: { id_employee : idEmployee, arrayData: availableArea }
+            }).done(function() {
+                console.log( "success" );
+                $("#current_masterlist_area").tabulator("setData", "<?php echo base_url('t_mapping_area/getCurrentCustomerList/'.$data_sales['id']); ?>");
+                $("#available_masterlist_area").tabulator("setData", "<?php echo base_url('t_mapping_area/getAvailableCustomerList/'.$data_sales['id']); ?>");
+            }).fail(function() {
+                console.log( "error" );
+            }).always(function() {
+                console.log( "complete" );
+            });
+        });
+        
+        $("#area-masterlist-remove").click(function(e){
+            e.preventDefault();
+            var currentArea = $("#current_masterlist_area").tabulator("getSelectedData");
+            $.ajax({
+                url: "<?php echo base_url('t_mapping_area/removeCustomerList');?>",
+                type: "POST",
+                dataType: "json",
+                cache:false,
+                data: { id_employee : idEmployee, arrayData: currentArea }
+            }).done(function() {
+                console.log( "success" );
+                $("#current_masterlist_area").tabulator("setData", "<?php echo base_url('t_mapping_area/getCurrentCustomerList/'.$data_sales['id']); ?>");
+                $("#available_masterlist_area").tabulator("setData", "<?php echo base_url('t_mapping_area/getAvailableCustomerList/'.$data_sales['id']); ?>");
+            }).fail(function() {
+                console.log( "error" );
+            }).always(function() {
+                console.log( "complete" );
+            });
         });
     });
 </script>
