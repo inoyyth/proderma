@@ -67,9 +67,9 @@ Class M_r_call extends CI_Model {
     
     public function __getDateYearly($i,$year,$employee) {
         //$idEmployee = $this->db->select('id')->from('m_employee')->where(array('employee_nip'=>$employee))->get()->row_array();
-        $subQuery = '(select count(*) from sales_visit where sales_visit_progress="WAITING" and id_sales="'.$employee.'") as waiting,';
-        $subQuery .= '(select count(*) from sales_visit where sales_visit_progress="PROCESS" and id_sales="'.$employee.'") as process,';
-        $subQuery .= '(select count(*) from sales_visit where sales_visit_progress="COMPLETE" and id_sales="'.$employee.'") as complete';
+        $subQuery = '(select count(*) from sales_visit where sales_visit_progress="WAITING" and id_sales="'.$employee.'" AND YEAR(sales_visit_date)="'.$year.'" AND MONTH(sales_visit_date)="'.$i.'") as waiting,';
+        $subQuery .= '(select count(*) from sales_visit where sales_visit_progress="PROCESS" and id_sales="'.$employee.'" AND YEAR(sales_visit_date)="'.$year.'" AND MONTH(sales_visit_date)="'.$i.'") as process,';
+        $subQuery .= '(select count(*) from sales_visit where sales_visit_progress="COMPLETE" and id_sales="'.$employee.'" AND YEAR(sales_visit_date)="'.$year.'" AND MONTH(sales_visit_date)="'.$i.'") as complete';
         $this->db->select($subQuery);
         $this->db->from('sales_visit');
         $this->db->join('m_employee','m_employee.id=sales_visit.id_sales','INNER');
@@ -79,9 +79,9 @@ Class M_r_call extends CI_Model {
     
     public function __getDateMonthly($i,$month,$year,$employee) {
         //$idEmployee = $this->db->select('id')->from('m_employee')->where(array('employee_nip'=>$employee))->get()->row_array();
-        $subQuery = '(select count(*) from sales_visit where sales_visit_progress="WAITING" and id_sales="'.$employee.'") as waiting,';
-        $subQuery .= '(select count(*) from sales_visit where sales_visit_progress="PROCESS" and id_sales="'.$employee.'") as process,';
-        $subQuery .= '(select count(*) from sales_visit where sales_visit_progress="COMPLETE" and id_sales="'.$employee.'") as complete';
+        $subQuery = '(select count(*) from sales_visit where sales_visit_progress="WAITING" and id_sales="'.$employee.'" AND status=1 AND sales_visit_date="'.$year.'-'.$month.'-'.$i.'") as waiting,';
+        $subQuery .= '(select count(*) from sales_visit where sales_visit_progress="PROCESS" and id_sales="'.$employee.'" AND status=1 AND sales_visit_date="'.$year.'-'.$month.'-'.$i.'") as process,';
+        $subQuery .= '(select count(*) from sales_visit where sales_visit_progress="COMPLETE" and id_sales="'.$employee.'" AND status=1 AND sales_visit_date="'.$year.'-'.$month.'-'.$i.'") as complete';
         $this->db->select($subQuery);
         $this->db->from('sales_visit');
         $this->db->join('m_employee','m_employee.id=sales_visit.id_sales','INNER');

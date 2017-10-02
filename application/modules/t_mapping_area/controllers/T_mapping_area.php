@@ -239,7 +239,7 @@ class T_mapping_area extends MX_Controller {
         }
     }
 	
-	public function print_excel() {
+    public function print_excel() {
 		$table = 'm_employee'; 
         $field = array(
             "m_employee.*",
@@ -264,5 +264,136 @@ class T_mapping_area extends MX_Controller {
         $data['template_excel'] = "t_mapping_area/table_excel";
         $data['file_name'] = "mapping_area";
         $this->load->view('template_excel', $data);
+    }
+    
+    public function getAvailableCustomerList($id) {
+        $page = ($_POST['page']==0?1:$_POST['page']);
+        $limit = $_POST['size'];
+        
+        $table = 'm_customer'; 
+        
+        $field = array(
+            "m_customer.*","m_subarea.subarea_code","m_subarea.subarea_name","m_area.area_name"
+        );
+        
+        $offset = ($page - 1) * $limit;
+
+        $join = array();
+        
+        $like = array(
+            'm_customer.customer_name'=>isset($_POST['query'])?$_POST['query']:"",
+            'm_customer.customer_code'=>isset($_POST['query'])?$_POST['query']:""
+        );
+        $where = array();
+        $sort = array(
+            'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_area.area_name",
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"asc"
+        );
+
+        $limit_row = array(
+            'offset' => $offset,
+            'limit' => $limit
+        );
+        
+        $list = $this->m_mapping_area->getAvailableCustomerList($field,$table, $join, $like, array('id_sales'=>$id), $sort, $limit_row);
+        $listx = array();
+        foreach($list as $k=>$v) {
+            $listx[] = array(
+                'id' =>$v['id'],
+                'customer_name' =>$v['customer_name'],
+                'customer_code' =>$v['customer_code'],
+                'id_subarea' =>$v['id_subarea'],
+                'subarea_code' =>$v['subarea_code'],
+                'subarea_name' =>$v['subarea_name']." | ".$v['area_name'],
+            );
+        }
+        log_message('debug',print_r($list,TRUE));
+        
+        $total_records = $this->data_table->count_all($table, $where);
+        $total_pages = ceil($total_records / $limit);
+        $output = array(
+            "last_page" => ($total_pages==0?1:$total_pages),
+            "recordsTotal" => $this->data_table->count_all($table, $where),
+            "data" => $listx,
+        );
+        //output to json format
+        echo json_encode($output);
+    }
+    
+    public function getCurrentCustomerList($id) {
+        $page = ($_POST['page']==0?1:$_POST['page']);
+        $limit = $_POST['size'];
+        
+        $table = 'm_customer'; 
+        
+        $field = array(
+            "sales_mapping_masterlist_area.*","m_subarea.subarea_name","m_subarea.subarea_code","m_customer.customer_code","m_customer.customer_name","m_area.area_name","m_area.id"
+        );
+        
+        $offset = ($page - 1) * $limit;
+
+        $join = array();
+        
+        $like = array(
+            'm_customer.customer_name'=>isset($_POST['query'])?$_POST['query']:"",
+            'm_customer.customer_code'=>isset($_POST['query'])?$_POST['query']:""
+        );
+        $where = array();
+        $sort = array(
+            'sort_field' => isset($_POST['sort'])?$_POST['sort']:"m_area.area_name",
+            'sort_direction' => isset($_POST['sort_dir'])?$_POST['sort_dir']:"asc"
+        );
+
+        $limit_row = array(
+            'offset' => $offset,
+            'limit' => $limit
+        );
+        
+        $list = $this->m_mapping_area->getCurrentCustomerList($field,$table, $join, $like, array('id_sales'=>$id), $sort, $limit_row);
+        $listx = array();
+        foreach($list as $k=>$v) {
+            $listx[] = array(
+                'id' =>$v['id'],
+                'id_customer' =>$v['id_customer'],
+                'customer_code' =>$v['customer_code'],
+                'customer_name' =>$v['customer_name'],
+                'id_sub_area' =>$v['id_sub_area'],
+                'subarea_code' =>$v['subarea_code'],
+                'subarea_name' =>$v['subarea_name']." | ".$v['area_name'],
+            );
+        }
+        log_message('debug',print_r($list,TRUE));
+        
+        $total_records = $this->data_table->count_all($table, $where);
+        $total_pages = ceil($total_records / $limit);
+        $output = array(
+            "last_page" => ($total_pages==0?1:$total_pages),
+            "recordsTotal" => $this->data_table->count_all($table, $where),
+            "data" => $listx,
+        );
+        //output to json format
+        echo json_encode($output);
+    }
+    
+    public function insertCustomerList() {
+        $id_employee = $this->input->post('id_employee');
+        $array_data = $this->input->post('arrayData');
+        $query = $this->m_mapping_area->insertCustomerList($id_employee,$array_data);
+        if($query) {
+            echo json_encode(array('code'=>200));
+        } else {
+            echo json_encode(array('code'=>204));
+        }
+    }
+    
+    public function removeCustomerList() {
+        $id_employee = $this->input->post('id_employee');
+        $array_data = $this->input->post('arrayData');
+        $query = $this->m_mapping_area->removeCustomerList($id_employee,$array_data);
+        if($query) {
+            echo json_encode(array('code'=>200));
+        } else {
+            echo json_encode(array('code'=>204));
+        }
     }
 }
