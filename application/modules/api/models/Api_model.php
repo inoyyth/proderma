@@ -198,16 +198,17 @@ class Api_model extends CI_Model {
         return $this->db->get()->result_array();
     }
 
-    public function get_lead_customer($q) {
+    public function get_lead_customer($q, $id_sales) {
         $this->db->select('m_customer.*,source_lead_customer.source_lead_customer,status_lead_customer.status_lead_customer');
         $this->db->from('m_customer');
         $this->db->join('source_lead_customer', 'source_lead_customer.id=m_customer.id_source_lead_customer', 'INNER');
         $this->db->join('status_lead_customer', 'status_lead_customer.id=m_customer.id_status_lead_customer', 'INNER');
         $this->db->join('m_group_product', 'm_group_product.id=m_customer.id_group_customer_product', 'INNER');
+        $this->db->join('sales_mapping_masterlist_area', 'sales_mapping_masterlist_area.id_customer=m_customer.id', 'INNER');
         $this->db->group_start();
         $this->db->or_like(array('m_customer.customer_code' => $q, 'm_customer.customer_name' => $q));
         $this->db->group_end();
-        $this->db->where(array('m_customer.customer_status' => 1, 'm_customer.current_lead_customer_status' => 'L'));
+        $this->db->where(array('m_customer.customer_status' => 1, 'm_customer.current_lead_customer_status' => 'L', 'sales_mapping_masterlist_area.id_sales' => $id_sales));
         return $this->db->get()->result_array();
     }
 
@@ -492,6 +493,26 @@ class Api_model extends CI_Model {
         $this->db->like(array('t_delivery_order.do_sales_status' => $status));
         $this->db->where(array('t_delivery_order.do_status' => 1, 't_sales_order.id_sales' => $id_sales));
         return $this->db->get()->result_array();
+    }
+    
+    public function update_baterai($data) {
+        $cekExist = $this->db->get_where('baterai_status',array('id_sales'=>$data['id_sales']))->num_rows();
+        $dt = array(
+            'longitude' => $data['longitude'],
+            'latitude' => $data['latitude'],
+            'baterai' => $data['baterai'],
+            'sys_update_date' => date('Y-m-d H:I:s')
+        );
+        if ($cekExist > 0) {
+            $sql = $this->db->update('baterai_status', $dt, array('id_sales' => $data['id_sales']));
+        } else {
+            $dt['id_sales'] = $data['id_sales'];
+            $sql = $this->db->insert('baterai_status',$dt);
+        }
+        if ($sql) {
+            return true;
+        }
+        return false;
     }
 
 }
