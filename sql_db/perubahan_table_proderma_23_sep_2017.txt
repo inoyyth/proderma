@@ -13,3 +13,24 @@ proderma perubahan table :
 12 . m_area = add field area_nick_code varchar(20)
 13 . m_subarea = add field subarea_nick_code varchar(20)
 14. t_delivery_order = set do_code size to varchar(100)
+
+
+import master list
+
+semarang done
+bandung
+
+
+
+
+
+
+
+
+
+
+
+
+import customer list
+semarang done
+bandung done
