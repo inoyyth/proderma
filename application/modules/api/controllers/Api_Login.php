@@ -13,23 +13,24 @@ header('Content-type: application/json');
  * @author INOY
  */
 class Api_Login extends MX_Controller {
+
     function __construct() {
         parent::__construct();
         $this->load->model('Api/Api_model');
-        $this->load->library(array('encrypt','api_validation'));
+        $this->load->library(array('encrypt', 'api_validation'));
     }
-    
-    private function __cek_empty_data($data=array(),$field=array()){
+
+    private function __cek_empty_data($data = array(), $field = array()) {
         $dx = array();
-        foreach($field as $key=>$v) {
-            if(in_array($key, array_keys($data))) {
-                if($data[$key] == null || $data[$key] == ""){
-                    $dx[]= array($key=>$v);
+        foreach ($field as $key => $v) {
+            if (in_array($key, array_keys($data))) {
+                if ($data[$key] == null || $data[$key] == "") {
+                    $dx[] = array($key => $v);
                 }
             }
         }
-        
-        if(count($dx) > 0){
+
+        if (count($dx) > 0) {
             $this->output->set_status_header('200');
             $dt = array(
                 'code' => 201,
@@ -40,7 +41,7 @@ class Api_Login extends MX_Controller {
         }
         return true;
     }
-    
+
     public function login() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (file_get_contents('php://input')) {
@@ -53,36 +54,36 @@ class Api_Login extends MX_Controller {
                     );
                 } else {
                     $field = array(
-                        'username'=>"Is Required",
-                        'password'=>'Is Required',
+                        'username' => "Is Required",
+                        'password' => 'Is Required',
                     );
-                    
-                    if ($data_login = $this->Api_model->login($data)) {      
-                        $b64Doc = $this->__file_to_base64($data_login['photo_path'],$data_login['employee_nip'],'jpg');
+
+                    if ($data_login = $this->Api_model->login($data)) {
+                        $b64Doc = $this->__file_to_base64($data_login['photo_path'], $data_login['employee_nip'], 'jpg');
                         $this->output->set_status_header('200');
-                        $dt=array(
-                            'code'=>200,
-                            'message'=>'Success !!!',
+                        $dt = array(
+                            'code' => 200,
+                            'message' => 'Success !!!',
                             'data' => array(
                                 'token' => $data_login['token'],
-								'id' => $data_login['id'],
+                                'id' => $data_login['id'],
                                 'employee_nip' => $data_login['employee_nip'],
                                 'employee_name' => $data_login['employee_name'],
                                 'employee_email' => $data_login['employee_email'],
                                 'employee_phone' => $data_login['employee_phone'],
-								'id_branch' => $data_login['id_branch'],
-								'branch_name' => $data_login['branch_name'],
+                                'id_branch' => $data_login['id_branch'],
+                                'branch_name' => $data_login['branch_name'],
+                                'default_area' => $data_login['default_area'],
                                 'image' => $b64Doc
                             )
                         );
                     } else {
                         $this->output->set_status_header('200');
-                        $dt=array(
-                            'code'=>201,
-                            'message'=>'Data Not Exist!!!'
+                        $dt = array(
+                            'code' => 201,
+                            'message' => 'Data Not Exist!!!'
                         );
                     }
-                    
                 }
                 echo json_encode($dt);
             } else {
@@ -94,14 +95,15 @@ class Api_Login extends MX_Controller {
             redirect('error404');
         }
     }
-    
-    private function __file_to_base64($path,$name,$format='pdf') {
-        $new_name = $name.".".$format;
+
+    private function __file_to_base64($path, $name, $format = 'pdf') {
+        $new_name = $name . "." . $format;
         $dt = array(
-           'file' => base64_encode(file_get_contents(base_url().$path)),
+            'file' => base64_encode(file_get_contents(base_url() . $path)),
             'name' => $new_name,
             'format' => $format
         );
-       return $dt;
+        return $dt;
     }
+
 }
