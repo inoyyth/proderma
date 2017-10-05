@@ -56,6 +56,9 @@ Class M_t_mapping_area extends CI_Model {
         $this->db->or_like($like);
         $this->db->group_end();
         $this->db->where(array('current_lead_customer_status'=>'C'));
+        if($this->sessionGlobal['super_admin'] == "1") {
+            $this->db->where('m_customer.id_branch',$this->sessionGlobal['id_branch']);
+        }
         if (count($currCustomer) > 0) {
             $this->db->where_not_in('m_customer.id', $currCustomer);
         }
@@ -136,6 +139,9 @@ Class M_t_mapping_area extends CI_Model {
         $this->db->or_like($like);
         $this->db->group_end();
         $this->db->where(array('current_lead_customer_status'=>'L'));
+        if($this->sessionGlobal['super_admin'] == "1") {
+            $this->db->where('m_customer.id_branch',$this->sessionGlobal['id_branch']);
+        }
         if (count($currCustomer) > 0) {
             $this->db->where_not_in('m_customer.id', $currCustomer);
         }

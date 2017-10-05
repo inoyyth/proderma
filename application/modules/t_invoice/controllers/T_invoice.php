@@ -180,7 +180,7 @@ class T_invoice extends MX_Controller {
         $total_pages = ceil($total_records / $limit);
         $output = array(
             "last_page" => $total_pages,
-            "recordsTotal" => $this->data_table->count_all($table, $where),
+            "recordsTotal" => $total_records,
             "data" => $list,
         );
         //output to json format
