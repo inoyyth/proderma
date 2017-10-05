@@ -529,5 +529,35 @@ class Api_model extends CI_Model {
         }
         return false;
     }
+    
+    public function get_related_code($id_sales,$type) {
+        if ($type == 1) {
+            $this->db->select('so_code');
+            $this->db->from('t_sales_order');
+            $this->db->where('id_sales',$id_sales);
+            $this->db->order_by('id','desc');
+            return $this->db->get()->result_array();
+        }
+        
+        if ($type == 2) {
+            $this->db->select('t_delivery_order.do_code');
+            $this->db->from('t_delivery_order');
+            $this->db->join('t_sales_order','t_delivery_order.id_so=t_sales_order.id');
+            $this->db->where('t_sales_order.id_sales',$id_sales);
+            $this->db->order_by('t_delivery_order.id','desc');
+            return $this->db->get()->result_array();
+        }
+        
+        if ($type == 3) {
+            $this->db->select('t_invoice.do_code');
+            $this->db->from('t_invoice');
+            $this->db->join('t_sales_order','t_invoice.id_so=t_sales_order.id');
+            $this->db->where('t_sales_order.id_sales',$id_sales);
+            $this->db->order_by('t_invoice.id','desc');
+            return $this->db->get()->result_array();
+        }
+        
+        
+    }
 
 }
