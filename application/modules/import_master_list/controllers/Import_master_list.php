@@ -240,12 +240,25 @@ class Import_master_list extends MX_Controller {
         $table = 'm_customer_list_temp'; 
         
         $field = array(
-            "m_customer_list_temp.*"
+            "m_customer_list_temp.*",
+            "province.province_name",
+            "city.city_name",
+            "district.district_name",
+            "m_area.area_name",
+            "m_subarea.subarea_name",
+            "m_branch.branch_name"
         );
         
         $offset = ($page - 1) * $limit;
 
-        $join = array();
+        $join = array(
+            array('table' => 'province', 'where' => 'province.province_id=m_customer_list_temp.customer_province', 'join' => 'INNER'),
+            array('table' => 'city', 'where' => 'city.city_id=m_customer_list_temp.customer_city', 'join' => 'INNER'),
+            array('table' => 'district', 'where' => 'district.district_id=m_customer_list_temp.customer_district', 'join' => 'INNER'),
+            array('table' => 'm_area', 'where' => 'm_area.id=m_customer_list_temp.area', 'join' => 'INNER'),
+            array('table' => 'm_subarea', 'where' => 'm_subarea.id=m_customer_list_temp.subarea', 'join' => 'INNER'),
+            array('table' => 'm_branch', 'where' => 'm_branch.id=m_customer_list_temp.id_branch', 'join' => 'INNER'),
+        );
         
         $like = array();
         $where = array('m_customer_list_temp.sys_create_user' => $this->sessionGlobal['id']);

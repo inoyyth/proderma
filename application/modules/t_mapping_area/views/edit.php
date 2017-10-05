@@ -128,11 +128,11 @@
         var idEmployee = <?php echo $data_sales['id'];?>;
         $("#available_area").tabulator({
             fitColumns: true,
-            pagination: false,
+            pagination: true,
             movableCols: false,
             height: "520px", // set height of table (optional),
             pagination:"remote",
-            paginationSize: 500,
+            paginationSize: 2500,
             fitColumns:true, //fit columns to width of table (optional),
             ajaxType: "POST", //ajax HTTP request type
             groupBy:"subarea_name",
@@ -156,11 +156,11 @@
         
         $("#current_area").tabulator({
             fitColumns: true,
-            pagination: false,
+            pagination: true,
             movableCols: false,
             height: "520px", // set height of table (optional),
             pagination:"remote",
-            paginationSize: 500,
+            paginationSize: 2500,
             fitColumns:true, //fit columns to width of table (optional),
             ajaxType: "POST", //ajax HTTP request type
             groupBy:"subarea_name",
@@ -224,11 +224,11 @@
         
         $("#available_masterlist_area").tabulator({
             fitColumns: true,
-            pagination: false,
+            pagination: true,
             movableCols: false,
             height: "520px", // set height of table (optional),
             pagination:"remote",
-            paginationSize: 500,
+            paginationSize: 2500,
             fitColumns:true, //fit columns to width of table (optional),
             ajaxType: "POST", //ajax HTTP request type
             groupBy:"subarea_name",
@@ -251,11 +251,11 @@
         
         $("#current_masterlist_area").tabulator({
             fitColumns: true,
-            pagination: false,
+            pagination: true,
             movableCols: false,
             height: "520px", // set height of table (optional),
             pagination:"remote",
-            paginationSize: 500,
+            paginationSize: 2500,
             fitColumns:true, //fit columns to width of table (optional),
             ajaxType: "POST", //ajax HTTP request type
             groupBy:"subarea_name",

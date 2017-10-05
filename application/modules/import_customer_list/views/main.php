@@ -123,7 +123,15 @@
                 {formatter: "rownum", align: "center", width: 40},
                 {title: "Name", field: "customer_name", sorter: "string", tooltip: true},
                 {title: "Specialis", field: "customer_specialis", sorter: "string", tooltip: true},
-                {title: "Clinic", field: "customer_clinic", sorter: "string", tooltip: true}
+                {title: "Clinic", field: "customer_clinic", sorter: "string", tooltip: true},
+                {title: "Address", field: "customer_address", sorter: "string", tooltip: true},
+                {title: "Province", field: "province_name", sorter: "string", tooltip: true},
+                {title: "City", field: "city_name", sorter: "string", tooltip: true},
+                {title: "District", field: "district_name", sorter: "string", tooltip: true},
+                {title: "Area", field: "area_name", sorter: "string", tooltip: true},
+                {title: "Subarea", field: "subarea_name", sorter: "string", tooltip: true},
+                {title: "Branch", field: "branch_name", sorter: "string", tooltip: true},
+                
             ],
             rowSelectionChanged: function (data, rows) {
                 if (data.length > 0) {
