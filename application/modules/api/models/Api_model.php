@@ -325,6 +325,27 @@ class Api_model extends CI_Model {
         }
         return false;
     }
+    
+    public function __generate_code($id_customer) {
+        $cust_area = $this->db->get_where('m_customer',array('id'=>$id_customer))->row_array();
+        $area =  $this->db->get_where('m_area',array('id'=>$cust_area['id_area']))->row_array();
+        
+        $getMaxById = $this->__getMaxByIdSo($area['area_code'],$area['area_nick_code'])->row_array();
+        $expldCode = explode('/',$getMaxById['so_code']);
+        $lastId = (int) end($expldCode);
+        $ll = $lastId + 1;
+        $fixCode = 'SO/CRM/'.$area['area_nick_code'].$area['area_code'] . '/' .romanic_number(date('m')) . '/' . substr(date('Y'),2,2).'/'.str_pad(($ll), 4, '0', STR_PAD_LEFT);
+        return $fixCode;
+    }
+    
+    private function __getMaxByIdSo($id_area,$area_nick) {
+        $this->db->select('so_code');
+        $this->db->from('t_sales_order');
+        $this->db->like(array('so_code'=>$area_nick.$id_area));
+        $this->db->order_by('id','desc');
+        $this->db->limit(0,1);
+        return $this->db->get();
+    }
 
     public function get_activity() {
         $this->db->select('id,activity_name,activity_status');
