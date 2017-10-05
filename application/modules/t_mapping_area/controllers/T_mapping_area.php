@@ -40,7 +40,7 @@ class T_mapping_area extends MX_Controller {
         $like = array(
             'm_employee.employee_name'=>isset($_POST['employee_name'])?$_POST['employee_name']:""
         );
-        $where = array('m_employee.id_jabatan'=>1);
+        $where = array('m_employee.id_jabatan'=>1,'m_employee.employee_status'=>1);
         if($this->sessionGlobal['super_admin'] == "1") {
             $where['m_employee.id_branch'] = $this->sessionGlobal['id_branch'];
         }

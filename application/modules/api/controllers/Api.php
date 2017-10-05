@@ -221,7 +221,8 @@ class Api extends MX_Controller {
                         'address' => 'Address Is Required',
                         'telephone' => 'telephone Is Required',
                         'id_area' => 'Area Is Required',
-                        'id_subarea' => 'Subarea Is Required'
+                        'id_subarea' => 'Subarea Is Required',
+                        'id_branch' => 'Branch harus di input'
                     );
                     $data['current_lead_customer_status'] = "L";
                     $this->__cek_empty_data($data, $field);

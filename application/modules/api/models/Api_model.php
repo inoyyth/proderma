@@ -45,7 +45,7 @@ class Api_model extends CI_Model {
         $token = bin2hex(openssl_random_pseudo_bytes(16));
         $dt = array('token' => $token);
         $this->db->update('m_employee', $dt, array('id' => $data['id']));
-        $this->db->select("m_employee.*,m_branch.branch_name");
+        $this->db->select("m_employee.*,m_branch.branch_name,m_branch.default_area");
         $this->db->from("m_employee");
 		$this->db->join('m_branch','m_branch.id=m_employee.id_branch','INNER');
         $this->db->where(array("m_employee.id" => $data['id']));
@@ -53,68 +53,76 @@ class Api_model extends CI_Model {
 
         return $query->row_array();
     }
-
-    public function __generate_code($id_customer) {
-        $cust_area = $this->db->get_where('m_customer',array('id'=>$id_customer))->row_array();
-        $area =  $this->db->get_where('m_area',array('id'=>$cust_area['id_area']))->row_array();
+    
+    public function __generateCode($id_subarea) {
+        $subarea =  $this->db->get_where('m_subarea',array('id'=>$id_subarea))->row_array();
         
-        $getMaxById = $this->__getMaxById($area['area_code'],$area['area_nick_code'])->row_array();
-        $expldCode = explode('/',$getMaxById['so_code']);
+        $getMaxById = $this->__getMaxById($id_subarea)->row_array();
+        $expldCode = explode('/',$getMaxById['customer_code']);
         $lastId = (int) end($expldCode);
         $ll = $lastId + 1;
-        $fixCode = 'SO/CRM/'.$area['area_nick_code'].$area['area_code'] . '/' .romanic_number(date('m')) . '/' . substr(date('Y'),2,2).'/'.str_pad(($ll), 4, '0', STR_PAD_LEFT);
+        $fixCode = 'CL/'.$subarea['subarea_code'].'/'.$subarea['subarea_nick_code'].'/'.str_pad(($ll), 3, '0', STR_PAD_LEFT);
         return $fixCode;
     }
     
-    private function __getMaxById($id_area,$area_nick) {
-        $this->db->select('so_code');
-        $this->db->from('t_sales_order');
-        $this->db->like(array('so_code'=>$area_nick.$id_area));
+    private function __getMaxById($id_subarea) {
+        $this->db->select('customer_code');
+        $this->db->from('m_customer');
+        $this->db->where(array('id_subarea'=>$id_subarea,'current_lead_customer_status'=>'C'));
+        $this->db->order_by('id','desc');
+        $this->db->limit(0,1);
+        return $this->db->get();
+    }
+    
+    public function __generateCode2($id_subarea) {
+        $subarea =  $this->db->get_where('m_subarea',array('id'=>$id_subarea))->row_array();
+        
+        $getMaxById = $this->__getMaxById2($id_subarea)->row_array();
+        $expldCode = explode('/',$getMaxById['customer_code']);
+        $lastId = (int) end($expldCode);
+        $ll = $lastId + 1;
+        $fixCode = 'ML/'.$subarea['subarea_code'].'/'.$subarea['subarea_nick_code'].'/'.str_pad(($ll), 3, '0', STR_PAD_LEFT);
+        return $fixCode;
+    }
+    
+    private function __getMaxById2($id_subarea) {
+        $this->db->select('customer_code');
+        $this->db->from('m_customer');
+        $this->db->where(array('id_subarea'=>$id_subarea,'current_lead_customer_status'=>'L'));
         $this->db->order_by('id','desc');
         $this->db->limit(0,1);
         return $this->db->get();
     }
 
-    public function __generate_code2($tables, $prefix, $separator, $digit = 4, $date = true, $loop = false, $where = array(), $field, $order) {
-        $tgl = date('y');
-        $this->db->select($field);
-        $this->db->where($where);
-        $this->db->order_by($order, 'DESC');
-        if ($loop == false) {
-            $maxi = $this->db->get($tables)->row($field);
-        } else {
-            $maxi = $this->db->get_where($tables, array('DATE(sys_create_date)' => date('Y-m-d')))->row('max_id');
-        }
-        $hsl = str_pad((intval(preg_replace("/[^0-9,.]/", "", $maxi)) == 0 ? 1 : intval(preg_replace("/[^0-9,.]/", "", $maxi)) + 1), $digit, '0', STR_PAD_LEFT);
-        if ($date == true) {
-            return $prefix . $separator . date('Ymd') . $separator . $hsl;
-        } else {
-            return $prefix . $separator . $hsl;
-        }
-    }
-
     public function register_customer($data) {
         $val = array(
-            'customer_code' => $this->__generate_code2('m_customer', $this->config->item('customer_code') . '/1', '/', $digit = 5, true, false, $where = array(), 'id', 'id'),
+            'customer_code' => $this->__generateCode($data['id_subarea']),
             'customer_name' => $data['customer_name'],
             'customer_clinic' => $data['customer_clinic'],
             'customer_province' => $data['province_id'],
             'customer_city' => $data['city_id'],
             'customer_district' => $data['district_id'],
             'customer_address' => $data['address'],
-            'customer_latitude' => $data['address'],
-            'customer_longitude' => $data['address'],
+            'customer_latitude' => $data['latitude'],
+            'customer_longitude' => $data['longitude'],
             'customer_phone' => $data['telephone'],
             'customer_email' => $data['email'],
             'id_group_customer_product' => $data['group_id'],
             'id_status_list_customer' => 1,
             'customer_internal_notes' => $data['notes'],
             'photo_path' => $data['path_image'],
-            'current_lead_customer_status' => $data['current_lead_customer_status']
+            'current_lead_customer_status' => 'C',
+            'customer_status' => "1",
+            'id_area' => $data['id_area'],
+            'id_subarea' => $data['id_subarea'],
+            'id_branch' => $data['id_branch']
         );
 
         if ($this->db->insert('m_customer', $this->main_model->create_sys($val))) {
-            return true;
+            $lastID = $this->db->insert_id();
+            if ($this->db->insert('sales_mapping_area',array('id_sales'=>$data['id_sales'],'id_sub_area'=>$data['id_subarea'],'id_customer'=>$lastID))) {
+                return true;
+            }
         }
         return false;
     }
@@ -141,7 +149,7 @@ class Api_model extends CI_Model {
 
     public function register_lead($data) {
         $val = array(
-            'customer_code' => $this->__generate_code2('m_customer', $this->config->item('customer_code') . '/0', '/', $digit = 5, true, false, $where = array(), 'id', 'id'),
+            'customer_code' => $this->__generateCode2($data['id_branch']),
             'customer_name' => $data['customer_name'],
             'customer_clinic' => $data['customer_clinic'],
             'customer_province' => $data['province_id'],
@@ -156,11 +164,18 @@ class Api_model extends CI_Model {
             'id_status_lead_customer' => $data['status_id'],
             'customer_internal_notes' => $data['notes'],
             'photo_path' => $data['path_image'],
-            'current_lead_customer_status' => $data['current_lead_customer_status']
+            'current_lead_customer_status' => "L",
+            'customer_status' => "1",
+            'id_area' => $data['id_area'],
+            'id_subarea' => $data['id_subarea'],
+            'id_branch' => $data['id_branch']
         );
 
         if ($this->db->insert('m_customer', $this->main_model->create_sys($val))) {
-            return true;
+            $lastID = $this->db->insert_id();
+            if ($this->db->insert('sales_mapping_masterlist_area',array('id_sales'=>$data['id_sales'],'id_sub_area'=>$data['id_subarea'],'id_customer'=>$lastID))) {
+                return true;
+            }
         }
         return false;
     }
@@ -201,9 +216,9 @@ class Api_model extends CI_Model {
     public function get_lead_customer($q, $id_sales) {
         $this->db->select('m_customer.*,source_lead_customer.source_lead_customer,status_lead_customer.status_lead_customer');
         $this->db->from('m_customer');
-        $this->db->join('source_lead_customer', 'source_lead_customer.id=m_customer.id_source_lead_customer', 'INNER');
-        $this->db->join('status_lead_customer', 'status_lead_customer.id=m_customer.id_status_lead_customer', 'INNER');
-        $this->db->join('m_group_product', 'm_group_product.id=m_customer.id_group_customer_product', 'INNER');
+        $this->db->join('source_lead_customer', 'source_lead_customer.id=m_customer.id_source_lead_customer', 'LEFT');
+        $this->db->join('status_lead_customer', 'status_lead_customer.id=m_customer.id_status_lead_customer', 'LEFT');
+        $this->db->join('m_group_product', 'm_group_product.id=m_customer.id_group_customer_product', 'LEFT');
         $this->db->join('sales_mapping_masterlist_area', 'sales_mapping_masterlist_area.id_customer=m_customer.id', 'INNER');
         $this->db->group_start();
         $this->db->or_like(array('m_customer.customer_code' => $q, 'm_customer.customer_name' => $q));
