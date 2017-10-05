@@ -151,11 +151,11 @@ class T_mapping_area extends MX_Controller {
         }
         log_message('debug',print_r($list,TRUE));
         
-        $total_records = $this->data_table->count_all($table, $where);
+        $total_records = count($list);
         $total_pages = ceil($total_records / $limit);
         $output = array(
             "last_page" => ($total_pages==0?1:$total_pages),
-            "recordsTotal" => $this->data_table->count_all($table, $where),
+            "recordsTotal" => $total_records,
             "data" => $listx,
         );
         //output to json format
@@ -206,11 +206,11 @@ class T_mapping_area extends MX_Controller {
         }
         log_message('debug',print_r($list,TRUE));
         
-        $total_records = $this->data_table->count_all($table, $where);
+        $total_records = count($list);
         $total_pages = ceil($total_records / $limit);
         $output = array(
             "last_page" => ($total_pages==0?1:$total_pages),
-            "recordsTotal" => $this->data_table->count_all($table, $where),
+            "recordsTotal" => $total_records,
             "data" => $listx,
         );
         //output to json format
@@ -309,11 +309,11 @@ class T_mapping_area extends MX_Controller {
         }
         log_message('debug',print_r($list,TRUE));
         
-        $total_records = $this->data_table->count_all($table, $where);
+        $total_records = count($list);
         $total_pages = ceil($total_records / $limit);
         $output = array(
             "last_page" => ($total_pages==0?1:$total_pages),
-            "recordsTotal" => $this->data_table->count_all($table, $where),
+            "recordsTotal" => $total_records,
             "data" => $listx,
         );
         //output to json format
@@ -364,11 +364,11 @@ class T_mapping_area extends MX_Controller {
         }
         log_message('debug',print_r($list,TRUE));
         
-        $total_records = $this->data_table->count_all($table, $where);
+        $total_records = count($list);
         $total_pages = ceil($total_records / $limit);
         $output = array(
             "last_page" => ($total_pages==0?1:$total_pages),
-            "recordsTotal" => $this->data_table->count_all($table, $where),
+            "recordsTotal" => $total_records,
             "data" => $listx,
         );
         //output to json format
