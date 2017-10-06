@@ -9,6 +9,7 @@ class Md_branch extends MX_Controller {
         $this->load->model(array('M_md_branch' => 'm_md_branch', 'Datatable_model' => 'data_table'));
         $this->load->library(array('Auth_log'));
         //set breadcrumb
+        $this->breadcrumbs->push('Master', '/dasboard');
         $this->breadcrumbs->push('Branch Office', '/branch');
     }
 

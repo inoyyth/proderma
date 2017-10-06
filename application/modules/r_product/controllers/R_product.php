@@ -9,6 +9,7 @@ class R_product extends MX_Controller {
             $this->load->model(array('M_r_product' => 'm_product', 'Datatable_model' => 'data_table'));
         $this->load->library(array('Auth_log'));
         //set breadcrumb
+        $this->breadcrumbs->push('Report', '/dasboard');
         $this->breadcrumbs->push('Report Product', '/employee-level');
     }
 

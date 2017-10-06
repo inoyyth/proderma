@@ -7,6 +7,7 @@ class Md_location_manage extends MX_Controller {
         $this->load->model(array('M_md_location_manage' => 'm_md_location_manage', 'Datatable_model' => 'data_table'));
         $this->load->library(array('Auth_log'));
         //set breadcrumb
+        $this->breadcrumbs->push('Utility', '/dasboard');
         $this->breadcrumbs->push('Location Manage', '/location-manage');
     }
 

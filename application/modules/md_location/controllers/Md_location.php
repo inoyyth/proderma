@@ -7,7 +7,8 @@ class Md_location extends MX_Controller {
         $this->load->model(array('M_md_location' => 'm_md_location', 'Datatable_model' => 'data_table'));
         $this->load->library(array('Auth_log'));
         //set breadcrumb
-        $this->breadcrumbs->push('location_info', '/location');
+        $this->breadcrumbs->push('Utility', '/dasboard');
+        $this->breadcrumbs->push('location Info', '/location');
     }
 
     public function index() {

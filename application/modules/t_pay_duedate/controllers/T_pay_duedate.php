@@ -9,6 +9,7 @@ class T_pay_duedate extends MX_Controller {
         $this->load->model(array('M_t_pay_duedate' => 'm_duedate', 'Datatable_model' => 'data_table'));
         $this->load->library(array('Auth_log'));
         //set breadcrumb
+        $this->breadcrumbs->push('Transaction', '/dasboard');
         $this->breadcrumbs->push('Due Date', '/payment-due-date');
     }
 

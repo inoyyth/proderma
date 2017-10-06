@@ -9,6 +9,7 @@ class T_invoice extends MX_Controller {
         $this->load->model(array('M_t_invoice' => 'm_invoice', 'Datatable_model' => 'data_table'));
         $this->load->library(array('Auth_log'));
         //set breadcrumb
+        $this->breadcrumbs->push('Transaction', '/dasboard');
         $this->breadcrumbs->push('Invoice', '/invoice');
     }
 

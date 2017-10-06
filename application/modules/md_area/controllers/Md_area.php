@@ -9,6 +9,7 @@ class Md_area extends MX_Controller {
         $this->load->model(array('M_md_area' => 'm_md_area', 'Datatable_model' => 'data_table'));
         $this->load->library(array('Auth_log'));
         //set breadcrumb
+        $this->breadcrumbs->push('Master', '/dasboard');
         $this->breadcrumbs->push('Master Area', '/master-area');
     }
 

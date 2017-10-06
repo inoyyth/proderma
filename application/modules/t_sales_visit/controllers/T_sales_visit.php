@@ -9,6 +9,7 @@ class T_sales_visit extends MX_Controller {
         $this->load->model(array('M_t_sales_visit' => 'm_t_sales_visit', 'Datatable_model' => 'data_table'));
         $this->load->library(array('Auth_log'));
         //set breadcrumb
+        $this->breadcrumbs->push('Activity', '/dasboard');
         $this->breadcrumbs->push('Plan', '/ojt');
     }
 

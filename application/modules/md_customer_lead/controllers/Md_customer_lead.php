@@ -9,6 +9,7 @@ class Md_customer_lead extends MX_Controller {
         $this->load->model(array('M_md_customer_lead' => 'm_md_customer', 'Datatable_model' => 'data_table', 'Main_model'=>'main_model'));
         $this->load->library(array('upload', 'encrypt', 'Auth_log'));
         //set breadcrumb
+        $this->breadcrumbs->push('Master', '/dasboard');
         $this->breadcrumbs->push('Lead Customer', '/lead-customer');
     }
 

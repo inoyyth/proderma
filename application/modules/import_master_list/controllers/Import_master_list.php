@@ -10,6 +10,7 @@ class Import_master_list extends MX_Controller {
         $this->load->helper('download');
         $this->load->library(array('upload', 'encrypt', 'Printpdf', 'Auth_log'));
         //set breadcrumb
+        $this->breadcrumbs->push('Utility', '/dasboard');
         $this->breadcrumbs->push('Import Master List', '/import-master-list');
     }
 

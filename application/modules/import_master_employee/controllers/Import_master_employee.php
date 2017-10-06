@@ -10,6 +10,7 @@ class Import_master_employee extends MX_Controller {
         $this->load->helper('download');
         $this->load->library(array('upload', 'encrypt', 'Printpdf', 'Auth_log'));
         //set breadcrumb
+        $this->breadcrumbs->push('Utility', '/dasboard');
         $this->breadcrumbs->push('Import Master Employee', '/import-master-employee');
     }
 

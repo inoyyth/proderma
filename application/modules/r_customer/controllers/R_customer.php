@@ -9,6 +9,7 @@ class R_customer extends MX_Controller {
         $this->load->model(array('M_r_customer' => 'm_customer', 'Datatable_model' => 'data_table'));
         $this->load->library(array('Auth_log'));
         //set breadcrumb
+        $this->breadcrumbs->push('Report', '/dasboard');
         $this->breadcrumbs->push('Report Customer', '/employee-level');
     }
 

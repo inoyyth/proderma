@@ -9,6 +9,7 @@ class Backup_db extends MX_Controller {
         $this->load->model(array('M_backup_db' => 'm_backup_db', 'Datatable_model' => 'data_table'));
         $this->load->library(array('Auth_log'));
         //set breadcrumb
+        $this->breadcrumbs->push('Utility', '/dasboard');
         $this->breadcrumbs->push('Backup Database', '/backup-database');
     }
 

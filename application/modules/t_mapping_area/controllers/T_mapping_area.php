@@ -9,6 +9,7 @@ class T_mapping_area extends MX_Controller {
         $this->load->model(array('M_t_mapping_area' => 'm_mapping_area', 'Datatable_model' => 'data_table'));
         $this->load->library(array('Auth_log'));
         //set breadcrumb
+        $this->breadcrumbs->push('Activity', '/dasboard');
         $this->breadcrumbs->push('Mapping Area', '/mapping-area');
     }
 

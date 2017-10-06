@@ -9,6 +9,7 @@ class Md_customer_lead_priority extends MX_Controller {
         $this->load->model(array('M_md_customer_lead_priority' => 'm_md_customer_priority', 'Datatable_model' => 'data_table', 'Main_model'=>'main_model'));
         $this->load->library(array('upload', 'encrypt', 'Auth_log'));
         //set breadcrumb
+        $this->breadcrumbs->push('Activity', '/dasboard');
         $this->breadcrumbs->push('Lead Customer Priority', '/lead-customer-priority');
     }
 

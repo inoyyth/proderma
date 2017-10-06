@@ -9,6 +9,7 @@ class Account extends MX_Controller {
         $this->load->model(array('M_account' => 'm_account', 'Datatable_model' => 'data_table'));
         $this->load->library(array('upload', 'encrypt', 'Auth_log'));
         //set breadcrumb
+        $this->breadcrumbs->push('Master', '/dasboard');
         $this->breadcrumbs->push('User Management', '/user-management');
     }
 

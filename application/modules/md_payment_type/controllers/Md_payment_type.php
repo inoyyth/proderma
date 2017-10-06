@@ -9,6 +9,7 @@ class Md_payment_type extends MX_Controller {
         $this->load->model(array('M_md_payment_type' => 'm_md_payment_type', 'Datatable_model' => 'data_table'));
         $this->load->library(array('Auth_log'));
         //set breadcrumb
+        $this->breadcrumbs->push('Master', '/dasboard');
         $this->breadcrumbs->push('Payment Type', '/master-payment-type');
     }
 

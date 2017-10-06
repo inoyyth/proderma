@@ -9,6 +9,7 @@ class R_call extends MX_Controller {
         $this->load->model(array('M_r_call' => 'm_call', 'Datatable_model' => 'data_table'));
         $this->load->library(array('Auth_log'));
         //set breadcrumb
+        $this->breadcrumbs->push('Report', '/dasboard');
         $this->breadcrumbs->push('Report Call', '/r_call');
     }
 
