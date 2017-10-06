@@ -92,7 +92,7 @@
 				{title: "Customer Code", field: "customer_code", sorter: "string", tooltip: true},
 				{title: "Customer Name", field: "customer_name", sorter: "string", tooltip: true},
 				{title: "No. Faktur", field: "no_faktur", sorter: "string", tooltip: true},
-                {title: "Prograss", field: "invoice_sales_status", sorter: "string", tooltip: true},
+                {title: "Progress", field: "invoice_sales_status", sorter: "string", tooltip: true},
 			
              ],
             selectable: 1,
