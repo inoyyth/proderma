@@ -9,6 +9,7 @@ class Md_product_category extends MX_Controller {
         $this->load->model(array('M_md_product_category' => 'm_md_product_category', 'Datatable_model' => 'data_table'));
         $this->load->library(array('Auth_log'));
         //set breadcrumb
+        $this->breadcrumbs->push('Master', '/dasboard');
         $this->breadcrumbs->push('Product Category', '/master-product-category');
     }
 

@@ -9,6 +9,7 @@ class R_performance extends MX_Controller {
             $this->load->model(array('M_r_performance' => 'm_performance', 'Datatable_model' => 'data_table'));
         $this->load->library(array('Auth_log'));
         //set breadcrumb
+        $this->breadcrumbs->push('Report', '/dasboard');
         $this->breadcrumbs->push('Report Performance', '/employee-level');
     }
 

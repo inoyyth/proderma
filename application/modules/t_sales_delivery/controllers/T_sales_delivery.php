@@ -9,6 +9,7 @@ class T_sales_delivery extends MX_Controller {
         $this->load->model(array('M_t_sales_delivery' => 'm_sales_delivery', 'Datatable_model' => 'data_table'));
         $this->load->library(array('Auth_log'));
         //set breadcrumb
+        $this->breadcrumbs->push('Transaction', '/dasboard');
         $this->breadcrumbs->push('Sales Delivery', '/sales-delivery');
     }
 

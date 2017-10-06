@@ -9,7 +9,8 @@ class Md_level extends MX_Controller {
         $this->load->model(array('M_md_level' => 'm_md_level', 'Datatable_model' => 'data_table'));
         $this->load->library(array('Auth_log'));
         //set breadcrumb
-        $this->breadcrumbs->push('Employee Level', '/employee-level');
+        $this->breadcrumbs->push('Master', '/dasboard');
+        $this->breadcrumbs->push('Level', '/employee-level');
     }
 
     public function index() {

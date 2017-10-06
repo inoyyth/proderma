@@ -9,6 +9,7 @@ class Sales_tracker extends MX_Controller {
         $this->load->model(array('M_sales_tracker' => 'm_tracker', 'Datatable_model' => 'data_table'));
         $this->load->library(array('Auth_log'));
         //set breadcrumb
+        $this->breadcrumbs->push('Activity', '/dasboard');
         $this->breadcrumbs->push('Sales Tracker', '/sales-tracker');
     }
 

@@ -9,6 +9,7 @@ class Md_product extends MX_Controller {
         $this->load->model(array('M_md_product' => 'm_md_product', 'Datatable_model' => 'data_table'));
         $this->load->library(array('upload', 'encrypt', 'Auth_log'));
         //set breadcrumb
+        $this->breadcrumbs->push('Master', '/dasboard');
         $this->breadcrumbs->push('Product', '/master-product');
     }
 

@@ -9,6 +9,7 @@ class Log_pdf extends MX_Controller {
         $this->load->model(array('M_log_pdf' => 'm_log_pdf', 'Datatable_model' => 'data_table'));
         $this->load->library(array('Auth_log'));
         //set breadcrumb
+        $this->breadcrumbs->push('Activity', '/dasboard');
         $this->breadcrumbs->push('Log PDF', '/log-pdf');
     }
 

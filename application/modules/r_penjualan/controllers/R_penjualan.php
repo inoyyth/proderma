@@ -9,6 +9,7 @@ class R_penjualan extends MX_Controller {
         $this->load->model(array('M_r_penjualan' => 'm_penjualan', 'Datatable_model' => 'data_table'));
         $this->load->library(array('Auth_log'));
         //set breadcrumb
+        $this->breadcrumbs->push('Report', '/dasboard');
         $this->breadcrumbs->push('Report Penjualan', '/employee-level');
     }
 

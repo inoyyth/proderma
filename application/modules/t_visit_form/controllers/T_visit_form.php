@@ -9,6 +9,7 @@ class T_visit_form extends MX_Controller {
         $this->load->model(array('M_t_visit_form' => 'm_visit_form', 'Datatable_model' => 'data_table'));
         $this->load->library(array('Auth_log'));
         //set breadcrumb
+        $this->breadcrumbs->push('Activity', '/dasboard');
         $this->breadcrumbs->push('Task', '/visit-form');
     }
 
