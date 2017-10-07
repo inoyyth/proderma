@@ -431,9 +431,10 @@ class Api_model extends CI_Model {
     }
 
     public function list_task($id_sales, $status) {
-        $this->db->select('sales_visit_form.*,m_activity.activity_name');
+        $this->db->select('sales_visit_form.*,m_activity.activity_name,m_customer.customer_code,m_customer.customer_name');
         $this->db->from('sales_visit_form');
         $this->db->join('m_activity', 'm_activity.id=sales_visit_form.visit_form_activity');
+        $this->db->join('m_customer', 'm_customer.id=sales_visit_form.visit_form_attendence');
         $this->db->like('sales_visit_form.visit_form_progress', $status);
         $this->db->where(array('visit_form_sales' => $id_sales, 'visit_form_status' => 1));
         return $this->db->get()->result_array();
@@ -454,9 +455,10 @@ class Api_model extends CI_Model {
     }
 
     public function list_plan($id_sales, $status) {
-        $this->db->select('sales_visit.*,m_objective.objective');
+        $this->db->select('sales_visit.*,m_objective.objective,m_customer.customer_code,m_customer.customer_name');
         $this->db->from('sales_visit');
         $this->db->join('m_objective', 'm_objective.id=sales_visit.activity');
+        $this->db->join('m_customer', 'm_customer.id=sales_visit.id_customer');
         $this->db->like('sales_visit.sales_visit_progress', $status);
         $this->db->where(array('sales_visit.id_sales' => $id_sales, 'sales_visit.status' => 1));
         return $this->db->get()->result_array();
