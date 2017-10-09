@@ -243,6 +243,8 @@ $route['sales-tracker'] = 'sales_tracker';
 
 $route['report-call'] = 'r_call';
 
+$route['log-battery'] = 'log_battery';
+
 $route['log-pdf'] = 'log_pdf';
 
 $route['form-produksi-add'] = 't_produksi/add';

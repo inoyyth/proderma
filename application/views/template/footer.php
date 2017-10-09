@@ -79,9 +79,19 @@
             format:'yyyy-mm-dd'
         });
         $(".date-picker").datepicker({
-                autoclose: true,
-                todayHighlight: true,
-                format:'yyyy-mm-dd'
+            autoclose: true,
+            todayHighlight: true,
+            format:'yyyy-mm-dd'
+        });
+        
+        var currentTime = new Date(); 
+        var endDate = currentTime.setDate(currentTime.getDate() -30);
+        $(".datepicker-month").datepicker( {
+            startDate: formatDate(new Date(endDate)),
+            endDate: formatDate(new Date()),
+            autoclose: true,
+            todayHighlight: true,
+            defaultViewDate: formatDate(new Date())
         });
         $('.easy-pie-chart.percentage').each(function () {
             var $box = $(this).closest('.infobox');
@@ -304,7 +314,18 @@
                 $(this).removeClass('dropup');
         });
 
-    })
+    });
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return [month, day, year].join('/');
+    }
 </script>
 </body>
 </html>
