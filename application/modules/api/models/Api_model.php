@@ -541,12 +541,12 @@ class Api_model extends CI_Model {
             'baterai' => $data['baterai'],
             'sys_update_date' => date('Y-m-d H:I:s')
         );
-        if ($cekExist > 0) {
+        /*if ($cekExist > 0) {
             $sql = $this->db->update('baterai_status', $dt, array('id_sales' => $data['id_sales']));
-        } else {
+        } else {*/
             $dt['id_sales'] = $data['id_sales'];
             $sql = $this->db->insert('baterai_status',$dt);
-        }
+        /*}*/
         if ($sql) {
             return true;
         }
