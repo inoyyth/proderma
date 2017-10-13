@@ -19,7 +19,11 @@ class Api_model extends CI_Model {
     public function login($data) {
         $this->db->select("*");
         $this->db->from("m_employee");
-        $this->db->where(array("employee_nip" => $data['username'], "id_jabatan" => 1, "employee_status" => 1));
+        $this->db->where_in('id_jabatan',array(1,6));
+        /*$this->db->group_start();
+        $this->db->or_where(array("id_jabatan" => 1, "id_jabatan" => 6));
+        $this->db->group_end();*/
+        $this->db->where(array("employee_nip" => $data['username'], "employee_status" => 1));
         $query = $this->db->get();
         if ($query->num_rows() == 1) {
             $dt = $query->row_array();
@@ -45,9 +49,10 @@ class Api_model extends CI_Model {
         $token = bin2hex(openssl_random_pseudo_bytes(16));
         $dt = array('token' => $token);
         $this->db->update('m_employee', $dt, array('id' => $data['id']));
-        $this->db->select("m_employee.*,m_branch.branch_name,m_branch.default_area");
+        $this->db->select("m_employee.*,m_branch.branch_name,m_branch.default_area,m_jabatan.jabatan");
         $this->db->from("m_employee");
-		$this->db->join('m_branch','m_branch.id=m_employee.id_branch','INNER');
+        $this->db->join('m_branch','m_branch.id=m_employee.id_branch','INNER');
+        $this->db->join('m_jabatan','m_jabatan.id=m_employee.id_jabatan','INNER');
         $this->db->where(array("m_employee.id" => $data['id']));
         $query = $this->db->get();
 

@@ -67,6 +67,8 @@ class Api_Login extends MX_Controller {
                             'data' => array(
                                 'token' => $data_login['token'],
                                 'id' => $data_login['id'],
+                                'id_jabatan' => $data_login['id_jabatan'],
+                                'jabatan' => $data_login['jabatan'],
                                 'employee_nip' => $data_login['employee_nip'],
                                 'employee_name' => $data_login['employee_name'],
                                 'employee_email' => $data_login['employee_email'],

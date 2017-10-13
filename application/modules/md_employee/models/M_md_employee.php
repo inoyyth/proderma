@@ -50,13 +50,13 @@ Class M_md_employee extends CI_Model {
             'photo_path' => $image_name
         );
         if (empty($id)) {
-            if($this->input->post('id_jabatan') == 1) {
+            if($this->input->post('id_jabatan') == 1 || $this->input->post('id_jabatan') == 6) {
                 $data['sales_password'] = $this->encrypt->encode(1234);
             }
             $this->db->insert($this->table, $this->main_model->create_sys($data));
             return true;
         } else {
-            if($this->input->post('id_jabatan') == 1) {
+            if($this->input->post('id_jabatan') == 1 || $this->input->post('id_jabatan') == 6) {
                 $data['sales_password'] =  $this->encrypt->encode($this->input->post('sales_password'));
             }
             $this->db->update($this->table, $this->main_model->update_sys($data), array('id' => $id));
