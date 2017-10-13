@@ -76,7 +76,7 @@
 </div>
 <script>
     $(document).ready(function (){
-        if($("#id-jabatan").val() == 1){
+        if($("#id-jabatan").val() == 1 || $("#id-jabatan").val() == 6){
             var id_employee = $("#id-employee").val();
             $.ajax({
                  type:"POST",
@@ -95,7 +95,7 @@
         }
        
         $("#id-jabatan").change(function(){
-            if ($(this).val() == 1) {
+            if ($(this).val() == 1 || $("#id-jabatan").val() == 6) {
                 $("#pass-field").show();
             } else {
                 $("#pass-field").hide();
@@ -103,7 +103,7 @@
         });
         
         $("#form-employee").submit(function(){
-            if ($("#id-jabatan").val() == 1) {
+            if ($("#id-jabatan").val() == 1 || $("#id-jabatan").val() == 6) {
                 if ($("#sales-password").val() === "") {
                     alert('PASSWORD IS REQUIRED!!!');
                     return false;
