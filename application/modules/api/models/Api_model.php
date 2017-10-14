@@ -251,19 +251,18 @@ class Api_model extends CI_Model {
         return array(1 => 'Fixed', 2 => 'Percent');
     }
 
-    public function get_product() {
-        if ($_GET['group'] == 1) {
-
-            $this->db->select('*');
-            $this->db->from('m_product');
-            $this->db->like(array('product_code' => $_GET['product_code']));
-            $this->db->where(array('id_group_product' => $_GET['group']));
-            return $this->db->get()->result_array();
-        } else if ($_GET['group'] == 2) {
-            
-        }
-
-        return false;
+    public function get_product($customer,$product_code) {
+        $this->db->select("mapping_product.*,m_product.product_name,"
+                . "m_product.product_code,m_product_category.product_category,"
+                . "m_product_sub_category.sub_category_name");
+        $this->db->from('mapping_product');
+        $this->db->join('m_product','m_product.id=mapping_product.id_product');
+        $this->db->join('m_product_category','m_product_category.id=m_product.id_product_category');
+        $this->db->join('m_product_sub_category','m_product_sub_category.id=m_product.id_product_sub_category');
+        $this->db->like(array('m_product.product_code' => $product_code));
+        $this->db->where(array('mapping_product.id_customer' => $customer));
+        $this->db->order_by('m_product.product_name','asc');
+        return $this->db->get()->result_array();
     }
 
     public function sales_visitor($data) {
