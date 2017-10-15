@@ -263,8 +263,8 @@
             columns: [//Define Table Columns
                 {formatter: "rownum", align: "center", width: 40},
                //{title: "Area", field: "area_name", sorter: "string", tooltip: true},
-                {title: "Customer Code", field: "customer_code", sorter: "string", tooltip: true},
-                {title: "CUstomer Name", field: "customer_name", sorter: "string", tooltip: true},
+                {title: "Customer List Code", field: "customer_code", sorter: "string", tooltip: true},
+                {title: "CUstomer List Name", field: "customer_name", sorter: "string", tooltip: true},
              ],
             selectable: 100
         });
