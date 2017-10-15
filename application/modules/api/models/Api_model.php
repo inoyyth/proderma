@@ -252,8 +252,7 @@ class Api_model extends CI_Model {
     }
 
     public function get_product($customer,$product_code) {
-        $this->db->select("mapping_product.*,m_product.product_name,"
-                . "m_product.product_code,m_product_category.product_category,"
+        $this->db->select("m_product.*,m_product_category.product_category,"
                 . "m_product_sub_category.sub_category_name");
         $this->db->from('mapping_product');
         $this->db->join('m_product','m_product.id=mapping_product.id_product');
