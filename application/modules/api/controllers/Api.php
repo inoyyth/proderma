@@ -480,7 +480,7 @@ class Api extends MX_Controller {
 
     public function get_product() {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            if ($data = $this->Api_model->get_product($_GET['customer'],$_GET['product_code'])) {
+            if ($data = $this->Api_model->get_product($_GET['customer'],$_GET['product_code'],$_GET['group'])) {
                 $this->output->set_status_header('200');
                 $dt = array(
                     'code' => 200,

@@ -251,15 +251,16 @@ class Api_model extends CI_Model {
         return array(1 => 'Fixed', 2 => 'Percent');
     }
 
-    public function get_product($customer,$product_code) {
+    public function get_product($customer,$product_code,$group=1) {
         $this->db->select("m_product.*,m_product_category.product_category,"
                 . "m_product_sub_category.sub_category_name");
-        $this->db->from('mapping_product');
-        $this->db->join('m_product','m_product.id=mapping_product.id_product');
+        //$this->db->from('mapping_product');
+        //$this->db->join('m_product','m_product.id=mapping_product.id_product');
+        $this->db->from('m_product');
         $this->db->join('m_product_category','m_product_category.id=m_product.id_product_category');
         $this->db->join('m_product_sub_category','m_product_sub_category.id=m_product.id_product_sub_category');
         $this->db->like(array('m_product.product_code' => $product_code));
-        $this->db->where(array('mapping_product.id_customer' => $customer));
+        $this->db->where(array('m_product.id_group_product' => $group));
         $this->db->order_by('m_product.product_name','asc');
         return $this->db->get()->result_array();
     }
