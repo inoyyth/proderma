@@ -144,6 +144,15 @@ class T_sales_order extends MX_Controller {
         echo json_encode($output);
     }
     
+        function delete($id) {
+        if ($this->db->update($this->table, array('so_status' => 3),array('id'=>$id))) {
+            $this->session->set_flashdata('success', 'Data Berhasil Di Hapus !');
+        } else {
+            $this->session->set_flashdata('error', 'Data Gagal Di Hapus !');
+        }
+        redirect("sales-order");
+    }
+    
     public function printdetail($id) {
         $data['data'] = $this->m_t_sales_order->get_detail($id)->row_array();
         $data['list_product'] = $this->m_t_sales_order->get_list_product($id)->result_array();
