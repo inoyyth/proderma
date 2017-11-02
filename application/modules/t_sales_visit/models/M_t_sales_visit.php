@@ -74,10 +74,10 @@ Class M_t_sales_visit extends CI_Model {
         );
         $this->db->from($table);
         $this->db->where($table . '.id', $id);
-        $this->db->join('m_customer', 'm_customer.id=' . $table . '.id_customer', 'INNER');
-        $this->db->join('m_employee', 'm_employee.id=' . $table . '.id_sales', 'INNER');
-        $this->db->join('m_objective', 'm_objective.id=' . $table . '.activity', 'INNER');
-		$this->db->join('m_branch', 'm_branch.id=' . $table . '.id_branch', 'INNER');
+        $this->db->join('m_customer', 'm_customer.id=' . $table . '.id_customer', 'LEFT');
+        $this->db->join('m_employee', 'm_employee.id=' . $table . '.id_sales', 'LEFT');
+        $this->db->join('m_objective', 'm_objective.id=' . $table . '.activity', 'LEFT');
+		$this->db->join('m_branch', 'm_branch.id=' . $table . '.id_branch', 'LEFT');
         return $this->db->get();
     }
 
