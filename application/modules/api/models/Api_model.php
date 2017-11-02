@@ -98,6 +98,13 @@ class Api_model extends CI_Model {
         $this->db->limit(0,1);
         return $this->db->get();
     }
+	
+	private function __getBranch($id_employee) {
+		$this->db->select('id_branch');
+		$this->db->from('m_employee');
+		$this->db->where('id',$id_employee);
+		return $this->db->get()->row_array();
+	}
 
     public function register_customer($data) {
         $val = array(
@@ -266,6 +273,7 @@ class Api_model extends CI_Model {
     }
 
     public function sales_visitor($data) {
+		$branch_sales = $this->__getBranch($data['id_sales']);
         $dt = array(
             'sales_visit_date' => $data['sales_visit_date'],
             'id_customer' => $data['id_customer'],
@@ -279,7 +287,8 @@ class Api_model extends CI_Model {
             'latitude' => $data['latitude'],
             'sales_visit_customer_Type' => $data['sales_visit_customer_Type'],
             'signature_path' => $data['signature_path'],
-            'sys_create_date' => date('Y-m-d H:i:s')
+            'sys_create_date' => date('Y-m-d H:i:s'),
+			'id_branch' => $branch_sales['id_branch']
         );
 
         if ($this->db->insert('sales_visit', $dt)) {
