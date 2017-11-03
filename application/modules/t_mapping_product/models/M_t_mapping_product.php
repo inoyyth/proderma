@@ -84,6 +84,7 @@ Class M_t_mapping_product extends CI_Model {
         if (count($currProduct) > 0) {
             $this->db->where_not_in('m_product.id', $currProduct);
         }
+		$this->db->where('m_product.product_status',1);
         $this->db->order_by($sort['sort_field'], $sort['sort_direction']);
         $this->db->limit($limit['limit'], $limit['offset']);
         return $this->db->get()->result_array();
@@ -108,6 +109,7 @@ Class M_t_mapping_product extends CI_Model {
         $this->db->or_like($like);
         $this->db->group_end();
         $this->db->where('mapping_product.id_customer', $where['id_customer']);
+		$this->db->where('m_product.product_status',1);
         $this->db->order_by($sort['sort_field'], $sort['sort_direction']);
         $this->db->limit($limit['limit'], $limit['offset']);
         return $this->db->get()->result_array();
