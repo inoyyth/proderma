@@ -28,7 +28,7 @@ class R_call extends MX_Controller {
         $arr_month_long = array('', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'Augustus', 'September', 'October', 'November', 'December');
         $employee = $this->input->post('employee');
         if ($month == NULL || $month == "") {
-            $nm_employee = $this->db->get_where('m_employee',array('employee_nip'=>$employee))->row_array();
+            $nm_employee = $this->db->get_where('m_employee',array('employee_nip'=>$employee,'employee_status'=>1))->row_array();
             $dt = $this->m_call->getYearlyReport($year,$nm_employee['id']);
             unset($arr_month_long[0]);
             $title = 'Call Report Report ' . $year;
