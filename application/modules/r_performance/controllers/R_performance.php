@@ -30,7 +30,7 @@ class R_performance extends MX_Controller {
             //log_message('DEBUG',print_r($employee,true));
             $dt_employee = array();
             foreach ($employee as $k => $v) {
-                $nm_employee = $this->db->get_where('m_employee',array('employee_nip'=>$v))->row_array();
+                $nm_employee = $this->db->get_where('m_employee',array('employee_nip'=>$v,'employee_status' => 1))->row_array();
                 $dt = $this->m_performance->getYearlyReport($year,$v);
                 $dt_employee[] =array('name'=>$nm_employee['employee_name'],'data'=>$dt);
             }
@@ -46,7 +46,7 @@ class R_performance extends MX_Controller {
             }
             $dt_employee = array();
             foreach ($employee as $k => $v) {
-                $nm_employee = $this->db->get_where('m_employee',array('employee_nip'=>$v))->row_array();
+                $nm_employee = $this->db->get_where('m_employee',array('employee_nip'=>$v,'employee_status' => 1))->row_array();
                 $dt = $this->m_performance->getDailyReport($month,$year,$v);
                 $dt_employee[] =array('name'=>$nm_employee['employee_name'],'data'=>$dt);
             }
@@ -100,12 +100,14 @@ class R_performance extends MX_Controller {
         if ($this->input->post('month') == NULL || $this->input->post('month') == '') {
             $where = array(
                 'YEAR(t_sales_order.so_date)' => $this->input->post('year'),
+                't_sales_order.so_status' => 1
             );
             //$groupby = array('MONTH(so_date)');
         } else {
             $where = array(
                 'MONTH(t_sales_order.so_date)' => $this->input->post('month'),
                 'YEAR(t_sales_order.so_date)' => $this->input->post('year'),
+                't_sales_order.so_status' => 1
             );
         }
         $where_in = explode(',',$this->input->post('employee'));
