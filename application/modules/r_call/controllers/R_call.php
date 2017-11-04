@@ -42,7 +42,7 @@ class R_call extends MX_Controller {
             }
             $dt_employee = array();
             //foreach ($employee as $k => $v) {
-                $nm_employee = $this->db->get_where('m_employee',array('employee_nip'=>$employee))->row_array();
+                $nm_employee = $this->db->get_where('m_employee',array('employee_nip'=>$employee,'employee_status'=>1))->row_array();
                 $dt = $this->m_call->getDailyReport($month,$year,$nm_employee['id']);
                 //$dt_employee[] =array('name'=>$nm_employee['employee_name'],'data'=>$dt);
             //}
