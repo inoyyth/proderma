@@ -104,12 +104,14 @@ class R_penjualan extends MX_Controller {
         if ($this->input->post('month') == NULL || $this->input->post('month') == '') {
             $where = array(
                 'YEAR(t_sales_order.so_date)' => $this->input->post('year'),
+                't_sales_order.so_status' => 1
             );
             //$groupby = array('MONTH(so_date)');
         } else {
             $where = array(
                 'MONTH(t_sales_order.so_date)' => $this->input->post('month'),
                 'YEAR(t_sales_order.so_date)' => $this->input->post('year'),
+                't_sales_order.so_status' => 1
             );
         }
         if ($this->input->post('branch') != "all") {
