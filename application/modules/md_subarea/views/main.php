@@ -67,10 +67,10 @@
             //ajaxParams:{key1:"value1", key2:"value2"}, //ajax parameters
             columns: [//Define Table Columns
                 {formatter: "rownum", align: "center", width: 40},
-                {title: "Area Name", field: "area_name", sorter: "string", tooltip: true},
 				{title: "Subarea Code", field: "subarea_code", sorter: "string", tooltip: true},
                 {title: "Subarea Name", field: "subarea_name", sorter: "string", tooltip: true},
                 {title: "Subarea Description", field: "subarea_description", sorter: "string", tooltip: true},
+                {title: "Area Name", field: "area_name", sorter: "string", tooltip: true},
                 {title: "Status", field: "status", sorter: "string", tooltip: true}
             ],
             selectable: 1,

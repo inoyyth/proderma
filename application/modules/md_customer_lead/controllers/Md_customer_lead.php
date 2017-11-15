@@ -110,6 +110,7 @@ class Md_customer_lead extends MX_Controller {
     public function add() {
         $this->breadcrumbs->push('Add', '/lead-customer-add');
         $data['branch'] = $this->db->get_where('m_branch',array('branch_status'=>1))->result_array();
+		$data['area'] = $this->db->get_where('m_area',array('area_status'=>1))->result_array();
         $data['code'] = $this->main_model->generate_code('m_customer', $this->config->item('customer_code').'/0','/' , $digit = 5, true,false, $where=array(),'id','id');
         $data['province'] = $this->db->get('province')->result_array();
         $data['source_lead_customer'] = $this->db->get_where('source_lead_customer',array('source_lead_customer_status'=>1))->result_array();
@@ -121,6 +122,7 @@ class Md_customer_lead extends MX_Controller {
     public function edit($id) {
         $this->breadcrumbs->push('Edit', '/lead-customer-edit');
         $data['branch'] = $this->db->get_where('m_branch',array('branch_status'=>1))->result_array();
+		$data['area'] = $this->db->get_where('m_area',array('area_status'=>1))->result_array();
         $data['province'] = $this->db->get('province')->result_array();
         $data['source_lead_customer'] = $this->db->get_where('source_lead_customer',array('source_lead_customer_status'=>1))->result_array();
         $data['status_lead_customer'] = $this->db->get_where('status_lead_customer',array('status_lead_customer_status'=>1))->result_array();

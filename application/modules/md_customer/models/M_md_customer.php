@@ -64,7 +64,7 @@ Class M_md_customer extends CI_Model {
             'photo_path' => $image_name
         );
         if (empty($id)) {
-            $data['customer_code'] =  $this->main_model->generate_code('m_customer', $this->config->item('customer_code').'/1','/' , $digit = 5, true,false, $where=array(),'id','id');
+            $data['customer_code'] =  $this->__generateCode($this->input->post('id_subarea'));
             $this->db->insert($this->table, $this->main_model->create_sys($data));
             return true;
         } else {
@@ -94,6 +94,26 @@ Class M_md_customer extends CI_Model {
 		}
         return $sql = $this->db->get()->result_array();
         //echo json_encode($sql);
+    }
+	
+	private function __generateCode($id_subarea) {
+        $subarea =  $this->db->get_where('m_subarea',array('id'=>$id_subarea))->row_array();
+        
+        $getMaxById = $this->__getMaxById($id_subarea)->row_array();
+        $expldCode = explode('/',$getMaxById['customer_code']);
+        $lastId = (int) end($expldCode);
+        $ll = $lastId + 1;
+        $fixCode = 'CL/'.$subarea['subarea_code'].'/'.$subarea['subarea_nick_code'].'/'.str_pad(($ll), 3, '0', STR_PAD_LEFT);
+        return $fixCode;
+    }
+	
+	private function __getMaxById($id_subarea) {
+        $this->db->select('customer_code');
+        $this->db->from('m_customer');
+        $this->db->where(array('id_subarea'=>$id_subarea,'current_lead_customer_status'=>'C'));
+        $this->db->order_by('id','desc');
+        $this->db->limit(0,1);
+        return $this->db->get();
     }
 
 }
