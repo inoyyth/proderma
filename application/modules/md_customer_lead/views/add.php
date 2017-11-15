@@ -82,6 +82,21 @@
                                         <label>Email</label>
                                         <input type="email" name="customer_email" parsley-trigger="change" required placeholder="Email" class="form-control">
                                     </div>
+									<div class="form-group">
+                                        <label>Area</label>
+                                        <select name="id_area" id="select-area" parsley-trigger="change" required placeholder="Area" class="form-control">
+                                            <option value="" disabled="true" selected> </option>
+                                            <?php foreach ($area as $vArea) { ?>
+                                                <option value="<?php echo $vArea['id']; ?>"><?php echo $vArea['area_name']; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>SubArea</label>
+                                        <select name="id_subarea" id="select-subarea" parsley-trigger="change" required placeholder="City" class="typeahead form-control">
+
+                                        </select>
+                                    </div>
                                     <div class="form-group">
                                         <label>Source Lead</label>
                                         <select name="id_source_lead_customer" parsley-trigger="change" required placeholder="Group" class="form-control">
@@ -193,6 +208,22 @@
         $("#select-district").change(function () {
             console.log();
             initMap($("#select-district :selected").data('lat'), $("#select-district :selected").data('lng'));
+        });
+		
+		$("#select-area").change(function () {
+            var option = "<option value='' disabled selected> </option>";
+            $.ajax({//create an ajax request to load_page.php
+                type: "GET",
+                url: "<?php echo base_url(); ?>md_customer/getSubareaList?id=" + $(this).val(),
+                dataType: "json",
+                success: function (response) {
+                    $.each(response, function (index, element) {
+                        option += "<option value='" + element.id + "'>" + element.subarea_name + "</option>";
+                    });
+                    $("#select-subarea").html(option);
+                }
+
+            });
         });
     });
 
