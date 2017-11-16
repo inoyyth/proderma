@@ -24,7 +24,7 @@ class Log_battery extends MX_Controller {
     public function getReport() {
         $datelog = $this->input->post('date');
         $employee = $this->input->post('employee');
-        $nm_employee = $this->db->get_where('m_employee',array('employee_nip'=>$employee))->row_array();
+        $nm_employee = $this->db->get_where('m_employee',array('employee_nip'=>$employee,'employee_status'=>1))->row_array();
         $dt = $this->m_battery->getData($datelog,$nm_employee['id']);
         
         $category = array();
