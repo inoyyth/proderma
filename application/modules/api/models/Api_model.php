@@ -549,6 +549,7 @@ class Api_model extends CI_Model {
     public function update_baterai($data) {
         $cekExist = $this->db->get_where('baterai_status',array('id_sales'=>$data['id_sales']))->num_rows();
         $dt = array(
+            'id_sales'=>$data['id_sales'],
             'longitude' => $data['longitude'],
             'latitude' => $data['latitude'],
             'baterai' => $data['baterai'],
