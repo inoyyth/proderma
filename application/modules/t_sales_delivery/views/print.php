@@ -160,10 +160,10 @@
             </div>
         </div>
     </div>
-    <div style="padding-left: 10px;padding-right: 10px;">
+    <!--<div style="padding-left: 10px;padding-right: 10px;">
         <p style="font-size: 9px;font-weight: bolder;">Bonus :</p>
         <p style="font-size: 9px;"><?php echo $data['do_bonus'];?></p>
-    </div>
+    </div>-->
 
     <br>
     <div class="text-right" style="padding-right: 10px;font-size: 10px;">
