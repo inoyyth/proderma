@@ -19,10 +19,10 @@
                                 <label>Delivery Order Date</label>
                                 <input type="text" name="do_date" parsley-trigger="change" required  class="form-control date-picker">
                             </div>
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 <label>Bonus</label>
                                 <textarea name="do_bonus"  class="form-control"></textarea>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                     <button class="btn btn-primary" type="submit">Save</button>
