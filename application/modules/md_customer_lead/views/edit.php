@@ -98,7 +98,7 @@
 
                                         </select>
                                     </div>
-                                    <div class="form-group">
+                                    <!--<div class="form-group">
                                         <label>Source Lead</label>
                                         <select name="id_source_lead_customer" parsley-trigger="change" required placeholder="Source Lead" class="form-control">
                                             <option value=""></option>
@@ -115,7 +115,7 @@
                                                 <option value="<?php echo $vStatus['id']; ?>" <?php echo ($data['id_status_lead_customer']==$vStatus['id']?"selected":"");?>><?php echo $vStatus['status_lead_customer']; ?></option>
                                             <?php } ?>
                                         </select>
-                                    </div>
+                                    </div>-->
                                     <?php if($this->sessionGlobal['super_admin'] == "2"){ ?>
                                     <div class="form-group">
                                         <label>Branch Office</label>

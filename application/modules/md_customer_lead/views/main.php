@@ -12,7 +12,7 @@
                 <div class="widget-main">
                     <form class="form-filter-table">
                         <div class="row">
-                            <div class="col-lg-2">
+                            <!--<div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Source Lead</label>
                                     <select class="form-control input-sm" id="search-source-lead">
@@ -33,7 +33,7 @@
                                         <?php endforeach; ?> 
                                     </select>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Code</label>
@@ -191,8 +191,8 @@
                 {title: "District", field: "district_name", sorter: "string", tooltip: true},
                 {title: "Address", field: "customer_address", sorter: "string", tooltip: true},
                 {title: "Phone", field: "customer_phone", sorter: "string", tooltip: true},
-                {title: "Source Lead", field: "source_lead_customer", sorter: "string", tooltip: true},
-                {title: "Status Lead", field: "status_lead_customer", sorter: "string", tooltip: true},
+                //{title: "Source Lead", field: "source_lead_customer", sorter: "string", tooltip: true},
+                //{title: "Status Lead", field: "status_lead_customer", sorter: "string", tooltip: true},
 				{title: "Branch", field: "branch_name", sorter: "string", tooltip: true},
                 {title: "Priority Lead", field: "customer_as_priority", align:"center", sorter: "string", editable:true, formatter:"tickCross", editor:function(cell, value, data){
                         $("#example-table").tabulator("updateRow", 1, {id:1, name:"bob", gender:"male"});
@@ -230,8 +230,8 @@
 
     function filterTable() {
         var params = {
-            source_lead: $('#search-source-lead').val(),
-            status_lead: $('#search-status-lead').val(),
+            //source_lead: $('#search-source-lead').val(),
+            //status_lead: $('#search-status-lead').val(),
             code: $('#search-code').val(),
             name: $('#search-name').val(),
             clinic: $('#search-clinic').val(),

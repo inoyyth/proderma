@@ -72,12 +72,12 @@ class Md_customer_lead extends MX_Controller {
         if(isset($_POST['district']) && $_POST['district'] != "") {
             $array_district = array('m_customer.customer_district'=>$_POST['district']);
         }
-        if(isset($_POST['source_lead']) && $_POST['source_lead'] != "") {
+        /*if(isset($_POST['source_lead']) && $_POST['source_lead'] != "") {
             $array_source_lead = array('m_customer.id_source_lead_customer'=>$_POST['source_lead']);
         }
         if(isset($_POST['status_lead']) && $_POST['status_lead'] != "") {
             $array_status_lead = array('m_customer.id_status_lead_customer'=>$_POST['status_lead']);
-        }
+        }*/
         
         $where = array_merge_recursive($array_status,$array_province,$array_city,$array_district,$array_source_lead,$array_status_lead);
         if($this->sessionGlobal['super_admin'] == "1") {
@@ -113,8 +113,8 @@ class Md_customer_lead extends MX_Controller {
 		$data['area'] = $this->db->get_where('m_area',array('area_status'=>1))->result_array();
         $data['code'] = $this->main_model->generate_code('m_customer', $this->config->item('customer_code').'/0','/' , $digit = 5, true,false, $where=array(),'id','id');
         $data['province'] = $this->db->get('province')->result_array();
-        $data['source_lead_customer'] = $this->db->get_where('source_lead_customer',array('source_lead_customer_status'=>1))->result_array();
-        $data['status_lead_customer'] = $this->db->get_where('status_lead_customer',array('status_lead_customer_status'=>1))->result_array();
+        //$data['source_lead_customer'] = $this->db->get_where('source_lead_customer',array('source_lead_customer_status'=>1))->result_array();
+        //$data['status_lead_customer'] = $this->db->get_where('status_lead_customer',array('status_lead_customer_status'=>1))->result_array();
         $data['view'] = "md_customer_lead/add";
         $this->load->view('default', $data);
     }
@@ -124,8 +124,8 @@ class Md_customer_lead extends MX_Controller {
         $data['branch'] = $this->db->get_where('m_branch',array('branch_status'=>1))->result_array();
 		$data['area'] = $this->db->get_where('m_area',array('area_status'=>1))->result_array();
         $data['province'] = $this->db->get('province')->result_array();
-        $data['source_lead_customer'] = $this->db->get_where('source_lead_customer',array('source_lead_customer_status'=>1))->result_array();
-        $data['status_lead_customer'] = $this->db->get_where('status_lead_customer',array('status_lead_customer_status'=>1))->result_array();
+        //$data['source_lead_customer'] = $this->db->get_where('source_lead_customer',array('source_lead_customer_status'=>1))->result_array();
+        //$data['status_lead_customer'] = $this->db->get_where('status_lead_customer',array('status_lead_customer_status'=>1))->result_array();
         $data['data'] = $this->db->get_where($this->table, array('id' => $id))->row_array();
         $data['view'] = 'md_customer_lead/edit';
         $this->load->view('default', $data);

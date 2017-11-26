@@ -11,8 +11,8 @@
 		<td align="center">Address</td>
 		<td align="center">Telephone</td>
 		<td align="center">Email</td>
-		<td align="center">Source Lead</td>
-		<td align="center">Status Lead</td>
+		<!--<td align="center">Source Lead</td>
+		<td align="center">Status Lead</td>-->
 		<td align="center">Branch Office</td>
 		<td align="center">Internal Notes</td>
 	</tr>
@@ -29,8 +29,8 @@
 			<td><?php echo $vList['customer_address'];?></td>
 			<td><?php echo $vList['customer_phone'];?></td>
 			<td><?php echo $vList['customer_email'];?></td>
-			<td><?php echo $vList['source_lead_customer'];?></td>
-			<td><?php echo $vList['status_lead_customer'];?></td>
+			<!--<td><?php echo $vList['source_lead_customer'];?></td>
+			<td><?php echo $vList['status_lead_customer'];?></td>-->
 			<td><?php echo $vList['branch_name'];?></td>
 			<td><?php echo $vList['customer_internal_notes'];?></td>
 		</tr>
