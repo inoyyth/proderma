@@ -147,6 +147,12 @@ $tax = (($data_product['grand_total'] * 10) / 100);
 					<img class="img-responsive" src="<?php echo base_url($data['so_signature']);?>">
 				</div>
 			</div>
+            <div class="profile-info-row">
+                <div class="profile-info-name"> Bonus </div>
+                <div class="profile-info-value text-left">
+                    <span class="editable editable-click" id="city"><?php echo $data['so_bonus']; ?></span>
+                </div>
+            </div>
         </div>
     </div>
 </div>
