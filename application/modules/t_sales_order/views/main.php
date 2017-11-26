@@ -94,7 +94,8 @@
                 {title: "Cust.Code", field: "customer_code", sorter: "string", tooltip: true},
                 {title: "Cust.Name", field: "customer_name", sorter: "string"},
 				{title: "Sales Name", field: "employee_name", sorter: "string"},
-                {title: "SO.Date", field: "so_date", sorter: "string"}
+                {title: "SO.Date", field: "so_date", sorter: "string"},
+                {title: "Bonus", field: "so_bonus", sorter: "string"}
             ],
             selectable: 1,
             rowSelectionChanged: function (data, rows) {

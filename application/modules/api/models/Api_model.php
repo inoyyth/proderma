@@ -314,7 +314,8 @@ class Api_model extends CI_Model {
             'so_grand_total' => $data['grand_total'],
             'sys_create_user' => $data['id_sales'],
             'sys_create_date' => date('Y-m-d H:i:s'),
-            'id_branch' => $sales['id_branch']
+            'id_branch' => $sales['id_branch'],
+            'so_bonus' => $data['so_bonus']
         );
 
         if ($this->db->insert('t_sales_order', $dt)) {

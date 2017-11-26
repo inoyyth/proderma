@@ -177,6 +177,12 @@ $tax = (($data_product['grand_total'] * 10) / 100);
 			<div class="col-lg-12" style="font-size: 8px;margin-top:-15px;">
 			* Semua Product Sudah Termasuk Ppn 10%.
 			</div>
+            <?php if ($data['so_bonus'] != "" || $data['so_bonus'] != null) { ?>
+            <div class="col-lg-12" style="font-size: 8px;margin-top:5px;">
+                <p style="font-weight: bolder;">Bonus:</p>
+                <p style="margin-top:-10px;"><?php echo $data['so_bonus'];?></p>
+			</div>
+            <?php } ?>
         </div>
     </div>
     <br>
