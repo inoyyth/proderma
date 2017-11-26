@@ -17,6 +17,10 @@
                                 <label>Delivery Order Date</label>
                                 <input type="text" name="do_date" readonly="true" value="<?php echo $data['do_date']; ?>" parsley-trigger="change" required  class="form-control date-picker">
                             </div>
+                            <div class="form-group">
+                                <label>Bonus</label>
+                                <textarea name="do_bonus" readonly="true" class="form-control"><?php echo $data['do_bonus']; ?></textarea>
+                            </div>
                         </div>
                     </div>
                     <a href="<?php echo site_url('sales-delivery'); ?>" class="btn btn-default">Back</a>

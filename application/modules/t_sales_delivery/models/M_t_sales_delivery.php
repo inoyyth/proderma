@@ -8,7 +8,8 @@ Class M_t_sales_delivery extends CI_Model {
         $id = $this->input->post('id');
         $data = array(
             'id_so' => $this->input->post('id_so'),
-            'do_date' => $this->input->post('do_date')
+            'do_date' => $this->input->post('do_date'),
+            'do_bonus' => $this->input->post('do_bonus')
         );
         if (empty($id)) {
             $data['do_code'] = $this->__generate_code($this->input->post('id_so'));
