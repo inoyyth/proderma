@@ -41,10 +41,10 @@ $tax = (($data_product['grand_total'] * 10) / 100);
     <div style="width: 200px;padding-left: 10px;">
         <img style="width: 190px;" src="<?php echo base_url('assets/images/logo.png'); ?>">
         <br>
-        <div style="text-align: center;font-size: 9px;">
+        <div style="text-align: center;font-size: 11px;">
             PT.WHOTO INDONESIA SEJAHTERA<br>
             Jl. Palem 8 Blok F No.1032 <br>
-            Jakamulya Bekasi 17146
+            Jakamulya, Bekasi Selatan 17146
         </div>
     </div>
     <div style="text-align: center;">
@@ -144,7 +144,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
     <div style="padding-left: 10px;padding-right: 10px;">
         <p style="font-weight: bolder;"><u>List Product</u></p>
     </div>
-    <div style="padding-left: 10px;padding-right: 10px;font-size: 9px;">
+    <div style="padding-left: 10px;padding-right: 10px;font-size: 12px;">
         <div class="row">
             <div class="col-lg-12">
                 <table class="table table-bordered">
@@ -226,7 +226,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
     <div class="text-center" style="padding-right: 10px;padding-left: 10px;">
         <p style="border: 1px solid;font-weight: bold;">( TIDAK MENERIMA PEMBAYARAN DENGAN TUNAI ATAUPUN PEMBAYARAN SELAIN KE REKENING DIATAS  </p>
     </div>
-    <div style="padding-left: 10px;padding-right: 10px;font-size: 9px;">
+    <div style="padding-left: 10px;padding-right: 10px;font-size: 12px;">
         <table style="border:1px solid;width: 100%;">
             <tr>
                 <td style="width: 30%;text-align: center;">
