@@ -41,17 +41,17 @@ $tax = (($data_product['grand_total'] * 10) / 100);
     <div style="width: 200px;padding-left: 10px;padding-top: 2px;">
         <img style="width: 190px;" src="<?php echo base_url('assets/images/logo.png'); ?>">
         <br>
-        <div style="text-align: center;font-size: 10px;">
+        <div style="text-align: center;font-size: 11px;">
             PT.WHOTO INDONESIA SEJAHTERA<br>
             Jl. Palem 8 Blok F No.1032 <br>
-            Jakamulya Bekasi 17146
+            Jakamulya, Bekasi Selatan 17146
         </div>
     </div>
     <div style="text-align: center;">
         <div style="font-size: 16x;font-weight: bolder;"><u>PURCHASE ORDER</u></div>
     </div>
 <br>
-    <div style="padding-left: 10px;padding-right: 10px;font-size: 10px;">
+    <div style="padding-left: 10px;padding-right: 10px;font-size: 12px;">
         <table>
             <td style="width: 450px;">
                 <table>
@@ -128,7 +128,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
     <div style="padding-left: 10px;padding-right: 10px;">
         <p style="font-weight: bolder;"><u>List Product</u></p>
     </div>
-    <div style="padding-left: 10px;padding-right: 10px;font-size: 9px;">
+    <div style="padding-left: 10px;padding-right: 10px;font-size: 12px;">
         <div class="row">
             <div class="col-lg-12">
                 <table class="table table-bordered">
@@ -174,11 +174,11 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                     </tbody>
                 </table>    
             </div>
-			<div class="col-lg-12" style="font-size: 8px;margin-top:-15px;">
+			<div class="col-lg-12" style="font-size: 12px;margin-top:-15px;">
 			* Semua Product Sudah Termasuk Ppn 10%.
 			</div>
             <?php if ($data['so_bonus'] != "" || $data['so_bonus'] != null) { ?>
-            <div class="col-lg-12" style="font-size: 8px;margin-top:5px;">
+            <div class="col-lg-12" style="font-size: 12px;margin-top:5px;">
                 <p style="font-weight: bolder;">Bonus:</p>
                 <p style="margin-top:-10px;"><?php echo $data['so_bonus'];?></p>
 			</div>
@@ -187,11 +187,11 @@ $tax = (($data_product['grand_total'] * 10) / 100);
     </div>
     <br>
     <br>
-    <div class="text-right" style="padding-right: 10px;font-size: 10px;">
+    <div class="text-right" style="padding-right: 10px;font-size: 12px;">
         <p><?php echo ucfirst(str_replace('cabang ','',strtolower($this->sessionGlobal['branch_name'])));?>, <?php echo tanggalan(date('Y-m-d'));?></p>
     </div>
     <br>
-    <div style="padding-left: 10px;padding-right: 10px;font-size: 10px;">
+    <div style="padding-left: 10px;padding-right: 10px;font-size: 12px;">
         <table style="border:1px solid;width: 100%;">
             <tr>
                 <td style="width: 30%;text-align: center;">

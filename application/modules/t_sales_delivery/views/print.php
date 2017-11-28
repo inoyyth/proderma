@@ -31,17 +31,17 @@
     <div style="width: 200px;padding-left: 10px;padding-top: 2px;">
         <img style="width: 190px;" src="<?php echo base_url('assets/images/logo.png'); ?>">
         <br>
-        <div style="text-align: center;font-size: 10px;">
+        <div style="text-align: center;font-size: 11px;">
             PT.WHOTO INDONESIA SEJAHTERA<br>
             Jl. Palem 8 Blok F No.1032 <br>
-            Jakamulya Bekasi 17146
+            Jakamulya, Bekasi Selatan 17146
         </div>
     </div>
     <div style="text-align: center;">
         <div style="font-size: 16x;font-weight: bolder;"><u>SURAT JALAN</u></div>
     </div>
 <br>
-    <div style="padding-left: 10px;padding-right: 10px;font-size: 10px;">
+    <div style="padding-left: 10px;padding-right: 10px;font-size: 12px;">
         <table>
             <td style="width: 600px;">
                 <table>
@@ -126,7 +126,7 @@
     <div style="padding-left: 10px;padding-right: 10px;">
         <p style="font-weight: bolder;"><u>List Product</u></p>
     </div>
-    <div style="padding-left: 10px;padding-right: 10px;font-size: 9px;">
+    <div style="padding-left: 10px;padding-right: 10px;font-size: 12px;">
         <div class="row">
             <div class="col-lg-12">
                 <table class="table table-bordered">
@@ -166,11 +166,11 @@
     </div>-->
 
     <br>
-    <div class="text-right" style="padding-right: 10px;font-size: 10px;">
+    <div class="text-right" style="padding-right: 10px;font-size: 12px;">
         <p><?php echo ucfirst(str_replace('cabang ','',strtolower($this->sessionGlobal['branch_name'])));?>, <?php echo tanggalan(date('Y-m-d'));?></p>
     </div>
     <br>
-    <div style="padding-left: 10px;padding-right: 10px;font-size: 10px;">
+    <div style="padding-left: 10px;padding-right: 10px;font-size: 12px;">
         <table style="border:1px solid;width: 100%;">
             <tr>
                 <td style="width: 30%;text-align: center;">
