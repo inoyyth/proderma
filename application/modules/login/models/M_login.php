@@ -6,8 +6,9 @@ class M_login extends CI_Model {
 
     function login($username, $password) {
         $key = array('username' => $username, 'status' => '1');
-        $this->db->select('*');
+        $this->db->select($this->table.'.*,m_branch.branch_name');
         $this->db->from($this->table);
+        $this->db->join('m_branch',$this->table.'.id_branch=m_branch.id','LEFT');
         $this->db->where($key);
         $this->db->limit(1);
         $query = $this->db->get();
