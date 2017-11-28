@@ -96,7 +96,6 @@
             $("#product-table").remove();
             $("#so-detail").append('<div id="product-table"></div>');
             var selectedData = $("#do-table").tabulator("getSelectedData");
-            console.log(selectedData);
             $("#product-table").tabulator({
                 fitColumns: true,
                 pagination: false,
@@ -123,10 +122,10 @@
                     $("#id_do").val(selectedData[0]['id']);
                     $("#do_code").val(selectedData[0]['do_code']);
 					
-                    if (selectedData[0]['so_payment_term'] == 3) {
-						//console.log(selectedData[0]['do_date']);
+                    if (selectedData[0]['termin_status'] === "Y") {
 						var someDate = new Date(selectedData[0]['do_date']);
-						someDate.setDate(someDate.getDate() + 21); //number  of days to add, e.x. 15 days
+                        var rangeDate = parseInt(selectedData[0]['termin_range']);
+						someDate.setDate(someDate.getDate() + rangeDate); //number  of days to add, e.x. 15 days
 						var dateFormated = someDate.toISOString().substr(0,10);
 						
 						$("#due-date").val(dateFormated);
@@ -185,7 +184,6 @@
     }
 
     function filterTable() {
-        console.log('filter');
         var params = {
             so_code: $('#search-so-code').val(),
             customer_name: $('#search-customer-name').val(),
