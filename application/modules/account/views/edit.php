@@ -38,7 +38,7 @@
                                 <label>Office</label>
                                 <select name="id_branch" id="idbranch-cb" placeholder="Select Office" class="form-control">
                                     <?php foreach($office as $kOffice=>$vOffice):?>
-                                    <option value="<?php echo $vOffice['id'];?>"><?php echo $vOffice['branch_name'];?></option>
+                                    <option value="<?php echo $vOffice['id'];?>" <?php echo ($vOffice['id']==$detail['id_branch'] ? "selected" : "") ;?>><?php echo $vOffice['branch_name'];?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>

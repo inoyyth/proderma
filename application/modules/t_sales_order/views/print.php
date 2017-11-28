@@ -188,7 +188,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
     <br>
     <br>
     <div class="text-right" style="padding-right: 10px;font-size: 10px;">
-        <p>Jakarta, <?php echo tanggalan(date('Y-m-d'));?></p>
+        <p><?php echo ucfirst(str_replace('cabang ','',strtolower($this->sessionGlobal['branch_name'])));?>, <?php echo tanggalan(date('Y-m-d'));?></p>
     </div>
     <br>
     <div style="padding-left: 10px;padding-right: 10px;font-size: 10px;">

@@ -209,7 +209,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
     </div>
     <br>
     <div class="text-right" style="padding-right: 10px;">
-        <p>Jakarta, <?php echo date('d-m-Y');?></p>
+        <p><?php echo ucfirst(str_replace('cabang ','',strtolower($this->sessionGlobal['branch_name'])));?>, <?php echo date('d-m-Y');?></p>
     </div>
     <div class="text-left" style="padding-left: 10px;line-height: 20%;">
         <p>Pembayaran ditransfers ke rekening kami:</p>
