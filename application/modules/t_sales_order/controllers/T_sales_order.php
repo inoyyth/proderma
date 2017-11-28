@@ -29,7 +29,8 @@ class T_sales_order extends MX_Controller {
             "t_sales_order.*",
             "m_customer.customer_code",
             "m_customer.customer_name",
-			"m_employee.employee_name",
+            "m_employee.employee_name",
+            "m_payment_type.payment_type",
             "IF(t_sales_order.so_status=1,'Active','Not Active') AS status"
         );
         
@@ -37,7 +38,8 @@ class T_sales_order extends MX_Controller {
 
         $join = array(
             array('table' => 'm_customer', 'where' => 'm_customer.id=t_sales_order.id_customer', 'join' => 'left'),
-			array('table' => 'm_employee', 'where' => 'm_employee.id=t_sales_order.id_sales', 'join' => 'left')
+            array('table' => 'm_employee', 'where' => 'm_employee.id=t_sales_order.id_sales', 'join' => 'left'),
+            array('table' => 'm_payment_type', 'where' => 'm_payment_type.id=t_sales_order.so_payment_term', 'join' => 'left'),
         );
 		
         $like = array(

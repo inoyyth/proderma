@@ -86,6 +86,7 @@ class Md_payment_type extends MX_Controller {
 
     function save() {
         //var_dump(serialize($_POST['menu']));die;
+        var_dump($_POST);￼die;
         if ($_POST) {
             if ($this->m_md_payment_type->save()) {
                 $this->session->set_flashdata('success', 'Data Berhasil Di Simpan !');

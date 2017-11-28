@@ -9,7 +9,9 @@ Class M_md_payment_type extends CI_Model {
         $data = array(
             'payment_type' => $this->input->post('payment_type'),
             'payment_type_description' => $this->input->post('payment_type_description'),
-            'payment_type_status' => $this->input->post('payment_type_status')
+            'payment_type_status' => $this->input->post('payment_type_status'),
+            'termin_status' => ($this->input->post('termin_status') != NULL ? $this->input->post('termin_status') : '1'),
+            'termin_range' => $this->input->post('termin_range')
         );
         if (empty($id)) {
             $this->db->insert($this->table, $this->main_model->create_sys($data));

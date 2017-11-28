@@ -95,6 +95,7 @@
                 {title: "Cust.Name", field: "customer_name", sorter: "string"},
 				{title: "Sales Name", field: "employee_name", sorter: "string"},
                 {title: "SO.Date", field: "so_date", sorter: "string"},
+                {title: "Payment Type", field: "payment_type", sorter: "string"},
                 {title: "Bonus", field: "so_bonus", sorter: "string"}
             ],
             selectable: 1,
