@@ -132,7 +132,7 @@
             movableCols: false,
             height: "520px", // set height of table (optional),
             pagination:"remote",
-            paginationSize: 2500,
+            paginationSize: 100,
             fitColumns:true, //fit columns to width of table (optional),
             ajaxType: "POST", //ajax HTTP request type
             groupBy:"subarea_name",
@@ -160,7 +160,7 @@
             movableCols: false,
             height: "520px", // set height of table (optional),
             pagination:"remote",
-            paginationSize: 2500,
+            paginationSize: 100,
             fitColumns:true, //fit columns to width of table (optional),
             ajaxType: "POST", //ajax HTTP request type
             groupBy:"subarea_name",
@@ -169,7 +169,7 @@
                 {formatter: "rownum", align: "center", width: 40},
                //{title: "Area", field: "area_name", sorter: "string", tooltip: true},
                 {title: "Customer Code", field: "customer_code", sorter: "string", tooltip: true},
-                {title: "CUstomer Name", field: "customer_name", sorter: "string", tooltip: true},
+                {title: "Customer Name", field: "customer_name", sorter: "string", tooltip: true},
              ],
             selectable: 100
         });
@@ -228,15 +228,15 @@
             movableCols: false,
             height: "520px", // set height of table (optional),
             pagination:"remote",
-            paginationSize: 2500,
+            paginationSize: 100,
             fitColumns:true, //fit columns to width of table (optional),
             ajaxType: "POST", //ajax HTTP request type
             groupBy:"subarea_name",
             ajaxURL: "<?php echo base_url('t_mapping_area/getAvailableCustomerList/'.$data_sales['id']); ?>", //ajax URL
             columns: [//Define Table Columns
                 {formatter: "rownum", align: "center", width: 40},
-                {title: "Customer List Code", field: "customer_code", sorter: "string", tooltip: true},
-                {title: "Customer List Name", field: "customer_name", sorter: "string", tooltip: true},
+                {title: "Master List Code", field: "customer_code", sorter: "string", tooltip: true},
+                {title: "Master List Name", field: "customer_name", sorter: "string", tooltip: true},
              ],
             selectable: 100
         });
@@ -255,7 +255,7 @@
             movableCols: false,
             height: "520px", // set height of table (optional),
             pagination:"remote",
-            paginationSize: 2500,
+            paginationSize: 100,
             fitColumns:true, //fit columns to width of table (optional),
             ajaxType: "POST", //ajax HTTP request type
             groupBy:"subarea_name",
@@ -263,8 +263,8 @@
             columns: [//Define Table Columns
                 {formatter: "rownum", align: "center", width: 40},
                //{title: "Area", field: "area_name", sorter: "string", tooltip: true},
-                {title: "Customer List Code", field: "customer_code", sorter: "string", tooltip: true},
-                {title: "CUstomer List Name", field: "customer_name", sorter: "string", tooltip: true},
+                {title: "Master List Code", field: "customer_code", sorter: "string", tooltip: true},
+                {title: "Master List Name", field: "customer_name", sorter: "string", tooltip: true},
              ],
             selectable: 100
         });

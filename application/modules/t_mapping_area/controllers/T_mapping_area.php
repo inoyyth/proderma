@@ -62,7 +62,7 @@ class T_mapping_area extends MX_Controller {
         $total_records = count($this->m_mapping_area->getListTable($field,$table, $join, $like, $where, $sort, false));
         $total_pages = ceil($total_records / $limit);
         $output = array(
-            "last_page" => ($total_pages==0?1:$total_pages),
+            "last_page" => $total_pages,
             "recordsTotal" => $total_records,
             "data" => $list,
         );
@@ -139,6 +139,7 @@ class T_mapping_area extends MX_Controller {
         );
         
         $list = $this->m_mapping_area->getAvailableCustomer($field,$table, $join, $like, array('id_sales'=>$id), $sort, $limit_row);
+        $total_records = count($this->m_mapping_area->getAvailableCustomer($field,$table, $join, $like, array('id_sales'=>$id), $sort, false));
         $listx = array();
         foreach($list as $k=>$v) {
             $listx[] = array(
@@ -151,11 +152,10 @@ class T_mapping_area extends MX_Controller {
             );
         }
         log_message('debug',print_r($list,TRUE));
-        
-        $total_records = count($list);
+
         $total_pages = ceil($total_records / $limit);
         $output = array(
-            "last_page" => ($total_pages==0?1:$total_pages),
+            "last_page" => $total_pages,
             "recordsTotal" => $total_records,
             "data" => $listx,
         );
@@ -193,6 +193,7 @@ class T_mapping_area extends MX_Controller {
         );
         
         $list = $this->m_mapping_area->getCurrentCustomer($field,$table, $join, $like, array('id_sales'=>$id), $sort, $limit_row);
+        $total_records = count($this->m_mapping_area->getCurrentCustomer($field,$table, $join, $like, array('id_sales'=>$id), $sort, false));
         $listx = array();
         foreach($list as $k=>$v) {
             $listx[] = array(
@@ -207,10 +208,9 @@ class T_mapping_area extends MX_Controller {
         }
         log_message('debug',print_r($list,TRUE));
         
-        $total_records = count($list);
         $total_pages = ceil($total_records / $limit);
         $output = array(
-            "last_page" => ($total_pages==0?1:$total_pages),
+            "last_page" => $total_pages,
             "recordsTotal" => $total_records,
             "data" => $listx,
         );
@@ -297,6 +297,7 @@ class T_mapping_area extends MX_Controller {
         );
         
         $list = $this->m_mapping_area->getAvailableCustomerList($field,$table, $join, $like, array('id_sales'=>$id), $sort, $limit_row);
+        $total_records = count($this->m_mapping_area->getAvailableCustomerList($field,$table, $join, $like, array('id_sales'=>$id), $sort, false));
         $listx = array();
         foreach($list as $k=>$v) {
             $listx[] = array(
@@ -310,10 +311,9 @@ class T_mapping_area extends MX_Controller {
         }
         log_message('debug',print_r($list,TRUE));
         
-        $total_records = count($list);
         $total_pages = ceil($total_records / $limit);
         $output = array(
-            "last_page" => ($total_pages==0?1:$total_pages),
+            "last_page" => $total_pages,
             "recordsTotal" => $total_records,
             "data" => $listx,
         );
@@ -351,6 +351,7 @@ class T_mapping_area extends MX_Controller {
         );
         
         $list = $this->m_mapping_area->getCurrentCustomerList($field,$table, $join, $like, array('id_sales'=>$id), $sort, $limit_row);
+        $total_records = count($this->m_mapping_area->getCurrentCustomerList($field,$table, $join, $like, array('id_sales'=>$id), $sort, false));
         $listx = array();
         foreach($list as $k=>$v) {
             $listx[] = array(
@@ -364,11 +365,10 @@ class T_mapping_area extends MX_Controller {
             );
         }
         log_message('debug',print_r($list,TRUE));
-        
-        $total_records = count($list);
+
         $total_pages = ceil($total_records / $limit);
         $output = array(
-            "last_page" => ($total_pages==0?1:$total_pages),
+            "last_page" => $total_pages,
             "recordsTotal" => $total_records,
             "data" => $listx,
         );
