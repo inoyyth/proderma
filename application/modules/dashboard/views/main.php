@@ -123,7 +123,7 @@ $(document).ready(function () {
         reportincome(id_branch,1);
     } else {
         reportso("all",1);
-        reportincome("all",1);
+        reportincome("all",1); 
     }
     
 });
