@@ -96,7 +96,7 @@ class Dashboard extends MX_Controller {
         $total_achievement = $this->m_dashboard->getAchievement($month, $year, $branch);
         $percentage = 0;
         if ($target_branch['value_target'] > 0 && $total_achievement['total'] > 0) {
-            $percentage = ((($target_branch['value_target'] - $total_achievement['total']) / $target_branch['value_target']) * 100);
+            $percentage = 100 - ((($target_branch['value_target'] - $total_achievement['total']) / $target_branch['value_target']) * 100);
         }
         $data = array(
             'target_branch' => formatrp($target_branch['value_target']),
