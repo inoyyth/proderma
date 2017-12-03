@@ -119,23 +119,47 @@ $(document).ready(function () {
     // Build the chart
     $("#area-chart").empty();
     if (id_branch !== "all") {
-        reportso(id_branch,1);
-        reportincome(id_branch,1);
+        $.ajax({
+        type: "POST",
+        url: '<?php echo base_url('dashboard/getAllBranch');?>',
+        data: {branch:id_branch},
+        success: function(i, data){
+            console.log(data);
+        },
+        dataType: 'json'
+        }).done(function(e){
+            $.each(e,function(i, item){
+                //reportso(item.id,item.branch_name,i);
+                reportincome(item.id,item.branch_name,i); 
+            });
+        });
     } else {
-        reportso("all",1);
-        reportincome("all",1); 
+        $.ajax({
+        type: "POST",
+        url: '<?php echo base_url('dashboard/getAllBranch');?>',
+        data: {branch:'all'},
+        success: function(i, data){
+            console.log(data);
+        },
+        dataType: 'json'
+        }).done(function(e){
+            $.each(e,function(i, item){
+                //reportso(item.id,item.branch_name,i);
+                reportincome(item.id,item.branch_name,i); 
+            });
+        });
     }
     
 });
 
-function reportso(branch,pos) {
+function reportso(branch,name,pos) {
     var d = new Date();
     var html = '<div class="col-lg-6">' +
                     '<div id="container-so-'+pos+'" style="min-width: 310px; height: 400px; margin: 0 auto"></div>' +
                 ' </div>';
     $("#area-chart").append(html);
 
-    var dt = {branch: branch, month: d.getMonth(), year: d.getYear()};
+    var dt = {branch: branch, month: d.getMonth(), year: d.getFullYear()};
 
     $.ajax({
         type: "POST",
@@ -155,7 +179,7 @@ function reportso(branch,pos) {
                 text: data.title
             },
             subtitle: {
-                text: data.subtitle
+                text: name
             },
             xAxis: {
                 categories: data.category
@@ -186,17 +210,20 @@ function reportso(branch,pos) {
     });
 }
 
-function reportincome(branch,pos) {
+function reportincome(branch,name,pos) {
     var d = new Date();
-    var html = '<div class="col-lg-6">' +
+    var html = '<div class="col-lg-12">' +
                     '<div id="container-income-'+pos+'" style="min-width: 310px; height: 400px; margin: 0 auto"></div>' +
-                ' </div>';
+                ' </div>'+
+                '<div class="col-lg-12" ><ul class="list-group"><li class="list-group-item list-group-item-success">' +
+                '<h4>Target: <span id="target-'+pos+'">0</span> &nbsp; Achievement: <span id="achieve-'+pos+'">0</span> &nbsp; Percentage: <span id="percentage-'+pos+'">0%</span></h4>'
+                '</li></ul></div><br/><br/>';
     $("#area-chart").append(html);
 
-    var dt = {branch: branch, month: d.getMonth(), year: d.getYear()};
+    var dt = {branch: branch, month: d.getMonth(), year: d.getFullYear()};
     $.ajax({
         type: "POST",
-        url: '<?php echo base_url('r_pendapatan/getReport');?>',
+        url: '<?php echo base_url('dashboard/getReport');?>',
         data: dt,
         success: function(i, data){
             console.log(data);
@@ -204,6 +231,9 @@ function reportincome(branch,pos) {
         dataType: 'json'
     })
     .done(function (data){
+        $("#target-"+pos).text(data.target.target_branch);
+        $("#achieve-"+pos).text(data.target.achievement);
+        $("#percentage-"+pos).text(data.target.percentage+'%');
         Highcharts.chart('container-income-'+pos, {
             chart: {
                 type: 'line'
@@ -212,7 +242,7 @@ function reportincome(branch,pos) {
                 text: data.title
             },
             subtitle: {
-                text: data.subtitle
+                text: name
             },
             xAxis: {
                 categories: data.category

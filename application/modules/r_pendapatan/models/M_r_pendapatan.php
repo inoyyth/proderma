@@ -23,19 +23,25 @@ Class M_r_pendapatan extends CI_Model {
         return $sql = $this->db->get()->result_array();
     }
 
-    public function getYearlyReport($year) {
+    public function getYearlyReport($year, $branch) {
         $this->db->select('sum(so_grand_total) as total, month(so_date) as bulan');
         $this->db->from('t_sales_order');
         $this->db->where(array('so_status' => 1, 'YEAR(so_date)' => $year));
+        if ($branch != "all") {
+            $this->db->where('t_sales_order.id_branch',$branch);
+        }
         $this->db->group_by('MONTH(so_date)');
         $this->db->order_by('MONTH(so_date)', 'ASC');
         return $this->db->get();
     }
     
-    public function getDailyReport($month,$year) {
+    public function getDailyReport($month, $year, $branch) {
         $this->db->select('sum(so_grand_total) as total, day(so_date) as tgl');
         $this->db->from('t_sales_order');
         $this->db->where(array('so_status' => 1, 'YEAR(so_date)' => $year, 'MONTH(so_date)' => $month));
+        if ($branch != "all") {
+            $this->db->where('t_sales_order.id_branch',$branch);
+        }
         $this->db->group_by('so_date');
         $this->db->order_by('so_date', 'ASC');
         return $this->db->get();

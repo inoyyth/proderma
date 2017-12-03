@@ -15,6 +15,7 @@ class R_pendapatan extends MX_Controller {
 
     public function index() {
         $data['template_title'] = array('Report Pendapatan', 'List');
+        $data['branch'] = $this->db->get_where('m_branch',array('branch_status' => 1))->result_array();
         $data['view'] = 'r_pendapatan/main';
         $this->load->view('default', $data);
     }
@@ -22,13 +23,15 @@ class R_pendapatan extends MX_Controller {
     public function getReport() {
         $month = $this->input->post('month');
         $year = $this->input->post('year');
+        $branch = $this->input->post('branch');
+        
 
         $arr_month = array('', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
         $arr_month_long = array('', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'Augustus', 'September', 'October', 'November', 'December');
 
         if ($month == NULL || $month == "") {
 
-            $dt = $this->m_pendapatan->getYearlyReport($year)->result_array();
+            $dt = $this->m_pendapatan->getYearlyReport($year, $branch)->result_array();
             $dt_bulan = array();
             foreach ($dt as $k => $v) {
                 $dt_bulan[] = $arr_month[$v['bulan']];
@@ -43,7 +46,7 @@ class R_pendapatan extends MX_Controller {
             $category = $dt_bulan;
             $value = $dt_value;
         } else {
-            $dt = $this->m_pendapatan->getDailyReport($month, $year)->result_array();
+            $dt = $this->m_pendapatan->getDailyReport($month, $year, $branch)->result_array();
             $dt_tgl = array();
             foreach ($dt as $k => $v) {
                 $dt_tgl[] = $v['tgl'];

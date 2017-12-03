@@ -2,8 +2,8 @@
     <div class="footer-inner">
         <div class="footer-content">
             <span class="bigger-120">
-                <span class="blue bolder">Ace</span>
-                Application &copy; 2013-2014
+                <span class="blue bolder">REKAVIEW</span>
+                Application &copy; 2017
             </span>
 
             &nbsp; &nbsp;
@@ -74,6 +74,17 @@
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
     jQuery(function ($) {
+        $('input.number').keyup(function(event) {
+            // skip for arrow keys
+            if(event.which >= 37 && event.which <= 40) return;
+            // format number
+            $(this).val(function(index, value) {
+                return value
+                .replace(/\D/g, "")
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+                ;
+            });
+        });
         $(".input-daterange").datepicker({
             autoclose:true,
             format:'yyyy-mm-dd'

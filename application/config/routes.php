@@ -250,3 +250,9 @@ $route['log-pdf'] = 'log_pdf';
 $route['form-produksi-add'] = 't_produksi/add';
 
 $route['master-obat-add'] = 'md_obat/add';
+
+$route['branch-target'] = 'md_branch_target';
+$route['branch-target-add'] = 'md_branch_target/add';
+$route['branch-target-edit-(:num)'] = 'md_branch_target/edit/$1';
+$route['branch-target-delete-(:num)'] = 'md_branch_target/delete/$1';
+$route['branch-target-save'] = 'md_branch_target/save';
