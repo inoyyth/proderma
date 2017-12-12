@@ -199,6 +199,7 @@ function subReport(tp) {
                 categories: categories
             },
             yAxis: {
+                allowDecimals: false,
                 title: {
                     text: 'Value'
                 }

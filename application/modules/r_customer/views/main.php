@@ -128,6 +128,7 @@
                     categories: data.category
                 },
                 yAxis: {
+                    allowDecimals: false,
                     title: {
                         text: 'Value'
                     }
