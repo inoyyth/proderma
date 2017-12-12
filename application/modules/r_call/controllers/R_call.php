@@ -31,7 +31,7 @@ class R_call extends MX_Controller {
             $nm_employee = $this->db->get_where('m_employee',array('employee_nip'=>$employee,'employee_status'=>1))->row_array();
             $dt = $this->m_call->getYearlyReport($year,$nm_employee['id']);
             unset($arr_month_long[0]);
-            $title = 'Call Report Report ' . $year;
+            $title = 'Call Report ' . $year;
             $subtitle = $nm_employee['employee_nip'] . " - " . $nm_employee['employee_name'];
             $category = $arr_month_long;
             $value = $dt;
@@ -47,7 +47,7 @@ class R_call extends MX_Controller {
                 //$dt_employee[] =array('name'=>$nm_employee['employee_name'],'data'=>$dt);
             //}
 
-            $title = 'Call Report Report ' . $arr_month_long[$month];
+            $title = 'Call Report ' . $arr_month_long[$month];
             $subtitle = $nm_employee['employee_nip'] . " - " . $nm_employee['employee_name'];
             unset($arr_month[0]);
             $category = $tgl;
