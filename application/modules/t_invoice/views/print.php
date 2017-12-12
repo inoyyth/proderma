@@ -35,6 +35,13 @@ $tax = (($data_product['grand_total'] * 10) / 100);
            width:100%;
            background:#999;
         }
+		@media print {
+        .no-print, .no-print * { display: none !important; }
+        font-family: "Calibri";
+        letter-spacing: 4px;
+        font-size: 12px;
+        size: 5.5in 8.5in;
+    }
     }
 </style>
 <div id="printThis" style="padding: 10px;text-align: justify;">
@@ -133,7 +140,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                             Tgl.Jatuh Temp
                         </td>
                         <td>
-                            : <?php echo ($due_date['pay_date'] == null ? '-' : tanggalan($due_date['pay_date'])); ?>
+                            : <?php echo ($data['due_date'] == null ? '-' : tanggalan($data['due_date'])); ?>
                         </td>
                     </tr>
                 </table>
@@ -213,18 +220,28 @@ $tax = (($data_product['grand_total'] * 10) / 100);
     </div>
     <div class="text-left" style="padding-left: 10px;line-height: 20%;">
         <p>Pembayaran ditransfers ke rekening kami:</p>
+		<br>
         <p>Bank Mandiri Cab.Taman Galaxy</p>
+		<br>
         <p>Rek no. 167.000.555.8555</p>
+		<br>
         <p>Bank BRI</p>
+		<br>
         <p>Rek no. 1150.01.000110.306</p>
+		<br>
         <p>Bank BCA</p>
+		<br>
         <p>Rek no. 577.079.4449</p>
+		<br>
         <p>Bank BNI</p>
+		<br>
         <p>Rek no.488.3761.71</p>
+		<br>
         <p>an Whoto Indonesia Sejahtera</p>
+		<br>
     </div>
     <div class="text-center" style="padding-right: 10px;padding-left: 10px;">
-        <p style="border: 1px solid;font-weight: bold;">( TIDAK MENERIMA PEMBAYARAN DENGAN TUNAI ATAUPUN PEMBAYARAN SELAIN KE REKENING DIATAS  </p>
+        <p style="border: 1px solid;font-weight: bold;">( TIDAK MENERIMA PEMBAYARAN DENGAN TUNAI ATAUPUN PEMBAYARAN SELAIN KE REKENING DIATAS)  </p>
     </div>
     <div style="padding-left: 10px;padding-right: 10px;font-size: 12px;">
         <table style="border:1px solid;width: 100%;">
@@ -248,7 +265,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                 </td>
             <tr>
                 <td style="text-align: center;">
-                    Sales Manager
+                    &nbsp;
                 </td>
                 <td style="text-align: center;">
                     &nbsp;

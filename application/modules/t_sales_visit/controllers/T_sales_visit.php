@@ -135,6 +135,8 @@ class T_sales_visit extends MX_Controller {
             "IF(sales_visit.status=1,'Active','Not Active') AS status",
             "m_employee.employee_name",
             "m_customer.customer_name",
+			"m_customer.customer_code",
+			"m_customer.current_lead_customer_status",
             "m_objective.objective",
 			"m_branch.branch_name"
         );
