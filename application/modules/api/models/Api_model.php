@@ -521,6 +521,7 @@ class Api_model extends CI_Model {
         $this->db->join('m_customer','m_customer.id=t_sales_order.id_customer','INNER');
         $this->db->join('m_payment_type','m_payment_type.id=t_sales_order.so_payment_term','INNER');
         $this->db->where(array('so_status' => 1, 'id_sales' => $id_sales));
+		$this->db->order_by('id','desc');
         return $this->db->get()->result_array();
     }
     

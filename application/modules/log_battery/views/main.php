@@ -32,6 +32,9 @@
         </div>
     </div>
     <div class="col-lg-12">
+		<div style="padding-bottom: 5px;">
+			<input type="text" id="search-name"> <button class="btn btn-xs btn-primary" onclick="filterTable();">Search</button>
+		</div>
         <div id="employee-table"></div>
     </div>
     <div class="col-lg-12">
@@ -39,6 +42,7 @@
     </div>
 </div>
 <script src="<?php echo base_url(); ?>themes/assets/plugin/Highcharts-5.0.14/code/js/highcharts.js"></script>
+<script src="<?php echo base_url(); ?>themes/assets/plugin/Highcharts-5.0.14/code/js/modules/exporting.js"></script>
 <script src="<?php echo base_url(); ?>themes/assets/plugin/bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.min.js"></script>
 <script src="<?php echo base_url(); ?>themes/assets/plugin/typeahead/dist/bloodhound.min.js"></script>
 <script>
@@ -78,6 +82,14 @@
             },
         });
     });
+	
+	function filterTable() {
+		console.log('filter');
+		var params = {
+			nama: $('#search-name').val()
+		};
+		$("#employee-table").tabulator("setData", "<?php echo base_url('md_employee/getListTable'); ?>", params);
+	}
 
 function subReport() {
     if($("#datelog").val() === "") {

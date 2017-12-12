@@ -29,6 +29,7 @@ class Md_subarea extends MX_Controller {
         $field = array(
             "m_subarea.*",
             "m_area.area_name",
+			"m_area.area_code",
             "IF(m_subarea.subarea_status=1,'Active','Not Active') AS status"
         );
         
@@ -39,8 +40,9 @@ class Md_subarea extends MX_Controller {
         );
         
         $like = array(
-            'm_subarea.subarea_code'=>isset($_POST['subarea_code'])?$_POST['subarea_code']:"",
+            'm_area.area_code'=>isset($_POST['area_code'])?$_POST['area_code']:"",
             'm_subarea.subarea_name'=>isset($_POST['subarea_name'])?$_POST['subarea_name']:"",
+			'm_subarea.subarea_code'=>isset($_POST['subarea_code'])?$_POST['subarea_code']:"",
         );
         
         $array_id_area = array();
