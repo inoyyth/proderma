@@ -50,6 +50,10 @@ Class M_md_employee extends CI_Model {
             'photo_path' => $image_name
         );
         if (empty($id)) {
+            if (!$this->cekNip($data['employee_nip'])){
+                return false;
+            }
+
             if($this->input->post('id_jabatan') == 1 || $this->input->post('id_jabatan') == 6) {
                 $data['sales_password'] = $this->encrypt->encode(1234);
             }
@@ -94,6 +98,19 @@ Class M_md_employee extends CI_Model {
             return $dt;
         } else {
             return false;
+        }
+    }
+
+    public function cekNip($nip) {
+        $this->db->select('id');
+        $this->db->from($this->table);
+        $this->db->where('employee_nip',$nip);
+        $this->db->where('employee_status<>','3');
+        $query = $this->db->get();
+        if($query->num_rows() > 0) {
+            return false;
+        } else {
+            return true;
         }
     }
 
