@@ -80,7 +80,10 @@
             </div>
         </div>
     </div>-->
-
+    <div class="vspace-12-sm"></div>
+    <div class="col-lg-12">
+        <div id="container-branch" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    </div>
     <div class="vspace-12-sm"></div>
     <div class="col-lg-12" id="area-chart">
         <div class="col-lg-6">
@@ -115,6 +118,7 @@
 <script>
 $(document).ready(function () {
     var id_branch = "<?php echo $branch;?>";
+    var dN = new Date();
     console.log(id_branch);
     // Build the chart
     $("#area-chart").empty();
@@ -149,6 +153,88 @@ $(document).ready(function () {
             });
         });
     }
+
+    $.ajax({
+        type: "POST",
+        url: '<?php echo base_url('dashboard/getReportAll');?>',
+        data: {month: dN.getMonth(), year: dN.getFullYear()},
+        success: function(i, data){
+            console.log(data);
+        },
+        dataType: 'json'
+    })
+    .done(function (data){
+        Highcharts.chart('container-branch', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Income Report All Branch'
+            },
+            subtitle: {
+                text: 'Income Chart'
+            },
+            xAxis: {
+                type: 'category',
+                labels: {
+                    rotation: -45,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Rp.'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            tooltip: {
+                pointFormat: 'Population in 2008: <b>{point.y:.1f} millions</b>'
+            },
+            series: [{
+                name: 'Population',
+                data: [
+                    ['Shanghai', 23.7],
+                    ['Lagos', 16.1],
+                    ['Istanbul', 14.2],
+                    ['Karachi', 14.0],
+                    ['Mumbai', 12.5],
+                    ['Moscow', 12.1],
+                    ['São Paulo', 11.8],
+                    ['Beijing', 11.7],
+                    ['Guangzhou', 11.1],
+                    ['Delhi', 11.1],
+                    ['Shenzhen', 10.5],
+                    ['Seoul', 10.4],
+                    ['Jakarta', 10.0],
+                    ['Kinshasa', 9.3],
+                    ['Tianjin', 9.3],
+                    ['Tokyo', 9.0],
+                    ['Cairo', 8.9],
+                    ['Dhaka', 8.9],
+                    ['Mexico City', 8.9],
+                    ['Lima', 8.9]
+                ],
+                dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'right',
+                    format: '{point.y:.1f}', // one decimal
+                    y: 10, // 10 pixels down from the top
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            }]
+        });
+    });
     
 });
 

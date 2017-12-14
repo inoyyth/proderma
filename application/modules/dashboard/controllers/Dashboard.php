@@ -106,4 +106,13 @@ class Dashboard extends MX_Controller {
         return $data;
     }
 
+    function getReportAll() {
+        $month = $this->input->post('month');
+        $year = $this->input->post('year');
+        $sql = $this->m_dashboard->getAllBranch();
+        $data = array();
+        foreach ($sql as $k=>$v) {
+            $dt = $this->m_dashboard->getDailyReport($month, $year, $branch)->result_array();
+        }
+    }
 }
