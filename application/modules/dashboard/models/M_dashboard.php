@@ -35,6 +35,15 @@ class M_dashboard extends CI_Model {
         return $this->db->get()->result_array();
     }
 
+    function getAllBranchWhere($branch) {
+        $this->db->select('*');
+        $this->db->from('m_branch');
+        $this->db->where('id',$branch);
+        $this->db->where('branch_status',"1");
+        $this->db->order_by('branch_name','asc');
+        return $this->db->get()->row_array();
+    }
+
     public function getYearlyReport($year, $branch) {
         $this->db->select('sum(so_grand_total) as total, month(so_date) as bulan');
         $this->db->from('t_sales_order');
@@ -67,10 +76,6 @@ class M_dashboard extends CI_Model {
             $this->db->where('t_sales_order.id_branch',$branch);
         }
         return $this->db->get()->row_array();
-    }
-
-    public function getReportAll(){
-        $
     }
 
 }
