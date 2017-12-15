@@ -36,6 +36,12 @@ class Dashboard extends MX_Controller {
         echo json_encode($sql);
     }
 
+    public function getAllBranchWhere() {
+        $branch = $this->input->post('branch');
+        $sql = $this->m_dashboard->getAllBranchWhere($branch);
+        echo json_encode($sql);
+    }
+
     public function getReport() {
         $month = $this->input->post('month');
         $year = $this->input->post('year');
@@ -106,4 +112,15 @@ class Dashboard extends MX_Controller {
         return $data;
     }
 
+    function getReportAll() {
+        $month = $this->input->post('month');
+        $year = $this->input->post('year');
+        $sql = $this->m_dashboard->getAllBranch();
+        $data = array();
+        foreach ($sql as $k=>$v) {
+            $dt = $this->m_dashboard->getAchievement($month, $year, $v['id']);
+            $data[] = array($v['branch_name'],($dt['total'] == null ? 0 : (int)$dt['total']));
+        }
+        echo json_encode($data);
+    }
 }

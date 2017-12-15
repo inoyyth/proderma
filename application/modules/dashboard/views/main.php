@@ -80,7 +80,12 @@
             </div>
         </div>
     </div>-->
-
+    <?php if ($branch == "all") { ?>
+    <div class="vspace-12-sm"></div>
+    <div class="col-lg-12">
+        <div id="container-branch" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    </div>
+    <?php } ?>
     <div class="vspace-12-sm"></div>
     <div class="col-lg-12" id="area-chart">
         <div class="col-lg-6">
@@ -115,23 +120,26 @@
 <script>
 $(document).ready(function () {
     var id_branch = "<?php echo $branch;?>";
+    var dN = new Date();
     console.log(id_branch);
+    var monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
     // Build the chart
     $("#area-chart").empty();
     if (id_branch !== "all") {
         $.ajax({
         type: "POST",
-        url: '<?php echo base_url('dashboard/getAllBranch');?>',
+        url: '<?php echo base_url('dashboard/getAllBranchWhere');?>',
         data: {branch:id_branch},
         success: function(i, data){
             console.log(data);
         },
         dataType: 'json'
         }).done(function(e){
-            $.each(e,function(i, item){
+            //$.each(e,function(i, item){
                 //reportso(item.id,item.branch_name,i);
-                reportincome(item.id,item.branch_name,i); 
-            });
+                reportincome(e.id,e.branch_name,1); 
+            //});
+            console.log(e);
         });
     } else {
         $.ajax({
@@ -149,7 +157,78 @@ $(document).ready(function () {
             });
         });
     }
+
+    $.ajax({
+        type: "POST",
+        url: '<?php echo base_url('dashboard/getReportAll');?>',
+        data: {month: dN.getMonth()+1, year: dN.getFullYear()},
+        success: function(i, data){
+            console.log(data);
+        },
+        dataType: 'json'
+    })
+    .done(function (dataV){
+        Highcharts.chart('container-branch', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Income Report All Branch in ' + monthNames[dN.getMonth()]
+            },
+            subtitle: {
+                text: 'Income Chart'
+            },
+            xAxis: {
+                type: 'category',
+                labels: {
+                    rotation: -45,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Value (Rp)'
+                }
+            },
+            lang: {
+                decimalPoint: '.',
+                thousandsSep: ','
+            },
+            legend: {
+                enabled: true
+            },
+            tooltip: {
+                pointFormat: 'Total income: <b>{point.y:,.0f}</b>'
+            },
+            series: [{
+                name: 'Income',
+                data: dataV,
+                dataLabels: {
+                    enabled: true,
+                    //rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'center',
+                    format: '{point.y:.1f}', // one decimal
+                    y: 5, // 10 pixels down from the top
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    },
+                    format: '{point.y:,.0f}'
+                }
+            }]
+        });
+    });
     
+});
+Highcharts.setOptions({
+    lang: {
+        thousandsSep: '.'
+    }
 });
 
 function reportso(branch,name,pos) {
@@ -159,7 +238,7 @@ function reportso(branch,name,pos) {
                 ' </div>';
     $("#area-chart").append(html);
 
-    var dt = {branch: branch, month: d.getMonth(), year: d.getFullYear()};
+    var dt = {branch: branch, month: d.getMonth()+1, year: d.getFullYear()};
 
     $.ajax({
         type: "POST",
@@ -220,7 +299,7 @@ function reportincome(branch,name,pos) {
                 '</li></ul></div><br/><br/>';
     $("#area-chart").append(html);
 
-    var dt = {branch: branch, month: d.getMonth(), year: d.getFullYear()};
+    var dt = {branch: branch, month: d.getMonth()+1, year: d.getFullYear()};
     $.ajax({
         type: "POST",
         url: '<?php echo base_url('dashboard/getReport');?>',
