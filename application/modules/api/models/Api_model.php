@@ -488,6 +488,9 @@ class Api_model extends CI_Model {
         );
         $sql = $this->db->update('sales_visit', $dt, array('id' => $data['id_plan'], 'id_sales' => $data['id_sales']));
         if ($sql) {
+            if ($data['sales_visit_progress'] == "COMPLETE") {
+                $this->db->update('sales_visit', array('complete_date' => date('Y-m-d H:i:s')), array('id' => $data['id_plan'], 'id_sales' => $data['id_sales']));
+            }
             return true;
         }
         return false;

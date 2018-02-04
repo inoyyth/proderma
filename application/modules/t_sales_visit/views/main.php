@@ -61,7 +61,7 @@
             movableCols: true,
             height: "320px", // set height of table (optional),
             pagination:"remote",
-                    paginationSize: 10,
+                    paginationSize: 20,
             fitColumns:true, //fit columns to width of table (optional),
                     ajaxType: "POST", //ajax HTTP request type
             ajaxURL: "<?php echo base_url('t_sales_visit/getListTable'); ?>", //ajax URL
@@ -75,7 +75,9 @@
                 {title: "Order ID", field: "order_id", sorter: "string", tooltip: true},
                 {title: "Activity", field: "objective", sorter: "string", tooltip: true},
 				{title: "Related Code", field: "related_code", sorter: "string", tooltip: true},
-                {title: "Progress", field: "sales_visit_progress", sorter: "string", tooltip: true}
+                {title: "Progress", field: "sales_visit_progress", sorter: "string", tooltip: true},
+                {title: "Created Date", field: "sys_create_date", sorter: "date", tooltip: true, align: "center", width: 170},
+                {title: "Complete Date", field: "complete_date", sorter: "date", tooltip: true, align: "center", width: 170}
             ],
             selectable: 1,
             rowSelectionChanged: function (data, rows) {
