@@ -256,3 +256,10 @@ $route['branch-target-add'] = 'md_branch_target/add';
 $route['branch-target-edit-(:num)'] = 'md_branch_target/edit/$1';
 $route['branch-target-delete-(:num)'] = 'md_branch_target/delete/$1';
 $route['branch-target-save'] = 'md_branch_target/save';
+
+$route['manage-product'] = 'md_manage_product';
+$route['manage-product-add-(:num)'] = 'md_manage_product/add/$1';
+$route['manage-product-edit-(:num)-(:num)'] = 'md_manage_product/edit/$1/$2';
+$route['manage-product-delete-(:num)-(:num)'] = 'md_manage_product/delete/$1/$2';
+$route['manage-product-list-(:num)'] = 'md_manage_product/list/$1';
+$route['manage-product-save'] = 'md_manage_product/save';

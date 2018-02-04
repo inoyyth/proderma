@@ -2,6 +2,8 @@
 
 class Api_model extends CI_Model {
 
+    public $so_code;
+
     public function getHeaderData($token) {
         $this->db->select('
                 *
@@ -299,8 +301,9 @@ class Api_model extends CI_Model {
 
     public function sales_order($data) {
         $sales = $this->__salesDetail($data['id_sales']);
+        $this->so_code = $this->__generate_code($data['id_customer']);
         $dt = array(
-            'so_code' => $this->__generate_code($data['id_customer']),
+            'so_code' => $this->so_code,
             'so_date' => $data['date'],
             'id_customer' => $data['id_customer'],
             'id_sales' => $data['id_sales'],
@@ -330,9 +333,17 @@ class Api_model extends CI_Model {
                     'sys_create_user' => $data['id_sales'],
                     'sys_create_date' => date('Y-m-d H:i:s')
                 );
+                $dt_stock[] = array(
+                    'id_product' => $v['id'],
+                    'update_status' => 'O',
+                    'qty' => $v['qty'],
+                    'description' => 'Minus stock for Sales Order with Code '.$this->so_code,
+                    'sys_create_date' => date('Y-m-d H:i:s')
+                );
             }
 
             if ($this->db->insert_batch('t_sales_order_product', $dt_product)) {
+                if ($this->db->insert_batch('product_stock_manage', $dt_stock))
                 return true;
             }
             return false;
@@ -598,8 +609,5 @@ class Api_model extends CI_Model {
             $this->db->order_by('t_invoice.id','desc');
             return $this->db->get()->result_array();
         }
-        
-        
     }
-
 }
