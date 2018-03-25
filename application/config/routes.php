@@ -182,6 +182,8 @@ $route['sales-order-print-(:num)'] = 't_sales_order/printdetail/$1';
 
 $route['ojt'] = 't_sales_visit';
 $route['ojt-add'] = 't_sales_visit/add';
+$route['ojt-edit-(:num)'] = 't_sales_visit/edit/$1';
+$route['ojt-delete-(:num)'] = 't_sales_visit/delete/$1';
 $route['ojt-save'] = 't_sales_visit/save';
 $route['ojt-detail-(:num)'] = 't_sales_visit/detail/$1';
 
@@ -256,3 +258,10 @@ $route['branch-target-add'] = 'md_branch_target/add';
 $route['branch-target-edit-(:num)'] = 'md_branch_target/edit/$1';
 $route['branch-target-delete-(:num)'] = 'md_branch_target/delete/$1';
 $route['branch-target-save'] = 'md_branch_target/save';
+
+$route['manage-product'] = 'md_manage_product';
+$route['manage-product-add-(:num)'] = 'md_manage_product/add/$1';
+$route['manage-product-edit-(:num)-(:num)'] = 'md_manage_product/edit/$1/$2';
+$route['manage-product-delete-(:num)-(:num)'] = 'md_manage_product/delete/$1/$2';
+$route['manage-product-list-(:num)'] = 'md_manage_product/list/$1';
+$route['manage-product-save'] = 'md_manage_product/save';
