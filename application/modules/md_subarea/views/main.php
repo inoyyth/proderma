@@ -15,7 +15,7 @@
                         <div class="col-lg-2">
                             <div class="form-group">
                                 <label class="small">Area Code / Name</label>
-                                <select class="form-control input-sm" id="search-area-code">
+                                <select class="form-control input-sm" id="search-area-code" onchange="return filterTable()">
                                     <option value="" selected="true"> - </option>
                                     <?php foreach($area as $vArea) { ?>
                                     <option value="<?php echo $vArea['id'];?>"><?php echo $vArea['area_code'] . " / " . $vArea['area_name'];?></option>
@@ -26,13 +26,13 @@
                         <div class="col-lg-2">
                             <div class="form-group">
                                 <label class="small">Subarea Code</label>
-                                <input type="text" class="form-control input-sm" id="search-subarea-code">
+                                <input type="text" class="form-control input-sm" id="search-subarea-code" onkeypress="return runFilter(event)">
                             </div>
                         </div>
                         <div class="col-lg-2">
                             <div class="form-group">
                                 <label class="small">Subarea Name</label>
-                                <input type="text" class="form-control input-sm" id="search-subarea-name">
+                                <input type="text" class="form-control input-sm" id="search-subarea-name" onkeypress="return runFilter(event)">
                             </div>
                         </div>
                     </form>
@@ -104,5 +104,12 @@ function filterTable() {
     };
 
     $("#example-table").tabulator("setData", "<?php echo base_url('md_subarea/getListTable'); ?>", params);
+}
+
+function runFilter(e) {
+    if (e.keyCode == 13) {
+        filterTable();
+        return false;
+    }
 }
 </script>

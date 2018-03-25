@@ -15,19 +15,19 @@
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label class="small">Username</label>
-                                    <input type="text" class="form-control input-sm" id="username">
+                                    <input type="text" class="form-control input-sm" id="username" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label class="small">Full Name</label>
-                                    <input type="text" class="form-control input-sm" id="nama_lengkap">
+                                    <input type="text" class="form-control input-sm" id="nama_lengkap" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label class="small">Last Login</label>
-                                    <input type="text" class="form-control input-sm" id="last_login">
+                                    <input type="text" class="form-control input-sm" id="last_login" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
                             <div class="col-lg-3">
@@ -97,6 +97,13 @@
     function clearFilterTable() {
         $(".form-filter-table")[0].reset();
         filterTable();
+    }
+
+    function runFilter(e) {
+        if (e.keyCode == 13) {
+            filterTable();
+            return false;
+        }
     }
 
     function filterTable() {

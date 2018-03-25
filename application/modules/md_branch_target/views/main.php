@@ -15,7 +15,7 @@
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Branch</label>
-                                    <input type="text" class="form-control input-sm" id="search-branch-name">
+                                    <input type="text" class="form-control input-sm" id="search-branch-name" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
                         </form>
@@ -84,5 +84,12 @@
         };
 
         $("#example-table").tabulator("setData", "<?php echo base_url('md_branch_target/getListTable'); ?>", params);
+    }
+
+    function runFilter(e) {
+        if (e.keyCode == 13) {
+            filterTable();
+            return false;
+        }
     }
 </script>
