@@ -15,13 +15,13 @@
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Type</label>
-                                    <input type="text" class="form-control input-sm" id="search-type">
+                                    <input type="text" class="form-control input-sm" id="search-type" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Description</label>
-                                    <input type="text" class="form-control input-sm" id="search-description">
+                                    <input type="text" class="form-control input-sm" id="search-description" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
                         </form>
@@ -89,5 +89,12 @@
         };
 
         $("#example-table").tabulator("setData", "<?php echo base_url('md_payment_type/getListTable'); ?>", params);
+    }
+
+    function runFilter(e) {
+        if (e.keyCode == 13) {
+            filterTable();
+            return false;
+        }
     }
 </script>

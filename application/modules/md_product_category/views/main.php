@@ -15,7 +15,7 @@
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Category</label>
-                                    <input type="text" class="form-control input-sm" id="search-category">
+                                    <input type="text" class="form-control input-sm" id="search-category"  onkeypress="return runFilter(event)">
                                 </div>
                             </div>
                         </form>
@@ -82,5 +82,12 @@
         };
 
         $("#example-table").tabulator("setData", "<?php echo base_url('md_product_category/getListTable'); ?>", params);
+    }
+
+    function runFilter(e) {
+        if (e.keyCode == 13) {
+            filterTable();
+            return false;
+        }
     }
 </script>

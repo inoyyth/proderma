@@ -15,37 +15,37 @@
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Nip</label>
-                                    <input type="text" class="form-control input-sm" id="search-nip">
+                                    <input type="text" class="form-control input-sm" onkeypress="return runFilter(event)" id="search-nip">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Name</label>
-                                    <input type="text" class="form-control input-sm" id="search-name">
+                                    <input type="text" class="form-control input-sm" onkeypress="return runFilter(event)" id="search-name">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Position</label>
-                                    <input type="text" class="form-control input-sm" id="search-position">
+                                    <input type="text" class="form-control input-sm" onkeypress="return runFilter(event)" id="search-position">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Email</label>
-                                    <input type="text" class="form-control input-sm" id="search-email">
+                                    <input type="text" class="form-control input-sm" onkeypress="return runFilter(event)" id="search-email">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Phone</label>
-                                    <input type="text" class="form-control input-sm" id="search-phone">
+                                    <input type="text" class="form-control input-sm" onkeypress="return runFilter(event)" id="search-phone">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Gender</label>
-                                    <select class="form-control input-sm" id="search-gender">
+                                    <select class="form-control input-sm" id="search-gender" onchange="return filterTable()">
                                         <option value=""></option>
                                         <option value="F">Female</option>
                                         <option value="M">Male</option>
@@ -127,4 +127,13 @@
 
         $("#example-table").tabulator("setData", "<?php echo base_url('md_employee/getListTable'); ?>", params);
     }
+
+    function runFilter(e) {
+        if (e.keyCode == 13) {
+            filterTable();
+            return false;
+        }
+    }
+
+    // onkeypress="return runFilter(event)"
 </script>

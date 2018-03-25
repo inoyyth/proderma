@@ -37,25 +37,25 @@
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Code</label>
-                                    <input type="text" class="form-control input-sm" id="search-code">
+                                    <input type="text" class="form-control input-sm" id="search-code" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Name</label>
-                                    <input type="text" class="form-control input-sm" id="search-name">
+                                    <input type="text" class="form-control input-sm" id="search-name" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Clinic</label>
-                                    <input type="text" class="form-control input-sm" id="search-clinic">
+                                    <input type="text" class="form-control input-sm" id="search-clinic" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Address</label>
-                                    <input type="text" class="form-control input-sm" id="search-address">
+                                    <input type="text" class="form-control input-sm" id="search-address" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
                         </div>
@@ -64,21 +64,21 @@
                                 <div class="form-group" id="remote-province">
                                     <label class="small">Province</label>
                                     <input type="hidden" id="search-province">
-                                    <input class="typeahead form-control input-sm" style="text-transform: capitalize;" type="text">
+                                    <input class="typeahead form-control input-sm" style="text-transform: capitalize;" type="text" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group" id="remote-city">
                                     <label class="small">City</label>
                                     <input type="hidden" id="search-city">
-                                    <input class="typeahead form-control input-sm" style="text-transform: capitalize;" type="text">
+                                    <input class="typeahead form-control input-sm" style="text-transform: capitalize;" type="text" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                <div class="form-group" id="remote-district">
                                     <label class="small">District</label>
                                     <input type="hidden" id="search-district">
-                                    <input class="typeahead form-control input-sm" style="text-transform: capitalize;" type="text">
+                                    <input class="typeahead form-control input-sm" style="text-transform: capitalize;" type="text" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
                         </div>
@@ -242,6 +242,13 @@
         };
 
         $("#example-table").tabulator("setData", "<?php echo base_url('md_customer_lead/getListTable'); ?>", params);
+    }
+
+    function runFilter(e) {
+        if (e.keyCode == 13) {
+            filterTable();
+            return false;
+        }
     }
     
     $('#btn-priority,#btn-undo-priority').click(function() {
