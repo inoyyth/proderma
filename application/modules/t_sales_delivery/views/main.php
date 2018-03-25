@@ -15,25 +15,25 @@
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">SO Code</label>
-                                    <input type="text" class="form-control input-sm" id="search-so-code">
+                                    <input type="text" class="form-control input-sm" id="search-so-code" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">DO Code</label>
-                                    <input type="text" class="form-control input-sm" id="search-do-code">
+                                    <input type="text" class="form-control input-sm" id="search-do-code" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
 							<div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Start Date</label>
-                                    <input type="text" class="form-control input-sm date-picker" id="search-start">
+                                    <input type="text" class="form-control input-sm date-picker" id="search-start" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
 							<div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">End Date</label>
-                                    <input type="text" class="form-control input-sm date-picker" id="search-end">
+                                    <input type="text" class="form-control input-sm date-picker" id="search-end" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
                         </form>
@@ -131,5 +131,12 @@
         };
 
         $("#example-table").tabulator("setData", "<?php echo base_url('t_sales_delivery/getListTable'); ?>", params);
+    }
+
+    function runFilter(e) {
+        if (e.keyCode == 13) {
+            filterTable();
+            return false;
+        }
     }
 </script>

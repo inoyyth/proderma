@@ -15,37 +15,37 @@
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Code</label>
-                                    <input type="text" class="form-control input-sm" id="search-code">
+                                    <input type="text" class="form-control input-sm" id="search-code" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Subject</label>
-                                    <input type="text" class="form-control input-sm" id="search-subject">
+                                    <input type="text" class="form-control input-sm" id="search-subject" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Supervisor</label>
-                                    <input type="text" class="form-control input-sm" id="search-sales">
+                                    <input type="text" class="form-control input-sm" id="search-sales" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Attenndence</label>
-                                    <input type="text" class="form-control input-sm" id="search-attendence">
+                                    <input type="text" class="form-control input-sm" id="search-attendence" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
 							<div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Start Date</label>
-                                    <input type="text" class="form-control input-sm date-picker" id="search-start">
+                                    <input type="text" class="form-control input-sm date-picker" id="search-start" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
 							<div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">End Date</label>
-                                    <input type="text" class="form-control input-sm date-picker" id="search-end">
+                                    <input type="text" class="form-control input-sm date-picker" id="search-end" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
                         </form>
@@ -122,5 +122,12 @@
         };
 
         $("#example-table").tabulator("setData", "<?php echo base_url('t_visit_form/getListTable'); ?>", params);
+    }
+
+    function runFilter(e) {
+        if (e.keyCode == 13) {
+            filterTable();
+            return false;
+        }
     }
 </script>
