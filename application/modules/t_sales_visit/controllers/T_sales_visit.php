@@ -173,16 +173,16 @@ class T_sales_visit extends MX_Controller {
 		
         $where_1 = array('sales_visit.status !=' => '3');
 		$where_2 = array();
-		if (isset($_POST['start']) && isset($_POST['end'])) {
-			if($_POST['start'] != null && $_POST['end'] != null) {
+		if (isset($_GET['start_date']) && isset($_GET['end_date'])) {
+			if($_GET['start_date'] != null && $_GET['end_date'] != null) {
 				$where_2 = array(
-					'date(sales_visit.sales_visit_date) >=' => $_POST['start'],
-					'date(sales_visit.end_date) <=' => $_POST['end'],
+					'date(sales_visit.sales_visit_date) >=' => $_GET['start_date'],
+					'date(sales_visit.end_date) <=' => $_GET['end_date'],
 				);
-			} else if ($_POST['start'] != "") {
-				$where_2 = array('date(sales_visit.sales_visit_date) =' => $_POST['start']);
-			} else if ($_POST['end'] != "") {
-				$where_2 = array('date(sales_visit.end_date) =' => $_POST['end']);
+			} else if ($_GET['start_date'] != "") {
+				$where_2 = array('date(sales_visit.sales_visit_date) =' => $_GET['start_date']);
+			} else if ($_GET['end_date'] != "") {
+				$where_2 = array('date(sales_visit.end_date) =' => $_GET['end_date']);
 			}
 		}
 		$where_3 = array();
