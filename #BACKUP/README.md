@@ -1,2 +1,0 @@
-# proderma
-proderma application

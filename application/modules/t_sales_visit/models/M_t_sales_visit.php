@@ -103,6 +103,13 @@ Class M_t_sales_visit extends CI_Model {
         }
 		$this->db->order_by('employee_name','asc');
 		return $this->db->get();
-	}
+    }
+    
+    public function getCustomerCode($id_customer) {
+        $this->db->select('customer_code, customer_name');
+        $this->db->from('m_customer');
+        $this->db->where('id', $id_customer);
+        return $this->db->get()->row_array();
+    }
 
 }

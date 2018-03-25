@@ -26,6 +26,24 @@ class T_sales_visit extends MX_Controller {
         $this->load->view('default', $data);
     }
 
+    public function edit($id) {
+        $data['detail'] = $this->db->get_where('sales_visit',array('id'=>$id))->row_array();
+        $data['customer_code'] = $this->m_t_sales_visit->getCustomerCode($data['detail']['id_customer']);
+        $data['sales'] = $this->m_t_sales_visit->getEmployee()->result_array();
+        $data['branch'] = $this->db->get_where('m_branch',array('branch_status'=>1))->result_array();
+		$data['view'] = 't_sales_visit/edit';
+        $this->load->view('default', $data);
+    }
+
+    public function delete($id) {
+        if ($this->db->delete('sales_visit', array('id' => $id))) { 
+            $this->session->set_flashdata('success', 'Data berhasil di Hapus !');
+        } else {
+            $this->session->set_flashdata('success', 'Data gagal di hapus !');
+        }
+        redirect('ojt');
+    }
+
     public function getListTable() {
         $page = ($_POST['page']==0?1:$_POST['page']);
         $limit = $_POST['size'];

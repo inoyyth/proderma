@@ -44,8 +44,9 @@
     </div>
     <div class="col-lg-12" style="padding-bottom: 2px;">
         <a href="<?php echo site_url('ojt-add'); ?>" type="button" id="btn-add" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> New</a>
-        <a href="#" type="button" id="btn-edit" class="btn btn-xs btn-warning"><i class="fa fa-search"></i> Detail</a>
-        <!--<a href="#" type="button" id="btn-delete" class="btn btn-xs btn-danger" onclick="return confirm('Yakin hapus data?');"><i class="fa fa-remove"></i> Delete</a>-->
+        <a href="#" type="button" id="btn-detail" class="btn btn-xs btn-primary"><i class="fa fa-detail"></i> Detail</a>
+        <a href="#" type="button" id="btn-edit" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> Edit</a>
+        <a href="#" type="button" id="btn-delete" class="btn btn-xs btn-danger" onclick="return confirm('Yakin hapus data?');"><i class="fa fa-remove"></i> Delete</a>
 		<a href="<?php echo base_url('t_sales_visit/print_excel');?>" type="button" id="btn-excel" class="btn btn-xs btn-default"><i class="fa fa-edit"></i> Excel</a>
     </div>
     <div class="col-lg-12">
@@ -83,9 +84,13 @@
             rowSelectionChanged: function (data, rows) {
                 console.log(data);
                 if (data.length > 0) {
-                    $('#btn-edit').attr('href', '<?php echo site_url(); ?>ojt-detail-' + data[0]['id'] + '.html');
+                    $('#btn-detail').attr('href', '<?php echo site_url(); ?>ojt-detail-' + data[0]['id'] + '.html');
+                    $('#btn-edit').attr('href', '<?php echo site_url(); ?>ojt-edit-' + data[0]['id'] + '.html');
+                    $('#btn-delete').attr('href', '<?php echo site_url(); ?>ojt-delete-' + data[0]['id'] + '.html');
                 } else {
+                    $('#btn-detail').attr('href', '#');
                     $('#btn-edit').attr('href', '#');
+                    $('#btn-delete').attr('href', '#');
                 }
             },
             rowDblClick:function(e, row){
