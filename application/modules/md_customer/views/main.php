@@ -15,7 +15,7 @@
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Group Product</label>
-                                    <select class="form-control input-sm" id="search-group-product">
+                                    <select class="form-control input-sm" id="search-group-product" onchange="return filterTable()">
                                         <option value=""></option>
                                         <?php foreach($group_customer_product as $v): ?>
                                         <option value="<?php echo $v['id'];?>"><?php echo $v['group_customer_product'];?></option>
@@ -26,7 +26,7 @@
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Status</label>
-                                    <select class="form-control input-sm" id="search-status-customer">
+                                    <select class="form-control input-sm" id="search-status-customer" onchange="return filterTable()">
                                         <option value=""></option>
                                         <?php foreach($status_list_customer as $v): ?>
                                         <option value="<?php echo $v['id'];?>"><?php echo $v['status_list_customer'];?></option>
@@ -37,25 +37,25 @@
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Code</label>
-                                    <input type="text" class="form-control input-sm" id="search-code">
+                                    <input type="text" class="form-control input-sm" id="search-code" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Name</label>
-                                    <input type="text" class="form-control input-sm" id="search-name">
+                                    <input type="text" class="form-control input-sm" id="search-name" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Clinic</label>
-                                    <input type="text" class="form-control input-sm" id="search-clinic">
+                                    <input type="text" class="form-control input-sm" id="search-clinic" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Address</label>
-                                    <input type="text" class="form-control input-sm" id="search-address">
+                                    <input type="text" class="form-control input-sm" id="search-address" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
                         </div>
@@ -64,21 +64,21 @@
                                 <div class="form-group" id="remote-province">
                                     <label class="small">Province</label>
                                     <input type="hidden" id="search-province">
-                                    <input class="typeahead form-control input-sm" style="text-transform: capitalize;" type="text">
+                                    <input class="typeahead form-control input-sm" style="text-transform: capitalize;" type="text" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group" id="remote-city">
                                     <label class="small">City</label>
                                     <input type="hidden" id="search-city">
-                                    <input class="typeahead form-control input-sm" style="text-transform: capitalize;" type="text">
+                                    <input class="typeahead form-control input-sm" style="text-transform: capitalize;" type="text" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                <div class="form-group" id="remote-district">
                                     <label class="small">District</label>
                                     <input type="hidden" id="search-district">
-                                    <input class="typeahead form-control input-sm" style="text-transform: capitalize;" type="text">
+                                    <input class="typeahead form-control input-sm" style="text-transform: capitalize;" type="text" onkeypress="return runFilter(event)">
                                 </div>
                             </div>
                         </div>
@@ -213,6 +213,18 @@
         $(".form-filter-table")[0].reset();
         $("#search-province,#search-city,#search-district").val('');
         filterTable();
+    }
+
+    function clearFilterTable() {
+        $(".form-filter-table")[0].reset();
+        filterTable();
+    }
+
+    function runFilter(e) {
+        if (e.keyCode == 13) {
+            filterTable();
+            return false;
+        }
     }
 
     function filterTable() {

@@ -15,25 +15,25 @@
                              <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Customer</label>
-                                    <input type="text" class="form-control input-sm" id="search-customer-name">
+                                    <input type="text" class="form-control input-sm" onkeypress="return runFilter(event)" id="search-customer-name">
                                 </div>
                             </div>
                              <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Sales</label>
-                                    <input type="text" class="form-control input-sm" id="search-sales-name">
+                                    <input type="text" class="form-control input-sm" onkeypress="return runFilter(event)" id="search-sales-name">
                                 </div>
                             </div>
 							<div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">Start Date</label>
-                                    <input type="text" class="form-control input-sm date-picker" id="search-start">
+                                    <input type="text" class="form-control input-sm date-picker" onkeypress="return runFilter(event)" id="search-start">
                                 </div>
                             </div>
 							<div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="small">End Date</label>
-                                    <input type="text" class="form-control input-sm date-picker" id="search-end">
+                                    <input type="text" class="form-control input-sm date-picker" onkeypress="return runFilter(event)" id="search-end">
                                 </div>
                             </div>
                         </form>
@@ -56,6 +56,7 @@
 
 <script>
     $(document).ready(function () {
+
         $("#example-table").tabulator({
             fitColumns: true,
             pagination: true,
@@ -115,4 +116,11 @@
 
         $("#example-table").tabulator("setData", "<?php echo base_url('t_sales_visit/getListTable'); ?>", params);
     }
+
+    function runFilter(e) {
+    if (e.keyCode == 13) {
+        filterTable();
+        return false;
+    }
+}
 </script>
