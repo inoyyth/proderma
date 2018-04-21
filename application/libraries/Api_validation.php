@@ -20,8 +20,8 @@ class Api_validation {
 
     function validationToken() {
         $headers = apache_request_headers();
-        if (isset($headers['Token'])) {
-            $data = $this->ci->Api_model->getHeaderData($headers['Token']);
+        if (isset($headers['X-Auth-Token'])) {
+            $data = $this->ci->Api_model->getHeaderData($headers['X-Auth-Token']);
             //var_dump($data);die;
             if ($data) {
                 $this->setToken($data['token']);
