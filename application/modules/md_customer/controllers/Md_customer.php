@@ -190,7 +190,7 @@ class Md_customer extends MX_Controller {
     public function getSubareaList() {
         $where = array();
         if($this->input->get('id') != null){
-            $where = array('id_area'=>$this->input->get('id'));
+            $where = array('id_area'=>$this->input->get('id'),'subarea_status'=>1);
         }
         $like = array();
         if($this->input->get('query') != null){

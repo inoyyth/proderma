@@ -95,7 +95,9 @@
                                         <label>Area</label>
                                         <select name="id_area" id="select-area" parsley-trigger="change" required placeholder="Area" class="form-control">
                                             <option value="" disabled="true" selected> </option>
-                                            <?php foreach ($area as $vArea) { ?>
+                                            <?php
+                                                asort($area);
+                                                foreach ($area as $vArea) { ?>
                                                 <option value="<?php echo $vArea['id']; ?>"><?php echo $vArea['area_name']; ?></option>
                                             <?php } ?>
                                         </select>
