@@ -59,6 +59,7 @@
         <a href="#" type="button" id="btn-delete" class="btn btn-xs btn-danger" onclick="return confirm('Yakin hapus data?');"><i class="fa fa-remove"></i> Delete</a>
         <a href="#" type="button" id="btn-print" class="btn btn-xs btn-default"><i class="fa fa-print"></i> Print</a>
 		<a href="<?php echo base_url('t_sales_order/print_excel');?>" type="button" id="btn-excel" class="btn btn-xs btn-default"><i class="fa fa-edit"></i> Excel</a>
+        <a href="#" type="button" id="btn-print-dotmatrix" class="btn btn-xs btn-default"><i class="fa fa-print"></i> Dotmatrix</a>
     </div>
     <div class="col-lg-12">
         <div id="example-table"></div>
@@ -105,6 +106,7 @@
                     $('#btn-edit').attr('href', '<?php echo site_url(); ?>sales-order-detail-' + data[0]['id'] + '.html');
                     $('#btn-delete').attr('href', '<?php echo site_url(); ?>sales-order-delete-' + data[0]['id'] + '.html');
                     $('#btn-print').attr('href', '<?php echo site_url(); ?>sales-order-print-' + data[0]['id'] + '.html');
+                    $('#btn-print-dotmatrix').attr('href', '<?php echo site_url(); ?>sales-order-print-dotmatrix-' + data[0]['id'] + '.html');
                 } else {
                     $('#btn-edit').attr('href', '#');
                     $('#btn-delete').attr('href', '#');
@@ -124,6 +126,11 @@
             } else {
                 alert('please select data');
             }
+        });
+
+        $('#btn-print-dotmatrix').click(function(event) {
+            event.preventDefault();
+            window.open($(this).attr("href"), "popupWindow", "width=950,height=550,scrollbars=yes");
         });
 
     });

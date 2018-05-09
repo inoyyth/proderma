@@ -213,4 +213,11 @@ class T_sales_order extends MX_Controller {
         $data['file_name'] = "sales_order";
         $this->load->view('template_excel', $data);
     }
+
+    public function printdotmatrix($id) {
+        $data['data'] = $this->m_t_sales_order->get_detail($id)->row_array();
+        $data['list_product'] = $this->m_t_sales_order->get_list_product($id)->result_array();
+        $data['data_product'] = $this->m_t_sales_order->get_detail_product($id)->row_array();
+        $this->load->view('t_sales_order/dotmatrix',$data);
+    }
 }
