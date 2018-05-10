@@ -1,14 +1,36 @@
+<?php
+if ($data['so_discount_type'] == 1) {
+    $discount_value = $data['so_discount_value'];
+} else {
+    $discount_value = (($data_product['grand_total'] * intval($data['so_discount_value'])) / 100);
+}
+
+$tax = (($data_product['grand_total'] * 10) / 100);
+
+?>
 <style>
-    body {
+    html, body {
+        /*width: 5.5in; /* was 8.5in */
+        /*height: 8.5in; /* was 5.5in */
+        display: block;
         font-family: "Calibri";
-        letter-spacing: 2px;
-        font-size: 12px;
+        /*font-size: auto; NOT A VALID PROPERTY */
     }
     @media print {
         .no-print, .no-print * { display: none !important; }
         font-family: "Calibri";
         letter-spacing: 4px;
-        font-size: 12px;
+        font-size: 15px;
+        size: auto;
+        table {
+            border-width: thin;
+            border-spacing: 2px;
+            border-style: none;
+            border-color: black;
+        }
+    }
+    @page {
+        size: auto /* . Random dot? */;
     }
 </style>
 <body>
@@ -20,41 +42,41 @@
         == PURCHASE ORDER ==
     </div>
     <br>
-    <table style="width: 100%;" style="font-size:12px;" cellspacing="0" cellpadding="1">
+    <table style="width: 100%;" style="font-size:14px;" cellspacing="0" cellpadding="1">
         <tr>
             <td style="width:50%;">
                 <table>
                     <tr>
-                        <td style="font-size:12px;width: 25%;">Tanggal : </td>
-                        <td style="font-size:12px;width: 75%;"> <?php echo tanggalan($data['so_date']); ?></td>
+                        <td style="font-size:14px;width: 25%;">Tanggal : </td>
+                        <td style="font-size:14px;width: 75%;"> <?php echo tanggalan($data['so_date']); ?></td>
                     </tr>
                     <tr>
-                        <td style="font-size:12px;">Nama ME :</td>
-                        <td style="font-size:12px;">  <?php echo $data['employee_name']; ?></td>
+                        <td style="font-size:14px;">Nama ME :</td>
+                        <td style="font-size:14px;">  <?php echo $data['employee_name']; ?></td>
                     </tr>
                     <tr>
-                        <td style="font-size:12px;">Area : </td>
-                        <td style="font-size:12px;"> <?php echo $data['area_name'] . '/' . $data['subarea_name']; ?></td>
+                        <td style="font-size:14px;">Area : </td>
+                        <td style="font-size:14px;"> <?php echo $data['area_name'] . '/' . $data['subarea_name']; ?></td>
                     </tr>   
                 </table>
             </td>
             <td style="width:50%;">
                 <table>
                     <tr>
-                        <td style="font-size:12px;width: 25%;">No So : </td>
-                        <td style="font-size:12px;width: 75%"> <?php echo $data['so_code']; ?></td>
+                        <td style="font-size:14px;width: 25%;">No So : </td>
+                        <td style="font-size:14px;width: 75%"> <?php echo $data['so_code']; ?></td>
                     </tr>
                     <tr>
-                        <td style="font-size:12px;">Customer :</td>
-                        <td style="font-size:12px;">  <?php echo $data['customer_name']; ?></td>
+                        <td style="font-size:14px;">Customer :</td>
+                        <td style="font-size:14px;">  <?php echo $data['customer_name']; ?></td>
                     </tr>
                     <tr>
-                        <td style="font-size:12px;">Telp : </td>
-                        <td style="font-size:12px;"> <?php echo $data['customer_phone']; ?></td>
+                        <td style="font-size:14px;">Telp : </td>
+                        <td style="font-size:14px;"> <?php echo $data['customer_phone']; ?></td>
                     </tr> 
                     <tr>
-                        <td style="font-size:12px;">Alamat : </td>
-                        <td style="font-size:12px;"> <?php echo $data['customer_address']; ?></td>
+                        <td style="font-size:14px;">Alamat : </td>
+                        <td style="font-size:14px;"> <?php echo $data['customer_address']; ?></td>
                     </tr>
                 </table>
             </td>
@@ -62,43 +84,65 @@
         </table>
     </table>
     <br>
-    <table style="width: 100%;" style="font-size: 10px;" cellspacing="0" border="1" cellpadding="1">
+    <table style="width: 100%;" style="font-size:13px;" cellspacing="0" border="1" cellpadding="1">
         <tr>
-            <th style="font-size: 10px;">Kode</th>
-            <th style="font-size: 10px;">Product</th>
-            <th style="font-size: 10px;">Qty</th>
-            <th style="font-size: 10px;">Price</th>
-            <th style="font-size: 10px;">SubTotal</th>
-            <th style="font-size: 10px;">Keterangan</th>
+            <th style="font-size:12px;">Kode</th>
+            <th style="font-size:12px;">Product</th>
+            <th style="font-size:12px;">Qty</th>
+            <th style="font-size:12px;">Price</th>
+            <th style="font-size:12px;">SubTotal</th>
+            <th style="font-size:12px;">Keterangan</th>
         </tr>
         <?php foreach($list_product as $k=>$v) {?>
         <tr>
-            <td style="font-size: 10px;"><?php echo $v['product_code'];?></td>
-            <td style="font-size: 10px;"><?php echo $v['product_name'];?></td>
-            <td style="text-align:right;font-size: 10px;"><?php echo formatrp($v['qty']);?></td>
-            <td style="text-align:right;font-size: 10px;"><?php echo formatrp($v['product_price']);?></td>
-            <td style="text-align:right;font-size: 10px;"><?php echo formatrp($v['SubTotal']);?></td>
-            <td style="font-size: 10px;"><?php echo $v['description'];?></td>
+            <td style="font-size:12px;"><?php echo $v['product_code'];?></td>
+            <td style="font-size:12px;"><?php echo $v['product_name'];?></td>
+            <td style="text-align:right;font-size:12px;"><?php echo formatrp($v['qty']);?></td>
+            <td style="text-align:right;font-size:12px;"><?php echo formatrp($v['product_price']);?></td>
+            <td style="text-align:right;font-size:12px;"><?php echo formatrp($v['SubTotal']);?></td>
+            <td style="font-size:12px;"><?php echo $v['description'];?></td>
         </tr>
         <?php } ?>
-					<tr>
+        <tr>
+            <td colspan="4" style="text-align:center;font-size:12px;">Grand Total</td>
+            <td style="text-align:right;font-size:12px;"><?php echo formatrp($data_product['grand_total']); ?></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="4" style="text-align:center;font-size:12px;">Discount (+)</td>
+            <td style="text-align:right;font-size:12px;"><?php echo formatrp($discount_value); ?></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="4" style="text-align:center;font-size:12px;">Total</td>
+            <td style="text-align:right;font-size:12px;"><?php echo formatrp(((intval($data_product['grand_total']) - intval($discount_value)))); ?></td>
+            <td></td>
+        </tr>
     </table>
-    <div style="text-align: right;padding-right: 30px;font-size: 10px;">
-    <br>
+    <div class="col-lg-12" style="font-size: 12px;margin-top:-1px;">
+			* Semua Product Sudah Termasuk Ppn 10%.
+			</div>
+            <?php if ($data['so_bonus'] != "" || $data['so_bonus'] != null) { ?>
+            <div class="col-lg-12" style="font-size: 12px;margin-top:5px;">
+                <p style="font-weight: bolder;">Bonus:</p>
+                <p style="margin-top:-10px;"><?php echo $data['so_bonus'];?></p>
+			</div>
+            <?php } ?>
+    <div style="text-align: right;padding-right: 30px;font-size:12px;">
         , <?php echo tanggalan(date('Y-m-d')); ?>
     </div>
     <br/>
     <center>
         <table style="font-size: 15px;" cellpadding="1">
             <tr>
-                <td style="font-size:12px;width: 25%;text-align: center;">Dipesan Oleh</td>
-                <td style="font-size:12px;width: 25%;text-align: center;">Menyetujui</td>
-                <td style="font-size:12px;width: 25%;text-align: center;" colspan="2">Standart Pengiriman & Packing</td>
+                <td style="font-size:14px;width: 25%;text-align: center;">Dipesan Oleh</td>
+                <td style="font-size:14px;width: 25%;text-align: center;">Menyetujui</td>
+                <td style="font-size:14px;width: 25%;text-align: center;" colspan="2">Standart Pengiriman & Packing</td>
             </tr>
             <tr>
                 <td colspan="2"></td>
-                <td style="font-size:12px;width: 25%;text-align: center;"> CHECK 1</td>
-                <td style="font-size:12px;width: 25%;text-align: center;"> CHECK 2</td>
+                <td style="font-size:14px;width: 25%;text-align: center;"> CHECK 1</td>
+                <td style="font-size:14px;width: 25%;text-align: center;"> CHECK 2</td>
             </tr>
             <?php for($i=1;$i<10;$i++) { ?>
             <tr>
