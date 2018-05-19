@@ -729,20 +729,23 @@ class Api extends MX_Controller {
 
     public function promo() {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            if ($data = $this->Api_model->promo($_GET['id_branch'])) {
+            if ($data = $this->Api_model->promo()) {
 
                 $dtx = array();
                 foreach ($data as $k => $v) {
-                    $b64Doc = $this->__file_to_base64($v['promo_file'], $v['promo_name'], 'pdf');
-                    $dtx[] = array(
-                        'promo_id' => $v['id'],
-                        'promo_code' => $v['promo_code'],
-                        'promo_name' => $v['promo_name'],
-                        'promo_description' => $v['promo_description'],
-                        'promo_start_date' => $v['promo_start_date'],
-                        'promo_end_date' => $v['promo_end_date'],
-                        'promo_file' => $b64Doc
-                    );
+                    $explodeBranch = explode(',',$v['id_branch']);
+                    if (in_array($_GET['id_branch'], $explodeBranch)) {
+                        $b64Doc = $this->__file_to_base64($v['promo_file'], $v['promo_name'], 'pdf');
+                        $dtx[] = array(
+                            'promo_id' => $v['id'],
+                            'promo_code' => $v['promo_code'],
+                            'promo_name' => $v['promo_name'],
+                            'promo_description' => $v['promo_description'],
+                            'promo_start_date' => $v['promo_start_date'],
+                            'promo_end_date' => $v['promo_end_date'],
+                            'promo_file' => $b64Doc
+                        );
+                    }
                 }
                 $this->output->set_status_header('200');
                 $dt = array(

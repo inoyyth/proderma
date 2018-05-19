@@ -403,10 +403,9 @@ class Api_model extends CI_Model {
         return false;
     }
 
-    public function promo($id_branch) {
+    public function promo() {
         $this->db->select('*');
         $this->db->from('m_promo_product');
-		$this->db->having('id_branch',intval($id_branch));
         $this->db->where(array('promo_status' => 1));
         return $this->db->get()->result_array();
     }
