@@ -32,8 +32,14 @@
             cs: {
                 noembedError: 'Chyba'
             },
+            ru: {
+                noembedError: 'Ошибка'
+            },
             ja: {
                 noembedError: 'エラー'
+            },
+            tr: {
+                noembedError: 'Hata'
             }
         },
 
