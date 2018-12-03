@@ -903,8 +903,14 @@
             zh_cn: {
                 emoji: '添加表情'
             },
+            ru: {
+                emoji: 'Вставить emoji'
+            },
             ja: {
                 emoji: '絵文字の挿入'
+            },
+            tr: {
+                emoji: 'Emoji ekle'
             }
         },
         // jshint camelcase:true
