@@ -57,6 +57,7 @@
                 {title: "Price", field: "product_price", formatter: "money", sorter: "number", tooltip: true},
                 {title: "SubTotal", field: "SubTotal", formatter: "money", sorter: "number", tooltip: true},
                 {title: "Desc", field: "description", sorter: "string", tooltip: true},
+                {title: "Bonus", field: "bonus_item", sorter: "number", tooltip: true},
             ]
         });
     });

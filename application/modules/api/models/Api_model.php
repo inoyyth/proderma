@@ -332,7 +332,8 @@ class Api_model extends CI_Model {
                     'qty' => $v['qty'],
                     'description' => $v['description'],
                     'sys_create_user' => $data['id_sales'],
-                    'sys_create_date' => date('Y-m-d H:i:s')
+                    'sys_create_date' => date('Y-m-d H:i:s'),
+                    'bonus_item'=> $v['bonus_item']
                 );
                 $dt_stock[] = array(
                     'id_product' => $v['id'],
