@@ -92,7 +92,7 @@ Class M_t_invoice extends CI_Model {
     
     public function get_detail_product($id) {
         $table = 't_sales_order_product';
-        $this->db->select('count(t_sales_order_product.id) AS total_type, sum(t_sales_order_product.qty) AS total_item, sum(t_sales_order_product.qty * m_product.product_price) AS grand_total');
+        $this->db->select('count(t_sales_order_product.id) AS total_type, sum(t_sales_order_product.qty) AS total_item, sum(t_sales_order_product.qty * m_product.product_price) AS grand_total, sum(t_sales_order_product.bonus_item) AS total_bonus_item');
         $this->db->from($table);
         $this->db->join('m_product','m_product.id='.$table.'.id_product','INNER');
         $this->db->where(array($table.'.id_sales_order'=>$id));
