@@ -928,7 +928,7 @@ class Api extends MX_Controller {
     
     function list_task() {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            if ($data = $this->Api_model->list_task($_GET['id_sales'],$_GET['status'])) {
+            if ($data = $this->Api_model->list_task($_GET['id_sales'],$_GET['status'],$_GET['page'])) {
                 $this->output->set_status_header('200');
                 $dt = array(
                     'code' => 200,
@@ -1006,7 +1006,7 @@ class Api extends MX_Controller {
     
     function list_plan() {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            if ($data = $this->Api_model->list_plan($_GET['id_sales'],$_GET['status'])) {
+            if ($data = $this->Api_model->list_plan($_GET['id_sales'],$_GET['status'],$_GET['page'])) {
                 $this->output->set_status_header('200');
                 $dt = array(
                     'code' => 200,
