@@ -1006,7 +1006,8 @@ class Api extends MX_Controller {
     
     function list_plan() {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            if ($data = $this->Api_model->list_plan($_GET['id_sales'],$_GET['status'],$_GET['page'])) {
+            $page = isset($_GET['page']) ? $_GET['page'] : 10;
+            if ($data = $this->Api_model->list_plan($_GET['id_sales'],$_GET['status'],$page)) {
                 $this->output->set_status_header('200');
                 $dt = array(
                     'code' => 200,
