@@ -103,7 +103,7 @@ class T_sales_visit extends MX_Controller {
         
         $list = $this->m_t_sales_visit->getListTable($field,$table, $join, $like, $where, $sort, $limit_row);
 
-        $total_records = count($this->m_t_sales_visit->getListTable($field,$table, $join, $like, $where, $sort, false));
+        $total_records = count($this->m_t_sales_visit->getListTable(['sales_visit.id'],$table, $join, $like, $where, $sort, false));
         $total_pages = ceil($total_records / $limit);
         $output = array(
             "last_page" => $total_pages,
