@@ -184,7 +184,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                 {formatter: "rownum", align: "center", width: 40},
                //{title: "Area", field: "area_name", sorter: "string", tooltip: true},
                 {title: "Code", field: "product_code", sorter: "string", tooltip: true},
-                {title: "Name", field: "product_name", sorter: "string", tooltip: true},
+                {title: "Name", field: "product_name", width: "50%", sorter: "string", tooltip: true},
                 {title: "Qty", field: "qty", sorter: "number", tooltip: true},
                 {title: "Price", field: "product_price", formatter: "money", sorter: "number", tooltip: true},
                 {title: "SubTotal", field: "SubTotal", formatter: "money", sorter: "number", tooltip: true},
