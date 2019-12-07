@@ -135,6 +135,8 @@
                         <th>Code</th>
                         <th>Name</th>
                         <th>Qty</th>
+                        <th>Bonus</th>
+                        <th>Total</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -147,13 +149,15 @@
                         <td><?php echo $v['product_code'];?></td>
                         <td><?php echo $v['product_name'];?></td>
                         <td style="text-align:right;"><?php echo formatrp($v['qty']);?></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <?php } ?>
                     </tbody>
                     <tfoot>
                         <tr>
                             <td colspan="2" class="text-right">Total</td>
-                            <td class="text-right"><?php echo formatrp($total);?> Pcs</td>
+                            <td colspan="3" class="text-right"><?php echo formatrp($total);?> Pcs</td>
                         </tr>
                     </tfoot>
                 </table>    
