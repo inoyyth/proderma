@@ -9,6 +9,9 @@ $tax = (($data_product['grand_total'] * 10) / 100);
 
 ?>
 <style>
+    .print_body {
+        font-family: Calibri, sans-serif; 
+    }
     @media screen {
         #printSection {
             display: none;
@@ -17,6 +20,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
     @media print {
         body > *:not(#printSection) {
             display: none;
+            font-family: Calibri, sans-serif; 
         }
         #printSection, #printSection * {
             visibility: visible;
@@ -26,6 +30,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
             left:0;
             top:0;
 			font-size: 10px;
+            font-family: Calibri, sans-serif; 
         }
 		#footer {
 		   position:fixed;
@@ -37,6 +42,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
 		}
     }
 </style>
+<div class="print_body">
 <div id="printThis">
     <div style="width: 200px;padding-left: 10px;padding-top: 2px;">
         <img style="width: 120px;margin-left:7px" src="<?php echo base_url('assets/images/logo.png'); ?>">
@@ -252,6 +258,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
 <br>
 <div class="text-center">
     <button id="btnPrint" class="btn btn-sm btn-primary">PRINT</button>
+</div>
 </div>
 <script>
     document.getElementById("btnPrint").onclick = function () {
