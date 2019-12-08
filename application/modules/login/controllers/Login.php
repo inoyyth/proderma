@@ -9,7 +9,7 @@ class Login extends MX_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->library(array('encrypt'));
+        $this->load->library(array('encryption'));
         $this->load->model('m_login');
     }
 

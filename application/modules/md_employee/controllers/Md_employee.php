@@ -7,7 +7,7 @@ class Md_employee extends MX_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model(array('M_md_employee' => 'm_md_employee', 'Datatable_model' => 'data_table'));
-        $this->load->library(array('upload', 'encrypt', 'Auth_log'));
+        $this->load->library(array('upload', 'encryption', 'Auth_log'));
         //set breadcrumb
         $this->breadcrumbs->push('Master', '/dasboard');
         $this->breadcrumbs->push('Employee', '/employee');

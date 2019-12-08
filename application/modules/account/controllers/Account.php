@@ -7,7 +7,7 @@ class Account extends MX_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model(array('M_account' => 'm_account', 'Datatable_model' => 'data_table'));
-        $this->load->library(array('upload', 'encrypt', 'Auth_log'));
+        $this->load->library(array('upload', 'encryption', 'Auth_log'));
         //set breadcrumb
         $this->breadcrumbs->push('Master', '/dasboard');
         $this->breadcrumbs->push('User Management', '/user-management');

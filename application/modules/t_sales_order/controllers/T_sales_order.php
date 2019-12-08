@@ -7,7 +7,7 @@ class T_sales_order extends MX_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model(array('M_t_sales_order' => 'm_t_sales_order', 'Datatable_model' => 'data_table'));
-        $this->load->library(array('upload', 'encrypt', 'Auth_log'));
+        $this->load->library(array('upload', 'encryption', 'Auth_log'));
         //set breadcrumb
         $this->breadcrumbs->push('Transaction', '/dasboard');
         $this->breadcrumbs->push('Sales Order', '/sales-order');
