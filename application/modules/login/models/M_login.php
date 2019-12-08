@@ -12,7 +12,7 @@ class M_login extends CI_Model {
         $this->db->where($key);
         $this->db->limit(1);
         $query = $this->db->get();
-        if ($query->num_rows() == 1 && $this->encrypt->decode($query->row('password')) == $password) {
+        if ($query->num_rows() == 1 && $this->encryption->decrypt($query->row('password')) == $password) {
             return $query->result(); //if data is true
         } else {
             return false; //if data is wrong
