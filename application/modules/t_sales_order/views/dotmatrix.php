@@ -57,7 +57,15 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                     <tr>
                         <td style="font-size:14px;">Area : </td>
                         <td style="font-size:14px;"> <?php echo $data['area_name'] . '/' . $data['subarea_name']; ?></td>
-                    </tr>   
+                    </tr>
+                    <tr>
+                        <td style="font-size:14px;">NPWP : </td>
+                        <td style="font-size:14px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="font-size:14px;">NAMA NPWP : </td>
+                        <td style="font-size:14px;"></td>
+                    </tr>
                 </table>
             </td>
             <td style="width:50%;">
@@ -107,6 +115,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
         </tr>
         <?php
             }
+            if ($rest_row > 0) {
             for($i=1;$i<=$rest_row;$i++) {
         ?>
          <tr>
@@ -116,7 +125,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
             <td style="text-align:right;font-size:12px;"></td>
             <td style="text-align:right;font-size:12px;"></td>
         </tr>
-        <?php  } ?>
+        <?php } } ?>
         <tr>
             <td colspan="2" style="text-align:center;font-size:12px;">Grand Total</td>
             <td colspan="3" style="text-align:right;font-size:12px;"><?php echo formatrp($data_product['grand_total']); ?></td>

@@ -71,27 +71,18 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 70px;">
-                            Nama
-                        </td>
-                        <td>
-                            : <?php echo $data['customer_name']; ?>
+                        <td colspan="2" style="width: 70px;">
+                            <?php echo $data['customer_name']; ?>
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            Alamat
-                        </td>
-                        <td>
-                            : <?php echo $data['customer_address']; ?>
+                        <td colspan="2">
+                        <?php echo $data['customer_address']; ?>
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            Telepon
-                        </td>
-                        <td>
-                            : <?php echo $data['customer_phone']; ?>
+                    <td colspan="2">
+                            Hp: <?php echo $data['customer_phone']; ?>
                         </td>
                     </tr>
                     <tr>
@@ -109,14 +100,6 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                         </td>
                         <td>
                             : <?php echo $data['no_faktur']; ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 70px;">
-                            Invoice Code
-                        </td>
-                        <td>
-                            : <?php echo $data['invoice_code']; ?>
                         </td>
                     </tr>
                     <tr>
@@ -140,7 +123,13 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                             Tgl.Jatuh Temp
                         </td>
                         <td>
-                            : <?php echo ($data['due_date'] == null ? '-' : tanggalan($data['due_date'])); ?>
+                            : <?php
+                                if ($data['due_date'] !== "0000-00-00") {
+                                    echo ($data['due_date'] !== null ? tanggalan($data['due_date']) : "-");
+                                } else {
+                                    echo " -";
+                                }
+                            ?>
                         </td>
                     </tr>
                 </table>
@@ -157,42 +146,50 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th>Code</th>
-                        <th>Name</th>
+                        <th>No.</th>
+                        <th>Kode</th>
+                        <th>NAMA BARANG</th>
                         <th>Qty</th>
-                        <th>Price</th>
-                        <th>Subtotal</th>
+                        <th>Harga @Rp</th>
+                        <th>Jumlah</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach($list_product as $k=>$v) {?>
+                    <?php 
+                        $max_row=10;
+                        $total_product = count($list_product);
+                        $rest_row = $max_row - $total_product;
+                        foreach ($list_product as $k=>$v) { ?>
                     <tr>
+                        <td><?php echo $k+1; ?>.</td>
                         <td><?php echo $v['product_code'];?></td>
                         <td><?php echo $v['product_name'];?></td>
                         <td style="text-align:right;"><?php echo formatrp($v['qty']);?></td>
                         <td style="text-align:right;"><?php echo formatrp($v['product_price']);?></td>
                         <td style="text-align:right;"><?php echo formatrp($v['SubTotal']);?></td>
                     </tr>
-                    <?php 
-                        for($i=0;$i<9;$i++) {
-                    ?>
-                        <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        </tr>
                     <?php
                         }
+                        if ($rest_row > 0) {
+                            for($i=1;$i<=$rest_row;$i++) {
                     ?>
-                    <?php } ?>
+                    <tr>
+                        <td><?php echo $i + $total_product; ?>.</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <?php
+                        } }
+                    ?>
                     </tbody>
                     <tfooter>
                         <tr style="text-align: right">
-                            <td colspan="3"><?php echo formatrp($data_product['total_item']);?></td>
-                            <td>SubTotal</td>
-                            <td><?php echo formatrp($data_product['grand_total']);?></td>
+                            <td colspan="3" style="text-align: left;">SubTotal</td>
+                            <td><?php echo formatrp($data_product['total_item']);?></td>
+                            <td colspan="2"><?php echo formatrp($data_product['grand_total']);?></td>
                         </tr>
                         <tr style="text-align: right">
                             <td colspan="4">Discount</td>
@@ -220,7 +217,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                         <td>: <?php echo $data['payment_type']; ?></td>
                     </tr>
 					<tr>
-                        <td style="text-align: right;">NB</td>
+                        <td style="text-align: left;">NB</td>
                         <td>: Semua Product Sudah Termasuk Ppn 10%.</td>
                     </tr>
                 </table>
