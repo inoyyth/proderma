@@ -125,6 +125,7 @@ Class M_t_mapping_area extends CI_Model {
     }
     
     public function getAvailableCustomerList($field, $table, $join, $like, $where, $sort, $limit) {
+        $me_info = $this->db->select('id_branch')->from('m_employee')->where('id', $where['id_sales'])->get()->row();
         $currCustomer = array();
         $currCustomerData = $this->__getCurrentCustomerList($where['id_sales'])->result_array();
         foreach ($currCustomerData as $k => $v) {
@@ -141,6 +142,8 @@ Class M_t_mapping_area extends CI_Model {
         $this->db->where(array('current_lead_customer_status'=>'L'));
         if($this->sessionGlobal['super_admin'] == "1") {
             $this->db->where('m_customer.id_branch',$this->sessionGlobal['id_branch']);
+        } else {
+            $this->db->where('m_customer.id_branch',$me_info->id_branch);
         }
         if (count($currCustomer) > 0) {
             $this->db->where_not_in('m_customer.id', $currCustomer);
