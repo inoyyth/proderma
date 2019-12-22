@@ -40,7 +40,6 @@ class Md_subarea extends MX_Controller {
         );
         
         $like = array(
-            'm_area.area_code'=>isset($_POST['area_code'])?$_POST['area_code']:"",
             'm_subarea.subarea_name'=>isset($_POST['subarea_name'])?$_POST['subarea_name']:"",
 			'm_subarea.subarea_code'=>isset($_POST['subarea_code'])?$_POST['subarea_code']:"",
         );
@@ -48,8 +47,8 @@ class Md_subarea extends MX_Controller {
         $array_id_area = array();
         $array_status = array('m_subarea.subarea_status !=' => '3');
         
-        if(isset($_POST['id_area']) && $_POST['id_area'] != "") {
-            $array_id_area = array('m_subarea.id_area'=>$_POST['id_area']);
+        if(isset($_POST['area_code']) && $_POST['area_code'] != "") {
+            $array_id_area = array('m_subarea.id_area'=>$_POST['area_code']);
         }
         
         $where = array_merge_recursive($array_id_area,$array_status);
