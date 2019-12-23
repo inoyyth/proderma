@@ -143,14 +143,14 @@
                         $total_product = count($list_product);
                         $rest_row = $max_row - $total_product;
                         foreach($list_product as $k=>$v) {
-                            $total = $total+$v['qty']
+                            $total = $total+$v['qty']+$v['bonus_item']
                     ?>
                     <tr>
                         <td><?php echo $v['product_code'];?></td>
                         <td><?php echo $v['product_name'];?></td>
                         <td style="text-align:right;"><?php echo formatrp($v['qty']);?></td>
-                        <td></td>
-                        <td></td>
+                        <td style="text-align:right;"><?php echo formatrp($v['bonus_item']);?></td>
+                        <td style="text-align:right;"><?php echo formatrp($v['qty'] + $v['bonus_item']);?></td>
                     </tr>
                     <?php } ?>
                     </tbody>
