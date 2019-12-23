@@ -160,7 +160,7 @@ class Md_employee extends MX_Controller {
         $id = $this->input->post('id');
         if($data = $this->m_md_employee->getPassEmployee($id)->row_array()){
             if($data['sales_password'] != "") {
-                $result['password'] = $this->encrypt->decode($data['sales_password']);
+                $result['password'] = $this->encryption->decrypt($data['sales_password']);
             } else {
                 $result['password'] = 1234;
             }
