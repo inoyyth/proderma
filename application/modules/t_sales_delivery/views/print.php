@@ -44,7 +44,7 @@
     <div style="padding-left: 10px;padding-right: 10px;font-size: 12px;">
         <table>
             <td style="width: 600px;">
-            <table>
+                <table>
                     <tr>
                         <td style="width: 70px;">
                             Kepada
@@ -54,23 +54,32 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2" style="width: 70px;">
-                            <?php echo $customer['customer_name']; ?>
+                        <td style="width: 70px;">
+                            Nama
+                        </td>
+                        <td>
+                            : <?php echo $customer['customer_name']; ?>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">
-                        <?php echo $customer['customer_address']; ?>
+                        <td>
+                            Alamat
+                        </td>
+                        <td>
+                            : <?php echo $customer['customer_address']; ?>
                         </td>
                     </tr>
                     <tr>
-                    <td colspan="2">
-                            Hp: <?php echo $customer['customer_phone']; ?>
+                        <td>
+                            Telepon
+                        </td>
+                        <td>
+                            : <?php echo $customer['customer_phone']; ?>
                         </td>
                     </tr>
                     <tr>
                         <td rowspan="2">
-                            &nbsp;
+                            
                         </td>
                     </tr>
                 </table>
@@ -79,7 +88,7 @@
                 <table>
                     <tr>
                         <td style="width: 70px;">
-                            No. Faktur
+                            No.DO
                         </td>
                         <td>
                             : <?php echo $data['do_code']; ?>
@@ -101,20 +110,14 @@
                             : <?php echo tanggalan($data['do_date']); ?>
                         </td>
                     </tr>
-                    <tr>
+                    <!--<tr>
                         <td>
                             Tgl.Jatuh Temp
                         </td>
                         <td>
-                            : <?php
-                                if ($due_date['pay_date'] !== "0000-00-00") {
-                                    echo ($due_date['pay_date'] !== null ? tanggalan($due_date['pay_date']) : "-");
-                                } else {
-                                    echo " -";
-                                }
-                            ?>
+                            : <?php //echo ($due_date['pay_date'] == null ? '-' : tanggalan($due_date['pay_date'])); ?>
                         </td>
-                    </tr>
+                    </tr>-->
                 </table>
             <td>
         </table>
@@ -129,8 +132,8 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th>Kode</th>
-                        <th>NAMA BARANG</th>
+                        <th>Code</th>
+                        <th>Name</th>
                         <th>Qty</th>
                         <th>Bonus</th>
                         <th>Total</th>
@@ -139,9 +142,6 @@
                     <tbody>
                     <?php 
                         $total = 0;
-                        $max_row=10;
-                        $total_product = count($list_product);
-                        $rest_row = $max_row - $total_product;
                         foreach($list_product as $k=>$v) {
                             $total = $total+$v['qty']
                     ?>

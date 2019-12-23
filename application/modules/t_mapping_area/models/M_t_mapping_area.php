@@ -55,13 +55,13 @@ Class M_t_mapping_area extends CI_Model {
         $this->db->group_start();
         $this->db->or_like($like);
         $this->db->group_end();
+        $this->db->where(array('current_lead_customer_status'=>'C'));
         if($this->sessionGlobal['super_admin'] == "1") {
             $this->db->where('m_customer.id_branch',$this->sessionGlobal['id_branch']);
         }
         if (count($currCustomer) > 0) {
             $this->db->where_not_in('m_customer.id', $currCustomer);
         }
-        $this->db->where(array('current_lead_customer_status'=>'C','customer_status'=>1));
         $this->db->order_by($sort['sort_field'], $sort['sort_direction']);
         $this->db->limit($limit['limit'], $limit['offset']);
         return $this->db->get()->result_array();
@@ -72,7 +72,7 @@ Class M_t_mapping_area extends CI_Model {
         $this->db->from('sales_mapping_area');
         $this->db->join('m_subarea', 'm_subarea.id=sales_mapping_area.id_sub_area', 'left');
         $this->db->join('m_customer', 'm_customer.id=sales_mapping_area.id_customer', 'left');
-        $this->db->where(['sales_mapping_area.id_sales'=>$id,'m_customer.customer_status'=>1]);
+        $this->db->where('sales_mapping_area.id_sales', $id);
         return $this->db->get();
     }
     
@@ -85,7 +85,7 @@ Class M_t_mapping_area extends CI_Model {
         $this->db->group_start();
         $this->db->or_like($like);
         $this->db->group_end();
-        $this->db->where(['sales_mapping_area.id_sales'=>$where['id_sales'], 'm_customer.customer_status'=>1]);
+        $this->db->where('sales_mapping_area.id_sales', $where['id_sales']);
         $this->db->order_by($sort['sort_field'], $sort['sort_direction']);
         $this->db->limit($limit['limit'], $limit['offset']);
         return $this->db->get()->result_array();
@@ -125,7 +125,6 @@ Class M_t_mapping_area extends CI_Model {
     }
     
     public function getAvailableCustomerList($field, $table, $join, $like, $where, $sort, $limit) {
-        $me_info = $this->db->select('id_branch')->from('m_employee')->where('id', $where['id_sales'])->get()->row();
         $currCustomer = array();
         $currCustomerData = $this->__getCurrentCustomerList($where['id_sales'])->result_array();
         foreach ($currCustomerData as $k => $v) {
@@ -139,11 +138,9 @@ Class M_t_mapping_area extends CI_Model {
         $this->db->group_start();
         $this->db->or_like($like);
         $this->db->group_end();
-        $this->db->where(array('current_lead_customer_status'=>'L','customer_status'=>1));
+        $this->db->where(array('current_lead_customer_status'=>'L'));
         if($this->sessionGlobal['super_admin'] == "1") {
             $this->db->where('m_customer.id_branch',$this->sessionGlobal['id_branch']);
-        } else {
-            $this->db->where('m_customer.id_branch',$me_info->id_branch);
         }
         if (count($currCustomer) > 0) {
             $this->db->where_not_in('m_customer.id', $currCustomer);
@@ -158,7 +155,7 @@ Class M_t_mapping_area extends CI_Model {
         $this->db->from('sales_mapping_masterlist_area');
         $this->db->join('m_subarea', 'm_subarea.id=sales_mapping_masterlist_area.id_sub_area', 'left');
         $this->db->join('m_customer', 'm_customer.id=sales_mapping_masterlist_area.id_customer', 'left');
-        $this->db->where(['sales_mapping_masterlist_area.id_sales'=>$id, 'm_customer.customer_status'=>1]);
+        $this->db->where('sales_mapping_masterlist_area.id_sales', $id);
         return $this->db->get();
     }
     

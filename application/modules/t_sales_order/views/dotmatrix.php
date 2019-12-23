@@ -57,21 +57,13 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                     <tr>
                         <td style="font-size:14px;">Area : </td>
                         <td style="font-size:14px;"> <?php echo $data['area_name'] . '/' . $data['subarea_name']; ?></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size:14px;">NPWP : </td>
-                        <td style="font-size:14px;"></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size:14px;">NAMA NPWP : </td>
-                        <td style="font-size:14px;"></td>
-                    </tr>
+                    </tr>   
                 </table>
             </td>
             <td style="width:50%;">
                 <table>
                     <tr>
-                        <td style="font-size:14px;width: 25%;">No PO : </td>
+                        <td style="font-size:14px;width: 25%;">No So : </td>
                         <td style="font-size:14px;width: 75%"> <?php echo $data['so_code']; ?></td>
                     </tr>
                     <tr>
@@ -94,49 +86,37 @@ $tax = (($data_product['grand_total'] * 10) / 100);
     <br>
     <table style="width: 100%;" style="font-size:13px;" cellspacing="0" border="1" cellpadding="1">
         <tr>
-            <th style="font-size:12px;">No.</th>
-            <th style="font-size:12px;">NAMA PRODUK+UKURAN</th>
-            <th style="font-size:12px;">JMLH</th>
-            <th style="font-size:12px;">HARGA</th>
-            <th style="font-size:12px;">TTL</th>
+            <th style="font-size:12px;">Kode</th>
+            <th style="font-size:12px;">Product</th>
+            <th style="font-size:12px;">Qty</th>
+            <th style="font-size:12px;">Price</th>
+            <th style="font-size:12px;">SubTotal</th>
+            <th style="font-size:12px;">Keterangan</th>
         </tr>
-        <?php
-            $max_row = 10;
-            $total_product = count($list_product);
-            $rest_row = $max_row - $total_product;
-            foreach($list_product as $k=>$v) { 
-        ?>
+        <?php foreach($list_product as $k=>$v) {?>
         <tr>
-            <td style="font-size:12px;"><?php echo $k+1; ?>.</td>
+            <td style="font-size:12px;"><?php echo $v['product_code'];?></td>
             <td style="font-size:12px;"><?php echo $v['product_name'];?></td>
             <td style="text-align:right;font-size:12px;"><?php echo formatrp($v['qty']);?></td>
             <td style="text-align:right;font-size:12px;"><?php echo formatrp($v['product_price']);?></td>
             <td style="text-align:right;font-size:12px;"><?php echo formatrp($v['SubTotal']);?></td>
+            <td style="font-size:12px;"><?php echo $v['description'];?></td>
         </tr>
-        <?php
-            }
-            if ($rest_row > 0) {
-            for($i=1;$i<=$rest_row;$i++) {
-        ?>
-         <tr>
-            <td style="font-size:12px;"><?php echo $i + $total_product; ?>.</td>
-            <td style="font-size:12px;"></td>
-            <td style="text-align:right;font-size:12px;"></td>
-            <td style="text-align:right;font-size:12px;"></td>
-            <td style="text-align:right;font-size:12px;"></td>
-        </tr>
-        <?php } } ?>
+        <?php } ?>
         <tr>
-            <td colspan="2" style="text-align:center;font-size:12px;">Grand Total</td>
-            <td colspan="3" style="text-align:right;font-size:12px;"><?php echo formatrp($data_product['grand_total']); ?></td>
+            <td colspan="4" style="text-align:center;font-size:12px;">Grand Total</td>
+            <td style="text-align:right;font-size:12px;"><?php echo formatrp($data_product['grand_total']); ?></td>
+            <td></td>
         </tr>
         <tr>
-            <td colspan="2" style="text-align:center;font-size:12px;">Discount (+)</td>
-            <td colspan="3" style="text-align:right;font-size:12px;"><?php echo formatrp($discount_value); ?></td>
+            <td colspan="4" style="text-align:center;font-size:12px;">Discount (+)</td>
+            <td style="text-align:right;font-size:12px;"><?php echo formatrp($discount_value); ?></td>
+            <td></td>
         </tr>
         <tr>
-            <td colspan="2" style="text-align:center;font-size:12px;">Total</td>
-            <td colspan="3" style="text-align:right;font-size:12px;"><?php echo formatrp(((intval($data_product['grand_total']) - intval($discount_value)))); ?></td>
+            <td colspan="4" style="text-align:center;font-size:12px;">Total</td>
+            <td style="text-align:right;font-size:12px;"><?php echo formatrp(((intval($data_product['grand_total']) - intval($discount_value)))); ?></td>
+            <td></td>
         </tr>
     </table>
     <div class="col-lg-12" style="font-size: 12px;margin-top:-1px;">
@@ -144,8 +124,8 @@ $tax = (($data_product['grand_total'] * 10) / 100);
 			</div>
             <?php if ($data['so_bonus'] != "" || $data['so_bonus'] != null) { ?>
             <div class="col-lg-12" style="font-size: 12px;margin-top:5px;">
-                <p style="font-weight: bolder;">Keterangan:</p>
-                <p style="margin-top:-10px;">-</p>
+                <p style="font-weight: bolder;">Bonus:</p>
+                <p style="margin-top:-10px;"><?php echo $data['so_bonus'];?></p>
 			</div>
             <?php } ?>
     <div style="text-align: right;padding-right: 30px;font-size:12px;">
