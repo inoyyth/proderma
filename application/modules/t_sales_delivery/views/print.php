@@ -129,6 +129,7 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr>
+                        <th>No.</th>
                         <th>Kode</th>
                         <th>NAMA BARANG</th>
                         <th>Qty</th>
@@ -146,6 +147,7 @@
                             $total = $total+$v['qty']+$v['bonus_item']
                     ?>
                     <tr>
+                        <td><?php echo $k+1;?></td>
                         <td><?php echo $v['product_code'];?></td>
                         <td><?php echo $v['product_name'];?></td>
                         <td style="text-align:right;"><?php echo formatrp($v['qty']);?></td>
