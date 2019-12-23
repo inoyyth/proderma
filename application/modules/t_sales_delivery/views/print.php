@@ -159,7 +159,7 @@
                     <tfoot>
                         <tr>
                             <td colspan="2" class="text-right">Total</td>
-                            <td colspan="3" class="text-right"><?php echo formatrp($total);?> Pcs</td>
+                            <td colspan="4" class="text-right"><?php echo formatrp($total);?> Pcs</td>
                         </tr>
                     </tfoot>
                 </table>    
