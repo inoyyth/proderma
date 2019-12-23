@@ -29,7 +29,7 @@ class Api_model extends CI_Model {
         $query = $this->db->get();
         if ($query->num_rows() == 1) {
             $dt = $query->row_array();
-            if ($this->encrypt->decode($dt['sales_password']) == $data['password']) {
+            if ($this->encryption->decrypt($dt['sales_password']) == $data['password']) {
                 $result = $this->__setToken($query->row_array());
                 return $result;
             } else {
@@ -83,12 +83,13 @@ class Api_model extends CI_Model {
     
     public function __generateCode2($id_subarea) {
         $subarea =  $this->db->get_where('m_subarea',array('id'=>$id_subarea))->row_array();
-        
+
         $getMaxById = $this->__getMaxById2($id_subarea)->row_array();
         $expldCode = explode('/',$getMaxById['customer_code']);
         $lastId = (int) end($expldCode);
         $ll = $lastId + 1;
         $fixCode = 'ML/'.$subarea['subarea_code'].'/'.$subarea['subarea_nick_code'].'/'.str_pad(($ll), 3, '0', STR_PAD_LEFT);
+
         return $fixCode;
     }
     
@@ -163,7 +164,7 @@ class Api_model extends CI_Model {
 
     public function register_lead($data) {
         $val = array(
-            'customer_code' => $this->__generateCode2($data['id_branch']),
+            'customer_code' => $this->__generateCode2($data['id_subarea']),
             'customer_name' => $data['customer_name'],
             'customer_clinic' => $data['customer_clinic'],
             'customer_province' => $data['province_id'],

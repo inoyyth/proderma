@@ -17,7 +17,7 @@ class Api_Login extends MX_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('Api/Api_model');
-        $this->load->library(array('encrypt', 'api_validation'));
+        $this->load->library(array('encryption', 'api_validation'));
     }
 
     private function __cek_empty_data($data = array(), $field = array()) {
@@ -59,7 +59,10 @@ class Api_Login extends MX_Controller {
                     );
 
                     if ($data_login = $this->Api_model->login($data)) {
-                        $b64Doc = $this->__file_to_base64($data_login['photo_path'], $data_login['employee_nip'], 'jpg');
+                        $b64Doc = base_url('assets/images/md_employee/user_icon.png');
+                        if ($data_login['photo_path']) {
+                            $b64Doc = $this->__file_to_base64($data_login['photo_path'], $data_login['employee_nip'], 'jpg');
+                        }
                         $this->output->set_status_header('200');
                         $dt = array(
                             'code' => 200,
@@ -101,7 +104,7 @@ class Api_Login extends MX_Controller {
     private function __file_to_base64($path, $name, $format = 'pdf') {
         $new_name = $name . "." . $format;
         $dt = array(
-            'file' => base64_encode(file_get_contents(base_url() . $path)),
+            'file' => base64_encode(file_get_contents($path)),
             'name' => $new_name,
             'format' => $format
         );
