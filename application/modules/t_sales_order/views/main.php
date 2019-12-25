@@ -97,7 +97,7 @@
 				{title: "Sales Name", field: "employee_name", sorter: "string"},
                 {title: "SO.Date", field: "so_date", sorter: "string"},
                 {title: "Payment Type", field: "payment_type", sorter: "string"},
-                {title: "Bonus", field: "so_bonus", sorter: "string"}
+                {title: "Bonus", field: "new_bonus_item", sorter: "string"}
             ],
             selectable: 1,
             rowSelectionChanged: function (data, rows) {
