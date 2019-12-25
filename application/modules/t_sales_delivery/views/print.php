@@ -129,6 +129,7 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr>
+                        <th>No.</th>
                         <th>Kode</th>
                         <th>NAMA BARANG</th>
                         <th>Qty</th>
@@ -143,21 +144,22 @@
                         $total_product = count($list_product);
                         $rest_row = $max_row - $total_product;
                         foreach($list_product as $k=>$v) {
-                            $total = $total+$v['qty']
+                            $total = $total+$v['qty']+$v['bonus_item']
                     ?>
                     <tr>
+                        <td><?php echo $k+1;?></td>
                         <td><?php echo $v['product_code'];?></td>
                         <td><?php echo $v['product_name'];?></td>
                         <td style="text-align:right;"><?php echo formatrp($v['qty']);?></td>
-                        <td></td>
-                        <td></td>
+                        <td style="text-align:right;"><?php echo formatrp($v['bonus_item']);?></td>
+                        <td style="text-align:right;"><?php echo formatrp($v['qty'] + $v['bonus_item']);?></td>
                     </tr>
                     <?php } ?>
                     </tbody>
                     <tfoot>
                         <tr>
                             <td colspan="2" class="text-right">Total</td>
-                            <td colspan="3" class="text-right"><?php echo formatrp($total);?> Pcs</td>
+                            <td colspan="4" class="text-right"><?php echo formatrp($total);?> Pcs</td>
                         </tr>
                     </tfoot>
                 </table>    
