@@ -80,8 +80,9 @@
                 {title: "Duedate Status", field: "due_date", sorter: "string"}
             ],
             selectable: 1,
-            rowDblClick:function(e, row){
-                location.replace('<?php echo site_url(); ?>sales-order-detail-' + row + '.html');
+            rowDblClick:function(e, row, data){
+                console.log(data.id_so);
+                location.replace('<?php echo site_url(); ?>sales-order-detail-' + data.id_so + '.html');
             },
         });
     

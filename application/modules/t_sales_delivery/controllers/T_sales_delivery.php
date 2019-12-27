@@ -118,6 +118,7 @@ class T_sales_delivery extends MX_Controller {
         );
         $where = array(
             't_sales_order.so_status !=' => '3',
+            'm_customer.current_lead_customer_status' => 'C'
             //'t_sales_order.so_payment_term'=>isset($_POST['so_payment_term'])?$_POST['so_payment_term']:"",
             //'t_sales_order.so_discount_type'=>isset($_POST['so_discount_type'])?$_POST['so_discount_type']:""
         );

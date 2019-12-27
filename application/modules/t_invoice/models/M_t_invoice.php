@@ -151,7 +151,7 @@ Class M_t_invoice extends CI_Model {
         $area =  $this->db->get_where('m_area',array('id'=>$cust_area['id_area']))->row_array();
         
         $getMaxById = $this->__getMaxById($area['area_code'],$area['area_nick_code'])->row_array();
-        $expldCode = explode('/',$getMaxById['so_code']);
+        $expldCode = explode('/',$getMaxById['invoice_code']);
         $lastId = (int) end($expldCode);
         $ll = $lastId + 1;
         $fixCode = 'INV/CRM/'.$area['area_nick_code'].$area['area_code'] . '/' .romanic_number(date('m')) . '/' . substr(date('Y'),2,2).'/'.str_pad(($ll), 4, '0', STR_PAD_LEFT);
