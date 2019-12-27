@@ -88,6 +88,7 @@ Class M_t_sales_delivery extends CI_Model {
                 m_customer.customer_name,
                 m_customer.customer_address,
                 m_customer.customer_phone,
+                m_customer.customer_clinic,
                 m_area.area_name,
                 m_employee.employee_name,
                 m_subarea.subarea_name');
