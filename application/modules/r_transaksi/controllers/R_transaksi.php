@@ -7,7 +7,7 @@ class R_transaksi extends MX_Controller {
     public function __construct() {
         parent::__construct();
             $this->load->model(array('M_r_transaksi' => 'm_transaksi', 'Datatable_model' => 'data_table'));
-        $this->load->library(array('upload', 'encrypt', 'Auth_log'));
+        $this->load->library(array('upload', 'encryption', 'Auth_log'));
         //set breadcrumb
         $this->breadcrumbs->push('Status Transaksi', '/sales-order');
     }
@@ -82,6 +82,7 @@ class R_transaksi extends MX_Controller {
                 }
             }
             $fetch[] = array(
+                'id_so' => $v['id'],
                 'so_code' => $v['so_code'],
 				'so_date' => $v['so_date'],
                 'do_status' => $do['do_sales_status']/*(isset($do['id']) ? 'Done' : 'Not Yet')*/,
