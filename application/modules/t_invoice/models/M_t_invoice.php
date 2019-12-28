@@ -103,6 +103,7 @@ Class M_t_invoice extends CI_Model {
         $table = 't_sales_order';
         $this->db->select($table.'.*,'
                           . 'm_customer.customer_code,'
+                          . 'm_customer.customer_clinic,'
                           . 'm_customer.customer_name,'
                           . 'm_customer.customer_address,'
                           . 'm_customer.customer_phone,'

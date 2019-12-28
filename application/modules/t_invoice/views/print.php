@@ -76,6 +76,11 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                         </td>
                     </tr>
                     <tr>
+                        <td colspan="2" style="width: 70px;">
+                            <?php echo $data['customer_clinic']; ?>
+                        </td>
+                    </tr>
+                    <tr>
                         <td colspan="2">
                         <?php echo $data['customer_address']; ?>
                         </td>
@@ -131,6 +136,9 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                                 }
                             ?>
                         </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">&nbsp;</td>
                     </tr>
                 </table>
             <td>

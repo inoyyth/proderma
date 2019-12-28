@@ -100,6 +100,7 @@
                     $('#btn-edit').attr('href', '#');
                     $('#btn-view').attr('href', '#');
                     $('#btn-print').attr('href', '#');
+                    $('#btn-print-dotmatrix').attr('href', '#');
                 }
             },
             rowDblClick:function(e, row){
