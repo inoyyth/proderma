@@ -245,4 +245,12 @@ class T_invoice extends MX_Controller {
         $data['file_name'] = "invoice";
         $this->load->view('template_excel', $data);
     }
+
+    public function printdotmatrix($id_so) {
+        $data['data'] = $this->m_invoice->get_detail_so($id_so)->row_array();
+        $data['list_product'] = $this->m_invoice->get_list_product($id_so)->result_array();
+        $data['data_product'] = $this->m_invoice->get_detail_product($id_so)->row_array();
+        $data['due_date'] = $this->db->get_where('t_pay_duedate',array('id_invoice'=>$data['data']['id_invoice']))->row_array();
+        $this->load->view('t_invoice/dotmatrix',$data);
+    }
 }
