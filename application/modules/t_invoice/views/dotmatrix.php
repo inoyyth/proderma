@@ -213,6 +213,9 @@ $tax = (($data_product['grand_total'] * 10) / 100);
             </tr>
         </table>
     </div>
+    <div style="text-align: center;">
+        <button class="no-print" onclick="printPage();">Print</button>
+    </div>
 </body>
 <script>
     function printPage() {

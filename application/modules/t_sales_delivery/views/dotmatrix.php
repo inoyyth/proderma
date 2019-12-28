@@ -154,6 +154,9 @@
             Dan kami tidak menerima retur diateas jangka waktu 3 (tiga) hari setelah barang diterima
         </p>
     </div>
+    <div style="text-align: center;">
+        <button class="no-print" onclick="printPage();">Print</button>
+    </div>
 </body>
 <script>
     function printPage() {
