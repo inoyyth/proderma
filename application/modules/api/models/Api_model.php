@@ -464,7 +464,9 @@ class Api_model extends CI_Model {
         $this->db->from('sales_visit_form');
         $this->db->join('m_activity', 'm_activity.id=sales_visit_form.visit_form_activity');
         $this->db->join('m_customer', 'm_customer.id=sales_visit_form.visit_form_attendence');
-        $this->db->like('sales_visit_form.visit_form_progress', $status);
+        if ($status != '') {
+            $this->db->like('sales_visit_form.visit_form_progress', $status);
+        }
         $this->db->where(array('visit_form_sales' => $id_sales, 'visit_form_status' => 1));
         $this->db->limit($per_page, $limit);
         return $this->db->get()->result_array();
@@ -491,7 +493,9 @@ class Api_model extends CI_Model {
         $this->db->from('sales_visit');
         $this->db->join('m_objective', 'm_objective.id=sales_visit.activity');
         $this->db->join('m_customer', 'm_customer.id=sales_visit.id_customer');
-        $this->db->like('sales_visit.sales_visit_progress', $status);
+        if ($status != '') {
+            $this->db->like('sales_visit.sales_visit_progress', $status);
+        }
         $this->db->where(array('sales_visit.id_sales' => $id_sales, 'sales_visit.status' => 1));
         $this->db->limit($per_page, $limit);
         return $this->db->get()->result_array();

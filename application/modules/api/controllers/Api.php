@@ -928,34 +928,48 @@ class Api extends MX_Controller {
     
     function list_task() {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            if ($data = $this->Api_model->list_task($_GET['id_sales'],$_GET['status'],$_GET['page'])) {
-                $this->output->set_status_header('200');
-                $dt = array(
-                    'code' => 200,
-                    'message' => 'Success !!!',
-                    'total' => count($data),
-                    'data' => $data
-                );
-            } else {
-                if (count($data) < 1) {
+            $page = isset($_GET['page']) ? ($_GET['page'] > 1 ? $_GET['page'] : 1) : 1;
+            $status = isset($_GET['status']) ? $_GET['status'] : '';
+            if(isset($_GET['id_sales']) && $_GET['id_sales'] > 0) {
+                if ($data = $this->Api_model->list_task($_GET['id_sales'],$status,$page)) {
                     $this->output->set_status_header('200');
                     $dt = array(
                         'code' => 200,
-                        'message' => 'Data Not Found'
+                        'message' => 'Success !!!',
+                        'total' => count($data),
+                        'data' => $data
                     );
                 } else {
-                    $this->output->set_status_header('500');
-                    $dt = array(
-                        'code' => 500,
-                        'message' => 'Query Error!!!'
-                    );
+                    if (count($data) < 1) {
+                        $this->output->set_status_header('200');
+                        $dt = array(
+                            'code' => 200,
+                            'message' => 'Data Not Found'
+                        );
+                    } else {
+                        $this->output->set_status_header('500');
+                        $dt = array(
+                            'code' => 500,
+                            'message' => 'Query Error!!!'
+                        );
+                    }
                 }
+            } else {
+                $this->output->set_status_header('500');
+                $dt = array(
+                    'code' => 500,
+                    'message' => 'Query Error!!!'
+                );
             }
-            echo json_encode($dt);
         } else {
-            $this->output->set_status_header('404');
-            redirect('error404');
+            $this->output->set_status_header('500');
+            $dt = array(
+                'code' => 500,
+                'message' => 'Query Error!!!'
+            );
         }
+
+        echo json_encode($dt);
     }
     
     public function update_task() {
@@ -1006,35 +1020,48 @@ class Api extends MX_Controller {
     
     function list_plan() {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            $page = isset($_GET['page']) ? $_GET['page'] : 10;
-            if ($data = $this->Api_model->list_plan($_GET['id_sales'],$_GET['status'],$page)) {
-                $this->output->set_status_header('200');
-                $dt = array(
-                    'code' => 200,
-                    'message' => 'Success !!!',
-                    'total' => count($data),
-                    'data' => $data
-                );
-            } else {
-                if (count($data) < 1) {
+            $page = isset($_GET['page']) ? ($_GET['page'] > 1 ? $_GET['page'] : 1) : 1;
+            $status = isset($_GET['status']) ? $_GET['status'] : '';
+            if(isset($_GET['id_sales']) && $_GET['id_sales'] > 0) {
+                if ($data = $this->Api_model->list_plan($_GET['id_sales'],$status,$page)) {
                     $this->output->set_status_header('200');
                     $dt = array(
                         'code' => 200,
-                        'message' => 'Data Not Found'
+                        'message' => 'Success !!!',
+                        'total' => count($data),
+                        'data' => $data
                     );
                 } else {
-                    $this->output->set_status_header('500');
-                    $dt = array(
-                        'code' => 500,
-                        'message' => 'Query Error!!!'
-                    );
+                    if (count($data) < 1) {
+                        $this->output->set_status_header('200');
+                        $dt = array(
+                            'code' => 200,
+                            'message' => 'Data Not Found'
+                        );
+                    } else {
+                        $this->output->set_status_header('500');
+                        $dt = array(
+                            'code' => 500,
+                            'message' => 'Query Error!!!'
+                        );
+                    }
                 }
+            } else {
+                $this->output->set_status_header('500');
+                $dt = array(
+                    'code' => 500,
+                    'message' => 'Query Error!!!'
+                );
             }
-            echo json_encode($dt);
         } else {
-            $this->output->set_status_header('404');
-            redirect('error404');
+            $this->output->set_status_header('500');
+            $dt = array(
+                'code' => 500,
+                'message' => 'Query Error!!!'
+            );
         }
+
+        echo json_encode($dt);
     }
     
     public function update_plan() {
