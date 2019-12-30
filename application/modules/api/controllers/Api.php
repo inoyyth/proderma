@@ -936,7 +936,7 @@ class Api extends MX_Controller {
                     $dt = array(
                         'code' => 200,
                         'message' => 'Success !!!',
-                        'total' => count($data),
+                        'total' => count($this->Api_model->list_task($_GET['id_sales'],$status,$page,true)),
                         'data' => $data
                     );
                 } else {
@@ -1028,7 +1028,7 @@ class Api extends MX_Controller {
                     $dt = array(
                         'code' => 200,
                         'message' => 'Success !!!',
-                        'total' => count($data),
+                        'total' => count($this->Api_model->list_plan($_GET['id_sales'],$status,$page,true)),
                         'data' => $data
                     );
                 } else {

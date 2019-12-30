@@ -457,7 +457,7 @@ class Api_model extends CI_Model {
         return false;
     }
 
-    public function list_task($id_sales, $status, $page) {
+    public function list_task($id_sales, $status, $page, $counter=false) {
         $limit = ($page - 1) * 10;
         $per_page = 10;
         $this->db->select('sales_visit_form.*,m_activity.activity_name,m_customer.customer_code,m_customer.customer_name');
@@ -468,7 +468,9 @@ class Api_model extends CI_Model {
             $this->db->like('sales_visit_form.visit_form_progress', $status);
         }
         $this->db->where(array('visit_form_sales' => $id_sales, 'visit_form_status' => 1));
-        $this->db->limit($per_page, $limit);
+        if (!$counter) {
+            $this->db->limit($per_page, $limit);
+        }
         return $this->db->get()->result_array();
     }
 
@@ -486,7 +488,7 @@ class Api_model extends CI_Model {
         return false;
     }
 
-    public function list_plan($id_sales, $status, $page) {
+    public function list_plan($id_sales, $status, $page, $counter=false) {
         $limit = ($page - 1) * 10;
         $per_page = 10;
         $this->db->select('sales_visit.*,m_objective.objective,m_customer.customer_code,m_customer.customer_name');
@@ -497,7 +499,9 @@ class Api_model extends CI_Model {
             $this->db->like('sales_visit.sales_visit_progress', $status);
         }
         $this->db->where(array('sales_visit.id_sales' => $id_sales, 'sales_visit.status' => 1));
-        $this->db->limit($per_page, $limit);
+        if (!$counter) {
+            $this->db->limit($per_page, $limit);
+        }
         return $this->db->get()->result_array();
     }
 
