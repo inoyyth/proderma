@@ -928,15 +928,18 @@ class Api extends MX_Controller {
     
     function list_task() {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $per_page = isset($_GET['per_page']) ? ($_GET['per_page'] > 1 ? $_GET['per_page'] : 15) : 15;
             $page = isset($_GET['page']) ? ($_GET['page'] > 1 ? $_GET['page'] : 1) : 1;
             $status = isset($_GET['status']) ? $_GET['status'] : '';
             if(isset($_GET['id_sales']) && $_GET['id_sales'] > 0) {
-                if ($data = $this->Api_model->list_task($_GET['id_sales'],$status,$page)) {
+                if ($data = $this->Api_model->list_task($_GET['id_sales'],$status,$page,$per_page)) {
                     $this->output->set_status_header('200');
+                    $cout_data = count($this->Api_model->list_task($_GET['id_sales'],$status,$page,$per_page,true));
                     $dt = array(
                         'code' => 200,
                         'message' => 'Success !!!',
-                        'total' => count($this->Api_model->list_task($_GET['id_sales'],$status,$page,true)),
+                        'total' => $cout_data,
+                        'total_page' => ceil($cout_data/$per_page),
                         'data' => $data
                     );
                 } else {
@@ -1020,15 +1023,18 @@ class Api extends MX_Controller {
     
     function list_plan() {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $per_page = isset($_GET['per_page']) ? ($_GET['per_page'] > 0 ? $_GET['per_page'] : 15) : 15;
             $page = isset($_GET['page']) ? ($_GET['page'] > 1 ? $_GET['page'] : 1) : 1;
             $status = isset($_GET['status']) ? $_GET['status'] : '';
             if(isset($_GET['id_sales']) && $_GET['id_sales'] > 0) {
-                if ($data = $this->Api_model->list_plan($_GET['id_sales'],$status,$page)) {
+                if ($data = $this->Api_model->list_plan($_GET['id_sales'],$status,$page,$per_page)) {
                     $this->output->set_status_header('200');
+                    $cout_data = count($this->Api_model->list_plan($_GET['id_sales'],$status,$page,$per_page,true));
                     $dt = array(
                         'code' => 200,
                         'message' => 'Success !!!',
-                        'total' => count($this->Api_model->list_plan($_GET['id_sales'],$status,$page,true)),
+                        'total' => $cout_data,
+                        'total_page' => ceil($cout_data/$per_page),
                         'data' => $data
                     );
                 } else {

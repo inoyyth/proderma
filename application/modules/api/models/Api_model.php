@@ -457,9 +457,9 @@ class Api_model extends CI_Model {
         return false;
     }
 
-    public function list_task($id_sales, $status, $page, $counter=false) {
-        $limit = ($page - 1) * 10;
-        $per_page = 10;
+    public function list_task($id_sales, $status, $page, $per_page, $counter=false) {
+        $limit = ($page - 1) * $per_page;
+        
         $this->db->select('sales_visit_form.*,m_activity.activity_name,m_customer.customer_code,m_customer.customer_name');
         $this->db->from('sales_visit_form');
         $this->db->join('m_activity', 'm_activity.id=sales_visit_form.visit_form_activity');
@@ -488,9 +488,8 @@ class Api_model extends CI_Model {
         return false;
     }
 
-    public function list_plan($id_sales, $status, $page, $counter=false) {
-        $limit = ($page - 1) * 10;
-        $per_page = 10;
+    public function list_plan($id_sales, $status, $page, $per_page, $counter=false) {
+        $limit = ($page - 1) * $per_page;
         $this->db->select('sales_visit.*,m_objective.objective,m_customer.customer_code,m_customer.customer_name');
         $this->db->from('sales_visit');
         $this->db->join('m_objective', 'm_objective.id=sales_visit.activity');
