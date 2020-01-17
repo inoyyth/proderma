@@ -145,12 +145,10 @@ $tax = (($data_product['grand_total'] * 10) / 100);
     <div class="col-lg-12" style="font-size: 12px;margin-top:-1px;">
 			* Semua Product Sudah Termasuk Ppn 10%.
 			</div>
-            <?php if ($data['so_bonus'] != "" || $data['so_bonus'] != null) { ?>
             <div class="col-lg-12" style="font-size: 12px;margin-top:5px;">
                 <p style="font-weight: bolder;">Keterangan:</p>
                 <p style="margin-top:-10px;">-</p>
 			</div>
-            <?php } ?>
     <div style="text-align: right;padding-right: 30px;font-size:12px;">
         , <?php echo tanggalan(date('Y-m-d')); ?>
     </div>
