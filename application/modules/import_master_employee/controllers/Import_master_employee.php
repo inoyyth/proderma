@@ -8,7 +8,7 @@ class Import_master_employee extends MX_Controller {
         parent::__construct();
         $this->load->model(array('M_import_master_employee' => 'm_employee_temp', 'Datatable_model' => 'data_table', 'Main_model'=>'main_model'));
         $this->load->helper('download');
-        $this->load->library(array('upload', 'encrypt', 'Printpdf', 'Auth_log'));
+        $this->load->library(array('upload', 'encryption', 'Printpdf', 'Auth_log'));
         //set breadcrumb
         $this->breadcrumbs->push('Utility', '/dasboard');
         $this->breadcrumbs->push('Import Master Employee', '/import-master-employee');

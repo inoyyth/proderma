@@ -7,7 +7,7 @@ class Md_manage_product extends MX_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model(array('M_md_manage_product' => 'm_md_manage_product', 'Datatable_model' => 'data_table'));
-        $this->load->library(array('upload', 'encrypt', 'Auth_log'));
+        $this->load->library(array('upload', 'encryption', 'Auth_log'));
         //set breadcrumb
         $this->breadcrumbs->push('Utility', '/dasboard');
         $this->breadcrumbs->push('Manage Product', '/manage-product');
@@ -140,7 +140,7 @@ class Md_manage_product extends MX_Controller {
         $this->load->view('default', $data);
     }
     
-    public function list($id) {
+    public function listDataTable($id) {
         $data['data'] = $this->m_md_manage_product->detailData($id)->row_array();
         $this->breadcrumbs->push($data['data']['product_name'], '/manage-product-list');
         $data['view'] = 'md_manage_product/detail';

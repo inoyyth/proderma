@@ -266,5 +266,5 @@ $route['manage-product'] = 'md_manage_product';
 $route['manage-product-add-(:num)'] = 'md_manage_product/add/$1';
 $route['manage-product-edit-(:num)-(:num)'] = 'md_manage_product/edit/$1/$2';
 $route['manage-product-delete-(:num)-(:num)'] = 'md_manage_product/delete/$1/$2';
-$route['manage-product-list-(:num)'] = 'md_manage_product/list/$1';
+$route['manage-product-list-(:num)'] = 'md_manage_product/listDataTable/$1';
 $route['manage-product-save'] = 'md_manage_product/save';
