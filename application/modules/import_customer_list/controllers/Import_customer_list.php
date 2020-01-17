@@ -8,7 +8,7 @@ class Import_customer_list extends MX_Controller {
         parent::__construct();
         $this->load->model(array('M_import_customer_list' => 'm_master_list', 'Datatable_model' => 'data_table', 'Main_model'=>'main_model'));
         $this->load->helper('download');
-        $this->load->library(array('upload', 'encrypt', 'Printpdf', 'Auth_log'));
+        $this->load->library(array('upload', 'encryption', 'Printpdf', 'Auth_log'));
         //set breadcrumb
         $this->breadcrumbs->push('Utility', '/dasboard');
         $this->breadcrumbs->push('Import Customer List', '/import-customer-list');

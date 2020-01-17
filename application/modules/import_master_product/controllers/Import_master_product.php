@@ -8,7 +8,7 @@ class Import_master_product extends MX_Controller {
         parent::__construct();
         $this->load->model(array('M_import_master_product' => 'm_product_temp', 'Datatable_model' => 'data_table', 'Main_model'=>'main_model'));
         $this->load->helper('download');
-        $this->load->library(array('upload', 'encrypt', 'Printpdf', 'Auth_log'));
+        $this->load->library(array('upload', 'encryption', 'Printpdf', 'Auth_log'));
         //set breadcrumb
         $this->breadcrumbs->push('Utility', '/dasboard');
         $this->breadcrumbs->push('Import Master Product', '/import-master-product');
@@ -226,7 +226,7 @@ class Import_master_product extends MX_Controller {
                         "sediaan" => ($rowData[0][5] != "" ? $rowData[0][5] : "-"),
                         "id_product_category" => $explode_area[0],
                         "id_product_sub_category" => $explode_area[1],
-                        "id_group_product" => $rowData[0][6],
+                        "id_group_product" => $rowData[0][7],
                         "sys_create_user" => $this->sessionGlobal['id'],
                         "sys_create_date" => date('Y-m-d H:i:s')
                     );
