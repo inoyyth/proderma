@@ -24,6 +24,7 @@
     }
 </style>
 <body>
+    <img style="height: 70px;width:150px;" src="<?php echo base_url('assets/images/logo.png'); ?>">
     <div style="font-weight:bold;font-size: 10px;">PT. Whoto Indonesia Sejahtera</div>
     <div style="font-size: 10px;">Jl. Palem 8 Blok F No.1032 </div>
     <div style="font-size: 10px;">Jakamulya, Bekasi Selatan 17146</div>
@@ -32,44 +33,41 @@
         SURAT JALAN
     </div>
     <br>
-    <table style="width: 100%;" style="font-size:10px;" cellspacing="0" cellpadding="1">
+    <table style="width: 100%;" style="font-size:10px;" >
         <tr>
             <td style="width:50%;">
-                <table>
+                <table cellspacing="0" cellpadding="1">
                     <tr>
-                        <td style="font-size:10px;width: 25%;">KEPADA YTH</td>
+                        <td style="font-size:10px;width: 25%;border: 1px solid;">KEPADA YTH</td>
                     </tr>
                     <tr>
-                        <td style="font-size:10px;"><?php echo $customer['customer_name']; ?></td>
+                        <td style="font-size:10px;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;"><?php echo $customer['customer_name']; ?></td>
                     </tr>
                     <tr>
-                    <td style="font-size:10px;"><?php echo $customer['customer_clinic']; ?></td>
+                        <td style="font-size:10px;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;"><?php echo $customer['customer_address']; ?></td>
                     </tr>
                     <tr>
-                        <td style="font-size:10px;"><?php echo $customer['customer_address']; ?></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size:10px;">HP: <?php echo $customer['customer_phone']; ?></td>
+                        <td style="font-size:10px;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;">HP: <?php echo $customer['customer_phone']; ?></td>
                     </tr>
                 </table>
             </td>
             <td style="width:50%;">
-                <table>
+            <table cellspacing="0" cellpadding="1" style="border:0.5px;float:right;">
                     <tr>
-                        <td style="font-size:10px;width: 25%;">No.Faktur : </td>
-                        <td style="font-size:10px;width: 75%"> <?php echo $data['do_code']; ?></td>
+                        <td style="font-size:10px;width: 25%;border: 1px solid;">No.Faktur</td>
+                        <td style="font-size:10px;width: 75%;border-right: 1px solid;border-top:1px solid;border-bottom:1px solid;">: <?php echo $data['do_code']; ?></td>
                     </tr>
                     <tr>
-                        <td style="font-size:10px;">Tgl.Pemesanan :</td>
-                        <td style="font-size:10px;">  <?php echo tanggalan($data['so_date']); ?></td>
+                        <td style="font-size:10px;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;">Tgl.Pemesanan</td>
+                        <td style="font-size:10px;border-right:1px solid;border-bottom:1px solid;">: <?php echo tanggalan($data['so_date']); ?></td>
                     </tr>
                     <tr>
-                        <td style="font-size:10px;">Tgl.Surat Jalan : </td>
-                        <td style="font-size:10px;"> <?php echo tanggalan($data['do_date']); ?></td>
+                        <td style="font-size:10px;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;">Tgl.Surat Jalan</td>
+                        <td style="font-size:10px;border-right:1px solid;border-bottom:1px solid;">: <?php echo tanggalan($data['do_date']); ?></td>
                     </tr> 
                     <tr>
-                        <td style="font-size:10px;">Tgl.Jatuh Tempo : </td>
-                        <td style="font-size:10px;"> 
+                        <td style="font-size:10px;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;">Tgl.Jatuh Tempo</td>
+                        <td style="font-size:10px;border-right:1px solid;border-bottom:1px solid;">: 
                             <?php
                                 if ($due_date['pay_date'] !== "0000-00-00") {
                                     echo ($due_date['pay_date'] !== null ? tanggalan($due_date['pay_date']) : "-");
@@ -85,14 +83,14 @@
         </table>
     </table>
     <br>
-    <table style="width: 100%;" style="font-size:13px;" cellspacing="0" border="1" cellpadding="1">
+    <table style="width: 100%;" style="font-size:10px;" cellspacing="0" cellpadding="1">
         <tr>
-            <th style="font-size:10px;">No.</th>
-            <th style="font-size:10px;">Kode</th>
-            <th style="font-size:10px;">NAMA BARANG</th>
-            <th style="font-size:10px;">Qty</th>
-            <th style="font-size:10px;">Bonus</th>
-            <th style="font-size:10px;">Total</th>
+            <th style="font-size:10px;border: 1px solid;">No.</th>
+            <th style="font-size:10px;border-top:1px solid;border-right:1px solid;border-bottom:1px solid;">Kode</th>
+            <th style="font-size:10px;border-top:1px solid;border-right:1px solid;border-bottom:1px solid;">NAMA BARANG</th>
+            <th style="font-size:10px;border-top:1px solid;border-right:1px solid;border-bottom:1px solid;">Qty</th>
+            <th style="font-size:10px;border-top:1px solid;border-right:1px solid;border-bottom:1px solid;">Bonus</th>
+            <th style="font-size:10px;border-top:1px solid;border-right:1px solid;border-bottom:1px solid;">Total</th>
         </tr>
         <?php 
             $total = 0;
@@ -103,12 +101,12 @@
                 $total = $total+$v['qty']+$v['bonus_item']
         ?>
         <tr>
-            <td style="text-align:left;font-size:10px;"><?php echo $k+1;?></td>
-            <td style="text-align:left;font-size:10px;"><?php echo $v['product_code'];?></td>
-            <td style="text-align:left;font-size:10px;"><?php echo $v['product_name'];?></td>
-            <td style="text-align:right;font-size:10px;"><?php echo formatrp($v['qty']);?></td>
-            <td style="text-align:right;font-size:10px;"><?php echo formatrp($v['bonus_item']);?></td>
-            <td style="text-align:right;font-size:10px;"><?php echo formatrp($v['qty'] + $v['bonus_item']);?></td>
+            <td style="text-align:left;font-size:10px;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;"><?php echo $k+1;?></td>
+            <td style="text-align:left;font-size:10px;border-right:1px solid;border-bottom:1px solid;"><?php echo $v['product_code'];?></td>
+            <td style="text-align:left;font-size:10px;border-right:1px solid;border-bottom:1px solid;"><?php echo $v['product_name'];?></td>
+            <td style="text-align:right;font-size:10px;border-right:1px solid;border-bottom:1px solid;"><?php echo formatrp($v['qty']);?></td>
+            <td style="text-align:right;font-size:10px;border-right:1px solid;border-bottom:1px solid;"><?php echo formatrp($v['bonus_item']);?></td>
+            <td style="text-align:right;font-size:10px;border-right:1px solid;border-bottom:1px solid;"><?php echo formatrp($v['qty'] + $v['bonus_item']);?></td>
         </tr>
         <?php } ?>
         <tr>
@@ -145,12 +143,12 @@
     </div>
     <br>
     <div style="padding-left: 10px;padding-right: 10px;font-size: 10px;">
-        <p style="width: 400px;border: 1px solid;text-align: justify;padding: 2px;font-weight: bold;">
+        <p style="width: 100%;border: 1px solid;text-align: justify;padding: 2px;font-weight: bold;">
             Note: Barang jika sudah di terima harap segera dicek,
             dan jika ada kerusakan harus segera di laporkan
-            kepada marketing yang bersangkutan. <br>
+            kepada marketing yang bersangkutan.
             Apabila lewat dari 3 (tiga) hari dari barang yang sudah diterima,
-            kami tidak menerima komplain, dianggap tidak ada masalah.<br>
+            kami tidak menerima komplain, dianggap tidak ada masalah.
             Dan kami tidak menerima retur diateas jangka waktu 3 (tiga) hari setelah barang diterima
         </p>
     </div>
