@@ -85,12 +85,11 @@
     <br>
     <table style="width: 100%;" style="font-size:10px;" cellspacing="0" cellpadding="1">
         <tr>
-            <th style="font-size:10px;border: 1px solid;">No.</th>
-            <th style="font-size:10px;border-top:1px solid;border-right:1px solid;border-bottom:1px solid;">Kode</th>
+            <th style="font-size:10px;border:1px solid;">Kode</th>
             <th style="font-size:10px;border-top:1px solid;border-right:1px solid;border-bottom:1px solid;">NAMA BARANG</th>
-            <th style="font-size:10px;border-top:1px solid;border-right:1px solid;border-bottom:1px solid;">Qty</th>
-            <th style="font-size:10px;border-top:1px solid;border-right:1px solid;border-bottom:1px solid;">Bonus</th>
-            <th style="font-size:10px;border-top:1px solid;border-right:1px solid;border-bottom:1px solid;">Total</th>
+            <th style="font-size:10px;border-top:1px solid;border-right:1px solid;border-bottom:1px solid;">JMLH</th>
+            <th style="font-size:10px;border-top:1px solid;border-right:1px solid;border-bottom:1px solid;">BNS</th>
+            <th style="font-size:10px;border-top:1px solid;border-right:1px solid;border-bottom:1px solid;">TOTAL</th>
         </tr>
         <?php 
             $total = 0;
@@ -101,17 +100,32 @@
                 $total = $total+$v['qty']+$v['bonus_item']
         ?>
         <tr>
-            <td style="text-align:left;font-size:10px;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;"><?php echo $k+1;?></td>
-            <td style="text-align:left;font-size:10px;border-right:1px solid;border-bottom:1px solid;"><?php echo $v['product_code'];?></td>
+            <td style="text-align:left;font-size:10px;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;"><?php echo $v['product_code'];?></td>
             <td style="text-align:left;font-size:10px;border-right:1px solid;border-bottom:1px solid;"><?php echo $v['product_name'];?></td>
             <td style="text-align:right;font-size:10px;border-right:1px solid;border-bottom:1px solid;"><?php echo formatrp($v['qty']);?></td>
             <td style="text-align:right;font-size:10px;border-right:1px solid;border-bottom:1px solid;"><?php echo formatrp($v['bonus_item']);?></td>
             <td style="text-align:right;font-size:10px;border-right:1px solid;border-bottom:1px solid;"><?php echo formatrp($v['qty'] + $v['bonus_item']);?></td>
         </tr>
-        <?php } ?>
+        <?php
+            }
+            if ($rest_row > 0) {
+                for($i=1;$i<=$rest_row;$i++) {
+        ?>
         <tr>
-            <td colspan="3" style="text-align:right;font-size:10px;">Total</td>
-            <td colspan="3" style="text-align:right;font-size:10px;"><?php echo formatrp($total);?> Pcs</td>
+            <td style="font-size:10px;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;">&nbsp;</td>
+            <td style="font-size:10px;border-right:1px solid;border-bottom:1px solid;"></td>
+            <td style="font-size:10px;border-right:1px solid;border-bottom:1px solid;"></td>
+            <td style="font-size:10px;border-right:1px solid;border-bottom:1px solid;"></td>
+            <td style="font-size:10px;border-right:1px solid;border-bottom:1px solid;"></td>
+        </tr>
+        <?php
+            } }
+        ?>
+        <tr>
+            <td colspan="1" style="text-align:right;font-size:10px;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;">&nbsp;</td>
+            <td colspan="1" style="text-align:right;font-size:10px;border-right:1px solid;border-bottom:1px solid;">&nbsp;</td>
+            <td colspan="2" style="text-align:center;font-size:10px;border-right:1px solid;border-bottom:1px solid;">GRAND TOTAL</td>
+            <td colspan="1" style="text-align:right;font-size:10px;border-right:1px solid;border-bottom:1px solid;"><?php echo formatrp($total);?></td>
         </tr>
     </table>
     <br>
