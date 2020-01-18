@@ -52,7 +52,7 @@
                 </table>
             </td>
             <td style="width:50%;">
-            <table cellspacing="0" cellpadding="1" style="border:0.5px;float:right;">
+                <table cellspacing="0" cellpadding="1" style="border:0.5px;float:right;">
                     <tr>
                         <td style="font-size:10px;width: 25%;border: 1px solid;">No.Faktur</td>
                         <td style="font-size:10px;width: 75%;border-right: 1px solid;border-top:1px solid;border-bottom:1px solid;">: <?php echo $data['do_code']; ?></td>

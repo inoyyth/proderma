@@ -7,7 +7,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>No. Faktur</label>
-                                <input type="text" name="no_faktur" class="form-control">
+                                <input type="text" name="no_faktur" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>Delivery Order Code</label>
@@ -22,7 +22,11 @@
                             </div>
                             <div class="form-group">
                                 <label>Invoice Date</label>
-                                <input type="text" name="invoice_date" value="<?php echo date('Y-m-d');?>"  parsley-trigger="change" required  class="form-control date-picker">
+                                <input type="text" name="invoice_date" value="<?php echo date('Y-m-d');?>" parsley-trigger="change" required class="form-control date-picker">
+                            </div>
+                            <div class="form-group">
+                                <label>Discount2 (%)</label>
+                                <input type="text" name="discount2" value="0" required  class="form-control">
                             </div>
                             <div id="payment-content" style="display: none;">
                                 <div class="form-group">

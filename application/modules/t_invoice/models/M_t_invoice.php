@@ -21,9 +21,18 @@ Class M_t_invoice extends CI_Model {
                     $this->db->insert('t_pay_duedate',$dt_duedate);
                 }
             }
+
+            if (!empty($this->input->post('discount2'))) {
+                $this->__updateDiscount2($this->input->post('id_so'), $this->input->post('discount2'));
+            }
+
             return true;
         } else {
             $this->db->update($this->table, $this->main_model->update_sys($data), array('id' => $id));
+            if (!empty($this->input->post('discount2'))) {
+                $this->__updateDiscount2($this->input->post('id_so'), $this->input->post('discount2'));
+            }
+
             return true;
         }
         return false;
@@ -81,7 +90,7 @@ Class M_t_invoice extends CI_Model {
     }
 
     public function get_detail($id) {
-        $this->db->select('t_invoice.*,t_delivery_order.do_code,t_sales_order.id,t_sales_order.so_payment_term,m_payment_type.termin_status');
+        $this->db->select('t_invoice.*,t_delivery_order.do_code,t_sales_order.id,t_sales_order.so_discount_value2,t_sales_order.so_payment_term,m_payment_type.termin_status');
         $this->db->from('t_invoice');
         $this->db->join('t_delivery_order', 't_invoice.id_do=t_delivery_order.id');
         $this->db->join('t_sales_order', 't_invoice.id_so=t_sales_order.id');
@@ -166,6 +175,15 @@ Class M_t_invoice extends CI_Model {
         $this->db->order_by('id','desc');
         $this->db->limit(0,1);
         return $this->db->get();
+    }
+
+    private function __updateDiscount2($id_so, $discount) {
+        $data = [
+            'so_discount_value2' => $discount
+        ];
+        $this->db->update('t_sales_order', $data, array('id' => $id_so));
+
+        return;
     }
 
 }
