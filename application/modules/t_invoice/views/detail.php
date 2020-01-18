@@ -18,6 +18,10 @@
                             <input type="text" name="do_date" readonly="true" value="<?php echo $data['invoice_date']; ?>" parsley-trigger="change" required  class="form-control">
                         </div>
                         <div class="form-group">
+                            <label>Discount2 (%)</label>
+                            <input type="text" name="discount2" readonly="true" value="<?php echo $data['so_discount_value2']; ?>" parsley-trigger="change" required  class="form-control">
+                        </div>
+                        <div class="form-group">
                             <label>Invoice Progress</label>
                             <input type="text" name="do_date" readonly="true" value="<?php echo $data['invoice_sales_status']; ?>" parsley-trigger="change" required  class="form-control">
                         </div>

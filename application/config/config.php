@@ -527,3 +527,4 @@ $config['key_aes'] = "345345235352528bbc2f8bf984565090";
 
 $config['project_title']="Proderma Sales Monitoring";
 $config['image_path']="assets/images/";
+$config['invoice_sign'] = 'assets/images/sign/invoice_sign.jpeg';
