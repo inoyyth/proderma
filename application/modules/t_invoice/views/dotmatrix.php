@@ -42,70 +42,68 @@ $tax = (($data_product['grand_total'] * 10) / 100);
     <div style="text-align: center;font-weight: bolder;font-size: 10px;">
         FAKTUR
     </div>
-    <table style="width: 100%;" style="font-size:10px;" >
-        <tr>
-            <td style="width:50%;">
-            <table cellspacing="0" cellpadding="1">
+    <div style="margin-top: 10px;">
+        <div style="float:left;width:48%;">
+            <table style="width: 100%;" style="font-size:11px;" >
                 <tr>
-                    <td style="font-size:10px;width:25%;border:1px solid;">KEPADA YTH</td>
+                    <td style="font-size:11px;width:25%;border:1px solid;">KEPADA YTH</td>
                 </tr>
                 <tr>
-                    <td style="font-size:10px;border-top:1px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;"><?php echo $data['customer_name']; ?></td>
+                    <td style="font-size:11px;border-top:1px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;"><?php echo $data['customer_name']; ?></td>
                 </tr>
                 <tr>
-                    <td style="font-size:10px;border-top:1px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;"><?php echo $data['customer_address']; ?></td>
+                    <td style="font-size:11px;border-top:1px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;"><?php echo $data['customer_address']; ?></td>
                 </tr>
                 <tr>
-                    <td style="font-size:10px;border-top:1px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;">HP: <?php echo $data['customer_phone']; ?></td>
+                    <td style="font-size:11px;border-top:1px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;">HP: <?php echo $data['customer_phone']; ?></td>
                 </tr>
                 <tr>
-                    <td style="font-size:10px;">&nbsp;</td>
+                    <td style="font-size:11px;">&nbsp;</td>
                 </tr>
             </table>
-            </td>
-            <td style="width:50%;">
-                <table cellspacing="0" cellpadding="1" style="float:right;">
-                    <tr>
-                        <td style="font-size:10px;width:25%;border:1px solid;">No.Faktur</td>
-                        <td style="font-size:10px;width:75%;border-top:1px solid;border-bottom:1px solid;border-right:1px solid;">: <?php echo $data['no_faktur']; ?></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size:10px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;">Tgl.Pemesanan</td>
-                        <td style="font-size:10px;border-bottom:1px solid;border-right:1px solid;">: <?php echo tanggalan($data['so_date']); ?></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size:10px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;">Tgl.Surat Jalan</td>
-                        <td style="font-size:10px;border-bottom:1px solid;border-right:1px solid;">: <?php echo tanggalan($data['do_date']); ?></td>
-                    </tr> 
-                    <tr>
-                        <td style="font-size:10px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;">Tgl.Jatuh Tempo</td>
-                        <td style="font-size:10px;border-bottom:1px solid;border-right:1px solid;">: 
-                            <?php
-                                if ($due_date['pay_date'] !== "0000-00-00") {
-                                    echo ($due_date['pay_date'] !== null ? tanggalan($due_date['pay_date']) : "-");
-                                } else {
-                                    echo " -";
-                                }
-                            ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="font-size:10px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;">No.NPWP</td>
-                        <td style="font-size:10px;border-bottom:1px solid;border-right:1px solid;">:</td>
-                    </tr> 
-                </table>
-            </td>
-        </tr>
-        </table>
-    </table>
-    <br>
+        </div>
+        <div style="float:right;width:48%;">
+            <table style="width: 100%;" style="font-size:11px;" >
+                <tr>
+                    <td style="font-size:11px;width:25%;border:1px solid;">No.Faktur</td>
+                    <td style="font-size:11px;width:75%;border-top:1px solid;border-bottom:1px solid;border-right:1px solid;">: <?php echo $data['no_faktur']; ?></td>
+                </tr>
+                <tr>
+                    <td style="font-size:11px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;">Tgl.Pemesanan</td>
+                    <td style="font-size:11px;border-bottom:1px solid;border-right:1px solid;">: <?php echo tanggalan($data['so_date']); ?></td>
+                </tr>
+                <tr>
+                    <td style="font-size:11px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;">Tgl.Surat Jalan</td>
+                    <td style="font-size:11px;border-bottom:1px solid;border-right:1px solid;">: <?php echo tanggalan($data['do_date']); ?></td>
+                </tr> 
+                <tr>
+                    <td style="font-size:11px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;">Tgl.Jatuh Tempo</td>
+                    <td style="font-size:11px;border-bottom:1px solid;border-right:1px solid;">: 
+                        <?php
+                            if ($due_date['pay_date'] !== "0000-00-00") {
+                                echo ($due_date['pay_date'] !== null ? tanggalan($due_date['pay_date']) : "-");
+                            } else {
+                                echo " -";
+                            }
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-size:11px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;">No.NPWP</td>
+                    <td style="font-size:11px;border-bottom:1px solid;border-right:1px solid;">:</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div style="clear: both;height:10px;"></div>
     <table style="width: 100%;" style="font-size:13px;" cellspacing="0" cellpadding="1">
         <tr>
-            <th style="font-size:10px;width:25px;border:1px solid;">No.</th>
-            <th style="font-size:10px;border-top:1px solid;border-bottom:1px solid;border-right:1px solid;">NAMA BARANG</th>
-            <th style="font-size:10px;border-top:1px solid;border-bottom:1px solid;border-right:1px solid;">Qty</th>
-            <th style="font-size:10px;border-top:1px solid;border-bottom:1px solid;border-right:1px solid;">Harga @Rp</th>
-            <th style="font-size:10px;border-top:1px solid;border-bottom:1px solid;border-right:1px solid;">Jumlah</th>
+            <th style="font-size:11px;width:25px;border:1px solid;">No.</th>
+            <th style="font-size:11px;border-top:1px solid;border-bottom:1px solid;border-right:1px solid;">Kode</th>
+            <th style="font-size:11px;border-top:1px solid;border-bottom:1px solid;border-right:1px solid;">NAMA BARANG</th>
+            <th style="font-size:11px;border-top:1px solid;border-bottom:1px solid;border-right:1px solid;">Qty</th>
+            <th style="font-size:11px;border-top:1px solid;border-bottom:1px solid;border-right:1px solid;">Harga @Rp</th>
+            <th style="font-size:11px;border-top:1px solid;border-bottom:1px solid;border-right:1px solid;">Jumlah</th>
         </tr>
         <?php 
             $max_row=10;
@@ -113,11 +111,12 @@ $tax = (($data_product['grand_total'] * 10) / 100);
             $rest_row = $max_row - $total_product;
             foreach ($list_product as $k=>$v) { ?>
         <tr>
-            <td style="font-size:10px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;"><?php echo $k+1; ?>.</td>
-            <td style="font-size:10px;border-bottom:1px solid;border-right:1px solid;"><?php echo $v['product_name'];?></td>
-            <td style="text-align:right;font-size:10px;border-bottom:1px solid;border-right:1px solid;"><?php echo formatrp($v['qty']);?></td>
-            <td style="text-align:right;font-size:10px;border-bottom:1px solid;border-right:1px solid;"><?php echo formatrp($v['product_price']);?></td>
-            <td style="text-align:right;font-size:10px;border-bottom:1px solid;border-right:1px solid;"><?php echo formatrp($v['SubTotal']);?></td>
+            <td style="font-size:11px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;"><?php echo $k+1; ?>.</td>
+            <td style="font-size:11px;border-bottom:1px solid;border-right:1px solid;"><?php echo $v['product_code'];?></td>
+            <td style="font-size:11px;border-bottom:1px solid;border-right:1px solid;"><?php echo $v['product_name'];?></td>
+            <td style="text-align:right;font-size:11px;border-bottom:1px solid;border-right:1px solid;"><?php echo formatrp($v['qty']);?></td>
+            <td style="text-align:right;font-size:11px;border-bottom:1px solid;border-right:1px solid;"><?php echo formatrp($v['product_price']);?></td>
+            <td style="text-align:right;font-size:11px;border-bottom:1px solid;border-right:1px solid;"><?php echo formatrp($v['SubTotal']);?></td>
         </tr>
         <?php
             }
@@ -125,11 +124,12 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                 for($i=1;$i<=$rest_row;$i++) {
         ?>
         <tr>
-            <td style="font-size:10px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;"><?php echo $i + $total_product; ?>.</td>
-            <td style="font-size:10px;border-bottom:1px solid;border-right:1px solid;"></td>
-            <td style="font-size:10px;border-bottom:1px solid;border-right:1px solid;"></td>
-            <td style="font-size:10px;border-bottom:1px solid;border-right:1px solid;"></td>
-            <td style="font-size:10px;border-bottom:1px solid;border-right:1px solid;"></td>
+            <td style="font-size:11px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;"><?php echo $i + $total_product; ?>.</td>
+            <td style="font-size:11px;border-bottom:1px solid;border-right:1px solid;"></td>
+            <td style="font-size:11px;border-bottom:1px solid;border-right:1px solid;"></td>
+            <td style="font-size:11px;border-bottom:1px solid;border-right:1px solid;"></td>
+            <td style="font-size:11px;border-bottom:1px solid;border-right:1px solid;"></td>
+            <td style="font-size:11px;border-bottom:1px solid;border-right:1px solid;"></td>
         </tr>
         <?php
             } }
@@ -139,7 +139,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
             <td style="text-align: left;font-size: 10px;">&nbsp;</td>
             <td style="text-align: left;font-size: 10px;">&nbsp;</td>
             <td style="text-align: left;font-size: 10px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;">Sub Total</td>
-            <td colspan="2" style="font-size: 10px;border-bottom:1px solid;border-right:1px solid;"><?php echo formatrp($data_product['grand_total']);?></td>
+            <td colspan="3" style="font-size: 10px;border-bottom:1px solid;border-right:1px solid;"><?php echo formatrp($data_product['grand_total']);?></td>
         </tr>
         <tr style="text-align: right;font-size: 10px;">
             <td style="text-align: left;font-size: 10px;">&nbsp;</td>
@@ -153,14 +153,14 @@ $tax = (($data_product['grand_total'] * 10) / 100);
             <td style="text-align: left;font-size: 10px;">&nbsp;</td>
             <td style="text-align: left;font-size: 10px;">&nbsp;</td>
             <td style="text-align: left;font-size: 10px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;">Disc.2 | <b><?php echo $data['so_discount_value2'];?>%</b></td>
-            <td colspan="2" style="font-size: 10px;border-bottom:1px solid;border-right:1px solid;"><?php echo formatrp($discount_value2);?></td>
+            <td colspan="3" style="font-size: 10px;border-bottom:1px solid;border-right:1px solid;"><?php echo formatrp($discount_value2);?></td>
         </tr>
         <tr style="text-align: left;font-size: 10px;">
             <td style="text-align: left;font-size: 10px;">&nbsp;</td>
             <td style="text-align: left;font-size: 10px;">&nbsp;</td>
             <td style="text-align: left;font-size: 10px;">&nbsp;</td>
             <td style="font-size: 10px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;">Total</td>
-            <td colspan="2" style="font-size: 10px;text-align:right;border-bottom:1px solid;border-right:1px solid;"><?php echo formatrp(((intval(($data_product['grand_total']) - (intval($discount_value)) - (intval($discount_value2)))))) ; ?></td>
+            <td colspan="3" style="font-size: 10px;text-align:right;border-bottom:1px solid;border-right:1px solid;"><?php echo formatrp(((intval(($data_product['grand_total']) - (intval($discount_value)) - (intval($discount_value2)))))) ; ?></td>
         </tr>
         <tr>
             <td colspan="7">&nbsp;</td>
@@ -172,17 +172,17 @@ $tax = (($data_product['grand_total'] * 10) / 100);
     <div class="col-lg-12" style="font-size: 10px;">
         <table>
             <tr>
-                <td style="font-size:10px;">Payment Term</td>
-                <td style="font-size:10px;">: <?php echo $data['payment_type']; ?></td>
+                <td style="font-size:11px;">Payment Term</td>
+                <td style="font-size:11px;">: <?php echo $data['payment_type']; ?></td>
             </tr>
             <tr>
                 <td style="text-align: left;font-size: 10px;">NB</td>
-                <td style="font-size:10px;">: Semua Product Sudah Termasuk Ppn 10%.</td>
+                <td style="font-size:11px;">: Semua Product Sudah Termasuk Ppn 10%.</td>
             </tr>
         </table>
     </div>
     <div class="text-right">
-        <p style="font-size:10px;text-align:right;"><?php echo ucfirst(str_replace('cabang ','',strtolower($this->sessionGlobal['branch_name'])));?>, <?php echo date('d-m-Y');?></p>
+        <p style="font-size:11px;text-align:right;"><?php echo ucfirst(str_replace('cabang ','',strtolower($this->sessionGlobal['branch_name'])));?>, <?php echo date('d-m-Y');?></p>
     </div>
     <div class="text-left" style="line-height: 20%;font-size: 10px;">
         <p>Pembayaran ditransfers ke rekening kami: A/N PT.Whoto Indonesia Sejahtera</p>
@@ -191,20 +191,20 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                 <td style="width:50%;">
                     <table cellspacing="0" cellpadding="1">
                         <tr>
-                            <td style="font-size:10px;">A/C 167.000.555.8555 (Mandiri cab.Taman Galaxy)</td>
+                            <td style="font-size:11px;">A/C 167.000.555.8555 (Mandiri cab.Taman Galaxy)</td>
                         </tr>
                         <tr>
-                            <td style="font-size:10px;">A/C 577.079.4449 (BCA cab.Taman Galaxy)</td>
+                            <td style="font-size:11px;">A/C 577.079.4449 (BCA cab.Taman Galaxy)</td>
                         </tr>
                     </table>
                 </td>
                 <td style="width:50%;">
                     <table cellspacing="0" cellpadding="1" style="float:right;">
                         <tr>
-                            <td style="font-size:10px;">A/C 1150.01.000110.306 (BRI cab.Taman Galaxy)</td>
+                            <td style="font-size:11px;">A/C 1150.01.000110.306 (BRI cab.Taman Galaxy)</td>
                         </tr>
                         <tr>
-                            <td style="font-size:10px;">A/C 488.3761.71 (BNI cab.Taman Galaxy)</td>
+                            <td style="font-size:11px;">A/C 488.3761.71 (BNI cab.Taman Galaxy)</td>
                         </tr>
                     </table>
                 </td>
@@ -212,38 +212,38 @@ $tax = (($data_product['grand_total'] * 10) / 100);
         </table>
     </div>
     <div class="text-center" style="">
-        <p style="border-bottom:2px solid;font-weight: bold;font-size:10px;text-align:center;">( TIDAK MENERIMA PEMBAYARAN DENGAN TUNAI ATAUPUN PEMBAYARAN SELAIN KE REKENING DIATAS)  </p>
+        <p style="border-bottom:2px solid;font-weight: bold;font-size:11px;text-align:center;">( TIDAK MENERIMA PEMBAYARAN DENGAN TUNAI ATAUPUN PEMBAYARAN SELAIN KE REKENING DIATAS)  </p>
     </div>
     <div style="font-size: 10px;font-size: 10px;">
         <table style="border:1px solid;width: 100%;">
             <tr>
-                <td style="width: 30%;text-align: center;font-size:10px;">
+                <td style="width: 30%;text-align: center;font-size:11px;">
                     Hormat Kami
                 </td>
-                <td style="width: 30%;text-align: center;font-size:10px;">
+                <td style="width: 30%;text-align: center;font-size:11px;">
                     Yang Menerima Faktur
                 </td>
             </tr>
             <tr style="height: 0px;">
-                <td colspan="3" style="font-size:10px;">&nbsp;</td>
+                <td colspan="3" style="font-size:11px;">&nbsp;</td>
             </tr>
             <tr>
-                <td style="text-align: center;font-size:10px;">
+                <td style="text-align: center;font-size:11px;">
                     <img src="<?php echo base_url($this->config->item('invoice_sign'));?>" style="height: 50px;">
                     <div>
                         (SALES MANAGER)
                     </div>
                 </td>
-                <td style="text-align: center;font-size:10px;">
+                <td style="text-align: center;font-size:11px;">
                     <div style="margin-top: 50px;">
                         (.................................)
                      </div>
                 </td>
             <tr>
-                <td style="text-align: center;font-size:10px;">
+                <td style="text-align: center;font-size:11px;">
                     &nbsp;
                 </td>
-                <td style="text-align: center;font-size:10px;">
+                <td style="text-align: center;font-size:11px;">
                     &nbsp;
                 </td>
             </tr>
