@@ -68,17 +68,17 @@ $tax = (($data_product['grand_total'] * 10) / 100);
 </style>
 <div class="print_body">
 <div id="printThis">
-    <div style="width: 150px;padding-left: 10px;padding-top: 2px;">
+    <div style="width: 150px;padding-left: 10px;padding-top:10px;">
         <img style="width: 120px;margin-left:7px" src="<?php echo base_url('assets/images/logo.png'); ?>">
     </div>
     <div style="text-align: center;">
-        <div style="font-size:10x;"><u>PURCHASE ORDER</u></div>
+        <div style="font-size:13px;"><u>PURCHASE ORDER</u></div>
     </div>
     <div style="margin-top:10px;width:900px;margin-left:10px;margin-right:10px;">
         <div style="float:left;width:48%;">
-            <table border="1" style="width: 100%;" style="font-size:11px;">
+            <table border="1" style="width: 100%;font-size:12px;">
                 <tr>
-                    <td style="width: 70px;">
+                    <td style="width: 80px;">
                         Tanggal
                     </td>
                     <td>
@@ -120,7 +120,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
             </table>
         </div>
         <div style="float:right;width:48%;">
-            <table border="1" style="width: 100%;" style="font-size:11px;">
+            <table border="1" style="width: 100%;font-size:12px;">
                 <tr>
                     <td style="width: 70px;">
                         No. SO
@@ -157,7 +157,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
         </div>
     </div>
     <div style="clear: both;height:10px;"></div>
-    <div style="padding-left: 10px;padding-right: 10px;font-size:11px;margin-top: 5px;">
+    <div style="padding-left: 10px;padding-right: 10px;font-size:12px;margin-top: 5px;">
         <div class="row">
             <div class="col-lg-12">
                 <table class="table table-bordered">
@@ -192,38 +192,38 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                             for($i=1;$i<=$rest_row;$i++) {
                         ?>
                         <!-- <tr>
-                            <td style="font-size:11px;"><?php echo $i + $total_product; ?>.</td>
-                            <td style="font-size:11px;"></td>
-                            <td style="text-align:right;font-size:11px;"></td>
-                            <td style="text-align:right;font-size:11px;"></td>
-                            <td style="text-align:right;font-size:11px;"></td>
-                            <td style="text-align:right;font-size:11px;"></td>
+                            <td style="font-size:12px;"><?php echo $i + $total_product; ?>.</td>
+                            <td style="font-size:12px;"></td>
+                            <td style="text-align:right;font-size:12px;"></td>
+                            <td style="text-align:right;font-size:12px;"></td>
+                            <td style="text-align:right;font-size:12px;"></td>
+                            <td style="text-align:right;font-size:12px;"></td>
                         </tr> -->
                         <?php } } ?>
                         <tr>
-                            <td colspan="2" style="text-align:center;font-size:11px;padding:0px;">Grand Total</td>
-                            <td colspan="4" style="text-align:right;font-size:11px;padding:0px;"><?php echo formatrp($data_product['grand_total']); ?></td>
+                            <td colspan="2" style="text-align:center;font-size:12px;padding:0px;">Grand Total</td>
+                            <td colspan="4" style="text-align:right;font-size:12px;padding:0px;"><?php echo formatrp($data_product['grand_total']); ?></td>
                         </tr>
                         <tr>
-                            <td colspan="2" style="text-align:center;font-size:11px;padding:0px;">Discount (+)</td>
-                            <td colspan="4" style="text-align:right;font-size:11px;padding:0px;"><?php echo formatrp($discount_value); ?></td>
+                            <td colspan="2" style="text-align:center;font-size:12px;padding:0px;">Discount (+)</td>
+                            <td colspan="4" style="text-align:right;font-size:12px;padding:0px;"><?php echo formatrp($discount_value); ?></td>
                         </tr>
                         <tr>
-                            <td colspan="2" style="text-align:center;font-size:11px;padding:0px;">Total</td>
-                            <td colspan="4" style="text-align:right;font-size:11px;padding:0px;"><?php echo formatrp(((intval($data_product['grand_total']) - intval($discount_value)))); ?></td>
+                            <td colspan="2" style="text-align:center;font-size:12px;padding:0px;">Total</td>
+                            <td colspan="4" style="text-align:right;font-size:12px;padding:0px;"><?php echo formatrp(((intval($data_product['grand_total']) - intval($discount_value)))); ?></td>
                         </tr>
                     </tbody>
                 </table>    
             </div>
-            <div class="col-lg-12" style="font-size: 9px;">
+            <div class="col-lg-12" style="font-size:12px;">
                 <p style="font-weight: bolder;">Keterangan:</p>
             </div>
         </div>
     </div>
-    <div class="text-right" style="padding-right: 10px;font-size: 9px;">
+    <div class="text-right" style="padding-right: 10px;font-size:12px;">
         <p><?php echo ucfirst(str_replace('cabang ','',strtolower($this->sessionGlobal['branch_name'])));?>, <?php echo tanggalan(date('Y-m-d'));?></p>
     </div>
-    <div style="padding-left: 10px;padding-right: 10px;font-size: 9px;">
+    <div style="padding-left: 10px;padding-right: 10px;font-size:12px;">
         <table style="border:1px solid;width: 100%;">
             <tr>
                 <td style="width: 30%;text-align: center;">
@@ -245,8 +245,8 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                 </td>
                 <td style="text-align: center;">
                     <table style="width: 100%;">
-                        <td style="text-align: center;font-size:11px;">CHECK1</td>
-                        <td style="text-align: center;font-size:11px;">CHECK2</td>
+                        <td style="text-align: center;font-size:12px;">CHECK1</td>
+                        <td style="text-align: center;font-size:12px;">CHECK2</td>
                     </table>
                 </td>
             </tr>
