@@ -163,12 +163,12 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th height="5" style="padding:0px;">No</th>
+                        <th height="5" style="padding:0px;text-align:center;">No</th>
                         <th height="5" style="padding:0px;text-align:center;">NAMA PRODUK+UKURAN</th>
-                        <th height="5" style="padding:0px;">HARGA</th>
-                        <th height="5" style="padding:0px;">JMLH</th>
-                        <th height="5" style="padding:0px;">BNS</th>
-                        <th height="5" style="padding:0px;">TTL QTY</th>
+                        <th height="5" style="padding:0px;text-align:center;">HARGA</th>
+                        <th height="5" style="padding:0px;text-align:center;">JMLH</th>
+                        <th height="5" style="padding:0px;text-align:center;">BNS</th>
+                        <th height="5" style="padding:0px;text-align:center;">TTL QTY</th>
                     </tr>
                     </thead>
                     <tbody>
