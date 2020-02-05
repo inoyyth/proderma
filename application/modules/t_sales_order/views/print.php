@@ -72,7 +72,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
         <img style="width: 120px;margin-left:7px" src="<?php echo base_url('assets/images/logo.png'); ?>">
     </div>
     <div style="text-align: center;">
-        <div style="font-size:13px;"><u>PURCHASE ORDER</u></div>
+        <div style="font-size:14px;"><u><b>PURCHASE ORDER</b></u></div>
     </div>
     <div style="margin-top:10px;width:900px;margin-left:10px;margin-right:10px;">
         <div style="float:left;width:48%;">

@@ -29,7 +29,7 @@
     <div style="font-size: 10px;">Jl. Palem 8 Blok F No.1032 </div>
     <div style="font-size: 10px;">Jakamulya, Bekasi Selatan 17146</div>
     <br>
-    <div style="text-align: center;font-weight: bolder;font-size: 10px;">
+    <div style="text-align: center;font-weight: bolder;font-size: 14px;">
         SURAT JALAN
     </div>
     <div style="margin-top: 10px;">
@@ -127,16 +127,16 @@
             <td colspan="1" style="text-align:right;font-size:11px;border-right:1px solid;border-bottom:1px solid;"><?php echo formatrp($total);?></td>
         </tr>
     </table>
-    <div class="text-right" style="padding-right: 10px;font-size: 10px;text-align:right;">
+    <div class="text-right" style="padding-right: 10px;font-size: 12px;text-align:right;">
         <p><?php echo ucfirst(str_replace('cabang ','',strtolower($this->sessionGlobal['branch_name'])));?>, <?php echo tanggalan(date('Y-m-d'));?></p>
     </div>
-    <div style="padding-left: 10px;padding-right: 10px;font-size: 10px;">
+    <div style="padding-left: 10px;padding-right: 10px;font-size: 12px;">
         <table style="border:1px solid;width: 100%;">
             <tr>
-                <td style="width: 30%;text-align: center;font-size: 10px;">
+                <td style="width: 30%;text-align: center;font-size: 12px;">
                     Tanda Terima
                 </td>
-                <td style="width: 30%;text-align: center;font-size: 10px;">
+                <td style="width: 30%;text-align: center;font-size: 12px;">
                     Pengirim
                 </td>
             </tr>
@@ -153,7 +153,7 @@
         </table>
     </div>
     <br>
-    <div style="padding-left: 10px;padding-right: 10px;font-size: 10px;">
+    <div style="padding-left: 10px;padding-right: 11px;font-size: 11px;">
         <p style="width: 100%;border: 1px solid;text-align: justify;padding: 2px;font-weight: bold;">
             Note: Barang jika sudah di terima harap segera dicek,
             dan jika ada kerusakan harus segera di laporkan
