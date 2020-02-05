@@ -39,7 +39,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
     <div style="font-weight:bold;font-size: 10px;">PT. Whoto Indonesia Sejahtera</div>
     <div style="font-size: 10px;">Jl. Palem 8 Blok F No.1032 </div>
     <div style="font-size: 10px;">Jakamulya, Bekasi Selatan 17146</div>
-    <div style="text-align: center;font-weight: bolder;font-size: 10px;">
+    <div style="text-align: center;font-weight: bolder;font-size: 14px;">
         FAKTUR
     </div>
     <div style="margin-top: 10px;">
@@ -135,41 +135,41 @@ $tax = (($data_product['grand_total'] * 10) / 100);
             } }
         ?>
         <tr style="text-align: right">
-            <td style="text-align: left;font-size: 10px;">&nbsp;</td>
-            <td style="text-align: left;font-size: 10px;">&nbsp;</td>
-            <td style="text-align: left;font-size: 10px;">&nbsp;</td>
-            <td style="text-align: left;font-size: 10px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;">Sub Total</td>
-            <td colspan="3" style="font-size: 10px;border-bottom:1px solid;border-right:1px solid;"><?php echo formatrp($data_product['grand_total']);?></td>
+            <td style="text-align: left;font-size:11px;">&nbsp;</td>
+            <td style="text-align: left;font-size:11px;">&nbsp;</td>
+            <td style="text-align: left;font-size:11px;">&nbsp;</td>
+            <td style="text-align: left;font-size:11px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;">Sub Total</td>
+            <td colspan="3" style="font-size:11px;border-bottom:1px solid;border-right:1px solid;"><?php echo formatrp($data_product['grand_total']);?></td>
         </tr>
-        <tr style="text-align: right;font-size: 10px;">
-            <td style="text-align: left;font-size: 10px;">&nbsp;</td>
-            <td style="text-align: left;font-size: 10px;">&nbsp;</td>
-            <td style="text-align: left;font-size: 10px;">&nbsp;</td>
-            <td style="text-align: left;font-size: 10px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;">Disc.1 | <b><?php echo $data['so_discount_value'];?>%</b></td>
-            <td colspan="2" style="font-size: 10px;border-bottom:1px solid;border-right:1px solid;"><?php echo formatrp($discount_value);?></td>
+        <tr style="text-align: right;font-size:11px;">
+            <td style="text-align: left;font-size:11px;">&nbsp;</td>
+            <td style="text-align: left;font-size:11px;">&nbsp;</td>
+            <td style="text-align: left;font-size:11px;">&nbsp;</td>
+            <td style="text-align: left;font-size:11px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;">Disc.1 | <b><?php echo $data['so_discount_value'];?>%</b></td>
+            <td colspan="2" style="font-size:11px;border-bottom:1px solid;border-right:1px solid;"><?php echo formatrp($discount_value);?></td>
         </tr>
-        <tr style="text-align: right;font-size: 10px;">
-            <td style="text-align: left;font-size: 10px;">&nbsp;</td>
-            <td style="text-align: left;font-size: 10px;">&nbsp;</td>
-            <td style="text-align: left;font-size: 10px;">&nbsp;</td>
-            <td style="text-align: left;font-size: 10px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;">Disc.2 | <b><?php echo $data['so_discount_value2'];?>%</b></td>
-            <td colspan="3" style="font-size: 10px;border-bottom:1px solid;border-right:1px solid;"><?php echo formatrp($discount_value2);?></td>
+        <tr style="text-align: right;font-size:11px;">
+            <td style="text-align: left;font-size:11px;">&nbsp;</td>
+            <td style="text-align: left;font-size:11px;">&nbsp;</td>
+            <td style="text-align: left;font-size:11px;">&nbsp;</td>
+            <td style="text-align: left;font-size:11px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;">Disc.2 | <b><?php echo $data['so_discount_value2'];?>%</b></td>
+            <td colspan="3" style="font-size:11px;border-bottom:1px solid;border-right:1px solid;"><?php echo formatrp($discount_value2);?></td>
         </tr>
-        <tr style="text-align: left;font-size: 10px;">
-            <td style="text-align: left;font-size: 10px;">&nbsp;</td>
-            <td style="text-align: left;font-size: 10px;">&nbsp;</td>
-            <td style="text-align: left;font-size: 10px;">&nbsp;</td>
-            <td style="font-size: 10px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;">Total</td>
-            <td colspan="3" style="font-size: 10px;text-align:right;border-bottom:1px solid;border-right:1px solid;"><?php echo formatrp(((intval(($data_product['grand_total']) - (intval($discount_value)) - (intval($discount_value2)))))) ; ?></td>
+        <tr style="text-align: left;font-size:11px;">
+            <td style="text-align: left;font-size:11px;">&nbsp;</td>
+            <td style="text-align: left;font-size:11px;">&nbsp;</td>
+            <td style="text-align: left;font-size:11px;">&nbsp;</td>
+            <td style="font-size:11px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;">Total</td>
+            <td colspan="3" style="font-size:11px;text-align:right;border-bottom:1px solid;border-right:1px solid;"><?php echo formatrp(((intval(($data_product['grand_total']) - (intval($discount_value)) - (intval($discount_value2)))))) ; ?></td>
         </tr>
         <tr>
             <td colspan="7">&nbsp;</td>
         </tr>
-        <tr style="text-align: right;font-size: 10px;">
+        <tr style="text-align: right;font-size:11px;">
             <td colspan="7" style="text-align: center;font-weight: bold;font-size: 10px;border:1px solid;"><?php echo terbilang(((intval($data_product['grand_total']) - intval($discount_value) - intval($discount_value2)))); ?></td>
         </tr>
     </table>
-    <div class="col-lg-12" style="font-size: 10px;">
+    <div class="col-lg-12" style="font-size:11px;">
         <table>
             <tr>
                 <td style="font-size:11px;">Payment Term</td>
