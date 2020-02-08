@@ -100,9 +100,9 @@
             <td style="text-align:left;font-size:11px;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;"><?php echo $k+1;?></td>
             <td style="text-align:left;font-size:11px;border-right:1px solid;border-bottom:1px solid;"><?php echo $v['product_code'];?></td>
             <td style="text-align:left;font-size:11px;border-right:1px solid;border-bottom:1px solid;"><?php echo $v['product_name'];?></td>
-            <td style="text-align:right;font-size:11px;border-right:1px solid;border-bottom:1px solid;"><?php echo formatrp($v['qty']);?></td>
-            <td style="text-align:right;font-size:11px;border-right:1px solid;border-bottom:1px solid;"><?php echo formatrp($v['bonus_item']);?></td>
-            <td style="text-align:right;font-size:11px;border-right:1px solid;border-bottom:1px solid;"><?php echo formatrp($v['qty'] + $v['bonus_item']);?></td>
+            <td style="text-align:right;font-size:11px;border-right:1px solid;border-bottom:1px solid;padding-right: 5px;"><?php echo formatrp($v['qty']);?></td>
+            <td style="text-align:right;font-size:11px;border-right:1px solid;border-bottom:1px solid;padding-right: 5px;"><?php echo formatrp($v['bonus_item']);?></td>
+            <td style="text-align:right;font-size:11px;border-right:1px solid;border-bottom:1px solid;padding-right: 5px;"><?php echo formatrp($v['qty'] + $v['bonus_item']);?></td>
         </tr>
         <?php
             }
@@ -124,7 +124,7 @@
             <td colspan="1" style="text-align:right;font-size:11px;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;">&nbsp;</td>
             <td colspan="2" style="text-align:right;font-size:11px;border-right:1px solid;border-bottom:1px solid;">&nbsp;</td>
             <td colspan="2" style="text-align:center;font-size:11px;border-right:1px solid;border-bottom:1px solid;">GRAND TOTAL</td>
-            <td colspan="1" style="text-align:right;font-size:11px;border-right:1px solid;border-bottom:1px solid;"><?php echo formatrp($total);?></td>
+            <td colspan="1" style="text-align:right;font-size:11px;border-right:1px solid;border-bottom:1px solid;padding-right: 5px;"><?php echo formatrp($total);?></td>
         </tr>
     </table>
     <div class="text-right" style="padding-right: 10px;font-size: 12px;text-align:right;">
