@@ -255,7 +255,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
             </tr>
             <tr>
                 <td style="text-align: center;">
-                    (.................................)
+                    <img src="<?php echo base_url().$data['so_signature'];?>" style="width:50px;height:50px;margin-top:-20px;">
                 </td>
                 <td style="text-align: center;">
                      (.................................)
