@@ -102,9 +102,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
             <th style="font-size:12px;">TTL QTY</th>
         </tr>
         <?php
-            $max_row = 10;
             $total_product = count($list_product);
-            $rest_row = $max_row - $total_product;
             foreach($list_product as $k=>$v) { 
         ?>
         <tr>
@@ -115,20 +113,6 @@ $tax = (($data_product['grand_total'] * 10) / 100);
             <td style="text-align:right;font-size:12px;"><?php echo formatrp($v['bonus_item']);?></td>
             <td style="text-align:right;font-size:12px;"><?php echo formatrp($v['qty'] + $v['bonus_item']);?></td>
         </tr>
-        <?php
-            }
-            if ($rest_row > 0) {
-            for($i=1;$i<=$rest_row;$i++) {
-        ?>
-         <tr>
-            <td style="font-size:12px;"><?php echo $i + $total_product; ?>.</td>
-            <td style="font-size:12px;"></td>
-            <td style="text-align:right;font-size:12px;"></td>
-            <td style="text-align:right;font-size:12px;"></td>
-            <td style="text-align:right;font-size:12px;"></td>
-            <td style="text-align:right;font-size:12px;"></td>
-        </tr>
-        <?php } } ?>
         <tr>
             <td colspan="2" style="text-align:center;font-size:12px;">Grand Total</td>
             <td colspan="4" style="text-align:right;font-size:12px;"><?php echo formatrp($data_product['grand_total']); ?></td>
