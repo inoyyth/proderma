@@ -13,6 +13,7 @@ services:
     environment:
       SERVICE_NAME: app_proderma
       SERVICE_TAGS: dev
+      CI_ENV: development
     working_dir: /var/www
     volumes:
       - ./:/var/www
