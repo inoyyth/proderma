@@ -101,6 +101,7 @@ Class M_t_sales_order extends CI_Model {
                           . 'm_employee.employee_name,'
                           . 'm_employee.photo_path,'
                           . 'm_employee.employee_email,'
+                          . 'm_employee.signature_path,'
                           . 'm_employee.employee_phone,'
 						  . 'm_branch.branch_name,'
                           . 'm_payment_type.payment_type'

@@ -5,9 +5,18 @@
                 <div class="porlets-content">
                     <div class="row">
                         <div class="col-md-4">
-                            <img id="image1" width="250px" height="170" src="<?php echo base_url($data['photo_path']); ?>" alt="..." class="img-rounded img-responsive">
-                            <input type="file" onchange="readURL(this);" class="form-control input-sm" name="path_foto" id="path_foto">
-                            <input type="hidden" name="image_hidden" value="<?php echo $data['photo_path'];?>">
+                            <div>
+                                <label style="background-color:#438EB9;text-align:center;color:#fff;width:100%;">Profile Image</label>
+                                <img id="image1" width="250px" height="170" src="<?php echo base_url($data['photo_path']); ?>" alt="..." class="img-rounded img-responsive">
+                                <input type="file" onchange="readURL(this);" class="form-control input-sm" name="path_foto" id="path_foto">
+                                <input type="hidden" name="image_hidden" value="<?php echo $data['photo_path'];?>">
+                            </div>
+                            <div style="margin-top:20px;">
+                                <label style="background-color:#438EB9;text-align:center;color:#fff;width:100%;">Signature</label>
+                                <img id="image2" width="250px" height="170" src="<?php echo base_url($data['signature_path']); ?>" alt="..." class="img-rounded img-responsive">
+                                <input type="file" onchange="readURL2(this);" class="form-control input-sm" name="path_signature" id="path_signature">
+                                <input type="hidden" name="signature_hidden" value="<?php echo $data['signature_path'];?>">
+                            </div>
                         </div>
                         <div class="col-md-8">
                             <input type="hidden" id="id-employee" value="<?php echo $data['id'];?>" name="id">
@@ -116,6 +125,16 @@
             var reader = new FileReader();
             reader.onload = function (e) {
                 $('#image1')
+                        .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    } 
+    function readURL2(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#image2')
                         .attr('src', e.target.result);
             };
             reader.readAsDataURL(input.files[0]);

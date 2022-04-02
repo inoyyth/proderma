@@ -7,6 +7,7 @@ Class M_md_employee extends CI_Model {
     public function save() {
         $id = $this->input->post('id');
         $image_hidden = $this->input->post('image_hidden');
+        $signature_hidden = $this->input->post('signature_hidden');
         $folder = "md_employee";
         if (!is_dir('./assets/images/' . $folder)) {
             mkdir('./assets/images/' . $folder, 0777, TRUE);
@@ -17,6 +18,7 @@ Class M_md_employee extends CI_Model {
             'detect_mime' => true,
             'allowed_types' => 'gif|jpg|png', 'max_size' => 30000);
         $this->upload->initialize($image_config);
+        
         if ($this->upload->do_upload('path_foto')) {
             $image = $this->upload->data();
             $image_name = 'assets/images/' . $folder ."/". $image['file_name'];
@@ -27,6 +29,23 @@ Class M_md_employee extends CI_Model {
                 $error = array('error' => $this->upload->display_errors());
                 if(strpos($error['error'],"You did not select a file to upload.")==true){
                     $image_name = 'assets/images/' . $folder . '/user_icon.png';
+                }else{
+                    $this->session->set_flashdata('error', $this->upload->display_errors());
+                    redirect("master-employee-tambah");
+                }
+             }
+        }
+
+        if ($this->upload->do_upload('path_signature')) {
+            $image = $this->upload->data();
+            $signature_name = 'assets/images/' . $folder ."/". $image['file_name'];
+        } else {
+            if (isset($signature_hidden) && !empty($signature_hidden)) {
+                $signature_name = $signature_hidden;
+            } else {
+                $error = array('error' => $this->upload->display_errors());
+                if(strpos($error['error'],"You did not select a file to upload.")==true){
+                    $signature_name = 'assets/images/' . $folder . '/user_icon.png';
                 }else{
                     $this->session->set_flashdata('error', $this->upload->display_errors());
                     redirect("master-employee-tambah");
@@ -47,7 +66,8 @@ Class M_md_employee extends CI_Model {
             'employee_gender' => $this->input->post('employee_gender'),
             'employee_status' => $this->input->post('employee_status'),
             'id_branch' => $branch,
-            'photo_path' => $image_name
+            'photo_path' => $image_name,
+            'signature_path' => $signature_name
         );
         if (empty($id)) {
             if (!$this->cekNip($data['employee_nip'])){

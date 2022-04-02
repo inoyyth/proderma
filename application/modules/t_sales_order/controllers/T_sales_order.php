@@ -26,7 +26,9 @@ class T_sales_order extends MX_Controller {
         $table = 't_sales_order'; 
         
         $field = array(
-            "t_sales_order.*",
+            "t_sales_order.id",
+            "t_sales_order.so_code",
+            "t_sales_order.so_date",
             "m_customer.customer_code",
             "m_customer.customer_name",
             "m_employee.employee_name",
