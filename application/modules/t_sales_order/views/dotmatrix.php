@@ -113,6 +113,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
             <td style="text-align:right;font-size:12px;"><?php echo formatrp($v['bonus_item']);?></td>
             <td style="text-align:right;font-size:12px;"><?php echo formatrp($v['qty'] + $v['bonus_item']);?></td>
         </tr>
+        <?php } ?>
         <tr>
             <td colspan="2" style="text-align:center;font-size:12px;">Grand Total</td>
             <td colspan="4" style="text-align:right;font-size:12px;"><?php echo formatrp($data_product['grand_total']); ?></td>
