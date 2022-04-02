@@ -29,6 +29,7 @@ class T_sales_order extends MX_Controller {
             "t_sales_order.id",
             "t_sales_order.so_code",
             "t_sales_order.so_date",
+            "t_sales_order.is_printed",
             "m_customer.customer_code",
             "m_customer.customer_name",
             "m_employee.employee_name",
@@ -161,6 +162,7 @@ class T_sales_order extends MX_Controller {
         $data['data'] = $this->m_t_sales_order->get_detail($id)->row_array();
         $data['list_product'] = $this->m_t_sales_order->get_list_product($id)->result_array();
         $data['data_product'] = $this->m_t_sales_order->get_detail_product($id)->row_array();
+        $this->db->update('t_sales_order', array('is_printed' => 1), array('id' => $id)); //set as printed when button fired print buton
         $this->load->view('t_sales_order/print',$data);
     }
 	
@@ -220,6 +222,7 @@ class T_sales_order extends MX_Controller {
         $data['data'] = $this->m_t_sales_order->get_detail($id)->row_array();
         $data['list_product'] = $this->m_t_sales_order->get_list_product($id)->result_array();
         $data['data_product'] = $this->m_t_sales_order->get_detail_product($id)->row_array();
+        $this->db->update('t_sales_order', array('is_printed' => 1), array('id' => $id)); //set as printed when button fired print buton
         $this->load->view('t_sales_order/dotmatrix',$data);
     }
 }

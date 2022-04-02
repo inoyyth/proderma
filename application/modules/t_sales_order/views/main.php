@@ -97,7 +97,11 @@
 				{title: "Sales Name", field: "employee_name", sorter: "string"},
                 {title: "SO.Date", field: "so_date", sorter: "string"},
                 {title: "Payment Type", field: "payment_type", sorter: "string"},
-                {title: "Bonus", field: "new_bonus_item", sorter: "string"}
+                {title: "Bonus", field: "new_bonus_item", sorter: "string"},
+                {title: "Sudah Diprint", field: "is_printed", sorter: "string",
+                    formatter: function(cell, formatterParams){
+                        return cell == 0 ? 'Belum' : 'Sudah';
+                }}
             ],
             selectable: 1,
             rowSelectionChanged: function (data, rows) {
