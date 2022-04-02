@@ -88,6 +88,7 @@
             fitColumns:true, //fit columns to width of table (optional),
             ajaxType: "POST", //ajax HTTP request type
             ajaxURL: "<?php echo base_url('t_sales_order/getListTable'); ?>", //ajax URL
+            dataLoaderLoading:"<span>Loading Data</span>",
             //ajaxParams:{key1:"value1", key2:"value2"}, //ajax parameters
             columns: [//Define Table Columns
                 {formatter: "rownum", align: "center", width: 40},

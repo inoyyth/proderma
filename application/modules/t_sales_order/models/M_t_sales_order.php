@@ -74,16 +74,16 @@ Class M_t_sales_order extends CI_Model {
         $this->db->limit($limit['limit'],$limit['offset']);
         $sql = $this->db->get()->result_array();
 
-        foreach ($sql as $k => $v) {
-            $product = $this
-                        ->db
-                        ->select('sum(bonus_item) as bonus_item')
-                        ->from('t_sales_order_product')
-                        ->where('id_sales_order', $v['id'])
-                        ->get()
-                        ->row_array();
-            $sql[$k]['new_bonus_item'] = $product['bonus_item'];
-        }
+        // foreach ($sql as $k => $v) {
+        //     $product = $this
+        //                 ->db
+        //                 ->select('sum(bonus_item) as bonus_item')
+        //                 ->from('t_sales_order_product')
+        //                 ->where('id_sales_order', $v['id'])
+        //                 ->get()
+        //                 ->row_array();
+        //     $sql[$k]['new_bonus_item'] = $product['bonus_item'];
+        // }
 
         return $sql;
     }

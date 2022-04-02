@@ -34,7 +34,8 @@ class T_sales_order extends MX_Controller {
             "m_customer.customer_name",
             "m_employee.employee_name",
             "m_payment_type.payment_type",
-            "IF(t_sales_order.so_status=1,'Active','Not Active') AS status"
+            "IF(t_sales_order.so_status=1,'Active','Not Active') AS status",
+            "sum(t_sales_order_product.bonus_item) as new_bonus_item"
         );
         
         $offset = ($page - 1) * $limit;
@@ -43,6 +44,7 @@ class T_sales_order extends MX_Controller {
             array('table' => 'm_customer', 'where' => 'm_customer.id=t_sales_order.id_customer', 'join' => 'left'),
             array('table' => 'm_employee', 'where' => 'm_employee.id=t_sales_order.id_sales', 'join' => 'left'),
             array('table' => 'm_payment_type', 'where' => 'm_payment_type.id=t_sales_order.so_payment_term', 'join' => 'left'),
+            array('table' => 't_sales_order_product', 'where' => 't_sales_order_product.id_sales_order=t_sales_order.id', 'join' => 'left'),
         );
 		
         $like = array(
@@ -81,9 +83,11 @@ class T_sales_order extends MX_Controller {
             'offset' => $offset,
             'limit' => $limit
         );
+
+        $groupby = array('t_sales_order.id');
         
-        $list = $this->m_t_sales_order->getListTable($field,$table, $join, $like, $where, $sort, $limit_row);
-        $total_records = count($this->m_t_sales_order->getListTable($field,$table, $join, $like, $where, $sort, false));
+        $list = $this->m_t_sales_order->getListTable($field,$table, $join, $like, $where, $sort, $limit_row,$groupby);
+        $total_records = count($this->m_t_sales_order->getListTable($field,$table, $join, $like, $where, $sort, false, $groupby));
 
         $total_pages = ceil($total_records / $limit);
         $output = array(
