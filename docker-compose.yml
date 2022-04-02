@@ -1,0 +1,64 @@
+version: '3'
+services:
+
+  #PHP Service
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: digitalocean.com/php
+    container_name: app_proderma
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: app_proderma
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - app-network-proderma
+
+  #Nginx Service
+  webserver:
+    image: nginx:latest
+    container_name: webserver_proderma
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8082:80"
+      - "443:443"
+    volumes:
+      - ./:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - app-network-proderma
+    
+  #MySQL Service
+  db:
+    image: mariadb:10.4.18
+    container_name: db_proderma
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: proderma_db
+      MYSQL_ROOT_PASSWORD: admin
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - dbdata:/var/lib/mysql/
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - app-network-proderma
+
+#Docker Networks
+networks:
+  app-network-proderma:
+    driver: bridge
+#Volumes
+volumes:
+  dbdata:
+    driver: local
