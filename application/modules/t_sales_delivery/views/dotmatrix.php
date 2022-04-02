@@ -53,7 +53,7 @@
             <table style="width: 100%;" style="font-size:11px;" >
                 <tr>
                     <td style="font-size:11px;width: 25%;border: 1px solid;">No.Faktur</td>
-                    <td style="font-size:11px;width: 75%;border-right: 1px solid;border-top:1px solid;border-bottom:1px solid;">: <?php echo $data['do_code']; ?></td>
+                    <td style="font-size:11px;width: 75%;border-right: 1px solid;border-top:1px solid;border-bottom:1px solid;">: <?php echo isset($invoice) ? $invoice['invoice_code'] : '-'; ?></td>
                 </tr>
                 <tr>
                     <td style="font-size:11px;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;">Tgl.Pemesanan</td>

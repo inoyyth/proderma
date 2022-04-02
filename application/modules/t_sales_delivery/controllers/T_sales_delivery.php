@@ -190,7 +190,6 @@ class T_sales_delivery extends MX_Controller {
         $data['customer'] = $this->m_sales_delivery->get_customer($data['data']['id_so'])->row_array();
         $data['list_product'] = $this->m_sales_delivery->get_list_product($data['data']['id_so'])->result_array();
         $data['invoice'] = $this->db->get_where('t_invoice', ['id_do'], $data['data']['id'])->row_array();
-        // var_dump($data['invoice']);die();
         $data['due_date'] = $this->db->get_where('t_pay_duedate',array('id_invoice'=>$data['invoice']['id']))->row_array();
         $this->load->view('t_sales_delivery/print',$data);
     }
@@ -253,6 +252,20 @@ class T_sales_delivery extends MX_Controller {
         $data['invoice'] = $this->db->get_where('t_invoice', ['id_do'], $data['data']['id'])->row_array();
         $data['due_date'] = $this->db->get_where('t_pay_duedate',array('id_invoice'=>$data['invoice']['id']))->row_array();
         $this->load->view('t_sales_delivery/dotmatrix',$data);
+    }
+
+    public function save_note() {
+        if ($_POST) {
+            $note = $this->input->post('note');
+            $id_do = $this->input->post('id_do');
+            $update = $this->db->update('t_delivery_order', array('note' => $note), array('id' => $id_do));
+            if ($update) {
+                return json_encode(array('success' => true));
+            }
+            return json_encode(array('success' => false));
+        } else {
+            show_404();
+        }
     }
 
 }

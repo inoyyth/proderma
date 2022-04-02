@@ -82,7 +82,7 @@
                             No. Faktur
                         </td>
                         <td>
-                            : <?php echo $data['do_code']; ?>
+                            : <?php echo isset($invoice) ? $invoice['invoice_code'] : '-'; ?>
                         </td>
                     </tr>
                     <tr>

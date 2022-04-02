@@ -210,6 +210,7 @@ $route['sales-delivery-detail-(:num)'] = 't_sales_delivery/detail/$1';
 $route['sales-delivery-print-(:num)'] = 't_sales_delivery/printdetail/$1';
 $route['sales-delivery-save'] = 't_sales_delivery/save';
 $route['sales-delivery-print-dotmatrix-(:num)'] = 't_sales_delivery/printdotmatrix/$1';
+$route['sales-delivery-save-note'] = 't_sales_delivery/save_note';
 
 $route['invoice'] = 't_invoice';
 $route['invoice-add'] = 't_invoice/add';
