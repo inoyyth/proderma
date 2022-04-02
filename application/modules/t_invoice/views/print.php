@@ -164,9 +164,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                     </thead>
                     <tbody>
                     <?php 
-                        $max_row=10;
                         $total_product = count($list_product);
-                        $rest_row = $max_row - $total_product;
                         foreach ($list_product as $k=>$v) { ?>
                     <tr>
                         <td><?php echo $k+1; ?>.</td>
@@ -178,19 +176,6 @@ $tax = (($data_product['grand_total'] * 10) / 100);
                     </tr>
                     <?php
                         }
-                        if ($rest_row > 0) {
-                            for($i=1;$i<=$rest_row;$i++) {
-                    ?>
-                    <tr>
-                        <td><?php echo $i + $total_product; ?>.</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <?php
-                        } }
                     ?>
                     </tbody>
                     <tfooter>
@@ -234,8 +219,13 @@ $tax = (($data_product['grand_total'] * 10) / 100);
     </div>
     <br>
     <div class="text-right" style="padding-right: 10px;">
-        <p><?php echo ucfirst(str_replace('cabang ','',strtolower($this->sessionGlobal['branch_name'])));?>, <?php echo date('d-m-Y');?></p>
+        <p><?php echo ucfirst(str_replace('cabang ','',strtolower($this->sessionGlobal['branch_name'])));?>, <?php echo tanggalan($data['invoice_date']);?></p>
     </div>
+    <br>
+    <div style="border:1px solid #000;height:70px;padding-right: 10px;">
+        Keterangan:
+    </div>
+    <br>
     <div class="text-left" style="padding-left: 10px;line-height: 20%;">
         <p>Pembayaran ditransfers ke rekening kami:</p>
 		<br>

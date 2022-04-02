@@ -106,9 +106,6 @@ $tax = (($data_product['grand_total'] * 10) / 100);
             <th style="font-size:11px;border-top:1px solid;border-bottom:1px solid;border-right:1px solid;">Jumlah</th>
         </tr>
         <?php 
-            $max_row=10;
-            $total_product = count($list_product);
-            $rest_row = $max_row - $total_product;
             foreach ($list_product as $k=>$v) { ?>
         <tr>
             <td style="font-size:11px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;"><?php echo $k+1; ?>.</td>
@@ -120,19 +117,6 @@ $tax = (($data_product['grand_total'] * 10) / 100);
         </tr>
         <?php
             }
-            if ($rest_row > 0) {
-                for($i=1;$i<=$rest_row;$i++) {
-        ?>
-        <tr>
-            <td style="font-size:11px;border-bottom:1px solid;border-left:1px solid;border-right:1px solid;"><?php echo $i + $total_product; ?>.</td>
-            <td style="font-size:11px;border-bottom:1px solid;border-right:1px solid;"></td>
-            <td style="font-size:11px;border-bottom:1px solid;border-right:1px solid;"></td>
-            <td style="font-size:11px;border-bottom:1px solid;border-right:1px solid;"></td>
-            <td style="font-size:11px;border-bottom:1px solid;border-right:1px solid;"></td>
-            <td style="font-size:11px;border-bottom:1px solid;border-right:1px solid;"></td>
-        </tr>
-        <?php
-            } }
         ?>
         <tr style="text-align: right">
             <td style="text-align: left;font-size:11px;">&nbsp;</td>
@@ -182,7 +166,7 @@ $tax = (($data_product['grand_total'] * 10) / 100);
         </table>
     </div>
     <div class="text-right">
-        <p style="font-size:11px;text-align:right;"><?php echo ucfirst(str_replace('cabang ','',strtolower($this->sessionGlobal['branch_name'])));?>, <?php echo date('d-m-Y');?></p>
+        <p style="font-size:11px;text-align:right;"><?php echo ucfirst(str_replace('cabang ','',strtolower($this->sessionGlobal['branch_name'])));?>, <?php echo tanggalan($data['invoice_date']);?></p>
     </div>
     <div class="text-left" style="line-height: 20%;font-size: 10px;">
         <p>Pembayaran ditransfers ke rekening kami: A/N PT.Whoto Indonesia Sejahtera</p>
