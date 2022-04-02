@@ -10,6 +10,10 @@
                             <input type="text" name="do_code" readonly="true" value="<?php echo $data['invoice_code']; ?>" parsley-trigger="change" required  class="form-control">
                         </div>
                         <div class="form-group">
+                            <label>NPWP</label>
+                            <input type="text" name="npwp" readonly="true" value="<?php echo $data['npwp']; ?>" parsley-trigger="change" required  class="form-control">
+                        </div>
+                        <div class="form-group">
                             <label>Delivery Order Code</label>
                             <input type="text" class="form-control" readonly="true" name="id_so" id="id_so" value="<?php echo $data['do_code']; ?>">
                         </div>

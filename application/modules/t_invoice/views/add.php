@@ -10,6 +10,10 @@
                                 <input type="text" name="no_faktur" class="form-control" required>
                             </div>
                             <div class="form-group">
+                                <label>No. NPWP</label>
+                                <input type="text" name="npwp" class="form-control" required>
+                            </div>
+                            <div class="form-group">
                                 <label>Delivery Order Code</label>
                                 <input type="hidden" name="id_do" id="id_do">
                                 <input type="hidden" name="id_so" id="id_so">

@@ -10,6 +10,7 @@ Class M_t_invoice extends CI_Model {
             'id_so' => $this->input->post('id_so'),
             'id_do' => $this->input->post('id_do'),
             'invoice_date' => $this->input->post('invoice_date'),
+            'npwp' => $this->input->post('npwp'),
 			'no_faktur' => $this->input->post('no_faktur'),
             'due_date' => ($this->input->post('due_date') !== NULL ? $this->input->post('due_date') : NULL)
         );

@@ -88,6 +88,7 @@ $(document).ready(function () {
         columns: [//Define Table Columns
             {formatter: "rownum", align: "center", width: 40},
             {title: "Invoice Code", field: "invoice_code", sorter: "string", tooltip: true},
+            {title: "NPWP", field: "npwp", sorter: "string", tooltip: true},
             {title: "DO Code", field: "do_code", sorter: "string", tooltip: true},
             {title: "SO Code", field: "so_code", sorter: "string", tooltip: true},
             {title: "Customer Code", field: "customer_code", sorter: "string", tooltip: true},
